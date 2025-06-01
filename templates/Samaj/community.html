@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Community{% endblock %}
+
+{% block content %}
+<main>
+    {% include 'Includes/navbar.html' %}
+
+    <div id="banner-area" class="banner-area" style="background-image:url(images/banner/banner1.jpg)">
+    <div class="banner-text">
+        <div class="container">
+            <div class="row">
+            <div class="col-lg-12">
+                <div class="banner-heading">
+                    <h1 class="banner-title">Community</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="#">About Us</a></li>
+                        <li class="breadcrumb-item"><a href="#">Community</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+    </div><!-- Banner text end -->
+    </div><!-- Banner area end --> 
+    <section id="main-container" class="main-container">
+  <div class="container">
+    <!-- content -->
+     <form class="" method="" action="" id="search_family_form">
+        <div class="text-center w-100 mb-5">
+            <h2 class="fs-4">Search Any Memeber From <span class="text-warning">Paliwal Samaj</span></h2>
+        </div> 
+        <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control form-control-name" name="name" id="name" placeholder="Name" type="text" >
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control form-control-subject" name="age" id="age" minlength="1" min="0" maxlength="4" placeholder="Age" >
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                    <label for="designation">Designation</label>
+                    <select name="designation" class="form-control" id="designation">
+                        <option value="" selected disabled>Select</option>
+                        <option value="0">अध्यक्ष</option>
+                        <option value="1">उपाध्यक्ष</option>
+                        <option value="2">प्रधान </option>
+                        <option value="3">समुदाय के वरिष्ठ</option>
+                        <option value="4">None</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="form-group">
+                    <label for="gotra">Gotra</label>
+                    <input class="form-control form-control-name" name="gotra" id="gotra" placeholder="Gotra" type="text" >
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="family_search">Email Or Phone Number</label>
+                <input type="text" class="form-control form-control-name w-100 p-3 py-4 " placeholder="Email or Phone Number" name="family_search" id="family_search">
+            </div>
+            <div class="col-12 my-3 text-end">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+     </form>
+  </div><!-- Conatiner end -->
+
+  <div class="container mt-5 pt-4">
+    <div class="border-bottom py-2"><h3 class="m-0">Result</h3></div>
+    <!-- If search has no results -->
+    <div class="py-3">Family Member Not Found 🥲</div>
+
+    <div class="row m-0 mt-4">
+        <div class="col-6 col-md-4 p-2">
+            <div class="my_family_card item">
+            <div class="ts-team-wrapper">
+                <div class="team-img-wrapper">
+                    <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                </div>
+                <div class="ts-team-content">
+                    <h3 class="ts-name">Mark Conter</h3>
+                    <p class="ts-designation">Safety Officer</p>
+                    <div class="">
+                    <div class="d-flex align-items-center py-2 border-bottom border-white">
+                        <div class=""><span class="material-icons fs-5 ">call</span></div>
+                        <div class="text-white ms-2">+91 9998894923</div>
+                    </div>
+                    <div class="d-flex align-items-center py-2 border-bottom border-white">
+                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                        <div class="text-white ms-2">Ahmedabad</div>
+                    </div>
+                    </div>
+                    <div class="team-social-icons mt-2">
+                        <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                        <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                        <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <div class="row m-0 p-0 mt-3">
+                        <div class="col-12 p-0">
+                            <a href="" class="btn btn-light fw-bold rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                <span class="material-icons me-2">diversity_3</span>Show Family
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/ Team wrapper end -->
+            </div>
+        </div>   
+    </div>
+  </div>
+</section>
+
+    {% include 'Includes/footer.html' %}
+</main>
+{% endblock %}

@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<main>
+
+    {% include 'Includes/navbar.html' %}
+
+    <!-- Carousel Start Here -->
+    <div class="banner-carousel banner-carousel-1 mb-0">
+        <div class="banner-carousel-item" style="background-image:url(images/slider-main/bg1.jpg)">
+            <div class="slider-content">
+                <div class="container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="col-md-12 text-center">
+                            <h2 class="slide-title" data-animation-in="slideInLeft">17 Years of excellence in</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Construction Industry</h3>
+                            <p data-animation-in="slideInLeft" data-duration-in="1.2">
+                                <a href="services.html" class="slider btn btn-primary">Our Services</a>
+                                <a href="contact.html" class="slider btn btn-primary border">Contact Now</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-carousel-item" style="background-image:url(images/slider-main/bg2.jpg)">
+            <div class="slider-content">
+                <div class="container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="col-md-12 text-center">
+                            <h2 class="slide-title" data-animation-in="slideInLeft">17 Years of excellence in</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Construction Industry</h3>
+                            <p data-animation-in="slideInLeft" data-duration-in="1.2">
+                                <a href="services.html" class="slider btn btn-primary">Our Services</a>
+                                <a href="contact.html" class="slider btn btn-primary border">Contact Now</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-carousel-item" style="background-image:url(images/slider-main/bg3.jpg)">
+            <div class="slider-content">
+                <div class="container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="col-md-12 text-center">
+                            <h2 class="slide-title" data-animation-in="slideInLeft">17 Years of excellence in</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Construction Industry</h3>
+                            <p data-animation-in="slideInLeft" data-duration-in="1.2">
+                                <a href="services.html" class="slider btn btn-primary">Our Services</a>
+                                <a href="contact.html" class="slider btn btn-primary border">Contact Now</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel End Here -->
+
+    <!-- About Us section -->
+    <section id="about_us_section" class="main-container">
+        <div class="container p-3 ">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="column-title">About Paliwal Samaj</h3>
+                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible
+                        vermin.</p>
+                    <blockquote><p>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut optio cumque nihil
+                        necessitatibus autemn ec tincidunt nunc posuere ut</p></blockquote>
+                    <p>He lay on his armour-like back, and if he lifted. ultrices ultrices sapien, nec tincidunt nunc
+                        posuere ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. If you are going to use a
+                        passage of Lorem Ipsum, you need to be sure there isn’t anything embarrassing.</p>
+                    <a href="services.html" class="slider btn btn-primary" tabindex="-1">Read More</a>
+                </div><!-- Col end -->
+
+                <!-- About Image  -->
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="overflow-hidden">
+                        <img src="images/projects/project1.jpg" class="about-image" alt="">
+                    </div>
+                </div><!-- Col end -->
+            </div><!-- Content row end -->
+
+        </div><!-- Container end -->
+    </section>
+
+    <!-- Event Section Start -->
+    <section id="event_section" class="main-container">
+        <div class="w-100 text-center">
+            <h3 class="column-title">Events</h3>
+        </div>
+        <div class="container py-5">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- Card Slide -->
+                    <div class="swiper-slide">
+                        <a href="#" class="text-decoration-none card bg-dark text-white card-slider">
+                            <img src="images/banner/banner1.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
+                                <h5 class="card-title card-title text-white h5">Card Title 1</h5>
+                                <p class="card-text">Subtitle here</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Duplicate for more cards -->
+                    <div class="swiper-slide">
+                        <a href="" class="text-decoration-none card bg-dark text-white card-slider">
+                            <img src="images/banner/banner2.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
+                                <h5 class="card-title card-title text-white h5">Card Title 2</h5>
+                                <p class="card-text">Subtitle here</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <a href="" class="text-decoration-none card bg-dark text-white card-slider">
+                            <img src="images/banner/banner2.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
+                                <h5 class="card-title card-title text-white h5">Card Title 3</h5>
+                                <p class="card-text">Subtitle here</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="" class="text-decoration-none card bg-dark text-white card-slider">
+                            <img src="images/banner/banner2.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
+                                <h5 class="card-title text-white h5">Card Title 4</h5>
+                                <p class="card-text">Subtitle here</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Add more cards as needed -->
+
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Event Section End -->
+
+    <!-- Padhadhikari  Section Start -->
+    <section class="container bg-light">
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">Padhadhikari Section</h3>
+        <div class="row m-0">
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            <div class="team-social-icons mt-2">
+                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            <div class="team-social-icons mt-2">
+                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            <div class="team-social-icons mt-2">
+                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            <div class="team-social-icons mt-2">
+                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            <div class="team-social-icons mt-2">
+                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            <div class="team-social-icons mt-2">
+                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Padhadhikari  Section End -->
+
+    <!-- Suggestion Form Start -->
+    <section id="suggestion_section" class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="column-title mb-2">Suggestions</h3>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                        industry's standard dummy text ever since the 1500s,</p>
+                    <!-- contact form works with formspree.io  -->
+                    <!-- contact form activation doc: https://docs.themefisher.com/constra/contact-form/ -->
+                    <form id="contact-form" class="pt-4" action="#" method="post" role="form">
+                        <div class="error-container"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control form-control-name" name="name" id="name" placeholder="Name"
+                                           type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control form-control-email" name="email" id="email"
+                                           placeholder="Email" type="email"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Subject</label>
+                                    <input class="form-control form-control-subject" name="subject" id="subject"
+                                           placeholder="Subject" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control form-control-message" name="message" id="message"
+                                      placeholder="Message" rows="10"
+                                      required></textarea>
+                        </div>
+                        <div class="text-right"><br>
+                            <button class="btn btn-primary solid blank" type="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Suggestion Form End -->
+
+    <!-- About Developer Family End -->
+    <section id="about_developer_section" class="main-container">
+        <div class="container p-4 py-5 bg-light">
+            <div class="row m-0 align-items-center">
+                <!-- About Image  -->
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="overflow-hidden">
+                        <img src="images/projects/project1.jpg" class="about-dev-image" alt="">
+                    </div>
+                </div><!-- Col end -->
+                <div class="col-lg-6">
+                    <h3 class="column-title">About Paliwal Samaj</h3>
+                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible
+                        vermin.</p>
+                    <blockquote class="bg-white"><p>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut
+                        optio cumque nihil necessitatibus autemn ec tincidunt nunc posuere ut</p></blockquote>
+                    <p>He lay on his armour-like back, and if he lifted. ultrices ultrices sapien, nec tincidunt nunc
+                        posuere ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. If you are going to use a
+                        passage of Lorem Ipsum, you need to be sure there isn’t anything embarrassing.</p>
+                    <a href="services.html" class="slider btn btn-primary" tabindex="-1">Read More</a>
+                </div><!-- Col end -->
+
+
+            </div><!-- Content row end -->
+
+        </div><!-- Container end -->
+    </section>
+    <!-- About Developer Family End -->
+
+
+    {% include 'Includes/footer.html' %}
+
+</main>
+
+{% endblock %}

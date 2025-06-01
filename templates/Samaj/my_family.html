@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Family{% endblock %}
+
+{% block content %}
+<main>
+    {% include 'Includes/navbar.html' %}
+
+    <section id="main-container" class="main-container pt-0">
+    <div class="bg-info container-fluid p-4 row m-0">
+        <div class="col-12 col-sm-6 align-self-center">
+            <h3 class="mb-0">My Family</h3>
+        </div>
+        <div class="col-12 col-sm-6 text-end">
+            <div class="">
+                <a href="#" class="btn btn-dark ">
+                    <div class="d-flex align-items-center">
+                        <span class="material-icons me-2">add</span>
+                        <div>
+                            Add New Member
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+            <div class="col-6 col-md-4 p-2">
+              <div class="my_family_card item border border-3 border-dark">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                    </div>
+                    <div class="ts-team-content">
+                      <h3 class="ts-name">Mark Conter</h3>
+                      <p class="ts-designation">Safety Officer</p>
+                      <div class="">
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">call</span></div>
+                          <div class="text-white ms-2">+91 9998894923</div>
+                        </div>
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                          <div class="text-white ms-2">Ahmedabad</div>
+                        </div>
+                      </div>
+                      <div class="team-social-icons mt-2">
+                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      </div>
+                      <div class="row m-0 p-0 mt-3">
+                        <div class="col-12 col-md-6 p-0">
+                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                <span class="material-icons me-2">edit</span> Edit
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6 p-0">
+                            <form action="" method="" class="m-0 p-0 w-100">
+                                <input type="hidden" value="" name="">
+                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                </div><!--/ Team wrapper end -->
+              </div>
+            </div> 
+        </div>
+        <div class="row m-0 mt-4">
+            <div class="col-6 col-md-4 p-2">
+              <div class="my_family_card item">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                    </div>
+                    <div class="ts-team-content">
+                      <h3 class="ts-name">Mark Conter</h3>
+                      <p class="ts-designation">Safety Officer</p>
+                      <div class="">
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">call</span></div>
+                          <div class="text-white ms-2">+91 9998894923</div>
+                        </div>
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                          <div class="text-white ms-2">Ahmedabad</div>
+                        </div>
+                      </div>
+                      <div class="team-social-icons mt-2">
+                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      </div>
+                      <div class="row m-0 p-0 mt-3">
+                        <div class="col-12 col-md-6 p-0">
+                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                <span class="material-icons me-2">edit</span> Edit
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6 p-0">
+                            <form action="" method="" class="m-0 p-0 w-100">
+                                <input type="hidden" value="" name="">
+                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                </div><!--/ Team wrapper end -->
+              </div>
+            </div>   
+            <div class="col-6 col-md-4 p-2">
+              <div class="my_family_card item">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                    </div>
+                    <div class="ts-team-content">
+                      <h3 class="ts-name">Mark Conter</h3>
+                      <p class="ts-designation">Safety Officer</p>
+                      <div class="">
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">call</span></div>
+                          <div class="text-white ms-2">+91 9998894923</div>
+                        </div>
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                          <div class="text-white ms-2">Ahmedabad</div>
+                        </div>
+                      </div>
+                      <div class="team-social-icons mt-2">
+                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      </div>
+                      <div class="row m-0 p-0 mt-3">
+                        <div class="col-12 col-md-6 p-0">
+                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                <span class="material-icons me-2">edit</span> Edit
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6 p-0">
+                            <form action="" method="" class="m-0 p-0 w-100">
+                                <input type="hidden" value="" name="">
+                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                </div><!--/ Team wrapper end -->
+              </div>
+            </div> 
+            <div class="col-6 col-md-4 p-2">
+              <div class="my_family_card item">
+                <div class="ts-team-wrapper">
+                    <div class="team-img-wrapper">
+                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                    </div>
+                    <div class="ts-team-content">
+                      <h3 class="ts-name">Mark Conter</h3>
+                      <p class="ts-designation">Safety Officer</p>
+                      <div class="">
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">call</span></div>
+                          <div class="text-white ms-2">+91 9998894923</div>
+                        </div>
+                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                          <div class="text-white ms-2">Ahmedabad</div>
+                        </div>
+                      </div>
+                      <div class="team-social-icons mt-2">
+                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      </div>
+                      <div class="row m-0 p-0 mt-3">
+                        <div class="col-12 col-md-6 p-0">
+                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                <span class="material-icons me-2">edit</span> Edit
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6 p-0">
+                            <form action="" method="" class="m-0 p-0 w-100">
+                                <input type="hidden" value="" name="">
+                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                </div><!--/ Team wrapper end -->
+              </div>
+            </div> 
+        </div>
+    </div>
+</section>
+
+    {% include 'Includes/footer.html' %}
+</main>
+{% endblock %}

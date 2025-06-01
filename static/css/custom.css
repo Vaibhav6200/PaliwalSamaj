@@ -1,0 +1,261 @@
+
+:root {
+  --color-primary: #fcbf49ff;
+  --color-warning: #f77f00ff;
+  --color-danger:  #d62828ff;
+  --color-dark:    #003049ff;
+  --color-info:    #eae2b7ff;
+}
+/* Erro CSS Start */
+label.error {
+  color: red;
+  font-size: 0.875rem; /* optional for better readability */
+  margin-top: 5px;
+  display: block;
+}
+/* Erro CSS End */
+.switches-container {
+    width: 16rem;
+    position: relative;
+    display: flex;
+    padding: 0;
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-dark);
+    line-height: 3rem;
+    border-radius: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* input (radio) for toggling. hidden - use labels for clicking on */
+.switches-container input {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+}
+
+/* labels for the input (radio) boxes - something to click on */
+.switches-container label {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+    color: var(--color-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* switch highlighters wrapper (sliding left / right) 
+    - need wrapper to enable the even margins around the highlight box
+*/
+.switch-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    padding: 0.15rem;
+    z-index: 3;
+    transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+    
+    /* transition: transform 1s; */
+}
+
+/* switch box highlighter */
+.switch {
+    border-radius: 3rem;
+    background: var(--color-dark);
+    height: 100%;
+}
+
+/* switch box labels
+    - default setup
+    - toggle afterwards based on radio:checked status 
+*/
+.switch div {
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    display: block;
+    color: #fff ;
+    transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
+    will-change: opacity;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* slide the switch box from right to left */
+.switches-container input:nth-of-type(1):checked~.switch-wrapper {
+    transform: translateX(0%);
+}
+
+/* slide the switch box from left to right */
+.switches-container input:nth-of-type(2):checked~.switch-wrapper {
+    transform: translateX(100%);
+}
+
+/* toggle the switch box labels - first checkbox:checked - show first switch div */
+.switches-container input:nth-of-type(1):checked~.switch-wrapper .switch div:nth-of-type(1) {
+    opacity: 1;
+}
+
+/* toggle the switch box labels - second checkbox:checked - show second switch div */
+.switches-container input:nth-of-type(2):checked~.switch-wrapper .switch div:nth-of-type(2) {
+    opacity: 1;
+}
+/* Switch CSS End */
+
+.about-image{
+  object-fit: cover;
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+.about-dev-image{
+    object-fit: cover;
+     width: 100%;
+    height: 100%;
+}
+.ts-team-wrapper .ts-team-content{
+    backdrop-filter: blur(10px) !important;
+    background-color: #004468ab !important;
+}
+@media screen and (max-width:768px) {
+    .switch-box{
+       flex: 0 0 100% !important;
+    }
+}
+
+/* Event card css start */
+.card-slider {
+border:none;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-slider img {
+  transition: transform 0.3s ease-in-out;
+  object-fit: cover;
+  height: 250px;
+  width: 100%;
+}
+
+.card-slider:hover img {
+  transform: scale(1.1);
+}
+.card-title{
+    transition: transform 0.3s ease-in-out;
+}
+.card-slider:hover .card-title{
+    transition: transform 0.3s ease-in-out;
+    color: var(--color-primary) !important;
+}
+.gradient-overlay {
+  background: linear-gradient(to top, rgba(0, 20, 44, 0.79), rgba(1, 37, 81, 0));
+}
+.swiper-button-prev,.swiper-button-next{
+    background-color: white;
+    height: 36px !important;
+    width: 36px !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after {
+    color: black;
+    font-size: 16px !important;
+    font-weight: bold;
+}
+/* Event card css End */
+
+/* My Family Page - Cards CSS Start */
+.my_family_card{
+    max-width: 308px;
+    width: 100%;
+}
+/* My Family Page - Cards CSS End */
+
+/* Bio Data Form - Image Preview - Start */
+.profile-upload-btn{
+    width: 16rem;
+}
+.remove-profile-btn{
+    width: 32px;
+    height: 32px;
+    z-index: 10;
+    /* border-radius: 50%; */
+} 
+/* Bio Data Form - Image Preview - End */
+
+/* SANDESH CSS START */
+/* Shandesh Card Css start */
+.card-img-left {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    height: 250px;
+    object-position: center;
+}
+
+@media (min-width: 768px) {
+  .card-img-left {
+    width: 40%;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.card-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* updated to 5 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.card_shandesh {
+    transition: 0.3s ease-in-out;
+}
+
+.card_shandesh:hover {
+    box-shadow: 0px 0px 20px #1d003a38;
+}
+
+
+/* Shandesh Card Css End */
+
+.banner-text{
+    max-width: 100%;
+    padding: 0px 20px;
+}
+
+/* shandesh banner css start */
+ .section-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+}
+.section-bg:before{
+    content: "";
+    position: absolute;
+    background: linear-gradient(102.13deg, rgba(0, 0, 0, 0.5) 9.09%, rgba(0, 37, 69, 0.5) 111.9%);  
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 16/9;
+
+}
+.form-container {
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    color: black;
+}
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+/* shandesh banner css End */
+/* SANDESH CSS END */
