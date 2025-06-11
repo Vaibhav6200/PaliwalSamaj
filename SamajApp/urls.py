@@ -9,4 +9,15 @@ urlpatterns = [
     path('news_and_events/', news_and_events, name='news_and_events'),
     path('bio_data/', bio_data, name='bio_data'),
     path('my_family/', my_family, name='my_family'),
+
+    path('paliwal_samaj_history/', paliwal_samaj_history, name='paliwal_samaj_history'),
+    path('karyarat_sangathan/', karyarat_sangathan, name='karyarat_sangathan'),
+    path('sandhya_vandana/', sandhya_vandana, name='sandhya_vandana'),
+    path('brahman_16_sanskar/', brahman_16_sanskar, name='brahman_16_sanskar'),
+    path('upanayan_sanskar/', upanayan_sanskar, name='upanayan_sanskar'),
+    path('mewar_paliwal_samaj_ke_teerth_purohit/', mewar_paliwal_samaj_ke_teerth_purohit, name='mewar_paliwal_samaj_ke_teerth_purohit'),
+    path('vivah_karyakram/', vivah_karyakram, name='vivah_karyakram'),
+    path('vivah_geet/', vivah_geet, name='vivah_geet'),
+    path('antyeshti_kriya_paddhati/', antyeshti_kriya_paddhati, name='antyeshti_kriya_paddhati'),
+    path('dasva_gyarahva_evam_barahva_karyakram/', dasva_gyarahva_evam_barahva_karyakram, name='dasva_gyarahva_evam_barahva_karyakram')
 ]

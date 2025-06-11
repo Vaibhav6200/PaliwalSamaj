@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Community{% endblock %}
+
+{% block stylesheets %}
+<style>
+  p{
+    font-size: 20px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    {% include 'Includes/navbar.html' %}
+
+    <div id="banner-area" class="banner-area" style="background-image:url({% static 'images/banner/banner1.jpg' %})">
+      <div class="banner-text">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                  <div class="banner-heading">
+                    <h1 class="banner-title">बड़ा पालीवाल समाज की अन्त्येष्टी क्रिया पद्धति</h1>
+                  </div>
+              </div><!-- Col end -->
+            </div><!-- Row end -->
+        </div><!-- Container end -->
+      </div><!-- Banner text end -->
+    </div><!-- Banner area end -->
+    <section id="main-container" class="main-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 mb-5 mb-lg-0">
+            <div class="post-content post-single">
+              <div class="post-body">
+                <div class="entry-content">
+                  <div class="d-flex flex-column">
+
+
+                    <section id="content_section">
+
+                    </section>
+                    <h3 class="fw-bold align-self-end mt-3">संकलन - श्रीमती विद्यादेवी पुरोहित कोशीवाडा</h3>
+
+
+                  </div>
+                </div>
+              </div><!-- post-body end -->
+            </div><!-- post content end -->
+          </div><!-- Content Col end -->
+        </div><!-- Main row end -->
+
+      </div><!-- container end -->
+    </section><!-- Main container end -->
+
+    {% include 'Includes/footer.html' %}
+</main>
+{% endblock %}

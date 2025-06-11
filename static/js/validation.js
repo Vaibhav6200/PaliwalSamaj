@@ -277,5 +277,73 @@ $("#sandeshForm").validate({
   errorPlacement: function(error, element) {
     error.insertAfter(element);
   }
+
 });
+$("#login-form").validate({
+  rules: {
+    mobile_number:{
+      required: true,
+      tenDigits: true
+    }
+  },
+  messages: {
+    mobile_number: {
+      required: "Mobile Nnumber is required"
+    },
+  },
+  errorElement: "div",
+  errorPlacement: function(error, element) {
+    error.insertAfter(element);
+  }
+})
 // Shandesh Form End
+
+// Community Form Start
+// Custom rule for conditional required
+  $.validator.addMethod("requiredIfOtherFilled", function (value, element, param) {
+    return value || $(param).val() === "";
+  }, "Please Enter both Start and Ending Pointing.");
+
+  // Custom rule to check age range logic
+  $.validator.addMethod("ageRangeCheck", function () {
+    let start = parseInt($("#startAge").val(), 10);
+    let end = parseInt($("#endAge").val(), 10);
+    if (!isNaN(start) && !isNaN(end)) {
+      return start < end;
+    }
+    return true;
+  }, "Start Age must be less than End Age");
+$("#search_family_form").validate({
+    rules: {
+      startAge: {
+         maxlength: 3,
+        min: 0,
+        requiredIfOtherFilled: "#endAge",
+        ageRangeCheck: true
+      },
+      endAge: {
+        maxlength: 3,
+        min: 0,
+        requiredIfOtherFilled: "#startAge",
+        ageRangeCheck: true
+      },
+      family_search:{
+        required:true,
+        emailOrPhone:true
+      }
+    },
+    messages: {
+      startAge: {
+        maxlength: "Maximum 3 digits allowed",
+        min: "Minimum value is 0"
+      },
+      endAge: {
+        maxlength: "Maximum 3 digits allowed",
+        min: "Minimum value is 0"
+      },
+      family_search:{
+        required:"Please Enter email or phone number."
+      }
+    }
+  });
+// Community Form End

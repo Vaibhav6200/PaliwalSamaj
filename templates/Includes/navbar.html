@@ -55,10 +55,24 @@
                         <div id="navbar-collapse" class="collapse navbar-collapse">
                             <ul class="nav navbar-nav mr-auto">
                                 <li class="nav-item active"><a class="nav-link" href="{% url 'samaj:index' %}#about_us_section">About Us</a></li>
-
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:news_and_events' %}">News</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:community' %}">Community</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:my_family' %}">My Family</a></li>
+                                <li class="nav-item dropdown">
+                                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Culture <i class="fa fa-angle-down"></i></a>
+                                  <ul class="dropdown-menu" role="menu">
+                                      <li><a href="{% url 'samaj:paliwal_samaj_history' %}">Paliwal Samaj History</a></li>
+                                      <li><a href="{% url 'samaj:karyarat_sangathan' %}">Karyarat Sangathan</a></li>
+                                      <li><a href="{% url 'samaj:sandhya_vandana' %}">Sandhya Vandana</a></li>
+                                      <li><a href="{% url 'samaj:brahman_16_sanskar' %}">Brahman Sanskar</a></li>
+                                      <li><a href="{% url 'samaj:upanayan_sanskar' %}">Upanayan Sanskar</a></li>
+                                      <li><a href="{% url 'samaj:mewar_paliwal_samaj_ke_teerth_purohit' %}">Mewar Paliwal Samaj Teerth Purohit</a></li>
+                                      <li><a href="{% url 'samaj:vivah_karyakram' %}">Vivah Karyakram</a></li>
+                                      <li><a href="{% url 'samaj:vivah_geet' %}">Vivah Geet</a></li>
+                                      <li><a href="{% url 'samaj:antyeshti_kriya_paddhati' %}">Antyeshti Kriya Paddhati</a></li>
+                                      <li><a href="{% url 'samaj:dasva_gyarahva_evam_barahva_karyakram' %}">Dasva Gyarahva Evam Barahva Karyakram</a></li>
+                                  </ul>
+                                </li>
                             </ul>
                         </div>
                     </nav>
