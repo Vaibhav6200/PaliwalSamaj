@@ -66,9 +66,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h3 class="column-title">About Paliwal Samaj</h3>
-                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible
+                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a
+                        horrible
                         vermin.</p>
-                    <blockquote><p>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut optio cumque nihil
+                    <blockquote><p>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut optio cumque
+                        nihil
                         necessitatibus autemn ec tincidunt nunc posuere ut</p></blockquote>
                     <p>He lay on his armour-like back, and if he lifted. ultrices ultrices sapien, nec tincidunt nunc
                         posuere ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. If you are going to use a
@@ -98,7 +100,8 @@
                     <!-- Card Slide -->
                     {% for obj in news_and_events %}
                     <div class="swiper-slide">
-                        <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="text-decoration-none card bg-dark text-white card-slider">
+                        <a href="{% url 'samaj:news_events_detail' obj.slug %}"
+                           class="text-decoration-none card bg-dark text-white card-slider">
                             <img src="{{ obj.image.url }}" class="card-img" alt="...">
                             <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
                                 <h5 class="card-title card-title text-white h5">{{ obj.title|truncatewords:15 }}</h5>
@@ -117,45 +120,10 @@
     </section>
     <!-- Event Section End -->
 
-    <!-- Adhyaksh Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Adhyaksh</h3>
-        <div class="row m-0">
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                            <div class="team-social-icons mt-2">
-                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Adhyaksh Section End -->
 
-    <!-- Upadhyaksh Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Upadhyaksh</h3>
+    <!-- नेतृत्व मंडल (Netritva Mandal)  Section Start -->
+    <section class="container bg-light">
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">नेतृत्व मंडल (Netritva Mandal)</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -176,22 +144,90 @@
                                     <div class="text-white ms-2">Ahmedabad</div>
                                 </div>
                             </div>
-                            <div class="team-social-icons mt-2">
-                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
                             </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div><!--/ Team wrapper end -->
                 </div>
             </div>
         </div>
     </section>
-    <!-- Upadhyaksh Section End -->
+    <!-- नेतृत्व मंडल (Netritva Mandal)  Section End -->
 
-    <!-- Sachiv Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Sachiv</h3>
+    <!-- संचालन समिति (Sanchalan Samiti)  Section Start -->
+    <section class="container bg-light mt-5">
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">संचालन समिति (Sanchalan Samiti)</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -212,168 +248,187 @@
                                     <div class="text-white ms-2">Ahmedabad</div>
                                 </div>
                             </div>
-                            <div class="team-social-icons mt-2">
-                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
                             </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div><!--/ Team wrapper end -->
                 </div>
             </div>
         </div>
     </section>
-    <!-- Sachiv Section End -->
+    <!-- संचालन समिति (Sanchalan Samiti)  Section End -->
 
-    <!-- Sanrakshak  Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Sanrakshak</h3>
-        <div class="row m-0">
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Sanrakshak  Section End -->
 
-    <!-- Mahila Adhyaksh  Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Mahila Adhyaksh</h3>
+    <!-- सलाह एवं आयोजन मंडल (Salah evam Aayojan Mandal)  Section Start -->
+    <section class="container bg-light mt-5">
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">सलाह एवं आयोजन मंडल (Salah evam Aayojan Mandal)</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -394,22 +449,258 @@
                                     <div class="text-white ms-2">Ahmedabad</div>
                                 </div>
                             </div>
-                            <div class="team-social-icons mt-2">
-                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
                             </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div><!--/ Team wrapper end -->
                 </div>
             </div>
         </div>
     </section>
-    <!-- Mahila Adhyaksh  Section End -->
+    <!-- सलाह एवं आयोजन मंडल (Salah evam Aayojan Mandal)  Section End -->
 
-    <!-- Koshadhyaksh  Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Koshadhyaksh</h3>
+    <!-- कार्यकारिणी सदस्य (Karyakarini Sadasya)  Section Start -->
+    <section class="container bg-light mt-5">
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">कार्यकारिणी सदस्य (Karyakarini Sadasya)</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -430,10 +721,149 @@
                                     <div class="text-white ms-2">Ahmedabad</div>
                                 </div>
                             </div>
-                            <div class="team-social-icons mt-2">
-                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!--/ Team wrapper end -->
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3 p-2">
+                <div class="item">
+                    <div class="ts-team-wrapper">
+                        <div class="team-img-wrapper">
+                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        </div>
+                        <div class="ts-team-content">
+                            <h3 class="ts-name">Mark Conter</h3>
+                            <p class="ts-designation">Safety Officer</p>
+                            <div class="">
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                    <div class="text-white ms-2">+91 9998894923</div>
+                                </div>
+                                <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                    <div class="text-white ms-2">Ahmedabad</div>
+                                </div>
                             </div>
                         </div>
                     </div><!--/ Team wrapper end -->
@@ -441,481 +871,8 @@
             </div>
         </div>
     </section>
-    <!-- Koshadhyaksh  Section End -->
+    <!-- कार्यकारिणी सदस्य (Karyakarini Sadasya)  Section End -->
 
-    <!-- Sah Sachiv Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Sah Sachiv</h3>
-        <div class="row m-0">
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                            <div class="team-social-icons mt-2">
-                                <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                                <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Sah Sachiv Section End -->
-
-    <!-- Salahkaar Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Salahkaar</h3>
-        <div class="row m-0">
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Salahkaar Section End -->
-
-    <!-- Ayojan Samiti Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Ayojan Samiti</h3>
-        <div class="row m-0">
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Ayojan Samiti Section End -->
-
-    <!-- Karyakarini Sadasya Section Start -->
-    <section class="container bg-light mb-4">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">Karyakarini Sadasya</h3>
-        <div class="row m-0">
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                        </div>
-                        <div class="ts-team-content">
-                            <h3 class="ts-name">Mark Conter</h3>
-                            <p class="ts-designation">Safety Officer</p>
-                            <div class="">
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                    <div class="text-white ms-2">+91 9998894923</div>
-                                </div>
-                                <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                    <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                    <div class="text-white ms-2">Ahmedabad</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Karyakarini Sadasya Section End -->
 
     <!-- Suggestion Form Start -->
     <section id="suggestion_section" class="main-container">
@@ -923,9 +880,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="column-title mb-2">Share Your Suggestions or Ideas</h3>
-                    <p>If you have any ideas, suggestions, or features you’d like to see added to the Paliwal Samaj website, please let us know. Your input helps us make the platform better for everyone in the community.</p>
+                    <p>If you have any ideas, suggestions, or features you’d like to see added to the Paliwal Samaj
+                        website, please let us know. Your input helps us make the platform better for everyone in the
+                        community.</p>
 
-                    <form id="suggestion-form" class="pt-4" action="{% url 'samaj:suggestions' %}" method="post" role="form">
+                    <form id="suggestion-form" class="pt-4" action="{% url 'samaj:suggestions' %}" method="post"
+                          role="form">
                         {% csrf_token %}
                         <div class="error-container"></div>
 
@@ -933,20 +893,24 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Your Name</label>
-                                    <input class="form-control" name="name" id="name" placeholder="Enter your name" type="text" required>
+                                    <input class="form-control" name="name" id="name" placeholder="Enter your name"
+                                           type="text" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">Your Email</label>
-                                    <input class="form-control" name="email" id="email" placeholder="Enter your email" type="email" required>
+                                    <input class="form-control" name="email" id="email" placeholder="Enter your email"
+                                           type="email" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="message">Detailed Suggestion or Idea</label>
-                            <textarea class="form-control" name="message" id="message" placeholder="Please describe your suggestion or idea in detail..." rows="6" required></textarea>
+                            <textarea class="form-control" name="message" id="message"
+                                      placeholder="Please describe your suggestion or idea in detail..." rows="6"
+                                      required></textarea>
                         </div>
 
                         <div class="text-end mt-3">
@@ -972,7 +936,8 @@
                 </div><!-- Col end -->
                 <div class="col-lg-6">
                     <h3 class="column-title">Gopal Paliwal</h3>
-                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible
+                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a
+                        horrible
                         vermin.</p>
                     <blockquote class="bg-white"><p>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut
                         optio cumque nihil necessitatibus autemn ec tincidunt nunc posuere ut</p></blockquote>
@@ -981,8 +946,6 @@
                         passage of Lorem Ipsum, you need to be sure there isn’t anything embarrassing.</p>
                     <a href="services.html" class="slider btn btn-primary" tabindex="-1">Read More</a>
                 </div><!-- Col end -->
-
-
             </div><!-- Content row end -->
 
         </div><!-- Container end -->
