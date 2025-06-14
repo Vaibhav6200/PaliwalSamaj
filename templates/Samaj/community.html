@@ -25,27 +25,31 @@
         </div><!-- Container end -->
     </div><!-- Banner text end -->
     </div><!-- Banner area end --> 
-    <section id="main-container" class="main-container">
+<section id="main-container" class="main-container">
   <div class="container">
     <!-- content -->
      <form class="" method="" action="" id="search_family_form">
         <div class="text-center w-100 mb-5">
             <h2 class="fs-4">Search Any Memeber From <span class="text-warning">Paliwal Samaj</span></h2>
-        </div> 
+        </div>
         <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input class="form-control form-control-name" name="name" id="name" placeholder="Name" type="text" >
+                    <input class="form-control form-control-name only_alphabets" name="name" id="name" maxlength="50" placeholder="Name" type="text" required>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control form-control-subject" name="age" id="age" minlength="1" min="0" maxlength="4" placeholder="Age" >
-                </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="form-group">
+              <label for="age" class="form-label">Age:</label>
+              <div class="d-flex flex-nowrap align-items-center border form-control justify-content-center">
+                <div class="mb-2 me-2 fw-bold">0</div>
+                <div class="w-100"><input type="range" class="form-range w-100" id="age" name="age" min="0" max="100" step="1" value="25"></div>
+                <div class="mb-2 ms-2 fw-bold" id="selected_age">25</div>
+              </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
                 <div class="form-group">
                     <label for="designation">Designation</label>
                     <select name="designation" class="form-control" id="designation">
@@ -58,15 +62,26 @@
                     </select>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-6">
                 <div class="form-group">
                     <label for="gotra">Gotra</label>
-                    <input class="form-control form-control-name" name="gotra" id="gotra" placeholder="Gotra" type="text" >
+                     <select name="gotra" class="form-control" id="gotra">
+                        <option value="" selected disabled>Select</option>
+                        <option value="0">option 1</option>
+                        <option value="1">option 2</option>
+                        <option value="2">option 3</option>
+                    </select>
                 </div>
             </div>
-            <div class="col-12">
-                <label for="family_search">Email Or Phone Number</label>
-                <input type="text" class="form-control form-control-name w-100 p-3 py-4 " placeholder="Email or Phone Number" name="family_search" id="family_search">
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                     <select name="gender" class="form-control" id="gender" required>
+                        <option value="" selected disabled>Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
             </div>
             <div class="col-12 my-3 text-end">
                 <button class="btn btn-primary" type="submit">Search</button>
@@ -115,10 +130,10 @@
                 </div>
             </div><!--/ Team wrapper end -->
             </div>
-        </div>   
+        </div>
     </div>
   </div>
-</section>
+</section><!-- Main container end -->
 
     {% include 'Includes/footer.html' %}
 </main>

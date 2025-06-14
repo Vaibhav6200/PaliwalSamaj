@@ -96,48 +96,17 @@
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <!-- Card Slide -->
+                    {% for obj in news_and_events %}
                     <div class="swiper-slide">
-                        <a href="#" class="text-decoration-none card bg-dark text-white card-slider">
-                            <img src="images/banner/banner1.jpg" class="card-img" alt="...">
+                        <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="text-decoration-none card bg-dark text-white card-slider">
+                            <img src="{{ obj.image.url }}" class="card-img" alt="...">
                             <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
-                                <h5 class="card-title card-title text-white h5">Card Title 1</h5>
-                                <p class="card-text">Subtitle here</p>
+                                <h5 class="card-title card-title text-white h5">{{ obj.title }}</h5>
+                                <p class="card-text">{{ obj.subtitle }}</p>
                             </div>
                         </a>
                     </div>
-
-                    <!-- Duplicate for more cards -->
-                    <div class="swiper-slide">
-                        <a href="" class="text-decoration-none card bg-dark text-white card-slider">
-                            <img src="images/banner/banner2.jpg" class="card-img" alt="...">
-                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
-                                <h5 class="card-title card-title text-white h5">Card Title 2</h5>
-                                <p class="card-text">Subtitle here</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <a href="" class="text-decoration-none card bg-dark text-white card-slider">
-                            <img src="images/banner/banner2.jpg" class="card-img" alt="...">
-                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
-                                <h5 class="card-title card-title text-white h5">Card Title 3</h5>
-                                <p class="card-text">Subtitle here</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="" class="text-decoration-none card bg-dark text-white card-slider">
-                            <img src="images/banner/banner2.jpg" class="card-img" alt="...">
-                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
-                                <h5 class="card-title text-white h5">Card Title 4</h5>
-                                <p class="card-text">Subtitle here</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Add more cards as needed -->
-
+                    {% endfor %}
                 </div>
 
                 <!-- Navigation Buttons -->

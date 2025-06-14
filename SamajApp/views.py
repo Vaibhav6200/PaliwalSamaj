@@ -1,8 +1,14 @@
 from django.shortcuts import render
 
+from SamajApp.models import NewsEvent
+
 
 def index(request):
-    return render(request, 'Samaj/index.html')
+    news_events_obj = NewsEvent.objects.all()
+    context = {
+        'news_and_events': news_events_obj,
+    }
+    return render(request, 'Samaj/index.html', context)
 
 
 def bio_data(request):
@@ -18,7 +24,19 @@ def my_family(request):
 
 
 def news_and_events(request):
-    return render(request, 'Samaj/news_and_events.html')
+    news_events_obj = NewsEvent.objects.all().order_by('-created_at')
+    context = {
+        'news_and_events': news_events_obj,
+    }
+    return render(request, 'Samaj/news_and_events.html', context)
+
+
+def news_events_detail(request, event_slug):
+    post = NewsEvent.objects.get(slug=event_slug)
+    context = {
+        'post': post
+    }
+    return render(request, 'Samaj/news_events_detail.html', context)
 
 
 def paliwal_samaj_history(request):

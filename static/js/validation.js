@@ -1,7 +1,17 @@
 // Bio Data Form Start
 
 $(document).ready(function () {
-
+  $('.only_alphabets').on('keypress', function (e) {
+  var key = e.which;
+  if (
+    (key >= 65 && key <= 90) ||  // A–Z
+    (key >= 97 && key <= 122) || // a–z
+    key === 8 || key === 32      // Backspace or Space (optional)
+  ) {
+    return true;
+  }
+  return false;
+});
    $.validator.addMethod("emailOrPhone", function(value) {
     return /^[^\s]+$/.test(value) && (/^\d{10}$/.test(value) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
   }, "Enter a valid 10-digit number or email without spaces.");
@@ -315,31 +325,23 @@ $("#login-form").validate({
   }, "Start Age must be less than End Age");
 $("#search_family_form").validate({
     rules: {
-      startAge: {
-         maxlength: 3,
-        min: 0,
-        requiredIfOtherFilled: "#endAge",
-        ageRangeCheck: true
+      gender: {
+         required: true,
       },
-      endAge: {
-        maxlength: 3,
-        min: 0,
-        requiredIfOtherFilled: "#startAge",
-        ageRangeCheck: true
+      name: {
+         required: true,
+         noSpace:true,
+         maxLength:50
       },
-      family_search:{
-        required:true,
-        emailOrPhone:true
-      }
+      
     },
     messages: {
-      startAge: {
-        maxlength: "Maximum 3 digits allowed",
-        min: "Minimum value is 0"
+      gender: {
+        required: "Please Select the Gender",
       },
-      endAge: {
-        maxlength: "Maximum 3 digits allowed",
-        min: "Minimum value is 0"
+      name: {
+        required: "Please Enter the Name",
+        maxLength:"Please Enter Less than 50 Character."
       },
       family_search:{
         required:"Please Enter email or phone number."
