@@ -28,6 +28,10 @@ def bio_data(request):
     if request.method == 'POST':
         edit_member_user_id = request.POST.get('user_id')
         context['edit_member'] = Member.objects.get(user__id = edit_member_user_id)
+        print()
+        print(context['edit_member'])
+        print(context['edit_member'].occupation_detail)
+        print()
     return render(request, 'Samaj/bio_data.html', context)
 
 
@@ -171,6 +175,18 @@ def my_family(request):
         'family_head': login_member.family.family_head,
     }
     return render(request, 'Samaj/my_family.html', context)
+
+
+@login_required
+def sandesh(request):
+    context = {}
+    return render(request, "Samaj/sandesh.html", context={})
+
+
+@login_required
+def user_profile(request):
+    context = {}
+    return render(request, "Samaj/user_profile.html", context={})
 
 
 def news_and_events(request):

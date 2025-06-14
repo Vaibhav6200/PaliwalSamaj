@@ -14,6 +14,10 @@ urlpatterns = [
     path('handle_bio_data_form/<slug:family_code>/', handle_bio_data_form, name='handle_bio_data_form'),
     path('my_family/', my_family, name='my_family'),
 
+    path('sandesh/', sandesh, name='sandesh'),
+    path('user_profile/', user_profile, name='user_profile'),
+
+
     path('paliwal_samaj_history/', paliwal_samaj_history, name='paliwal_samaj_history'),
     path('karyarat_sangathan/', karyarat_sangathan, name='karyarat_sangathan'),
     path('sandhya_vandana/', sandhya_vandana, name='sandhya_vandana'),

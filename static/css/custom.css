@@ -128,7 +128,20 @@ label.error {
        flex: 0 0 100% !important;
     }
 }
+.team-img-wrapper {
+  aspect-ratio: 4 / 4; /* Change this to 1/1 or 16/9 as needed */
+  overflow: hidden;
+  position: relative;
+}
 
+.team-img-wrapper img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 /* Event card css start */
 .card-slider {
 border:none;
@@ -403,3 +416,57 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 /* Community HTML Dual Range CSS End */
+
+/* User Profile Start*/
+.profile-card {
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+}
+.card-title {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #f77f00ff;
+  font-size: 20px !important;
+}
+.profile-img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.detail-label {
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+.detail-value {
+  margin-bottom: 15px;
+  color: #212529;
+}
+.badge-qualification {
+  font-size: 0.8rem;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+.square-img-container {
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+.square-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* User Profile End*/

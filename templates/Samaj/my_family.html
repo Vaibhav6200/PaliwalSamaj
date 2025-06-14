@@ -67,7 +67,7 @@
                             <form action="{% url 'samaj:bio_data' %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
-                                <button type="submit" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                <button type="submit" class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
                                     <span class="material-icons me-2">edit</span> Edit
                                 </button>
                             </form>
@@ -75,7 +75,7 @@
                         <div class="col-12 col-md-6 p-0">
                             <form action="" method="" class="m-0 p-0 w-100">
                                 <input type="hidden" value="" name="">
-                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
+                                <button type="submit" class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
                             </form>
                         </div>
                       </div>
@@ -130,14 +130,14 @@
                         <form action="{% url 'samaj:bio_data' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="user_id" value="{{ member.user.id }}">
-                            <button type="submit" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                            <button type="submit" class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
                                 <span class="material-icons me-2">edit</span> Edit
                             </button>
                         </form>
                     </div>
                     <div class="col-12 col-md-6 p-0">
                       <form action="" method="" class="m-0 p-0 w-100">
-                        <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
+                        <button type="submit" class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
                           <span class="material-icons me-2">delete</span> Delete
                         </button>
                       </form>

@@ -2875,10 +2875,15 @@ img.testimonial-thumb {
 
 @media (max-width: 1200px) {
   .ts-team-wrapper .ts-team-content {
-    top: 72%;
+    top: 66%;
   }
 }
 
+@media (max-width: 576px) {
+  .ts-team-wrapper .ts-team-content {
+    top: 63%;
+  }
+}
 @media (max-width: 575px) {
   .ts-team-wrapper .ts-team-content {
     text-align: center;

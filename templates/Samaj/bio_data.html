@@ -207,7 +207,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Occupation</label>
+                                    <label>Occupation {{ edit_member.occupation_detail.first.company_name|default:'' }}</label>
                                     <select name="occupation" class="form-control" id="occupation">
                                         <option value="" disabled {% if not edit_member.occupation_type %}selected{% endif %}>Select Occupation</option>
                                         <option value="job" {% if edit_member.occupation_type == 'job' %}selected{% endif %}>Job</option>
@@ -217,36 +217,36 @@
                             </div>
 
                             <!-- Job Fields -->
-                            <div class="col-12 col-md-6 job_field d-none">
+                            <div class="col-12 col-md-6 job_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>Company Name</label>
                                     <input type="text" class="form-control form-control-subject" name="company_name" id="company_name"
-                                    value="{{ edit_member.occupation_detail.company_name|default:'' }}">
+                                    value="{{ edit_member.occupation_detail.first.company_name|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 job_field d-none">
+                            <div class="col-12 col-md-6 job_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>Location</label>
                                     <input type="text" class="form-control form-control-subject" name="job_location" id="job_location"
                                     value="{{ edit_member.occupation_detail.company_location|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="form-group job_field d-none">
+                            <div class="col-12 {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
+                                <div class="form-group job_field">
                                     <label>Job Description</label>
                                     <textarea class="form-control form-control-message" name="job_description" id="job_description" rows="10">{{ edit_member.occupation_detail.job_description|default:'' }}</textarea>
                                 </div>
                             </div>
 
                             <!-- Business Fields -->
-                            <div class="col-12 col-md-6 business_field d-none">
+                            <div class="col-12 col-md-6 business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>Business Name</label>
                                     <input type="text" class="form-control form-control-subject" name="business_name" id="business_name"
                                     value="{{ edit_member.occupation_detail.business_name|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 business_field d-none">
+                            <div class="col-12 col-md-6 business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>Business Location</label>
                                     <input type="text" class="form-control form-control-subject" name="business_location" id="business_location"
@@ -254,7 +254,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-group business_field d-none">
+                                <div class="form-group business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                     <label>Business Description</label>
                                     <textarea class="form-control form-control-message" name="business_description"
                                               id="business_description" rows="10">{{ edit_member.occupation_detail.business_description|default:'' }}</textarea>
