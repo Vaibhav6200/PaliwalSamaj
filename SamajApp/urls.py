@@ -5,6 +5,7 @@ app_name = 'samaj'
 
 urlpatterns = [
     path('', index, name='index'),
+    path('login/', site_login, name='site_login'),
     path('community/', community, name='community'),
     path('news_and_events/', news_and_events, name='news_and_events'),
     path('news_events_detail/<slug:event_slug>/', news_events_detail, name='news_events_detail'),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('dasva_gyarahva_evam_barahva_karyakram/', dasva_gyarahva_evam_barahva_karyakram, name='dasva_gyarahva_evam_barahva_karyakram'),
 
     path('newsletter_subscribe/', newsletter_subscribe, name='newsletter_subscribe'),
+    path('suggestions/', suggestions, name='suggestions'),
 ]

@@ -1,12 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail
+from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
+    Suggestion
 from django.contrib import messages
-from .utils import generate_username, calculate_age
+from .utils import generate_username
 from datetime import date, timedelta
-from django.db.models import Q
 
+
+def site_login(request):
+    return render(request, 'Samaj/login.html')
 
 
 def index(request):
@@ -99,7 +102,6 @@ def handle_bio_data_form(request, family_code):
         occupation.business_location = request.POST.get('business_location')
         occupation.business_description = request.POST.get('business_description')
         occupation.save()
-
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
 
@@ -257,4 +259,18 @@ def newsletter_subscribe(request):
                 messages.success(request, 'You have successfully subscribed to the newsletter!')
         else:
             messages.error(request, 'Please enter a valid email address.')
+    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+
+def suggestions(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        if name and message and email:
+            Suggestion.objects.create(name = name, email = email, message = message)
+            messages.success(request, 'Thank you! Your suggestion has been submitted.')
+        else:
+            messages.error(request, 'All fields are required. Please complete the form.')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))

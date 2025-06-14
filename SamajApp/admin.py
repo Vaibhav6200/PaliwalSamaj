@@ -121,3 +121,16 @@ class SamajMemberRolesAdmin(admin.ModelAdmin):
     )
     list_display_links = ('id', 'member_name')
 
+
+@admin.register(Suggestion)
+class SuggestionAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'email',
+        'message',
+        'created_at',
+    )
+    list_display_links = ('id', 'name')
+
+

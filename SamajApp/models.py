@@ -242,3 +242,14 @@ class SamajMemberRoles(models.Model):
 
     def __str__(self):
         return f"{self.member_name} - {self.role}"
+
+
+class Suggestion(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(null=True, blank=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.name}"
