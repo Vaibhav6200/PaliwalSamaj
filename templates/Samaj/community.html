@@ -199,7 +199,12 @@
                                     </div>
                                     <div class="d-flex align-items-center py-2 border-bottom border-white">
                                         <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+
+                                        {% if member.current_address_city and member.current_address_state %}
+                                        <div class="text-white ms-2">{{ member.current_address_city }}, {{ member.current_address_state }}</div>
+                                        {% else %}
                                         <div class="text-white ms-2">{{ member.current_address }}</div>
+                                        {% endif %}
                                     </div>
                                 </div>
 
@@ -211,7 +216,7 @@
                                     </div>
 
                                     <div class="col-12 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Show Family">
-                                        <a href="" class="btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
+                                        <a href="{% url 'samaj:member_family_tree' member.id %}" class="btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
                                             <span class="material-icons me-2">diversity_3</span>Show Family
                                         </a>
                                     </div>

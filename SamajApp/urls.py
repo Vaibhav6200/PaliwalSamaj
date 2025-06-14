@@ -13,6 +13,7 @@ urlpatterns = [
     path('bio_data/', bio_data, name='bio_data'),
     path('handle_bio_data_form/<slug:family_code>/', handle_bio_data_form, name='handle_bio_data_form'),
     path('my_family/', my_family, name='my_family'),
+    path('member_family_tree/<int:member_id>/', member_family_tree, name='member_family_tree'),
 
     path('sandesh/', sandesh, name='sandesh'),
     path('user_profile/<int:member_id>/', user_profile, name='user_profile'),

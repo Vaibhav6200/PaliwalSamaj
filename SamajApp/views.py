@@ -178,6 +178,17 @@ def my_family(request):
 
 
 @login_required
+def member_family_tree(request, member_id):
+    community_member = Member.objects.get(id = member_id)
+    family_members = Member.objects.filter(family=community_member.family)
+    context = {
+        'family_head': community_member.family.family_head,
+        'family_members': family_members,
+    }
+    return render(request, 'Samaj/member_family_tree.html', context)
+
+
+@login_required
 def sandesh(request):
     context = {}
     return render(request, "Samaj/sandesh.html", context={})
