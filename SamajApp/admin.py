@@ -89,8 +89,8 @@ class CommentAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'post', 'sender')
 
 
-@admin.register(ClientSubscription)
-class ClientSubscriptionAdmin(admin.ModelAdmin):
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'email',

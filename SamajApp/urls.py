@@ -10,6 +10,7 @@ urlpatterns = [
     path('news_events_detail/<slug:event_slug>/', news_events_detail, name='news_events_detail'),
 
     path('bio_data/', bio_data, name='bio_data'),
+    path('handle_bio_data_form/<slug:family_code>/', handle_bio_data_form, name='handle_bio_data_form'),
     path('my_family/', my_family, name='my_family'),
 
     path('paliwal_samaj_history/', paliwal_samaj_history, name='paliwal_samaj_history'),
@@ -21,5 +22,7 @@ urlpatterns = [
     path('vivah_karyakram/', vivah_karyakram, name='vivah_karyakram'),
     path('vivah_geet/', vivah_geet, name='vivah_geet'),
     path('antyeshti_kriya_paddhati/', antyeshti_kriya_paddhati, name='antyeshti_kriya_paddhati'),
-    path('dasva_gyarahva_evam_barahva_karyakram/', dasva_gyarahva_evam_barahva_karyakram, name='dasva_gyarahva_evam_barahva_karyakram')
+    path('dasva_gyarahva_evam_barahva_karyakram/', dasva_gyarahva_evam_barahva_karyakram, name='dasva_gyarahva_evam_barahva_karyakram'),
+
+    path('newsletter_subscribe/', newsletter_subscribe, name='newsletter_subscribe'),
 ]

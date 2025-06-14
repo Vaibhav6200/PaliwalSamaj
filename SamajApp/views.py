@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from SamajApp.models import NewsEvent, Comment, Member, Family, ClientSubscription
+from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail
 from django.contrib import messages
+from .utils import generate_username
 
 
 def index(request):
@@ -13,8 +14,110 @@ def index(request):
     return render(request, 'Samaj/index.html', context)
 
 
+@login_required
 def bio_data(request):
-    return render(request, 'Samaj/bio_data.html')
+    context = {
+        'family_code': Member.objects.get(user=request.user).family.family_code
+    }
+    return render(request, 'Samaj/bio_data.html', context)
+
+
+@login_required
+def handle_bio_data_form(request, family_code):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        curr_user = User.objects.create(
+            username = generate_username(first_name, last_name),
+            first_name = first_name,
+            last_name = last_name,
+            email = request.POST.get('email', None),
+        )
+
+        member = Member(
+            family = Family.objects.get(family_code=family_code),
+            user = curr_user,
+            father_name = request.POST.get('father_name'),
+            mother_name = request.POST.get('mother_name'),
+            date_of_birth = request.POST.get('date_of_birth'),
+            birth_place = request.POST.get('birth_place'),
+            birth_time = request.POST.get('birth_time'),
+            gender = request.POST.get('gender'),
+            marital_status = request.POST.get('marital_status'),
+            height = request.POST.get('height'),
+            phone_number = request.POST.get('phone_number'),
+            whatsapp_number = request.POST.get('whatsapp_number'),
+            gotra = request.POST.get('gotra'),
+            current_address = request.POST.get('address'),
+            profile_image = request.FILES.get('profileImage'),
+            qualification_type = request.POST.get('qualification'),
+            occupation_type = request.POST.get('occupation'),
+            instagram_link = request.POST.get('instagram_link'),
+            facebook_link = request.POST.get('facebook_link'),
+        )
+        member.save()
+
+        QualificationDetail.objects.create(
+            member = member,
+            class_name = request.POST.get('school_class'),
+            school_name = request.POST.get('school_name', None),
+            college_name = request.POST.get('college_name'),
+            degree_name = request.POST.get('degree_name')
+        )
+
+        OccupationDetail.objects.create(
+            member = member,
+            company_name = request.POST.get('company_name'),
+            company_location = request.POST.get('job_location'),
+            job_description = request.POST.get('job_description'),
+            business_name = request.POST.get('business_name'),
+            business_location = request.POST.get('business_location'),
+            business_description = request.POST.get('business_description')
+        )
+
+        messages.success(request, 'Member Added Successfully')
+    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+
+@login_required
+def handle_edit_bio_data_form(request, family_code):
+    if request.method == 'POST':
+        family = Family.objects.get(family_code=family_code)
+
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        father_name = request.POST.get('father_name')
+        mother_name = request.POST.get('mother_name')
+        date_of_birth = request.POST.get('date_of_birth')
+        birth_place = request.POST.get('birth_place')
+        birth_time = request.POST.get('birth_time')
+        gender = request.POST.get('gender')
+        marital_status = request.POST.get('marital_status')
+        height = request.POST.get('height')
+        phone_number = request.POST.get('phone_number')
+        whatsapp_number = request.POST.get('whatsapp_number')
+        gotra = request.POST.get('gotra')
+        current_address = request.POST.get('address')
+        profile_image = request.FILES.get('profileImage')
+        qualification_type = request.POST.get('qualification')
+        occupation_type = request.POST.get('occupation')
+        instagram_link = request.POST.get('instagram_link')
+        facebook_link = request.POST.get('facebook_link')
+        class_name = request.POST.get('school_class')
+        school_name = request.POST.get('school_name', None)
+        college_name = request.POST.get('college_name')
+        degree_name = request.POST.get('degree_name')
+        company_name = request.POST.get('company_name')
+        company_location = request.POST.get('job_location')
+        job_description = request.POST.get('job_description')
+        business_name = request.POST.get('business_name')
+        business_location = request.POST.get('business_location')
+        business_description = request.POST.get('business_description')
+
+        messages.success(request, 'Profile Updated Successfully')
+    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
 
 
 def community(request):
@@ -109,12 +212,16 @@ def dasva_gyarahva_evam_barahva_karyakram(request):
     return render(request, "Culture/P10_dasva_gyarahva_evam_barahva_karyakram.html")
 
 
-def newsletter(request):
-    if request.method == "POST":
-        client_email = request.POST.get('email')
-        if client_email:
-            ClientSubscription.objects.get_or_create(email=client_email)
-            return JsonResponse({'success': True})
+def newsletter_subscribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        if email:
+            if Newsletter.objects.filter(email=email).exists():
+                messages.error(request, 'This email is already subscribed to the newsletter.')
+            else:
+                Newsletter.objects.create(email=email)
+                messages.success(request, 'You have successfully subscribed to the newsletter!')
         else:
-            return JsonResponse({'success': False, 'error': 'Email is required'}, status=400)
-    return None
+            messages.error(request, 'Please enter a valid email address.')
+    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))

@@ -84,6 +84,7 @@ class QualificationDetail(models.Model):
 
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='qualification_detail')
     class_name = models.CharField(max_length=20, blank=True, null=True)  # Only if School
+    school_name = models.CharField(max_length=255, blank=True, null=True)
     college_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
     degree_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
     created_at = models.DateTimeField(auto_now_add=True)
@@ -91,7 +92,7 @@ class QualificationDetail(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"Qualification for {self.member.user}"
+        return f"Qualification for {self.member}"
 
 
 class OccupationDetail(models.Model):
@@ -159,9 +160,9 @@ class Comment(models.Model):
         return self.parent is not None
 
 
-class ClientSubscription(models.Model):
+class Newsletter(models.Model):
     class Meta:
-        verbose_name_plural = 'Client Subscription'
+        verbose_name_plural = 'Newsletter'
 
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)

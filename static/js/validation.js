@@ -132,12 +132,12 @@ $(document).ready(function () {
     },
     qualification: "required",
     occupation: "required",
-    "12th_result": {
+    "school_class": {
       required: function () {
         return $("#qualification").val() === "school";
       }
     },
-    "12th_school_name": {
+    "school_name": {
       required: function () {
         return $("#qualification").val() === "school";
       },
@@ -207,8 +207,8 @@ $(document).ready(function () {
     address: { required: "Please enter your address" },
     qualification: "Please select your qualification",
     occupation: "Please select your occupation",
-    "12th_result": { required: "Please enter your 12th result" },
-    "12th_school_name": { required: "Please enter your 12th school name" },
+    "school_class": { required: "Please enter the Class in which you Study" },
+    "school_name": { required: "Please enter your school name" },
     collge_uni_name: { required: "Please enter your college/university name" },
     degree_name: { required: "Please enter your degree name" },
     company_name: { required: "Please enter your company name" },

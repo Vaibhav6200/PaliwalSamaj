@@ -11,11 +11,12 @@
 
                 <div class="col-4 footer-widget mt-5 mt-md-0">
                     <h3 class="widget-title">News Letter</h3>
-                    <form class="">
+                    <form method="post" action="{% url 'samaj:newsletter_subscribe' %}" class="">
+                        {% csrf_token %}
                         <div class="form-group">
                             <div class="d-flex">
-                                <input class="form-control form-control-name" name="newsletter" id="newsletter"
-                                       placeholder="vaibhav@gmail.com" type="text" required>
+                                <input class="form-control form-control-name" name="email" id="newsletter"
+                                       placeholder="vaibhav@gmail.com" type="email" required>
                                 <button type="submit" class="btn btn-primary rounded-0">
                                     Submit
                                 </button>
