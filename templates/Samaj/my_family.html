@@ -2,6 +2,10 @@
 {% load static %}
 {% block title %}My Family{% endblock %}
 
+{% block stylesheets %}
+
+{% endblock %}
+
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
@@ -13,7 +17,7 @@
         </div>
         <div class="col-12 col-sm-6 text-end">
             <div class="">
-                <a href="#" class="btn btn-dark ">
+                <a href="{% url 'samaj:bio_data' %}" class="btn btn-dark ">
                     <div class="d-flex align-items-center">
                         <span class="material-icons me-2">add</span>
                         <div>
@@ -30,25 +34,33 @@
               <div class="my_family_card item border border-3 border-dark">
                 <div class="ts-team-wrapper">
                     <div class="team-img-wrapper">
-                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+                        {% if family_head.profile_image %}
+                        <img loading="lazy" class="w-100" src="{{ family_head.profile_image.url }}" alt="team-img">
+                        {% else %}
+                        <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                        {% endif %}
                     </div>
                     <div class="ts-team-content">
-                      <h3 class="ts-name">Mark Conter</h3>
+                      <h3 class="ts-name">{{ family_head.user.first_name }} {{ family_head.user.last_name }}</h3>
                       <p class="ts-designation">Safety Officer</p>
                       <div class="">
                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                           <div class=""><span class="material-icons fs-5 ">call</span></div>
-                          <div class="text-white ms-2">+91 9998894923</div>
+                          <div class="text-white ms-2">{{ family_head.phone_number }}</div>
                         </div>
                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                           <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                          <div class="text-white ms-2">Ahmedabad</div>
+                          <div class="text-white ms-2">{{ family_head.current_address }}</div>
                         </div>
                       </div>
                       <div class="team-social-icons mt-2">
-                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
+                          {% if family_head.facebook_link %}
                           <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                          {% endif %}
+
+                          {% if family_head.instagram_link %}
                           <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                          {% endif %}
                       </div>
                       <div class="row m-0 p-0 mt-3">
                         <div class="col-12 col-md-6 p-0">
@@ -68,131 +80,73 @@
               </div>
             </div> 
         </div>
+
         <div class="row m-0 mt-4">
-            <div class="col-6 col-md-4 p-2">
-              <div class="my_family_card item">
-                <div class="ts-team-wrapper">
-                    <div class="team-img-wrapper">
-                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
+          {% for member in all_family_members %}
+          {% if not member == member.family.family_head  %}
+          <div class="col-6 col-md-4 p-2">
+            <div class="my_family_card item h-100">
+              <div class="ts-team-wrapper d-flex flex-column h-100">
+                <div class="team-img-wrapper">
+                  {% if member.profile_image %}
+                  <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
+                  {% else %}
+                  <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                  {% endif %}
+                </div>
+                <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between">
+                  <div>
+                    <h3 class="ts-name">{{ member.user.first_name }} {{ member.user.last_name }}</h3>
+                    <p class="ts-designation">Gotra: {{ member.gotra }}</p>
+                    <div class="">
+                      {% if member.phone_number %}
+                      <div class="d-flex align-items-center py-2 border-bottom border-white">
+                        <div><span class="material-icons fs-5">call</span></div>
+                        <div class="text-white ms-2">{{ member.phone_number }}</div>
+                      </div>
+                      {% endif %}
+                      {% if member.current_address %}
+                      <div class="d-flex align-items-center py-2 border-bottom border-white">
+                        <div><span class="material-icons fs-5">location_on</span></div>
+                        <div class="text-white ms-2">{{ member.current_address }}</div>
+                      </div>
+                      {% endif %}
                     </div>
-                    <div class="ts-team-content">
-                      <h3 class="ts-name">Mark Conter</h3>
-                      <p class="ts-designation">Safety Officer</p>
-                      <div class="">
-                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                          <div class=""><span class="material-icons fs-5 ">call</span></div>
-                          <div class="text-white ms-2">+91 9998894923</div>
-                        </div>
-                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                          <div class="text-white ms-2">Ahmedabad</div>
-                        </div>
-                      </div>
-                      <div class="team-social-icons mt-2">
-                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                      </div>
-                      <div class="row m-0 p-0 mt-3">
-                        <div class="col-12 col-md-6 p-0">
-                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
-                                <span class="material-icons me-2">edit</span> Edit
-                            </a>
-                        </div>
-                        <div class="col-12 col-md-6 p-0">
-                            <form action="" method="" class="m-0 p-0 w-100">
-                                <input type="hidden" value="" name="">
-                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
-                            </form>
-                        </div>
-                      </div>
+                    <div class="team-social-icons mt-2">
+                      {% if member.facebook_link %}
+                      <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
+                      {% endif %}
+                      {% if member.instagram_link %}
+                      <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
+                      {% endif %}
                     </div>
-                </div><!--/ Team wrapper end -->
+                  </div>
+                  <div class="row m-0 p-0 mt-3">
+                    <div class="col-12 col-md-6 p-0">
+                      <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                        <span class="material-icons me-2">edit</span> Edit
+                      </a>
+                    </div>
+                    <div class="col-12 col-md-6 p-0">
+                      <form action="" method="" class="m-0 p-0 w-100">
+                        <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
+                          <span class="material-icons me-2">delete</span> Delete
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>   
-            <div class="col-6 col-md-4 p-2">
-              <div class="my_family_card item">
-                <div class="ts-team-wrapper">
-                    <div class="team-img-wrapper">
-                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
-                    </div>
-                    <div class="ts-team-content">
-                      <h3 class="ts-name">Mark Conter</h3>
-                      <p class="ts-designation">Safety Officer</p>
-                      <div class="">
-                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                          <div class=""><span class="material-icons fs-5 ">call</span></div>
-                          <div class="text-white ms-2">+91 9998894923</div>
-                        </div>
-                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                          <div class="text-white ms-2">Ahmedabad</div>
-                        </div>
-                      </div>
-                      <div class="team-social-icons mt-2">
-                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                      </div>
-                      <div class="row m-0 p-0 mt-3">
-                        <div class="col-12 col-md-6 p-0">
-                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
-                                <span class="material-icons me-2">edit</span> Edit
-                            </a>
-                        </div>
-                        <div class="col-12 col-md-6 p-0">
-                            <form action="" method="" class="m-0 p-0 w-100">
-                                <input type="hidden" value="" name="">
-                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
-                            </form>
-                        </div>
-                      </div>
-                    </div>
-                </div><!--/ Team wrapper end -->
-              </div>
-            </div> 
-            <div class="col-6 col-md-4 p-2">
-              <div class="my_family_card item">
-                <div class="ts-team-wrapper">
-                    <div class="team-img-wrapper">
-                      <img loading="lazy" class="w-100" src="images/team/team3.jpg" alt="team-img">
-                    </div>
-                    <div class="ts-team-content">
-                      <h3 class="ts-name">Mark Conter</h3>
-                      <p class="ts-designation">Safety Officer</p>
-                      <div class="">
-                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                          <div class=""><span class="material-icons fs-5 ">call</span></div>
-                          <div class="text-white ms-2">+91 9998894923</div>
-                        </div>
-                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                          <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                          <div class="text-white ms-2">Ahmedabad</div>
-                        </div>
-                      </div>
-                      <div class="team-social-icons mt-2">
-                          <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                          <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                          <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                      </div>
-                      <div class="row m-0 p-0 mt-3">
-                        <div class="col-12 col-md-6 p-0">
-                            <a href="" class="btn btn-dark rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
-                                <span class="material-icons me-2">edit</span> Edit
-                            </a>
-                        </div>
-                        <div class="col-12 col-md-6 p-0">
-                            <form action="" method="" class="m-0 p-0 w-100">
-                                <input type="hidden" value="" name="">
-                                <button type="submit" class="btn btn-danger py-3 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"> <span class="material-icons me-2">delete</span> Delete</button>
-                            </form>
-                        </div>
-                      </div>
-                    </div>
-                </div><!--/ Team wrapper end -->
-              </div>
-            </div> 
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
         </div>
+
+
+
+
+
     </div>
 </section>
 

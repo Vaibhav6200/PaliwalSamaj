@@ -8,8 +8,6 @@ class FamilyAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
 
 
-
-
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = (
@@ -31,6 +29,8 @@ class MemberAdmin(admin.ModelAdmin):
         'profile_image',
         'qualification_type',
         'occupation_type',
+        'facebook_link',
+        'instagram_link',
         'created_at',
         'updated_at'
     )
@@ -41,7 +41,6 @@ class MemberAdmin(admin.ModelAdmin):
 class QualificationDetailAdmin(admin.ModelAdmin):
     list_display = ('id', 'member', 'class_name', 'college_name', 'degree_name', 'created_at', 'updated_at')
     list_display_links = ('id', 'member')
-
 
 
 @admin.register(OccupationDetail)
@@ -61,7 +60,6 @@ class OccupationDetailAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'member')
 
 
-
 @admin.register(NewsEvent)
 class NewsEventAdmin(admin.ModelAdmin):
     list_display = (
@@ -78,7 +76,6 @@ class NewsEventAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
-
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
@@ -90,4 +87,14 @@ class CommentAdmin(admin.ModelAdmin):
         'created_at'
     )
     list_display_links = ('id', 'post', 'sender')
+
+
+@admin.register(ClientSubscription)
+class ClientSubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'email',
+        'created_at',
+    )
+    list_display_links = ('id', 'email')
 

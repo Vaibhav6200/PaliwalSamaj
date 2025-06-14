@@ -30,7 +30,9 @@ def populate_users(n):
             User.objects.create_user(
                 username=username,
                 email=email,
-                password=password
+                password=password,
+                first_name = fake.first_name(),
+                last_name = fake.last_name()
             )
             print(f"Created user: {username}")
         else:
@@ -120,7 +122,6 @@ def populate_news_and_events(n):
             content="Detailed content about this event or news.",
             category=random.choice(['news', 'event']),
         )
-
 
 
 # Create dummy comments

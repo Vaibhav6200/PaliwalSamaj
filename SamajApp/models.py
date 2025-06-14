@@ -37,22 +37,20 @@ class Member(models.Model):
         ('male', 'Male'),
         ('female', 'Female'),
     ]
-
     MARITAL_STATUS_CHOICES = [
         ('unmarried', 'Unmarried'),
         ('married', 'Married'),
     ]
-
     QUALIFICATION_CHOICES = [
         ('school', 'School'),
         ('undergraduate', 'Undergraduate'),
         ('graduate', 'Graduate'),
     ]
-
     OCCUPATION_CHOICES = [
         ('job', 'Job'),
         ('business', 'Business'),
     ]
+
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     father_name = models.CharField(max_length=100)
@@ -70,6 +68,8 @@ class Member(models.Model):
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES)
     occupation_type = models.CharField(max_length=20, choices=OCCUPATION_CHOICES)
+    facebook_link = models.URLField(null=True, blank=True)
+    instagram_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
@@ -157,3 +157,12 @@ class Comment(models.Model):
 
     def is_reply(self):
         return self.parent is not None
+
+
+class ClientSubscription(models.Model):
+    class Meta:
+        verbose_name_plural = 'Client Subscription'
+
+    email = models.EmailField(unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()

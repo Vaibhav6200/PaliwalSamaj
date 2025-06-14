@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from SamajApp.models import NewsEvent, Comment, Member
+from SamajApp.models import NewsEvent, Comment, Member, Family, ClientSubscription
 from django.contrib import messages
 
 
@@ -19,8 +21,16 @@ def community(request):
     return render(request, 'Samaj/community.html')
 
 
+@login_required
 def my_family(request):
-    return render(request, 'Samaj/my_family.html')
+    login_member = Member.objects.get(user = request.user)
+    all_family_members = Member.objects.filter(family=login_member.family)
+
+    context = {
+        'all_family_members': all_family_members,
+        'family_head': login_member.family.family_head,
+    }
+    return render(request, 'Samaj/my_family.html', context)
 
 
 def news_and_events(request):
@@ -97,3 +107,14 @@ def antyeshti_kriya_paddhati(request):
 
 def dasva_gyarahva_evam_barahva_karyakram(request):
     return render(request, "Culture/P10_dasva_gyarahva_evam_barahva_karyakram.html")
+
+
+def newsletter(request):
+    if request.method == "POST":
+        client_email = request.POST.get('email')
+        if client_email:
+            ClientSubscription.objects.get_or_create(email=client_email)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Email is required'}, status=400)
+    return None
