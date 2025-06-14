@@ -50,7 +50,57 @@ class Member(models.Model):
         ('job', 'Job'),
         ('business', 'Business'),
     ]
-
+    GOTRA_CHOICES = [
+        ('agastya', 'agastya'),
+        ('alambayana', 'alambayana'),
+        ('angirasa', 'angirasa'),
+        ('aankiras', 'aankiras'),
+        ('aarti', 'aarti'),
+        ('aashwalaayana', 'aashwalaayana'),
+        ('aatreya', 'aatreya'),
+        ('bhrigu', 'bhrigu'),
+        ('bhardwaja', 'bhardwaja'),
+        ('bhargava', 'bhargava'),
+        ('chandratreya', 'chandratreya'),
+        ('chyavana', 'chyavana'),
+        ('garga', 'garga'),
+        ('gautam', 'gautam'),
+        ('harita', 'harita'),
+        ('jamadagni', 'jamadagni'),
+        ('jambu', 'jambu'),
+        ('kaakshivan', 'kaakshivan'),
+        ('kanva', 'kanva'),
+        ('kapi', 'kapi'),
+        ('kashyapa', 'kashyapa'),
+        ('kaushika', 'kaushika'),
+        ('katyayana', 'katyayana'),
+        ('kaundinya', 'kaundinya'),
+        ('kutsa', 'kutsa'),
+        ('mandavya', 'mandavya'),
+        ('marichi', 'marichi'),
+        ('moudgalya', 'moudgalya'),
+        ('mrukandu', 'mrukandu'),
+        ('paingya', 'paingya'),
+        ('parashara', 'parashara'),
+        ('pulaha', 'pulaha'),
+        ('pulastya', 'pulastya'),
+        ('reva', 'reva'),
+        ('rishyashringa', 'rishyashringa'),
+        ('saandilya', 'saandilya'),
+        ('shaandilya', 'shaandilya'),
+        ('shakalya', 'shakalya'),
+        ('shandilya', 'shandilya'),
+        ('shatamarshana', 'shatamarshana'),
+        ('shaunak', 'shaunak'),
+        ('shukla', 'shukla'),
+        ('srivatsa', 'srivatsa'),
+        ('sutapa', 'sutapa'),
+        ('vadhoola', 'vadhoola'),
+        ('vasishta', 'vasishta'),
+        ('vatsa', 'vatsa'),
+        ('vishvamitra', 'vishvamitra'),
+        ('yajnavalkya', 'yajnavalkya'),
+    ]
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     father_name = models.CharField(max_length=100)
@@ -63,7 +113,7 @@ class Member(models.Model):
     height = models.DecimalField(max_digits=5, decimal_places=2, help_text="Height in cm")
     phone_number = models.CharField(max_length=15)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
-    gotra = models.CharField(max_length=100)
+    gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES)
     current_address = models.TextField()
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES)

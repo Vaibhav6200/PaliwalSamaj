@@ -4,6 +4,8 @@ import random
 from datetime import date, time
 from faker import Faker
 
+import SamajApp.models
+
 fake = Faker()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
@@ -13,7 +15,7 @@ from SamajApp.models import Family, Member, QualificationDetail, OccupationDetai
 from django.contrib.auth.models import User
 
 
-gotras = ['Bharadwaj', 'Vashishtha', 'Kashyap']
+gotras = SamajApp.models.Member.GOTRA_CHOICES
 locations = ['Udaipur', 'Ahmedabad', 'Jaipur']
 degrees = ['B.Tech', 'B.Sc', 'MCA', 'MBA']
 companies = ['TCS', 'Infosys', 'Wipro']
@@ -130,8 +132,8 @@ def populate_members(n):
             height=random.uniform(150, 180),
             phone_number=f"98765432{i:02}",
             whatsapp_number=f"98765432{i:02}",
-            gotra=random.choice(gotras),
-            current_address=random.choice(locations),
+            gotra=random.choice(gotras)[0],
+        current_address=random.choice(locations),
             qualification_type=random.choice(['school', 'undergraduate', 'graduate']),
             occupation_type=random.choice(['job', 'business'])
         )

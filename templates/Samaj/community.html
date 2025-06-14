@@ -7,158 +7,234 @@
     {% include 'Includes/navbar.html' %}
 
     <div id="banner-area" class="banner-area" style="background-image:url({% static 'images/banner/banner1.jpg' %})">
-    <div class="banner-text">
+        <div class="banner-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="banner-heading">
+                            <h1 class="banner-title">Community</h1>
+                        </div>
+                    </div><!-- Col end -->
+                </div><!-- Row end -->
+            </div><!-- Container end -->
+        </div><!-- Banner text end -->
+    </div><!-- Banner area end -->
+    <section id="main-container" class="main-container">
         <div class="container">
-            <div class="row">
-            <div class="col-lg-12">
-                <div class="banner-heading">
-                    <h1 class="banner-title">Community</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a href="#">About Us</a></li>
-                        <li class="breadcrumb-item"><a href="#">Community</a></li>
-                        </ol>
-                    </nav>
+            <form id="search_family_form">
+                <div class="text-center w-100 mb-5">
+                    <h2 class="fs-4">Search Any Member From <span class="text-warning">Paliwal Samaj</span></h2>
                 </div>
-            </div><!-- Col end -->
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </div><!-- Banner text end -->
-    </div><!-- Banner area end --> 
-<section id="main-container" class="main-container">
-  <div class="container">
-    <!-- content -->
-     <form class="" method="" action="" id="search_family_form">
-        <div class="text-center w-100 mb-5">
-            <h2 class="fs-4">Search Any Memeber From <span class="text-warning">Paliwal Samaj</span></h2>
-        </div>
-        <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input class="form-control form-control-name only_alphabets" name="name" id="name" maxlength="50" placeholder="Name" type="text" required>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-              <div class="form-group">
-              <label class="form-label">Age:</label>
-              <div class="form-control">
-                <div class="slider-wrapper w-100 pt-1">
-                  <div class="d-flex align-items-center justify-content-center">
-                      <div class="me-2 fw-bold" id="range1">0</div>
-                      <div class="slider-container">
-                          <div class="slider-track"></div>
-                          <input type="range" name="min_age_value" min="0" max="100" value="19" id="slider-1" oninput="slideOne()">
-                          <input type="range" name="max_age_value" min="0" max="100" value="30" id="slider-2" oninput="slideTwo()">
-                      </div>
-                      <div class="ms-2 fw-bold" id="range2">100</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="form-group">
-                    <label for="designation">Designation</label>
-                    <select name="designation" class="form-control" id="designation">
-                        <option value="" selected disabled>Select</option>
-                        <option value="0">अध्यक्ष</option>
-                        <option value="1">उपाध्यक्ष</option>
-                        <option value="2">प्रधान </option>
-                        <option value="3">समुदाय के वरिष्ठ</option>
-                        <option value="4">None</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="form-group">
-                    <label for="gotra">Gotra</label>
-                     <select name="gotra" class="form-control" id="gotra">
-                        <option value="" selected disabled>Select</option>
-                        <option value="0">option 1</option>
-                        <option value="1">option 2</option>
-                        <option value="2">option 3</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                     <select name="gender" class="form-control" id="gender" required>
-                        <option value="" selected disabled>Select</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-            </div>
-             <div class="col-12 col-md-6 col-lg-4">
-                <div class="form-group">
-                    <label for="education">Education</label>
-                     <select name="education" class="form-control" id="education">
-                        <option value="" selected disabled>Select</option>
-                        <option value="MBA">MBA</option>
-                        <option value="CE">CE</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-12 my-3 text-end">
-                <button class="btn btn-primary" type="submit">Search</button>
-            </div>
-        </div>
-     </form>
-  </div><!-- Conatiner end -->
-
-  <div class="container mt-5 pt-4">
-    <div class="border-bottom py-2"><h3 class="m-0">Result</h3></div>
-    <!-- If search has no results -->
-    <div class="py-3">Family Member Not Found 🥲</div>
-
-    <div class="row m-0 mt-4">
-        <div class="col-6 col-md-4 p-2">
-            <div class="my_family_card item">
-            <div class="ts-team-wrapper">
-                <div class="team-img-wrapper">
-                    <img loading="lazy" class="w-100" src="{% static 'images/team/team3.jpg' %}" alt="team-img">
-                </div>
-                <div class="ts-team-content">
-                    <h3 class="ts-name">Mark Conter</h3>
-                    <p class="ts-designation">Safety Officer</p>
-                    <div class="">
-                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                        <div class=""><span class="material-icons fs-5 ">call</span></div>
-                        <div class="text-white ms-2">+91 9998894923</div>
-                    </div>
-                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                        <div class="text-white ms-2">Ahmedabad</div>
-                    </div>
-                    </div>
-                    <div class="team-social-icons mt-2">
-                        <a target="_blank" href="#"><i class="fab fa-twitter"></i></a>
-                        <a target="_blank" href="#"><i class="fab fa-facebook"></i></a>
-                        <a target="_blank" href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                    <div class="row m-0 p-0 mt-3">
-                        <div class="col-12 p-0">
-                            <a href="" class="btn btn-light fw-bold rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
-                                <span class="material-icons me-2">diversity_3</span>Show Family
-                            </a>
+                <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control form-control-name only_alphabets" name="name" id="name"
+                                   maxlength="50" placeholder="Name" type="text">
                         </div>
                     </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="gotra">Gotra</label>
+                            <select name="gotra" class="form-control" id="gotra">
+                                <option value="" selected disabled>Select Gotra</option>
+                                <option value="agastya">Agastya</option>
+                                <option value="alambayana">Alambayana</option>
+                                <option value="angirasa">Angirasa</option>
+                                <option value="aankiras">Aankiras</option>
+                                <option value="aarti">Aarti</option>
+                                <option value="aashwalaayana">Aashwalaayana</option>
+                                <option value="aatreya">Aatreya</option>
+                                <option value="bhrigu">Bhrigu</option>
+                                <option value="bhardwaja">Bhardwaja</option>
+                                <option value="bhargava">Bhargava</option>
+                                <option value="chandratreya">Chandratreya</option>
+                                <option value="chyavana">Chyavana</option>
+                                <option value="garga">Garga</option>
+                                <option value="gautam">Gautam</option>
+                                <option value="harita">Harita</option>
+                                <option value="jamadagni">Jamadagni</option>
+                                <option value="jambu">Jambu</option>
+                                <option value="kaakshivan">Kaakshivan</option>
+                                <option value="kanva">Kanva</option>
+                                <option value="kapi">Kapi</option>
+                                <option value="kashyapa">Kashyapa</option>
+                                <option value="kaushika">Kaushika</option>
+                                <option value="katyayana">Katyayana</option>
+                                <option value="kaundinya">Kaundinya</option>
+                                <option value="kutsa">Kutsa</option>
+                                <option value="mandavya">Mandavya</option>
+                                <option value="marichi">Marichi</option>
+                                <option value="moudgalya">Moudgalya</option>
+                                <option value="mrukandu">Mrukandu</option>
+                                <option value="paingya">Paingya</option>
+                                <option value="parashara">Parashara</option>
+                                <option value="pulaha">Pulaha</option>
+                                <option value="pulastya">Pulastya</option>
+                                <option value="reva">Reva</option>
+                                <option value="rishyashringa">Rishyashringa</option>
+                                <option value="saandilya">Saandilya</option>
+                                <option value="shaandilya">Shaandilya</option>
+                                <option value="shakalya">Shakalya</option>
+                                <option value="shandilya">Shandilya</option>
+                                <option value="shatamarshana">Shatamarshana</option>
+                                <option value="shaunak">Shaunak</option>
+                                <option value="shukla">Shukla</option>
+                                <option value="srivatsa">Srivatsa</option>
+                                <option value="sutapa">Sutapa</option>
+                                <option value="vadhoola">Vadhoola</option>
+                                <option value="vasishta">Vasishta</option>
+                                <option value="vatsa">Vatsa</option>
+                                <option value="vishvamitra">Vishvamitra</option>
+                                <option value="yajnavalkya">Yajnavalkya</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="education">Education</label>
+                            <select name="education" class="form-control" id="education">
+                                <option value="" selected disabled>Select</option>
+                                <!-- Undergraduate Degrees -->
+                                <option value="B.A.">B.A. (Bachelor of Arts)</option>
+                                <option value="B.Sc.">B.Sc. (Bachelor of Science)</option>
+                                <option value="B.Com.">B.Com. (Bachelor of Commerce)</option>
+                                <option value="BBA">BBA (Bachelor of Business Administration)</option>
+                                <option value="BCA">BCA (Bachelor of Computer Applications)</option>
+                                <option value="B.Tech">B.Tech (Bachelor of Technology)</option>
+                                <option value="BE">B.E. (Bachelor of Engineering)</option>
+                                <option value="LLB">LLB (Bachelor of Laws)</option>
+                                <option value="MBBS">MBBS (Bachelor of Medicine and Bachelor of Surgery)</option>
+
+                                <!-- Postgraduate Degrees -->
+                                <option value="M.A.">M.A. (Master of Arts)</option>
+                                <option value="M.Sc.">M.Sc. (Master of Science)</option>
+                                <option value="M.Com.">M.Com. (Master of Commerce)</option>
+                                <option value="MBA">MBA (Master of Business Administration)</option>
+                                <option value="MCA">MCA (Master of Computer Applications)</option>
+                                <option value="M.Tech">M.Tech (Master of Technology)</option>
+                                <option value="ME">M.E. (Master of Engineering)</option>
+                                <option value="LLM">LLM (Master of Laws)</option>
+                                <option value="MD">MD (Doctor of Medicine)</option>
+
+                                <!-- Diplomas and Certifications -->
+                                <option value="Diploma">Diploma</option>
+                                <option value="ITI">ITI (Industrial Training Institute)</option>
+                                <option value="Polytechnic">Polytechnic</option>
+                                <option value="Certification">Certification Course</option>
+
+                                <!-- Doctoral -->
+                                <option value="PhD">Ph.D. (Doctor of Philosophy)</option>
+                                <option value="D.Litt">D.Litt (Doctor of Literature)</option>
+
+                                <!-- Others -->
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select name="gender" class="form-control" id="gender">
+                                <option value="" selected disabled>Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="form-group">
+                            <label class="form-label">Age:</label>
+                            <div class="form-control">
+                                <div class="slider-wrapper w-100 pt-1">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="me-2 fw-bold" id="range1">0</div>
+                                        <div class="slider-container">
+                                            <div class="slider-track"></div>
+                                            <input type="range" name="min_age_value" min="1" max="100" value="{{min_age_default_value}}"
+                                                   id="slider-1" oninput="slideOne()">
+                                            <input type="range" name="max_age_value" min="1" max="100" value="{{max_age_default_value}}"
+                                                   id="slider-2" oninput="slideTwo()">
+                                        </div>
+                                        <div class="ms-2 fw-bold" id="range2">100</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 my-3 text-end">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
                 </div>
-            </div><!--/ Team wrapper end -->
+            </form>
+        </div>
+
+        <div class="container mt-5 pt-4">
+            <div class="border-bottom py-2"><h3 class="m-0">Result</h3></div>
+            <div class="row m-0 mt-4">
+                {% if community_members %}
+                {% for member in community_members %}
+                <div class="col-6 col-md-4 p-2">
+                    <div class="my_family_card item">
+                        <div class="ts-team-wrapper">
+                            <div class="team-img-wrapper">
+                                {% if member.profile_image %}
+                                <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
+                                {% else %}
+                                <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}"
+                                     alt="team-img">
+                                {% endif %}
+                            </div>
+                            <div class="ts-team-content">
+                                <h3 class="ts-name">{{ member.user.first_name }} {{ member.user.last_name }}</h3>
+                                <p class="ts-designation">Gotra: {{ member.gotra }}</p>
+                                <div class="">
+                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                        <div class=""><span class="material-icons fs-5 ">call</span></div>
+                                        <div class="text-white ms-2">{{ member.phone_number }}</div>
+                                    </div>
+                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                        <div class="text-white ms-2">{{ member.current_address }}</div>
+                                    </div>
+                                </div>
+                                <div class="team-social-icons mt-2">
+                                    {% if member.facebook_link %}
+                                    <a target="_blank" href="{{ member.facebook_link }}"><i class="fab fa-facebook"></i></a>
+                                    {% endif %}
+                                    {% if member.instagram_link %}
+                                    <a target="_blank" href="{{ member.instagram_link }}"><i
+                                            class="fab fa-linkedin"></i></a>
+                                    {% endif %}
+                                </div>
+                                <div class="row m-0 p-0 mt-3">
+                                    <div class="col-12 p-0">
+                                        <a href=""
+                                           class="btn btn-light fw-bold rounded-0 d-flex py-3 h-100 justify-content-center align-items-center">
+                                            <span class="material-icons me-2">diversity_3</span>Show Family
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--/ Team wrapper end -->
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="py-3">Family Member Not Found 🥲</div>
+                {% endif %}
             </div>
         </div>
-    </div>
-  </div>
-</section><!-- Main container end -->
+    </section>
 
     {% include 'Includes/footer.html' %}
 </main>
 {% endblock %}
 
 {% block javascripts %}
-  <script src="{% static 'js/bio_data_form.js' %}"></script>
-  <script src="{% static 'js/validation.js' %}"></script>
-  <script src="{% static 'js/community.js' %}"></script>
+<script src="{% static 'js/bio_data_form.js' %}"></script>
+<script src="{% static 'js/validation.js' %}"></script>
+<script src="{% static 'js/community.js' %}"></script>
 {% endblock %}

@@ -3,7 +3,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail
 from django.contrib import messages
-from .utils import generate_username
+from .utils import generate_username, calculate_age
+from datetime import date, timedelta
+from django.db.models import Q
+
 
 
 def index(request):
@@ -101,7 +104,57 @@ def handle_bio_data_form(request, family_code):
 
 
 def community(request):
-    return render(request, 'Samaj/community.html')
+    context = {
+        'min_age_default_value': 10,
+        'max_age_default_value': 20,
+    }
+
+    community_members = Member.objects.all()
+    if request.method == 'GET':
+        name = request.GET.get('name')
+        min_age_value = request.GET.get('min_age_value')
+        max_age_value = request.GET.get('max_age_value')
+        gotra = request.GET.get('gotra')
+        gender = request.GET.get('gender')
+        education = request.GET.get('education')
+
+        # 🔍 Name filtering (splitting and checking each word in both first_name and last_name)
+        if name:
+            name_parts = name.strip().split()
+            for part in name_parts:
+                community_members = (
+                    community_members.filter(user__first_name__icontains=part) |
+                    community_members.filter(user__last_name__icontains=part)
+                )
+
+        today = date.today()
+        if min_age_value and max_age_value:
+            context['min_age_default_value'] = min_age_value
+            context['max_age_default_value'] = max_age_value
+
+            max_dob = today - timedelta(days=int(min_age_value) * 365)
+            min_dob = today - timedelta(days=int(max_age_value) * 365)
+            community_members = community_members.filter(date_of_birth__range=(min_dob, max_dob))
+        elif min_age_value:
+            context['min_age_default_value'] = min_age_value
+            max_dob = today - timedelta(days=int(min_age_value) * 365)
+            community_members = community_members.filter(date_of_birth__lte=max_dob)
+        elif max_age_value:
+            context['max_age_default_value'] = max_age_value
+            min_dob = today - timedelta(days=int(max_age_value) * 365)
+            community_members = community_members.filter(date_of_birth__gte=min_dob)
+
+        if gotra:
+            community_members = community_members.filter(gotra__icontains=gotra)
+
+        if gender:
+            community_members = community_members.filter(gender=gender)
+
+        if education:
+            community_members = community_members.filter(qualification_detail__degree_name__icontains=education)
+
+    context['community_members'] = community_members
+    return render(request, 'Samaj/community.html', context)
 
 
 @login_required
