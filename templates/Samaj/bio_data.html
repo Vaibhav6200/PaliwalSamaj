@@ -13,6 +13,11 @@
                     <h3 class="column-title mb-2">Bio Data</h3>
                     <form id="contact-form" class="pt-4" action="{% url 'samaj:handle_bio_data_form' family_code %}" method="post" role="form" enctype="multipart/form-data">
                         {% csrf_token %}
+
+                        {% if edit_member_user_id %}
+                            <input type="hidden" name="edit_member_user_id" value="{{ edit_member_user_id }}">
+                        {% endif %}
+
                         <div class="row">
                             <!-- Personal Details -->
                             <div class="my-4">
@@ -20,136 +25,137 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>First Name</label>
-                                    <input class="form-control form-control-name" name="first_name" id="first_name"
-                                           placeholder="Vaibhav" type="text" required>
+                                    <label for="first_name">First Name</label>
+                                    <input class="form-control form-control-name" name="first_name" id="first_name" type="text" required
+                                           value="{{ edit_member.user.first_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Last Name</label>
-                                    <input class="form-control form-control-name" name="last_name" id="last_name"
-                                           placeholder="Paliwal" type="text" required>
+                                    <label for="last_name">Last Name</label>
+                                    <input class="form-control form-control-name" name="last_name" id="last_name" type="text" required
+                                    value="{{ edit_member.user.last_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Father Name</label>
-                                    <input class="form-control form-control-email" name="father_name" id="father_name"
-                                           placeholder="Father Name" type="text"
-                                           required>
+                                    <input class="form-control form-control-email" name="father_name" id="father_name" type="text" required
+                                    value="{{ edit_member.father_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Mother Name</label>
-                                    <input class="form-control form-control-name" name="mother_name" id="mother_name"
-                                           placeholder="Mother Name" type="text"
-                                           required>
+                                    <input class="form-control form-control-name" name="mother_name" id="mother_name" type="text" required
+                                    value="{{ edit_member.mother_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Date Of Birth</label>
-                                    <input type="date" class="form-control form-control-subject" name="date_of_birth"
-                                           id="date_of_birth" placeholder="Date Of Birth" required>
+                                    <input type="date" class="form-control form-control-subject" name="date_of_birth" id="date_of_birth" required
+                                    value="{{ edit_member.date_of_birth|date:'Y-m-d' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Birth Place</label>
-                                    <input type="text" class="form-control form-control-subject" name="birth_place"
-                                           id="birth_place" placeholder="Birth Place" required>
+                                    <input type="text" class="form-control form-control-subject" name="birth_place" id="birth_place" required
+                                    value="{{ edit_member.birth_place|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Birth Time</label>
-                                    <input type="time" class="form-control form-control-subject" name="birth_time"
-                                           id="birth_time" placeholder="Birth Time" required>
+                                    <input type="time" class="form-control form-control-subject" name="birth_time" id="birth_time" required
+                                    value="{{ edit_member.birth_time|time:'H:i' }}">
                                 </div>
                             </div>
+                            <!-- Gender -->
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Gender</label>
-                                    <select name="gender" class="form-control" id="">
-                                        <option value="" selected disabled>Selected</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                    <select name="gender" class="form-control" id="gender">
+                                        <option value="" disabled {% if not edit_member.gender %}selected{% endif %}>Select</option>
+                                        <option value="male" {% if edit_member.gender == 'male' %}selected{% endif %}>Male</option>
+                                        <option value="female" {% if edit_member.gender == 'female' %}selected{% endif %}>Female</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Marital Status</label>
-                                    <select name="marital_status" class="form-control" id="">
-                                        <option value="" selected disabled>Marital Status Selected</option>
-                                        <option value="single">single</option>
-                                        <option value="married">married</option>
+                                    <select name="marital_status" class="form-control" id="marital_status">
+                                        <option value="" disabled {% if not edit_member.marital_status %}selected{% endif %}>Select</option>
+                                        <option value="unmarried" {% if edit_member.marital_status == 'unmarried' %}selected{% endif %}>Unmarried</option>
+                                        <option value="married" {% if edit_member.marital_status == 'married' %}selected{% endif %}>Married</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Height (In Centimeter)</label>
-                                    <input type="number" class="form-control form-control-subject" name="height"
-                                           id="height" placeholder="168 cm" required>
+                                    <input type="number" class="form-control form-control-subject" name="height" id="height" min="0" placeholder="168" required
+                                    value="{{ edit_member.height|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Phone Number</label>
-                                    <input type="number" class="form-control form-control-subject" name="phone_number"
-                                           id="phone_number" placeholder="9998895923" required>
+                                    <label>Phone Number (10 digit)</label>
+                                    <input type="number" class="form-control form-control-subject" name="phone_number" id="phone_number" placeholder="9988776655" required
+                                    value="{{ edit_member.phone_number|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Whatsapp Number</label>
-                                    <input type="number" class="form-control form-control-subject"
-                                           name="whatsapp_number" id="whatsapp_number" placeholder="9998895923"
-                                           required>
+                                    <label>Whatsapp Number (10 digit)</label>
+                                    <input type="number" class="form-control form-control-subject" name="whatsapp_number" id="whatsapp_number" placeholder="9988776655" required
+                                    value="{{ edit_member.whatsapp_number|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>Email (optional)</label>
                                     <input type="text" class="form-control form-control-email" name="email" id="email"
-                                           placeholder="vaibhavpailwal@gmail.com">
+                                    value="{{ edit_member.user.email|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Gotra</label>
-                                    <input type="text" class="form-control form-control-object" name="gotra" id="gotra"
-                                           placeholder="gotra" required>
+                                    <input type="text" class="form-control form-control-object" name="gotra" id="gotra" required
+                                    value="{{ edit_member.gotra|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text" class="form-control form-control-object" name="address"
-                                           id="address" placeholder="Address" required>
+                                    <input type="text" class="form-control form-control-object" name="address" id="address" required
+                                    value="{{ edit_member.current_address|default:'' }}">
                                 </div>
                             </div>
                             <!-- Profile Image -->
                             <div class="d-flex pb-3 align-items-center mt-2">
-                                <div class=" position-relative mt-2 mt-lg-0 text-center">
+                                <div class="position-relative mt-2 mt-lg-0 text-center">
                                     <button type="button"
                                             class="d-flex align-items-center justify-content-center btn-sm btn-danger rounded-circle position-absolute p-0 border-0 remove-profile-btn end-0 top-25 d-none"
                                             id="remove-img-btn">
                                         <span class="material-icons text-white fw-bold fs-5 m-0">close</span>
                                     </button>
+
                                     <img class="border-2 border-primary-600 rounded"
-                                         src="{% static 'images/profile.png' %}" alt="profile-image" width="100"
-                                         height="100" id="previewImage">
+                                         src="{% if edit_member.profile_image %}{{ edit_member.profile_image.url }}{% else %}{% static 'images/profile.png' %}{% endif %}"
+                                         alt="profile-image" width="100" height="100" id="previewImage">
                                 </div>
+
                                 <label for="profileImage" class="profile-upload-btn ms-4">
                                     <span>Profile Image</span>
                                     <input class="form-control mt-1" type="file" name="profileImage" id="profileImage"
-                                           accept=".jpg, .jpeg, .png" required>
+                                           accept=".jpg, .jpeg, .png" {% if not edit_member.profile_image %}required{% endif %}>
                                 </label>
                             </div>
+
                             <!-- Educational Details -->
                             <div class="my-4">
                                 <h4 class="column-title mb-2">Educational Details</h4>
@@ -158,39 +164,40 @@
                                 <div class="form-group">
                                     <label>Qualification</label>
                                     <select name="qualification" class="form-control" id="qualification">
-                                        <option value="" selected disabled>Select Qualification</option>
-                                        <option value="undergraduate">Undergraduate</option>
-                                        <option value="graduate">Graduate</option>
-                                        <option value="school">School</option>
+                                        <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select Qualification</option>
+                                        <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>Undergraduate</option>
+                                        <option value="graduate" {% if edit_member.qualification_type == 'graduate' %}selected{% endif %}>Graduate</option>
+                                        <option value="school" {% if edit_member.qualification_type == 'school' %}selected{% endif %}>School</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-12 col-md-6 school_field d-none">
                                 <div class="form-group">
-                                    <label>Class</label>
-                                    <input type="number" min="0" max="12" class="form-control form-control-subject" name="school_class"
-                                           id="school_class" placeholder="10">
+                                    <label>Class (1 - 12)</label>
+                                    <input type="number" min="1" max="12" class="form-control form-control-subject" name="school_class" id="school_class"
+                                    value="{{ edit_member.qualification_detail.school_class|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 school_field d-none">
                                 <div class="form-group">
                                     <label>School Name</label>
-                                    <input type="text" class="form-control form-control-subject" name="school_name"
-                                           id="school_name" placeholder="School Name">
+                                    <input type="text" class="form-control form-control-subject" name="school_name" id="school_name"
+                                    value="{{ edit_member.qualification_detail.school_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 ugpg_field d-none">
                                 <div class="form-group">
                                     <label>College/University Name</label>
-                                    <input type="text" class="form-control form-control-subject" name="college_name"
-                                           id="collge_uni_name" placeholder="College/University Name">
+                                    <input type="text" class="form-control form-control-subject" name="college_name" id="collge_uni_name"
+                                    value="{{ edit_member.qualification_detail.college_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 ugpg_field d-none">
                                 <div class="form-group">
                                     <label>Degree Name</label>
-                                    <input type="text" class="form-control form-control-subject" name="degree_name"
-                                           id="degree_name" placeholder="College/Degree Name">
+                                    <input type="text" class="form-control form-control-subject" name="degree_name" id="degree_name"
+                                    value="{{ edit_member.qualification_detail.degree_name|default:'' }}">
                                 </div>
                             </div>
 
@@ -202,32 +209,32 @@
                                 <div class="form-group">
                                     <label>Occupation</label>
                                     <select name="occupation" class="form-control" id="occupation">
-                                        <option value="" selected disabled>Select Occupation</option>
-                                        <option value="job">Job</option>
-                                        <option value="business">Business</option>
+                                        <option value="" disabled {% if not edit_member.occupation_type %}selected{% endif %}>Select Occupation</option>
+                                        <option value="job" {% if edit_member.occupation_type == 'job' %}selected{% endif %}>Job</option>
+                                        <option value="business" {% if edit_member.occupation_type == 'business' %}selected{% endif %}>Business</option>
                                     </select>
                                 </div>
                             </div>
+
                             <!-- Job Fields -->
                             <div class="col-12 col-md-6 job_field d-none">
                                 <div class="form-group">
                                     <label>Company Name</label>
-                                    <input type="text" class="form-control form-control-subject" name="company_name"
-                                           id="company_name" placeholder="Company Name">
+                                    <input type="text" class="form-control form-control-subject" name="company_name" id="company_name"
+                                    value="{{ edit_member.occupation_detail.company_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 job_field d-none">
                                 <div class="form-group">
                                     <label>Location</label>
-                                    <input type="text" class="form-control form-control-subject" name="job_location"
-                                           id="job_location" placeholder="Location">
+                                    <input type="text" class="form-control form-control-subject" name="job_location" id="job_location"
+                                    value="{{ edit_member.occupation_detail.company_location|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group job_field d-none">
                                     <label>Job Description</label>
-                                    <textarea class="form-control form-control-message" name="job_description"
-                                              id="job_description" placeholder="Description" rows="10"></textarea>
+                                    <textarea class="form-control form-control-message" name="job_description" id="job_description" rows="10">{{ edit_member.occupation_detail.job_description|default:'' }}</textarea>
                                 </div>
                             </div>
 
@@ -235,22 +242,22 @@
                             <div class="col-12 col-md-6 business_field d-none">
                                 <div class="form-group">
                                     <label>Business Name</label>
-                                    <input type="text" class="form-control form-control-subject" name="business_name"
-                                           id="business_name" placeholder="Business Name">
+                                    <input type="text" class="form-control form-control-subject" name="business_name" id="business_name"
+                                    value="{{ edit_member.occupation_detail.business_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 business_field d-none">
                                 <div class="form-group">
                                     <label>Business Location</label>
-                                    <input type="text" class="form-control form-control-subject"
-                                           name="business_location" id="business_location" placeholder="Location">
+                                    <input type="text" class="form-control form-control-subject" name="business_location" id="business_location"
+                                    value="{{ edit_member.occupation_detail.business_location|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group business_field d-none">
                                     <label>Business Description</label>
                                     <textarea class="form-control form-control-message" name="business_description"
-                                              id="business_description" placeholder="Description" rows="10"></textarea>
+                                              id="business_description" rows="10">{{ edit_member.occupation_detail.business_description|default:'' }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -262,13 +269,15 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Instagram Link (optional)</label>
-                                    <input type="text" class="form-control form-control-subject" name="instagram_link" placeholder="https://www.instagram.com/vaibhavpaliwal620/">
+                                    <input type="text" class="form-control form-control-subject" name="instagram_link"
+                                    value="{{ edit_member.instagram_link|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label>Facebook Link (optional)</label>
-                                    <input type="text" class="form-control form-control-subject" name="facebook_link" placeholder="https://www.facebook.com/vaibhav.paliwal.1420/">
+                                    <input type="text" class="form-control form-control-subject" name="facebook_link"
+                                    value="{{ edit_member.facebook_link|default:'' }}">
                                 </div>
                             </div>
                         </div>

@@ -569,4 +569,4 @@ def convert_kruti_excel(input_file, output_file, skip_columns):
 if __name__ == '__main__':
    # Note: column starts from 0
     skip_columns = [1, 7, 8, 9, 11, 12, 14, 19, 23, 25, 26 ]
-    convert_kruti_excel('paliwal_samaj_data.xlsx', 'paliwal_samaj_data_unicode.xlsx', skip_columns)
+    convert_kruti_excel('static/paliwal_samaj_data.xlsx', '../static/paliwal_samaj_data_unicode.xlsx', skip_columns)

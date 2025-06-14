@@ -39,7 +39,16 @@ class MemberAdmin(admin.ModelAdmin):
 
 @admin.register(QualificationDetail)
 class QualificationDetailAdmin(admin.ModelAdmin):
-    list_display = ('id', 'member', 'class_name', 'college_name', 'degree_name', 'created_at', 'updated_at')
+    list_display = (
+        'id',
+        'member',
+        'school_class',
+        'school_name',
+        'college_name',
+        'degree_name',
+        'created_at',
+        'updated_at'
+    )
     list_display_links = ('id', 'member')
 
 

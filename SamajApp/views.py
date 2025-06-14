@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail
 from django.contrib import messages
 from .utils import generate_username
@@ -16,108 +16,88 @@ def index(request):
 
 @login_required
 def bio_data(request):
-    context = {
-        'family_code': Member.objects.get(user=request.user).family.family_code
-    }
+    context = {'family_code': Member.objects.get(user=request.user).family.family_code}
+    if request.method == 'POST':
+        edit_member_user_id = request.POST.get('user_id')
+        context['edit_member'] = Member.objects.get(user__id = edit_member_user_id)
     return render(request, 'Samaj/bio_data.html', context)
 
 
 @login_required
 def handle_bio_data_form(request, family_code):
     if request.method == 'POST':
+        user_id = request.POST.get('edit_member_user_id')
+        family = get_object_or_404(Family, family_code=family_code)
+
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
 
-        curr_user = User.objects.create(
-            username = generate_username(first_name, last_name),
-            first_name = first_name,
-            last_name = last_name,
-            email = request.POST.get('email', None),
-        )
+        # Check if we're updating or creating
+        if user_id:
+            # UPDATE FLOW
+            user = get_object_or_404(User, id=user_id)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+            user.save()
 
-        member = Member(
-            family = Family.objects.get(family_code=family_code),
-            user = curr_user,
-            father_name = request.POST.get('father_name'),
-            mother_name = request.POST.get('mother_name'),
-            date_of_birth = request.POST.get('date_of_birth'),
-            birth_place = request.POST.get('birth_place'),
-            birth_time = request.POST.get('birth_time'),
-            gender = request.POST.get('gender'),
-            marital_status = request.POST.get('marital_status'),
-            height = request.POST.get('height'),
-            phone_number = request.POST.get('phone_number'),
-            whatsapp_number = request.POST.get('whatsapp_number'),
-            gotra = request.POST.get('gotra'),
-            current_address = request.POST.get('address'),
-            profile_image = request.FILES.get('profileImage'),
-            qualification_type = request.POST.get('qualification'),
-            occupation_type = request.POST.get('occupation'),
-            instagram_link = request.POST.get('instagram_link'),
-            facebook_link = request.POST.get('facebook_link'),
-        )
+            member, _ = Member.objects.get_or_create(user=user, family=family)
+            messages.success(request, 'Profile Updated Successfully')
+        else:
+            # CREATE FLOW
+            user = User.objects.create(
+                username=generate_username(first_name, last_name),
+                first_name=first_name,
+                last_name=last_name,
+                email=email
+            )
+            member = Member(user=user, family=family)
+            messages.success(request, 'Member Added Successfully')
+
+        # Common fields (both for create & update)
+        member.father_name = request.POST.get('father_name')
+        member.mother_name = request.POST.get('mother_name')
+        member.date_of_birth = request.POST.get('date_of_birth')
+        member.birth_place = request.POST.get('birth_place')
+        member.birth_time = request.POST.get('birth_time')
+        member.gender = request.POST.get('gender')
+        member.marital_status = request.POST.get('marital_status')
+        member.height = request.POST.get('height')
+        member.phone_number = request.POST.get('phone_number')
+        member.whatsapp_number = request.POST.get('whatsapp_number')
+        member.gotra = request.POST.get('gotra')
+        member.current_address = request.POST.get('address')
+        member.qualification_type = request.POST.get('qualification')
+        member.occupation_type = request.POST.get('occupation')
+        member.instagram_link = request.POST.get('instagram_link')
+        member.facebook_link = request.POST.get('facebook_link')
+
+        profile_image = request.FILES.get('profileImage')
+        if profile_image:
+            member.profile_image = profile_image
+
         member.save()
 
-        QualificationDetail.objects.create(
-            member = member,
-            class_name = request.POST.get('school_class'),
-            school_name = request.POST.get('school_name', None),
-            college_name = request.POST.get('college_name'),
-            degree_name = request.POST.get('degree_name')
-        )
+        # Qualification Details
+        qualification, _ = QualificationDetail.objects.get_or_create(member=member)
+        qualification.school_class = request.POST.get('school_class')
+        qualification.school_name = request.POST.get('school_name')
+        qualification.college_name = request.POST.get('college_name')
+        qualification.degree_name = request.POST.get('degree_name')
+        qualification.save()
 
-        OccupationDetail.objects.create(
-            member = member,
-            company_name = request.POST.get('company_name'),
-            company_location = request.POST.get('job_location'),
-            job_description = request.POST.get('job_description'),
-            business_name = request.POST.get('business_name'),
-            business_location = request.POST.get('business_location'),
-            business_description = request.POST.get('business_description')
-        )
+        # Occupation Details
+        occupation, _ = OccupationDetail.objects.get_or_create(member=member)
+        occupation.company_name = request.POST.get('company_name')
+        occupation.company_location = request.POST.get('job_location')
+        occupation.job_description = request.POST.get('job_description')
+        occupation.business_name = request.POST.get('business_name')
+        occupation.business_location = request.POST.get('business_location')
+        occupation.business_description = request.POST.get('business_description')
+        occupation.save()
 
-        messages.success(request, 'Member Added Successfully')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
-
-
-@login_required
-def handle_edit_bio_data_form(request, family_code):
-    if request.method == 'POST':
-        family = Family.objects.get(family_code=family_code)
-
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        father_name = request.POST.get('father_name')
-        mother_name = request.POST.get('mother_name')
-        date_of_birth = request.POST.get('date_of_birth')
-        birth_place = request.POST.get('birth_place')
-        birth_time = request.POST.get('birth_time')
-        gender = request.POST.get('gender')
-        marital_status = request.POST.get('marital_status')
-        height = request.POST.get('height')
-        phone_number = request.POST.get('phone_number')
-        whatsapp_number = request.POST.get('whatsapp_number')
-        gotra = request.POST.get('gotra')
-        current_address = request.POST.get('address')
-        profile_image = request.FILES.get('profileImage')
-        qualification_type = request.POST.get('qualification')
-        occupation_type = request.POST.get('occupation')
-        instagram_link = request.POST.get('instagram_link')
-        facebook_link = request.POST.get('facebook_link')
-        class_name = request.POST.get('school_class')
-        school_name = request.POST.get('school_name', None)
-        college_name = request.POST.get('college_name')
-        degree_name = request.POST.get('degree_name')
-        company_name = request.POST.get('company_name')
-        company_location = request.POST.get('job_location')
-        job_description = request.POST.get('job_description')
-        business_name = request.POST.get('business_name')
-        business_location = request.POST.get('business_location')
-        business_description = request.POST.get('business_description')
-
-        messages.success(request, 'Profile Updated Successfully')
-    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
-
 
 
 def community(request):

@@ -83,7 +83,7 @@ class QualificationDetail(models.Model):
         verbose_name_plural = 'Qualification Details'
 
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='qualification_detail')
-    class_name = models.CharField(max_length=20, blank=True, null=True)  # Only if School
+    school_class = models.CharField(max_length=20, blank=True, null=True)  # Only if School
     school_name = models.CharField(max_length=255, blank=True, null=True)
     college_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
     degree_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
