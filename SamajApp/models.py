@@ -167,3 +167,28 @@ class Newsletter(models.Model):
     email = models.EmailField(unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
+
+
+class SamajMemberRoles(models.Model):
+    class Meta:
+        verbose_name_plural = 'Samaj Member Roles'
+
+    ROLE_CHOICES = [
+        ('sanrakshak', 'Sanrakshak'),
+        ('mahila_adhyaksh', 'Mahila Adhyaksh'),
+        ('koshadhyaksh', 'Koshadhyaksh'),
+        ('saha_sachiv', 'Saha Sachiv'),
+        ('salahkaar', 'Salahkaar'),
+        ('aayojan_samiti', 'Aayojan Samiti'),
+        ('karyakari_sadasya', 'Karyakari Sadasya'),
+    ]
+    member_name = models.CharField(max_length=255)
+    member_image = models.FileField('samaj_role_members')
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES, unique=True)
+    location = models.CharField(max_length=100, null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.member_name} - {self.role}"

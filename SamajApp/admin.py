@@ -107,3 +107,17 @@ class NewsletterAdmin(admin.ModelAdmin):
     )
     list_display_links = ('id', 'email')
 
+
+@admin.register(SamajMemberRoles)
+class SamajMemberRolesAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'member_name',
+        'member_image',
+        'role',
+        'location',
+        'phone_number',
+        'created_at',
+    )
+    list_display_links = ('id', 'member_name')
+

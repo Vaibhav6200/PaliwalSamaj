@@ -19,6 +19,66 @@ degrees = ['B.Tech', 'B.Sc', 'MCA', 'MBA']
 companies = ['TCS', 'Infosys', 'Wipro']
 businesses = ['Paliwal Traders', 'Samaj Marble', 'Heritage Textiles']
 
+adhyaksh = [
+    ('Shri Bheru Lal Paliwal', 'Kannauj', 'BHERU_LAL_JI_PALIWAL_kannauj.JPG', '9530164855')
+]
+
+upadhyaksh = [
+    ('Shrimati Shobha Lal Paliwal', 'Kannauj', 'SHOBHA LAL JI PALIWAL.JPG', '7568930566')
+]
+
+sachiv = [
+    ('Shri Pradeep Purohit', 'Chittorgarh', 'PRADEEP JI PUROHIT.JPG', '9413791302'),
+]
+
+sanrakshak = [
+	('Shri D. S. Joshi', 'Chittorgarh', 'DS_JOSHI_SB.JPG'),
+	('Shri Ramchandra Purohit', 'Lopda', 'RAM CHANDAR JI PUROHIT.JPG'),
+	('Shri Premprakash Purohit', 'Shiro. ka Samta', 'PREM PRAKASH JI PUROHIT.JPG'),
+	('Shri Banshilal Paliwal', 'Kannauj', 'BANSHI LAL JI PUROHIT.JPG'),
+	('Shri Kanchanlal Paliwal', 'Bhootlavash', ''),
+	('Shri Amrutlal Purohit', 'Bherda', '')
+]
+
+mahila_adhyaksh = [
+    ('Shrimati Sushma Purohit', 'Chittorgarh', 'SUSHMA JI PUROHIT.JPG')
+]
+
+koshadhyaksh = [
+    ('Shri Premnarayan Paliwal', 'Bhootlavash', 'PREM NARAYAN JI PALIWAL.JPG')
+]
+
+saha_sachiv = [
+    ('Shri Dinesh Kumar Purohit', 'Siyaliya', 'DINESH CHANDAR JI PUROHIT.JPG')
+]
+
+salahkaar = [
+	('Shri Azad Paliwal', 'Samta', 'azad_paliwal_salahkar.jpeg'),
+	('Shri Bherulal Purohit', 'Samta', 'BHERU LAL PALIWAL JI Samta.JPG'),
+	('Shri Chandrashekhar Purohit', 'Devgad', 'CHANDAR SHEKHAR JI PUROHIT.JPG'),
+	('Shri Narendra Paliwal', 'Tai', 'NARENDAR JI PALIWAL.JPG'),
+	('Shri Harish Purohit', 'Bherda', ''),
+	('Shri Kamlesh Purohit', 'Chittorgarh', ''),
+	('Shrimati Priyanka Paliwal', 'Chittorgarh', ''),
+]
+
+aayojan_samiti = [
+	('Shri Shankarlal Paliwal', 'Hoda', 'SHANKAR LAL JI PALIWAL.jpeg'),
+	('Shri Udaylal Paliwal', 'Kannauj', 'UDAY LAL JI PALIWAL.JPG'),
+	('Shri Himanshu Purohit', 'Samta', 'HIMANSHU JI SAMTA.JPG'),
+	('Shri Naresh Paliwal', 'Senti', ''),
+]
+
+executive_members = [
+	('Shri Umesh Paliwal', 'Tai', 'UMESH JI PALIWAL.JPG'),
+	('Shri Mukesh Purohit', 'Aavlaheda', 'MUKESH JI PUROHIT.JPG'),
+	('Shri Piyush Purohit', 'Bherda', 'PIYUSH JI PUROHIT.JPG'),
+	('Shri Rameshchandra Purohit', 'Samta', 'RAMESH CHANDAR PUROHIT JI.JPG'),
+	('Shri Premraj Paliwal', 'Samta', ''),
+	('Shri Himanshu Purohit', 'Soniyana', ''),
+	('Shri Prakashchandra Purohit', 'Bengu', ''),
+]
+
 
 def populate_users(n):
     for _ in range(n):
