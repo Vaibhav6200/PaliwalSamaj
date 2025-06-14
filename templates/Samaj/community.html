@@ -153,9 +153,11 @@
                                         <div class="me-2 fw-bold" id="range1">0</div>
                                         <div class="slider-container">
                                             <div class="slider-track"></div>
-                                            <input type="range" name="min_age_value" min="1" max="100" value="{{min_age_default_value}}"
+                                            <input type="range" name="min_age_value" min="1" max="100"
+                                                   value="{{min_age_default_value}}"
                                                    id="slider-1" oninput="slideOne()">
-                                            <input type="range" name="max_age_value" min="1" max="100" value="{{max_age_default_value}}"
+                                            <input type="range" name="max_age_value" min="1" max="100"
+                                                   value="{{max_age_default_value}}"
                                                    id="slider-2" oninput="slideTwo()">
                                         </div>
                                         <div class="ms-2 fw-bold" id="range2">100</div>
@@ -209,10 +211,15 @@
                                             class="fab fa-linkedin"></i></a>
                                     {% endif %}
                                 </div>
-                                <div class="row m-0 p-0 mt-3">
-                                    <div class="col-12 p-0">
-                                        <a href=""
-                                           class="btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
+                                <div class="row m-0 p-0 mt-2 justify-content-around">
+                                    <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
+                                        <a href="{% url 'samaj:user_profile' member.id %}" class="btn btn-light fw-bold rounded-0 d-flex justify-content-center align-items-center">
+                                            <span class="material-icons me-2">visibility</span> View Profile
+                                        </a>
+                                    </div>
+
+                                    <div class="col-12 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Show Family">
+                                        <a href="" class="btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
                                             <span class="material-icons me-2">diversity_3</span>Show Family
                                         </a>
                                     </div>

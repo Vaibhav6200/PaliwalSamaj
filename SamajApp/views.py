@@ -184,9 +184,12 @@ def sandesh(request):
 
 
 @login_required
-def user_profile(request):
-    context = {}
-    return render(request, "Samaj/user_profile.html", context={})
+def user_profile(request, member_id):
+    member = Member.objects.get(id=member_id)
+    context = {
+        'profile': member,
+    }
+    return render(request, "Samaj/user_profile.html", context)
 
 
 def news_and_events(request):

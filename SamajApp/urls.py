@@ -15,7 +15,7 @@ urlpatterns = [
     path('my_family/', my_family, name='my_family'),
 
     path('sandesh/', sandesh, name='sandesh'),
-    path('user_profile/', user_profile, name='user_profile'),
+    path('user_profile/<int:member_id>/', user_profile, name='user_profile'),
 
 
     path('paliwal_samaj_history/', paliwal_samaj_history, name='paliwal_samaj_history'),
