@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion
 from django.contrib import messages
-from .utils import generate_username, MessageHandler
+from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
 
 
@@ -188,6 +188,7 @@ def user_profile(request, member_id):
     member = Member.objects.get(id=member_id)
     context = {
         'profile': member,
+        'user_age': calculate_age(member.date_of_birth),
     }
     return render(request, "Samaj/user_profile.html", context)
 

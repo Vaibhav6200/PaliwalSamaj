@@ -14,45 +14,49 @@
                 <div class="row">
                     <div class="col-md-4 text-center mb-4 mb-md-0">
                         <div class="square-img-container">
-                            <img src="images/banner/banner1.jpg" alt="Profile Image" class="square-img">
+                            {% if profile.profile_image %}
+                            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="square-img">
+                            {% else %}
+                            <img src="{% static 'images/user-icon.png' %}" alt="Profile Image" class="square-img">
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="detail-label">Name</div>
-                                <div class="detail-value">Rahul Prajapati</div>
+                                <div class="detail-value">{{ profile.user.first_name }} {{ profile.user.first_name }}</div>
 
                                 <div class="detail-label">Father Name</div>
-                                <div class="detail-value">Sanjay Prajapati</div>
+                                <div class="detail-value">{{ profile.father_name }}</div>
 
                                 <div class="detail-label">Mother Name</div>
-                                <div class="detail-value">Meena Prajapati</div>
+                                <div class="detail-value">{{ profile.mother_name }}</div>
 
                                 <div class="detail-label">Date Of Birth</div>
-                                <div class="detail-value">15 June 1995</div>
+                                <div class="detail-value">{{ profile.date_of_birth|date:"j F Y" }}</div>
 
                                 <div class="detail-label">Age</div>
-                                <div class="detail-value">23</div>
+                                <div class="detail-value">{{ user_age }}</div>
 
                                 <div class="detail-label">Birth Place</div>
-                                <div class="detail-value">Mumbai, Maharashtra</div>
+                                <div class="detail-value">{{ profile.birth_place }}</div>
                             </div>
                             <div class="col-md-6 ">
                                 <div class="detail-label">Birth Time</div>
-                                <div class="detail-value">10:30 AM</div>
+                                <div class="detail-value">{{ profile.birth_time|time:"g:i A" }}</div>
 
                                 <div class="detail-label">Gender</div>
-                                <div class="detail-value">Male</div>
+                                <div class="detail-value">{{ profile.get_gender_display }}</div>
 
                                 <div class="detail-label">Marital Status</div>
-                                <div class="detail-value">Single</div>
+                                <div class="detail-value">{{ profile.get_marital_status_display }}</div>
 
                                 <div class="detail-label">Height (In Centimeter)</div>
-                                <div class="detail-value">175 cm</div>
+                                <div class="detail-value">{{ profile.height }} cm</div>
 
                                 <div class="detail-label">Gotra</div>
-                                <div class="detail-value">Kashyap</div>
+                                <div class="detail-value">{{ profile.gotra }}</div>
                             </div>
                         </div>
                     </div>
@@ -65,19 +69,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="detail-label">Phone Number</div>
-                        <div class="detail-value">+91 9876543210</div>
+                        <div class="detail-value">{{ profile.phone_number }}</div>
 
                         <div class="detail-label">Whatsapp Number</div>
-                        <div class="detail-value">+91 9876543210</div>
+                        <div class="detail-value">{{ profile.whatsapp_number }}</div>
                     </div>
                     <div class="col-md-6">
                         <div class="detail-label">Email</div>
-                        <div class="detail-value">rahul.prajapati@example.com</div>
+                        <div class="detail-value">{{ profile.user.email }}</div>
 
                         <div class="detail-label">Address</div>
-                        <div class="detail-value">201, Sunshine Apartments, Andheri East, Mumbai - 400069, Maharashtra,
-                            India
-                        </div>
+                        <div class="detail-value">{{ profile.current_address }}</div>
                     </div>
                 </div>
             </div>
@@ -86,26 +88,34 @@
             <div class="profile-card p-4">
                 <h2 class="card-title">Educational Details</h2>
                 <div class="row">
+                    {% if profile.qualification_type == 'school' %}
                     <div class="col-md-6">
-                        <div class="detail-label">Qualification</div>
-                        <div class="detail-value">
-                            Bachelor of Engineering
-                            <span class="badge bg-success badge-qualification">Graduate</span>
+                        <div class="detail-label">School Name</div>
+                        <div class="detail-value">{{ profile.qualification_detail.first.school_name }}</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="detail-label">Class</div>
+                        <div class="detail-value">{{ profile.qualification_detail.first.school_class }}</div>
+                    </div>
+                    {% else %}
+                    <div class="col-md-6">
+                        <div class="detail-label">
+                            <span>College / University</span>
+                            {% if profile.qualification_type == 'graduate' %}
+                                <span class="badge bg-success badge-qualification">Graduate</span>
+                            {% else %}
+                                <span class="badge bg-danger badge-qualification">Under Graduate</span>
+                            {% endif %}
                         </div>
-
-                        <div class="detail-label">College/University Name</div>
-                        <div class="detail-value">Mumbai University</div>
-
-                        <div class="detail-label">Degree Name</div>
-                        <div class="detail-value">BE in Computer Engineering</div>
+                        <div class="detail-value">{{ profile.qualification_detail.first.college_name }}</div>
                     </div>
+
                     <div class="col-md-6">
-                        <div class="detail-label">12th Result (percentage %)</div>
-                        <div class="detail-value">85.4%</div>
-
-                        <div class="detail-label">12th School Name</div>
-                        <div class="detail-value">St. Xavier's Junior College, Mumbai</div>
+                        <div class="detail-label">Degree</div>
+                        <div class="detail-value">{{ profile.qualification_detail.first.degree_name }}</div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -114,29 +124,66 @@
                 <h2 class="card-title">Professional Details</h2>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="detail-label">Occupation</div>
-                        <div class="detail-value">Software Engineer</div>
+                        <div class="detail-label">Occupation Type</div>
+                        <div class="detail-value">{{ profile.get_occupation_type_display }}</div>
 
-                        <div class="detail-label">Company Name</div>
-                        <div class="detail-value">Tech Solutions Pvt. Ltd.</div>
+                        {% if profile.occupation_type == 'business' %}
+                            <div class="detail-label">Business Name</div>
+                            <div class="detail-value">{{ profile.occupation_detail.first.business_name }}</div>
+                        {% elif profile.occupation_type == 'job' %}
+                            <div class="detail-label">Company Name</div>
+                            <div class="detail-value">{{ profile.occupation_detail.first.company_name }}</div>
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
-                        <div class="detail-label">Job Location</div>
-                        <div class="detail-value">Pune, Maharashtra</div>
-
-                        <div class="detail-label">Job Description</div>
-                        <div class="detail-value">Developing web applications using React.js and Node.js, implementing
-                            REST
-                            APIs, and collaborating with cross-functional teams.
+                        {% if profile.occupation_type == 'business' %}
+                        <div>
+                            <div class="detail-label">Business Location</div>
+                            <div class="detail-value">{{ profile.occupation_detail.first.business_location }}</div>
+                        </div>
+                        <div>
+                            <div class="detail-label">Business Description</div>
+                            <div class="detail-value">{{ profile.occupation_detail.first.business_description }}</div>
+                        </div>
+                        {% elif profile.occupation_type == 'job' %}
+                        <div>
+                            <div class="detail-label">Job Location</div>
+                            <div class="detail-value">{{ profile.occupation_detail.first.company_location }}</div>
                         </div>
 
-                        <div class="detail-label d-none">Business Location</div>
-                        <div class="detail-value d-none">Pune, Maharashtra</div>
-
-                        <div class="detail-label d-none">Business Description</div>
-                        <div class="detail-value d-none">Developing web applications using React.js and Node.js,
-                            implementing REST APIs, and collaborating with cross-functional teams.
+                        <div>
+                            <div class="detail-label">Job Description</div>
+                            <div class="detail-value">{{ profile.occupation_detail.first.job_description }}</div>
                         </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Details Card -->
+            <div class="profile-card p-4">
+                <h2 class="card-title">Social Media Links</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="detail-label">Facebook</div>
+                        {% if profile.facebook_link %}
+                        <div class="detail-value">
+                            <a class="text-primary text-decoration-underline" target="_blank" href="{{ profile.facebook_link }}">{{ profile.facebook_link }}</a>
+                        </div>
+
+                        {% else %}
+                        <div class="detail-value">None</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="detail-label">Instagram</div>
+                        {% if profile.instagram_link %}
+                        <div class="detail-value">
+                            <a class="text-primary text-decoration-underline" target="_blank" href="{{ profile.instagram_link }}">{{ profile.instagram_link }}</a>
+                        </div>
+                        {% else %}
+                        <div class="detail-value">None</div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

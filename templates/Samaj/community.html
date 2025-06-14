@@ -202,15 +202,7 @@
                                         <div class="text-white ms-2">{{ member.current_address }}</div>
                                     </div>
                                 </div>
-                                <div class="team-social-icons mt-2">
-                                    {% if member.facebook_link %}
-                                    <a target="_blank" href="{{ member.facebook_link }}"><i class="fab fa-facebook"></i></a>
-                                    {% endif %}
-                                    {% if member.instagram_link %}
-                                    <a target="_blank" href="{{ member.instagram_link }}"><i
-                                            class="fab fa-linkedin"></i></a>
-                                    {% endif %}
-                                </div>
+
                                 <div class="row m-0 p-0 mt-2 justify-content-around">
                                     <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                         <a href="{% url 'samaj:user_profile' member.id %}" class="btn btn-light fw-bold rounded-0 d-flex justify-content-center align-items-center">
