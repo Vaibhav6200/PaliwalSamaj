@@ -1,10 +1,12 @@
+import random
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion
 from django.contrib import messages
-from .utils import generate_username
+from .utils import generate_username, MessageHandler
 from datetime import date, timedelta
 
 
@@ -274,3 +276,35 @@ def suggestions(request):
         else:
             messages.error(request, 'All fields are required. Please complete the form.')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+
+@login_required
+def phone_number_send_otp(request):
+    if request.method == 'POST':
+        contact_input = request.POST.get('contact_input', None)
+
+        if not contact_input:
+            messages.error(request, 'Please enter a phone number.')
+            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+        # Check if the number exists in either phone_number or whatsapp_number
+        member = (
+            Member.objects.filter(phone_number=contact_input).first() or
+            Member.objects.filter(whatsapp_number=contact_input).first()
+        )
+
+        if member:
+            verification_code = random.randint(100000, 999999)
+            handler = MessageHandler(phone_number=contact_input, otp=verification_code)
+            handler.send_otp_via_message()
+            request.session['phone_verification_code'] = verification_code
+            messages.success(request, f'OTP send to your registered number: {contact_input}')
+        else:
+            messages.error(request,'This number is not registered.')
+
+        context = {
+            'phone_otp': True
+        }
+        return render(request, 'Profile/otp_verification.html', context)
+    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
