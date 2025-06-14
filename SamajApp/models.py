@@ -1,5 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 import uuid
+
+from django.utils import timezone
 from django.utils.text import slugify
 
 
@@ -51,7 +54,7 @@ class Member(models.Model):
         ('business', 'Business'),
     ]
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100)
     date_of_birth = models.DateField()
@@ -62,7 +65,6 @@ class Member(models.Model):
     height = models.DecimalField(max_digits=5, decimal_places=2, help_text="Height in cm")
     phone_number = models.CharField(max_length=15)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
-    email = models.EmailField()
     gotra = models.CharField(max_length=100)
     current_address = models.TextField()
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
@@ -73,7 +75,7 @@ class Member(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.name
+        return f"{self.user}"
 
 
 class QualificationDetail(models.Model):
@@ -89,7 +91,7 @@ class QualificationDetail(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"Qualification for {self.member.name}"
+        return f"Qualification for {self.member.user}"
 
 
 class OccupationDetail(models.Model):
@@ -111,7 +113,7 @@ class OccupationDetail(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"Occupation for {self.member.name}"
+        return f"Occupation for {self.member.user}"
 
 
 class NewsEvent(models.Model):
@@ -140,3 +142,18 @@ class NewsEvent(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(NewsEvent, on_delete=models.CASCADE, related_name='comments')
+    sender = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True)
+    content = models.TextField()
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+    created_at = models.DateTimeField(default=timezone.now)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f'Comment by {self.sender}'
+
+    def is_reply(self):
+        return self.parent is not None

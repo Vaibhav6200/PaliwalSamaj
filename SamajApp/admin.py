@@ -9,12 +9,13 @@ class FamilyAdmin(admin.ModelAdmin):
 
 
 
+
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
     list_display = (
         'id',
+        'user',
         'family',
-        'name',
         'father_name',
         'mother_name',
         'date_of_birth',
@@ -25,7 +26,6 @@ class MemberAdmin(admin.ModelAdmin):
         'height',
         'phone_number',
         'whatsapp_number',
-        'email',
         'gotra',
         'current_address',
         'profile_image',
@@ -34,7 +34,7 @@ class MemberAdmin(admin.ModelAdmin):
         'created_at',
         'updated_at'
     )
-    list_display_links = ('id', 'family', 'name')
+    list_display_links = ('id', 'family', 'user')
 
 
 @admin.register(QualificationDetail)
@@ -76,4 +76,18 @@ class NewsEventAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'title')
+
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'post',
+        'parent',
+        'sender',
+        'content',
+        'created_at'
+    )
+    list_display_links = ('id', 'post', 'sender')
 

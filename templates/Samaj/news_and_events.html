@@ -42,22 +42,25 @@
     <!-- Carousel End Here -->
 
     <!-- Search Bar Start -->
-    <div class="container my-5 pt-5">
-        <form id="" class="" action="" method="">
-            <div class="form-group">
-                <label for="search_news_events" class="w-100 text-center">
-                    <h3>Search News Or Events</h3>
-                </label>
-                <div class="d-flex">
-                    <div class="w-100"><input class="form-control form-control-name" name="search_news_events" id="search_news_events" placeholder="Search" type="text" required></div>
-                    <button type="submit" class="btn btn-dark d-flex align-items-center py-2 rounded-0">
-                        <span class="material-icons me-2">search</span> Search
-                    </button>
-                </div>
+    <div class="d-none d-md-block">
+        <div class="main-container my-5 pt-5 row justify-content-center">
+            <form id="" class="col-6" action="" method="">
+                <div class="form-group">
+                    <label for="search_news_events" class="w-100 text-center">
+                        <h3>Search News Or Events</h3>
+                    </label>
+                    <div class="d-flex">
+                        <div class="w-100"><input class="form-control form-control-name" name="search_news_events" id="search_news_events" placeholder="Search" type="text" required></div>
+                        <button type="submit" class="btn btn-dark d-flex align-items-center py-2 rounded-0">
+                            <span class="material-icons me-2">search</span> Search
+                        </button>
+                    </div>
 
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     </div>
+
     <!-- Search Bar End -->
 
     <section id="main-container" class="main-container">
@@ -92,7 +95,7 @@
                 </div><!-- header end -->
 
                 <div class="entry-content">
-                  <p>{{ obj.content|truncatewords:60 }}{% if obj.content|wordcount > 60 %}...{% endif %}</p>
+                  <p>{{ obj.content|truncatewords:60 }}</p>
                 </div>
 
                 <div class="post-footer">

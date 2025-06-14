@@ -1,6 +1,6 @@
-from django.shortcuts import render
-
-from SamajApp.models import NewsEvent
+from django.shortcuts import render, redirect
+from SamajApp.models import NewsEvent, Comment, Member
+from django.contrib import messages
 
 
 def index(request):
@@ -33,8 +33,28 @@ def news_and_events(request):
 
 def news_events_detail(request, event_slug):
     post = NewsEvent.objects.get(slug=event_slug)
+    comments = Comment.objects.filter(post=post, parent__isnull=True).order_by('-created_at')
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        parent_id = request.POST.get('parent_id')  # For reply handling
+        parent = Comment.objects.get(id=parent_id) if parent_id else None
+
+        Comment.objects.create(
+            post = post,
+            sender = Member.objects.get(user=request.user),
+            content = content,
+            parent=parent
+        )
+        messages.success(request, 'Comment Posted Successfully')
+        return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+    recent_posts = NewsEvent.objects.exclude(id=post.id).order_by('-created_at')[:3]
+
     context = {
-        'post': post
+        'post': post,
+        'recent_posts': recent_posts,
+        'comments': comments
     }
     return render(request, 'Samaj/news_events_detail.html', context)
 

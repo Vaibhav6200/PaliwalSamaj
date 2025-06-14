@@ -78,99 +78,86 @@
 
                 <!-- Post comment start -->
                 <div id="comments" class="comments-area">
-                  <h3 class="comments-heading">07 Comments</h3>
+                  <h3 class="comments-heading">{{ comments.count }} Comments</h3>
 
+                  {% if comments %}
                   <ul class="comments-list">
+                    {% for comment in comments %}
                     <li>
                       <div class="comment d-flex">
-                        <img loading="lazy" class="comment-avatar" alt="author" src="images/news/avator1.png">
+                        {% if comment.sender.profile_image %}
+                        <img loading="lazy" class="comment-avatar" alt="author" src="{{ comment.sender.profile_image.url }}">
+                        {% else %}
+                        <img loading="lazy" class="comment-avatar" alt="author" src="{% static 'images/profile.png' %}">
+                        {% endif %}
                         <div class="comment-body">
                           <div class="meta-data">
-                            <span class="comment-author mr-3">Michelle Aimber</span>
-                            <span class="comment-date float-right">January 17, 2016 at 1:38 pm</span>
+                            <span class="comment-author mr-3">{{ comment.sender }}</span>
+                            <span class="comment-date float-right">{{ comment.created_at|date:"F j, Y" }} at {{ comment.created_at|date:"g:i a" }}</span>
                           </div>
                           <div class="comment-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehen.</p>
+                            <p>{{ comment.content }}</p>
                           </div>
                           <div class="text-left">
-                            <a class="comment-reply font-weight-bold" href="#">Reply</a>
+                            <a class="comment-reply font-weight-bold" href="#" onclick="toggleReplyForm({{ comment.id }}); return false;">Reply</a>
+
+                            <!-- Reply form (hidden initially) -->
+                            <div id="reply-form-{{ comment.id }}" class="reply-form mt-2" style="display: none;">
+                              <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                <textarea name="content" class="form-control mb-2" placeholder="Write your reply..." required></textarea>
+                                <button type="submit" class="btn btn-sm btn-primary">Reply</button>
+                              </form>
+                            </div>
                           </div>
                         </div>
                       </div><!-- Comments end -->
 
                       <ul class="comments-reply">
+                        {% for reply in comment.replies.all %}
                         <li>
                           <div class="comment d-flex">
-                            <img loading="lazy" class="comment-avatar" alt="author" src="images/news/avator2.png">
+                            {% if reply.sender.profile_image %}
+                            <img loading="lazy" class="comment-avatar" alt="author" src="{{ reply.sender.profile_image.url }}">
+                            {% else %}
+                            <img loading="lazy" class="comment-avatar" alt="author" src="{% static 'images/profile.png' %}">
+                            {% endif %}
                             <div class="comment-body">
                               <div class="meta-data">
-                                <span class="comment-author mr-3">Tom Harnandez</span>
-                                <span class="comment-date float-right">January 17, 2016 at 1:38 pm</span>
+                                <span class="comment-author mr-3">{{ reply.sender }}</span>
+                                <span class="comment-date float-right">{{ reply.created_at|date:"F j, Y" }} at {{ reply.created_at|date:"g:i a" }}</span>
                               </div>
                               <div class="comment-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                  labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehen.</p>
-                              </div>
-                              <div class="text-left">
-                                <a class="comment-reply font-weight-bold" href="#">Reply</a>
+                                <p>{{ reply.content }}</p>
                               </div>
                             </div>
                           </div><!-- Comments end -->
                         </li>
-                      </ul><!-- comments-reply end -->
-                      <div class="comment d-flex last">
-                        <img loading="lazy" class="comment-avatar" alt="author" src="images/news/avator3.png">
-                        <div class="comment-body">
-                          <div class="meta-data">
-                            <span class="comment-author mr-3">Genelia Dusteen</span>
-                            <span class="comment-date float-right">January 17, 2016 at 1:38 pm</span>
-                          </div>
-                          <div class="comment-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehen.</p>
-                          </div>
-                          <div class="text-left">
-                            <a class="comment-reply font-weight-bold" href="#">Reply</a>
-                          </div>
-                        </div>
-                      </div><!-- Comments end -->
-                    </li><!-- Comments-list li end -->
+                        {% endfor %}
+                      </ul>
+                      <!-- comments-reply end -->
+                    </li>
+                    {% endfor %}
                   </ul><!-- Comments-list ul end -->
-                </div><!-- Post comment end -->
+                  {% else %}
+                  <div class="text-muted">No Comments Yet!</div>
+                  {% endif %}
+                </div>
+                <!-- Post comment end -->
 
                 <div class="comments-form border-box">
                   <h3 class="title-normal">Add a comment</h3>
-
-                  <form role="form">
+                  <form method="post">
+                    {% csrf_token %}
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label for="message"><textarea class="form-control required-field" id="message" placeholder="Your Comment" rows="10" required></textarea></label>
+                          <label for="message" class="w-100">
+                            <textarea name="content" class="form-control required-field" id="message" placeholder="Your Comment" rows="10" required></textarea>
+                          </label>
                         </div>
                       </div><!-- Col 12 end -->
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="name"><input class="form-control" name="name" id="name" placeholder="Your Name" type="text" required></label>
-                        </div>
-                      </div><!-- Col 4 end -->
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="email"><input class="form-control" name="email" id="email" placeholder="Your Email" type="email" required></label>
-                        </div>
-                      </div>
-
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="website"><input class="form-control" id="website" placeholder="Your Website" type="text" required></label>
-                        </div>
-                      </div>
-
                     </div><!-- Form row end -->
                     <div class="clearfix">
                       <button class="btn btn-primary" type="submit" aria-label="post-comment">Post Comment</button>
@@ -185,38 +172,19 @@
                   <div class="widget recent-posts">
                     <h3 class="widget-title">Recent Posts</h3>
                     <ul class="list-unstyled">
+
+                      {% for recent_post_obj in recent_posts %}
                       <li class="d-flex align-items-center">
                         <div class="posts-thumb">
-                          <a href="#"><img loading="lazy" alt="img" src="images/news/news1.jpg"></a>
+                          <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}"><img loading="lazy" alt="img" src="{{ recent_post_obj.image.url }}" style="object-fit: cover;"></a>
                         </div>
                         <div class="post-info">
                           <h4 class="entry-title">
-                            <a href="#">We Just Completes $17.6 Million Medical Clinic In Mid-missouri</a>
+                            <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}">{{ recent_post_obj.title|truncatewords:15 }}</a>
                           </h4>
                         </div>
                       </li><!-- 1st post end-->
-
-                      <li class="d-flex align-items-center">
-                        <div class="posts-thumb">
-                          <a href="#"><img loading="lazy" alt="img" src="images/news/news2.jpg"></a>
-                        </div>
-                        <div class="post-info">
-                          <h4 class="entry-title">
-                            <a href="#">Thandler Airport Water Reclamation Facility Expansion Project Named</a>
-                          </h4>
-                        </div>
-                      </li><!-- 2nd post end-->
-
-                      <li class="d-flex align-items-center">
-                        <div class="posts-thumb">
-                          <a href="#"><img loading="lazy" alt="img" src="images/news/news3.jpg"></a>
-                        </div>
-                        <div class="post-info">
-                          <h4 class="entry-title">
-                            <a href="#">Silicon Bench And Cornike Begin Construction Solar Facilities</a>
-                          </h4>
-                        </div>
-                      </li><!-- 3rd post end-->
+                      {% endfor %}
                     </ul>
                   </div><!-- Recent post end -->
                 </div><!-- Sidebar end -->
@@ -230,4 +198,28 @@
     </div>
     {% include 'Includes/footer.html' %}
 </main>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+function toggleReplyForm(commentId) {
+  const formId = `reply-form-${commentId}`;
+  const formElement = document.getElementById(formId);
+
+  // Hide all other reply forms
+  document.querySelectorAll('.reply-form').forEach(form => {
+    if (form.id !== formId) {
+      form.style.display = 'none';
+    }
+  });
+
+  // Toggle this form
+  if (formElement.style.display === 'none') {
+    formElement.style.display = 'block';
+  } else {
+    formElement.style.display = 'none';
+  }
+}
+</script>
 {% endblock %}

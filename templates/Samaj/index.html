@@ -101,7 +101,7 @@
                         <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="text-decoration-none card bg-dark text-white card-slider">
                             <img src="{{ obj.image.url }}" class="card-img" alt="...">
                             <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
-                                <h5 class="card-title card-title text-white h5">{{ obj.title }}</h5>
+                                <h5 class="card-title card-title text-white h5">{{ obj.title|truncatewords:15 }}</h5>
                                 <p class="card-text">{{ obj.subtitle }}</p>
                             </div>
                         </a>
