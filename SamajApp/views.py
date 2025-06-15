@@ -2,6 +2,7 @@ import random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion
@@ -389,10 +390,9 @@ def suggestions(request):
 
 
 @login_required
-def phone_number_send_otp(request):
+def handle_login_otp(request):
     if request.method == 'POST':
         contact_input = request.POST.get('contact_input', None)
-
         if not contact_input:
             messages.error(request, 'Please enter a phone number.')
             return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
@@ -402,19 +402,36 @@ def phone_number_send_otp(request):
             Member.objects.filter(phone_number=contact_input).first() or
             Member.objects.filter(whatsapp_number=contact_input).first()
         )
+        messages.success(request, f'Password sent to your registered number : {contact_input}')
 
-        if member:
-            verification_code = random.randint(100000, 999999)
-            handler = MessageHandler(phone_number=contact_input, otp=verification_code)
-            handler.send_otp_via_message()
-            request.session['phone_verification_code'] = verification_code
-            messages.success(request, f'OTP send to your registered number: {contact_input}')
-        else:
-            messages.error(request,'This number is not registered.')
-
-        context = {
-            'phone_otp': True
-        }
-        return render(request, 'Profile/otp_verification.html', context)
+        # if member:
+        #     verification_code = random.randint(100000, 999999)
+        #     handler = MessageHandler(phone_number=contact_input, otp=verification_code)
+        #     handler.send_otp_via_message()
+        #     request.session['phone_verification_code'] = verification_code
+        #     messages.success(request, f'OTP send to your registered number: {contact_input}')
+        # else:
+        #     messages.error(request,'This number is not registered in our database.')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
+
+def get_member_search_list(request):
+    search_query = request.GET.get('search')
+    payload = []
+    if search_query:
+        words = search_query.strip().split()
+        query = Q()
+        for word in words:
+            query |= Q(phone_number__icontains=word)
+            query |= Q(user__first_name__icontains=word)
+            query |= Q(user__last_name__icontains=word)
+        objs = Member.objects.filter(query)
+        for obj in objs:
+            payload.append({
+                'member_name': f"{obj.user.first_name} {obj.user.last_name}",
+                'member_phone': obj.phone_number,
+            })
+    return JsonResponse({
+        "status": True,
+        "payload": payload
+    })

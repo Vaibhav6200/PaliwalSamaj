@@ -5,14 +5,17 @@
 {% block content %}
 <div class="full-container" style="background-image: url({% static 'images/login_bg.jpeg' %});">
     <div class=" m-0 login-container">
-        <form class="login-form" id="login-form" action="" method="">
+        <form class="login-form" id="login-form" action="{% url 'samaj:handle_login_otp' %}" method="post">
+            {% csrf_token %}
             <h3 class="text-center mb-4">Login</h3>
 
             <div class="mb-3">
-                <label for="mobile_number" class="form-label">Mobile Number</label>
-                <input type="number" class="form-control" id="mobile_number" minlength="10" maxlength="10"
-                       placeholder="Enter your mobile number" name="mobile_number" required>
-                <span class="text-secondary">Example : 9123456789</span>
+                <label for="contact_input" class="form-label">Mobile Number</label>
+                <div id="autocomplete_container" class="autocomplete debounced">
+                    <input class="autocomplete-input my-2" name="contact_input" id="contact_input" required />
+                    <ul class="autocomplete-result-list"></ul>
+                </div>
+                <span class="text-secondary">Example : 9414110473</span>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -23,7 +26,7 @@
                 <button type="submit" class="btn btn-primary disabled" id="login_submit_btn">Submit</button>
             </div>
             <p class="note-text">If you don't have a password then
-                <button type="button" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">Click here</button>
+                <button type="submit" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">Click here</button>
             </p>
 
             <div class="p-3 rounded border bg-light">
@@ -37,4 +40,5 @@
 {% block javascripts %}
 <script src="{% static 'js/validation.js' %}"></script>
 <script src="{% static 'js/login.js' %}"></script>
+<script src="{% static 'js/autocomplete_search.js' %}"></script>
 {% endblock %}
