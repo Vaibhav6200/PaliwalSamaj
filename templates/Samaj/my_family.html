@@ -75,8 +75,9 @@
                                         </form>
                                     </div>
                                     <div class="col-12 col-md-6 p-0">
-                                        <form action="" method="" class="m-0 p-0 w-100">
-                                            <input type="hidden" value="" name="">
+                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ family_head.id }}" name="member_id">
                                             <button type="submit"
                                                     class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
                                                 <span class="material-icons me-2">delete</span> Delete
@@ -150,7 +151,9 @@
                                         </form>
                                     </div>
                                     <div class="col-12 col-md-6 p-0">
-                                        <form action="" method="" class="m-0 p-0 w-100">
+                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="member_id" value="{{ member.id }}">
                                             <button type="submit"
                                                     class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
                                                 <span class="material-icons me-2">delete</span> Delete

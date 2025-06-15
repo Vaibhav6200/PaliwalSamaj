@@ -29,10 +29,8 @@ def bio_data(request):
     if request.method == 'POST':
         edit_member_user_id = request.POST.get('user_id')
         context['edit_member'] = Member.objects.get(user__id = edit_member_user_id)
-        print()
-        print(context['edit_member'])
-        print(context['edit_member'].occupation_detail)
-        print()
+        context['gotras'] = Member.GOTRA_CHOICES
+        context['degrees'] = QualificationDetail.DEGREE_CHOICES
     return render(request, 'Samaj/bio_data.html', context)
 
 
@@ -94,21 +92,72 @@ def handle_bio_data_form(request, family_code):
 
         # Qualification Details
         qualification, _ = QualificationDetail.objects.get_or_create(member=member)
-        qualification.school_class = request.POST.get('school_class')
-        qualification.school_name = request.POST.get('school_name')
-        qualification.college_name = request.POST.get('college_name')
-        qualification.degree_name = request.POST.get('degree_name')
+        if member.qualification_type == 'school':
+            school_class = request.POST.get('school_class')
+            qualification.school_class = int(school_class) if school_class else None
+            qualification.school_name = request.POST.get('school_name')
+            qualification.college_name = None
+            qualification.degree_name = None
+        else:
+            qualification.school_class = None
+            qualification.school_name = None
+            qualification.college_name = request.POST.get('college_name')
+            qualification.degree_name = request.POST.get('degree_name')
         qualification.save()
 
         # Occupation Details
         occupation, _ = OccupationDetail.objects.get_or_create(member=member)
-        occupation.company_name = request.POST.get('company_name')
-        occupation.company_location = request.POST.get('job_location')
-        occupation.job_description = request.POST.get('job_description')
-        occupation.business_name = request.POST.get('business_name')
-        occupation.business_location = request.POST.get('business_location')
-        occupation.business_description = request.POST.get('business_description')
+        if member.occupation_type == 'job':
+            occupation.company_name = request.POST.get('company_name')
+            occupation.company_location = request.POST.get('job_location')
+            occupation.job_description = request.POST.get('job_description')
+
+            # Clear business fields
+            occupation.business_name = None
+            occupation.business_location = None
+            occupation.business_description = None
+
+        elif member.occupation_type == 'business':
+            occupation.business_name = request.POST.get('business_name')
+            occupation.business_location = request.POST.get('business_location')
+            occupation.business_description = request.POST.get('business_description')
+
+            # Clear job fields
+            occupation.company_name = None
+            occupation.company_location = None
+            occupation.job_description = None
+        else:
+            occupation.business_name = None
+            occupation.business_location = None
+            occupation.business_description = None
+            occupation.company_name = None
+            occupation.company_location = None
+            occupation.job_description = None
         occupation.save()
+    return redirect('samaj:my_family')
+
+
+@login_required
+def handle_member_delete(request):
+    if request.method == 'POST':
+        member_id = request.POST.get('member_id')
+        delete_member = Member.objects.filter(id=member_id)
+
+        if not delete_member.exists():
+            messages.error(request, f'member does not exists')
+            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+        delete_member = delete_member[0]
+        login_user_family = Member.objects.filter(user=request.user)[0].family
+
+        # Check if the member to be deleted belongs to the same family
+        if delete_member.family != login_user_family:
+            messages.error(request, 'You can delete members of your own family only.')
+            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+        delete_member_name = f"{delete_member.user.first_name} {delete_member.user.last_name}"
+        delete_member.delete()
+        messages.success(request, f'member {delete_member_name} removed from family')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
 
@@ -116,6 +165,8 @@ def community(request):
     context = {
         'min_age_default_value': 10,
         'max_age_default_value': 20,
+        'gotras': Member.GOTRA_CHOICES,
+        'degrees': QualificationDetail.DEGREE_CHOICES,
     }
 
     community_members = Member.objects.all()

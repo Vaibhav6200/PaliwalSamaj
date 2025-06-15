@@ -47,59 +47,60 @@ class Member(models.Model):
         ('graduate', 'Graduate'),
     ]
     OCCUPATION_CHOICES = [
+        ('none', 'None'),
         ('job', 'Job'),
         ('business', 'Business'),
     ]
     GOTRA_CHOICES = [
-        ('agastya', 'agastya'),
-        ('alambayana', 'alambayana'),
-        ('angirasa', 'angirasa'),
-        ('aankiras', 'aankiras'),
-        ('aarti', 'aarti'),
-        ('aashwalaayana', 'aashwalaayana'),
-        ('aatreya', 'aatreya'),
-        ('bhrigu', 'bhrigu'),
-        ('bhardwaja', 'bhardwaja'),
-        ('bhargava', 'bhargava'),
-        ('chandratreya', 'chandratreya'),
-        ('chyavana', 'chyavana'),
-        ('garga', 'garga'),
-        ('gautam', 'gautam'),
-        ('harita', 'harita'),
-        ('jamadagni', 'jamadagni'),
-        ('jambu', 'jambu'),
-        ('kaakshivan', 'kaakshivan'),
-        ('kanva', 'kanva'),
-        ('kapi', 'kapi'),
-        ('kashyapa', 'kashyapa'),
-        ('kaushika', 'kaushika'),
-        ('katyayana', 'katyayana'),
-        ('kaundinya', 'kaundinya'),
-        ('kutsa', 'kutsa'),
-        ('mandavya', 'mandavya'),
-        ('marichi', 'marichi'),
-        ('moudgalya', 'moudgalya'),
-        ('mrukandu', 'mrukandu'),
-        ('paingya', 'paingya'),
-        ('parashara', 'parashara'),
-        ('pulaha', 'pulaha'),
-        ('pulastya', 'pulastya'),
-        ('reva', 'reva'),
-        ('rishyashringa', 'rishyashringa'),
-        ('saandilya', 'saandilya'),
-        ('shaandilya', 'shaandilya'),
-        ('shakalya', 'shakalya'),
-        ('shandilya', 'shandilya'),
-        ('shatamarshana', 'shatamarshana'),
-        ('shaunak', 'shaunak'),
-        ('shukla', 'shukla'),
-        ('srivatsa', 'srivatsa'),
-        ('sutapa', 'sutapa'),
-        ('vadhoola', 'vadhoola'),
-        ('vasishta', 'vasishta'),
-        ('vatsa', 'vatsa'),
-        ('vishvamitra', 'vishvamitra'),
-        ('yajnavalkya', 'yajnavalkya'),
+        ('agastya', 'Agastya'),
+        ('alambayana', 'Alambayana'),
+        ('angirasa', 'Angirasa'),
+        ('aankiras', 'Aankiras'),
+        ('aarti', 'Aarti'),
+        ('aashwalaayana', 'Aashwalaayana'),
+        ('aatreya', 'Aatreya'),
+        ('bhrigu', 'Bhrigu'),
+        ('bhardwaja', 'Bhardwaja'),
+        ('bhargava', 'Bhargava'),
+        ('chandratreya', 'Bhandratreya'),
+        ('chyavana', 'Bhyavana'),
+        ('garga', 'Garga'),
+        ('gautam', 'Gautam'),
+        ('harita', 'Harita'),
+        ('jamadagni', 'Jamadagni'),
+        ('jambu', 'Jambu'),
+        ('kaakshivan', 'Kaakshivan'),
+        ('kanva', 'Kanva'),
+        ('kapi', 'Kapi'),
+        ('kashyapa', 'Kashyapa'),
+        ('kaushika', 'Kaushika'),
+        ('katyayana', 'Katyayana'),
+        ('kaundinya', 'Kaundinya'),
+        ('kutsa', 'Kutsa'),
+        ('mandavya', 'Mandavya'),
+        ('marichi', 'Marichi'),
+        ('moudgalya', 'Moudgalya'),
+        ('mrukandu', 'Mrukandu'),
+        ('paingya', 'Paingya'),
+        ('parashara', 'Parashara'),
+        ('pulaha', 'Pulaha'),
+        ('pulastya', 'Pulastya'),
+        ('reva', 'Reva'),
+        ('rishyashringa', 'Rishyashringa'),
+        ('saandilya', 'Saandilya'),
+        ('shaandilya', 'Shaandilya'),
+        ('shakalya', 'Shakalya'),
+        ('shandilya', 'Shandilya'),
+        ('shatamarshana', 'Shatamarshana'),
+        ('shaunak', 'Shaunak'),
+        ('shukla', 'Shukla'),
+        ('srivatsa', 'Srivatsa'),
+        ('sutapa', 'Sutapa'),
+        ('vadhoola', 'Vadhoola'),
+        ('vasishta', 'Vasishta'),
+        ('vatsa', 'Vatsa'),
+        ('vishvamitra', 'Vishvamitra'),
+        ('yajnavalkya', 'Yajnavalkya'),
     ]
 
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
@@ -111,7 +112,7 @@ class Member(models.Model):
     birth_time = models.TimeField()
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS_CHOICES)
-    height = models.DecimalField(max_digits=5, decimal_places=2, help_text="Height in cm")
+    height = models.PositiveSmallIntegerField(null=True, blank=True, help_text="Height in cm")
     phone_number = models.CharField(max_length=15)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
     gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES)
@@ -121,7 +122,7 @@ class Member(models.Model):
     current_address_pincode = models.TextField(max_length=10, null=True, blank=True)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES)
-    occupation_type = models.CharField(max_length=20, choices=OCCUPATION_CHOICES)
+    occupation_type = models.CharField(max_length=20, choices=OCCUPATION_CHOICES, default='none')
     facebook_link = models.URLField(null=True, blank=True)
     instagram_link = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -135,12 +136,38 @@ class Member(models.Model):
 class QualificationDetail(models.Model):
     class Meta:
         verbose_name_plural = 'Qualification Details'
-
+    DEGREE_CHOICES = [
+        ("B.A.", "B.A. (Bachelor of Arts)"),
+        ("B.Sc.", "B.Sc. (Bachelor of Science)"),
+        ("B.Com.", "B.Com. (Bachelor of Commerce)"),
+        ("BBA", "BBA (Bachelor of Business Administration)"),
+        ("BCA", "BCA (Bachelor of Computer Applications)"),
+        ("B.Tech", "B.Tech (Bachelor of Technology)"),
+        ("BE", "B.E. (Bachelor of Engineering)"),
+        ("LLB", "LLB (Bachelor of Laws)"),
+        ("MBBS", "MBBS (Bachelor of Medicine and Bachelor of Surgery)"),
+        ("M.A.", "M.A. (Master of Arts)"),
+        ("M.Sc.", "M.Sc. (Master of Science)"),
+        ("M.Com.", "M.Com. (Master of Commerce)"),
+        ("MBA", "MBA (Master of Business Administration)"),
+        ("MCA", "MCA (Master of Computer Applications)"),
+        ("M.Tech", "M.Tech (Master of Technology)"),
+        ("ME", "M.E. (Master of Engineering)"),
+        ("LLM", "LLM (Master of Laws)"),
+        ("MD", "MD (Doctor of Medicine)"),
+        ("Diploma", "Diploma"),
+        ("ITI", "ITI (Industrial Training Institute)"),
+        ("Polytechnic", "Polytechnic"),
+        ("Certification", "Certification Course"),
+        ("PhD", "Ph.D. (Doctor of Philosophy)"),
+        ("D.Litt", "D.Litt (Doctor of Literature)"),
+        ("Other", "Other"),
+    ]
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='qualification_detail')
-    school_class = models.CharField(max_length=20, blank=True, null=True)  # Only if School
+    school_class = models.PositiveSmallIntegerField(blank=True, null=True)  # Only if School
     school_name = models.CharField(max_length=255, blank=True, null=True)
     college_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
-    degree_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
+    degree_name = models.CharField(choices=DEGREE_CHOICES, max_length=100, blank=True, null=True)  # For UG/Graduate
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()

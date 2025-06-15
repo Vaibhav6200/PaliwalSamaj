@@ -14,8 +14,8 @@
                     <form id="contact-form" class="pt-4" action="{% url 'samaj:handle_bio_data_form' family_code %}" method="post" role="form" enctype="multipart/form-data">
                         {% csrf_token %}
 
-                        {% if edit_member_user_id %}
-                            <input type="hidden" name="edit_member_user_id" value="{{ edit_member_user_id }}">
+                        {% if edit_member %}
+                            <input type="hidden" name="edit_member_user_id" value="{{ edit_member.user.id }}">
                         {% endif %}
 
                         <div class="row">
@@ -123,9 +123,13 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label>Gotra</label>
-                                    <input type="text" class="form-control form-control-object" name="gotra" id="gotra" required
-                                    value="{{ edit_member.gotra|default:'' }}">
+                                    <label for="gotra">Gotra</label>
+                                    <select name="gotra" class="form-control" id="gotra" required>
+                                        <option value="" disabled {% if not edit_member.gotra %}selected{% endif %}>Select</option>
+                                        {% for value, label in gotras %}
+                                        <option value="{{value}}" {% if value == edit_member.gotra %}selected{% endif %}>{{label}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
@@ -152,7 +156,7 @@
                                 <label for="profileImage" class="profile-upload-btn ms-4">
                                     <span>Profile Image</span>
                                     <input class="form-control mt-1" type="file" name="profileImage" id="profileImage"
-                                           accept=".jpg, .jpeg, .png" {% if not edit_member.profile_image %}required{% endif %}>
+                                           accept=".jpg, .jpeg, .png">
                                 </label>
                             </div>
 
@@ -162,7 +166,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Qualification</label>
+                                    <label for="qualification">Qualification</label>
                                     <select name="qualification" class="form-control" id="qualification">
                                         <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select Qualification</option>
                                         <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>Undergraduate</option>
@@ -172,32 +176,36 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 school_field d-none">
+                            <div class="col-12 col-md-6 school_field {% if edit_member.qualification_type != 'school' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>Class (1 - 12)</label>
                                     <input type="number" min="1" max="12" class="form-control form-control-subject" name="school_class" id="school_class"
-                                    value="{{ edit_member.qualification_detail.school_class|default:'' }}">
+                                    value="{{ edit_member.qualification_detail.first.school_class|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 school_field d-none">
+                            <div class="col-12 col-md-6 school_field {% if edit_member.qualification_type != 'school' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>School Name</label>
                                     <input type="text" class="form-control form-control-subject" name="school_name" id="school_name"
-                                    value="{{ edit_member.qualification_detail.school_name|default:'' }}">
+                                    value="{{ edit_member.qualification_detail.first.school_name|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 ugpg_field d-none">
+                            <div class="col-12 col-md-6 ugpg_field {% if edit_member.qualification_type != 'undergraduate' and edit_member.qualification_type != 'graduate' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>College/University Name</label>
+                                    <label>College / University</label>
                                     <input type="text" class="form-control form-control-subject" name="college_name" id="collge_uni_name"
-                                    value="{{ edit_member.qualification_detail.college_name|default:'' }}">
+                                    value="{{ edit_member.qualification_detail.first.college_name|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6 ugpg_field d-none">
+                            <div class="col-12 col-md-6 ugpg_field {% if edit_member.qualification_type != 'undergraduate' and edit_member.qualification_type != 'graduate' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Degree Name</label>
-                                    <input type="text" class="form-control form-control-subject" name="degree_name" id="degree_name"
-                                    value="{{ edit_member.qualification_detail.degree_name|default:'' }}">
+                                    <label for="degree_name">Degree</label>
+                                    <select name="degree_name" class="form-control" id="degree_name" required>
+                                        <option value="" disabled {% if not edit_member.qualification_detail.first.degree_name %}selected{% endif %}>Select</option>
+                                        {% for value, label in degrees %}
+                                        <option value="{{value}}" {% if value == edit_member.qualification_detail.first.degree_name %}selected{% endif %}>{{label}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
 
@@ -207,9 +215,10 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Occupation {{ edit_member.occupation_detail.first.company_name|default:'' }}</label>
+                                    <label for="occupation">Occupation {{ edit_member.occupation_detail.first.company_name|default:'' }}</label>
                                     <select name="occupation" class="form-control" id="occupation">
                                         <option value="" disabled {% if not edit_member.occupation_type %}selected{% endif %}>Select Occupation</option>
+                                        <option value="none" {% if edit_member.occupation_type == 'none' %}selected{% endif %}>Not Applicable</option>
                                         <option value="job" {% if edit_member.occupation_type == 'job' %}selected{% endif %}>Job</option>
                                         <option value="business" {% if edit_member.occupation_type == 'business' %}selected{% endif %}>Business</option>
                                     </select>
@@ -228,13 +237,13 @@
                                 <div class="form-group">
                                     <label>Location</label>
                                     <input type="text" class="form-control form-control-subject" name="job_location" id="job_location"
-                                    value="{{ edit_member.occupation_detail.company_location|default:'' }}">
+                                    value="{{ edit_member.occupation_detail.first.company_location|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
-                                <div class="form-group job_field">
+                            <div class="col-12 job_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
+                                <div class="form-group">
                                     <label>Job Description</label>
-                                    <textarea class="form-control form-control-message" name="job_description" id="job_description" rows="10">{{ edit_member.occupation_detail.job_description|default:'' }}</textarea>
+                                    <textarea class="form-control form-control-message" name="job_description" id="job_description" rows="10">{{ edit_member.occupation_detail.first.job_description|default:'' }}</textarea>
                                 </div>
                             </div>
 
@@ -243,21 +252,21 @@
                                 <div class="form-group">
                                     <label>Business Name</label>
                                     <input type="text" class="form-control form-control-subject" name="business_name" id="business_name"
-                                    value="{{ edit_member.occupation_detail.business_name|default:'' }}">
+                                    value="{{ edit_member.occupation_detail.first.business_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label>Business Location</label>
                                     <input type="text" class="form-control form-control-subject" name="business_location" id="business_location"
-                                    value="{{ edit_member.occupation_detail.business_location|default:'' }}">
+                                    value="{{ edit_member.occupation_detail.first.business_location|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                     <label>Business Description</label>
                                     <textarea class="form-control form-control-message" name="business_description"
-                                              id="business_description" rows="10">{{ edit_member.occupation_detail.business_description|default:'' }}</textarea>
+                                              id="business_description" rows="10">{{ edit_member.occupation_detail.first.business_description|default:'' }}</textarea>
                                 </div>
                             </div>
                         </div>
