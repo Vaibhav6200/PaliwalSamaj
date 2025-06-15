@@ -16,7 +16,8 @@ from django.contrib.auth.models import User
 
 gotras = SamajApp.models.Member.GOTRA_CHOICES
 locations = ['Udaipur', 'Ahmedabad', 'Jaipur']
-degrees = ['B.Tech', 'B.Sc', 'MCA', 'MBA']
+degrees = SamajApp.models.QualificationDetail.DEGREE_CHOICES
+
 companies = ['TCS', 'Infosys', 'Wipro']
 businesses = ['Paliwal Traders', 'Samaj Marble', 'Heritage Textiles']
 
@@ -128,7 +129,7 @@ def populate_members(n):
             birth_time=time(10 + i % 12, 30),
             gender=random.choice(['male', 'female']),
             marital_status=random.choice(['married', 'unmarried']),
-            height=random.uniform(150, 180),
+            height=random.randint(150, 180),
             phone_number=f"98765432{i:02}",
             whatsapp_number=f"98765432{i:02}",
             gotra=random.choice(gotras)[0],
@@ -148,7 +149,7 @@ def populate_members(n):
             QualificationDetail.objects.create(
                 member=member,
                 college_name='XYZ College',
-                degree_name=random.choice(degrees)
+                degree_name=random.choice(degrees)[0]
             )
         else:
             QualificationDetail.objects.create(
