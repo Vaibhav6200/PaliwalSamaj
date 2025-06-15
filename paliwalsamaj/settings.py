@@ -164,7 +164,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Paliwal Samaj",
 
     # The main logo shown in the top-left corner of the Django Admin interface.
-    "site_logo": "images/paliwal-samaj-favicon.png",
+    "site_logo": "images/paliwal-samaj-white-favicon.png",
 
     # Logo displayed on the login page of the Django admin.
     "login_logo": "images/ps-logo.png",
