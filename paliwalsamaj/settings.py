@@ -145,7 +145,6 @@ TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
 TWILIO_COUNTRY_CODE = os.getenv("TWILIO_COUNTRY_CODE")
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
