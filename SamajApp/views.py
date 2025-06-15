@@ -141,22 +141,31 @@ def handle_bio_data_form(request, family_code):
 def handle_member_delete(request):
     if request.method == 'POST':
         member_id = request.POST.get('member_id')
-        delete_member = Member.objects.filter(id=member_id)
+        delete_member_qs = Member.objects.filter(id=member_id)
 
-        if not delete_member.exists():
+        if not delete_member_qs.exists():
             messages.error(request, f'member does not exists')
             return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
-        delete_member = delete_member[0]
-        login_user_family = Member.objects.filter(user=request.user)[0].family
+        delete_member = delete_member_qs.first()
+        login_member = Member.objects.filter(user=request.user).first()
+        login_user_family = login_member.family
 
         # Check if the member to be deleted belongs to the same family
         if delete_member.family != login_user_family:
             messages.error(request, 'You can delete members of your own family only.')
             return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
+        # Check if the member to delete is the head of the family
+        is_family_head = (login_user_family.family_head == delete_member)
+
         delete_member_name = f"{delete_member.user.first_name} {delete_member.user.last_name}"
         delete_member.delete()
+
+        # If the deleted member was the family head, assign the logged-in user as the new family head
+        if is_family_head:
+            login_user_family.family_head = login_member
+            login_user_family.save()
         messages.success(request, f'member {delete_member_name} removed from family')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 

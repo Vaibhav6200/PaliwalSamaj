@@ -44,7 +44,7 @@
                             </div>
                             <div class="ts-team-content">
                                 <h3 class="ts-name">{{family_head.user.first_name}} {{family_head.user.last_name}}</h3>
-                                <p class="ts-designation">Safety Officer</p>
+                                <p class="ts-designation">Family Head</p>
                                 <div class="">
                                     <div class="d-flex align-items-center py-2 border-bottom border-white">
                                         <div class=""><span class="material-icons fs-5 ">call</span></div>
@@ -75,7 +75,7 @@
                                         </form>
                                     </div>
                                     <div class="col-12 col-md-6 p-0">
-                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100">
+                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100 delete-member-form">
                                             {% csrf_token %}
                                             <input type="hidden" value="{{ family_head.id }}" name="member_id">
                                             <button type="submit"
@@ -151,7 +151,7 @@
                                         </form>
                                     </div>
                                     <div class="col-12 col-md-6 p-0">
-                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100">
+                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100 delete-member-form">
                                             {% csrf_token %}
                                             <input type="hidden" name="member_id" value="{{ member.id }}">
                                             <button type="submit"
@@ -175,4 +175,28 @@
 
     {% include 'Includes/footer.html' %}
 </main>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.querySelectorAll('.delete-member-form').forEach(function(form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default submission
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be undone.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Submit the form if confirmed
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
