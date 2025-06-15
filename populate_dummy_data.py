@@ -155,7 +155,7 @@ def populate_members(n):
             QualificationDetail.objects.create(
                 member=member,
                 school_class='10',
-                school_name= fake.building_name()
+                school_name= "St Paul"
             )
 
         # Occupation detail
