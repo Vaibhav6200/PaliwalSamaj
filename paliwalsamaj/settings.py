@@ -164,19 +164,19 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Paliwal Samaj",
 
     # The main logo shown in the top-left corner of the Django Admin interface.
-    "site_logo": "images/paliwal-samaj-white-favicon.png",
+    "site_logo": "images/paliwal-samaj-favicon.png",
 
     # Logo displayed on the login page of the Django admin.
     "login_logo": "images/ps-logo.png",
 
     # Logo shown on the login form when using a dark theme.
-    "login_logo_dark": "images/ps-light-logo.png",
+    "login_logo_dark": "images/ps-logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "",
 
     # The favicon for your admin site (i.e., the small icon in the browser tab).
-    "site_icon": "images/paliwal-samaj-white-favicon.png",
+    "site_icon": "images/paliwal-samaj-favicon.png",
 
     # Welcome text on the login screen
     "welcome_sign": "Welcome to the Paliwal Samaj",
