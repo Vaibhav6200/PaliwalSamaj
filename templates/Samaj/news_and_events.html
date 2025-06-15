@@ -3,21 +3,21 @@
 {% block title %}News-Events{% endblock %}
 
 {% block stylesheets %}
-    <style>
-        .image-wrapper {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 4 / 3; /* Automatically adjusts height */
-          overflow: hidden;
-          border-radius: 8px;
-        }
+<style>
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3; /* Automatically adjusts height */
+      overflow: hidden;
+      border-radius: 8px;
+    }
 
-        .event-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-    </style>
+    .event-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -27,35 +27,37 @@
 
     <!-- Carousel Start Here -->
     <div id="banner-area" class="banner-area" style="background-image:url({% static 'images/banner/newsBanner.png' %})">
-      <div class="banner-text">
-        <div class="container">
-            <div class="row">
-              <div class="col-lg-12">
-                  <div class="banner-heading">
-                    <h1 class="banner-title">News</h1>
-                  </div>
-              </div><!-- Col end -->
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-      </div><!-- Banner text end -->
+        <div class="banner-text">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="banner-heading">
+                            <h1 class="banner-title">News</h1>
+                        </div>
+                    </div><!-- Col end -->
+                </div><!-- Row end -->
+            </div><!-- Container end -->
+        </div><!-- Banner text end -->
     </div>
     <!-- Carousel End Here -->
 
     <!-- Search Bar Start -->
     <div class="d-none d-md-block">
         <div class="main-container my-5 pt-5 row justify-content-center">
-            <form id="" class="col-6" action="" method="">
+            <form class="col-6" action="{% url 'samaj:news_and_events' %}" method="get">
                 <div class="form-group">
                     <label for="search_news_events" class="w-100 text-center">
                         <h3>Search News Or Events</h3>
                     </label>
                     <div class="d-flex">
-                        <div class="w-100"><input class="form-control form-control-name" name="search_news_events" id="search_news_events" placeholder="Search" type="text" required></div>
+                        <div class="w-100">
+                            <input class="form-control form-control-name" name="q" id="search_news_events"
+                                   placeholder="Search" type="text" required>
+                        </div>
                         <button type="submit" class="btn btn-dark d-flex align-items-center py-2 rounded-0">
                             <span class="material-icons me-2">search</span> Search
                         </button>
                     </div>
-
                 </div>
             </form>
         </div>
@@ -64,62 +66,102 @@
     <!-- Search Bar End -->
 
     <section id="main-container" class="main-container">
-      <div class="container">
-        <div class="row justify-content-center">
+        <div class="container">
+            <div class="row justify-content-center">
 
-          <div class="col-8 mb-5 mb-lg-0">
-            {% for obj in news_and_events %}
-            <div class="post">
-              <div class="post-media post-image">
-                <div class="image-wrapper">
-                  <img loading="lazy" src="{{ obj.image.url }}" class="img-fluid rounded event-image" alt="post-image">
-                </div>
-              </div>
+                <div class="col-8 mb-5 mb-lg-0">
+                    {% for obj in news_and_events %}
+                    <div class="post">
+                        <div class="post-media post-image">
+                            <div class="image-wrapper">
+                                <img loading="lazy" src="{{ obj.image.url }}" class="img-fluid rounded event-image"
+                                     alt="post-image">
+                            </div>
+                        </div>
 
-              <div class="post-body">
-                <div class="entry-header">
-                  <div class="post-meta">
+                        <div class="post-body">
+                            <div class="entry-header">
+                                <div class="post-meta">
                     <span class="post-cat">
                       <i class="far fa-folder-open"></i><a href="#"> {{ obj.get_category_display }}</a>
                     </span>
-                    <span class="post-meta-date"><i class="far fa-calendar"></i> {{ obj.created_at|date:"F j, Y" }}</span>
-<!--                    <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#" class="comments-link">Comments</a></span>-->
-                  </div>
-                  <h2 class="entry-title d-flex flex-column">
-                    <a href="news-single.html">{{ obj.title }}</a>
-                    {% if obj.subtitle %}
-                    <p class="text-muted fw-normal">{{ obj.subtitle }}</p>
-                    {% endif %}
-                  </h2>
+                                    <span class="post-meta-date"><i class="far fa-calendar"></i> {{ obj.created_at|date:"F j, Y" }}</span>
+                                    <!--                    <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#" class="comments-link">Comments</a></span>-->
+                                </div>
+                                <h2 class="entry-title d-flex flex-column">
+                                    <a href="news-single.html">{{ obj.title }}</a>
+                                    {% if obj.subtitle %}
+                                    <p class="text-muted fw-normal">{{ obj.subtitle }}</p>
+                                    {% endif %}
+                                </h2>
 
-                </div><!-- header end -->
+                            </div><!-- header end -->
 
-                <div class="entry-content">
-                  <p>{{ obj.content|truncatewords:60 }}</p>
-                </div>
+                            <div class="entry-content">
+                                <p>{{ obj.content|truncatewords:60 }}</p>
+                            </div>
 
-                <div class="post-footer">
-                  <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="btn btn-primary">Continue Reading</a>
-                </div>
+                            <div class="post-footer">
+                                <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="btn btn-primary">Continue
+                                    Reading</a>
+                            </div>
 
-              </div><!-- post-body end -->
-            </div><!-- 1st post end -->
-            {% endfor %}
+                        </div><!-- post-body end -->
+                    </div><!-- 1st post end -->
+                    {% endfor %}
 
-            <nav class="paging" aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a></li>
-              </ul>
-            </nav>
+                    <nav class="paging" aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {# First Page Link #}
+                            {% if news_and_events.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page=1">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
+                            </li>
+                            {% endif %}
 
-          </div><!-- Content Col end -->
-        </div><!-- Main row end -->
+                            {# Page Numbers Loop #}
+                            {% for num in news_and_events.paginator.page_range %}
+                                {% if num >= news_and_events.number|add:'-2' and num <= news_and_events.number|add:'2' %}
+                                    {% if num == news_and_events.number %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
 
-      </div><!-- Container end -->
+                            {# Last Page Link #}
+                            {% if news_and_events.has_next %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                   href="?{% if query %}q={{ query }}&{% endif %}page={{ news_and_events.paginator.num_pages }}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+
+                </div><!-- Content Col end -->
+            </div><!-- Main row end -->
+
+        </div><!-- Container end -->
     </section>
 
 

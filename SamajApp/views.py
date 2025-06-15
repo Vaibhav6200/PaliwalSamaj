@@ -1,13 +1,14 @@
 import random
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion
 from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
+from django.core.paginator import Paginator
 
 
 def site_login(request):
@@ -205,9 +206,27 @@ def user_profile(request, member_id):
 
 
 def news_and_events(request):
+    query = request.GET.get('q')
     news_events_obj = NewsEvent.objects.all().order_by('-created_at')
+
+    if query:
+        keywords = query.lower().strip().split()
+        q_object = Q()
+        for word in keywords:
+            q_object |= Q(title__icontains=word)
+            q_object |= Q(subtitle__icontains=word)
+            q_object |= Q(content__icontains=word)
+            q_object |= Q(category__icontains=word)
+
+        news_events_obj = NewsEvent.objects.filter(q_object).order_by('-created_at')
+
+    paginator = Paginator(news_events_obj, 10)   # Apply pagination (e.g., 6 items per page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'news_and_events': news_events_obj,
+        'news_and_events': page_obj,
+        'query': query,
     }
     return render(request, 'Samaj/news_and_events.html', context)
 
