@@ -138,12 +138,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
 
-# Twilio Settings
-TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
-TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
-TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
-TWILIO_COUNTRY_CODE = os.getenv("TWILIO_COUNTRY_CODE")
-
+# FAST2SMS Settings
+FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
