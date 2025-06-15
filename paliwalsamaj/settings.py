@@ -163,20 +163,20 @@ JAZZMIN_SETTINGS = {
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "Paliwal Samaj",
 
-    # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "images/ps-logo.png",
+    # The main logo shown in the top-left corner of the Django Admin interface.
+    "site_logo": "images/paliwal-samaj-white-favicon.png",
 
-    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
+    # Logo displayed on the login page of the Django admin.
     "login_logo": "images/ps-logo.png",
 
-    # Logo to use for login form in dark themes (defaults to login_logo)
+    # Logo shown on the login form when using a dark theme.
     "login_logo_dark": "images/ps-light-logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "",
 
-    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": None,
+    # The favicon for your admin site (i.e., the small icon in the browser tab).
+    "site_icon": "images/paliwal-samaj-white-favicon.png",
 
     # Welcome text on the login screen
     "welcome_sign": "Welcome to the Paliwal Samaj",
