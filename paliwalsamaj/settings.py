@@ -20,6 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env_path = BASE_DIR / '.env'
 load_dotenv(dotenv_path=env_path)
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -122,18 +125,18 @@ USE_TZ = True
 
 
 # *** CONFIGURATIONS FOR DEVELOPMENT ***
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = 'static/'
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # *** CONFIGURATIONS FOR PRODUCTION ***
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # collectstatic will copy here
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # collectstatic will copy here
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
 
 # Twilio Settings
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
@@ -152,22 +155,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django Jazzmin Settings
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Solvify Hub Admin",
+    "site_title": "Paliwal Samaj Admin",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Solvify Hub",
+    "site_header": "Paliwal Samaj",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "SolvifyHub",
+    "site_brand": "Paliwal Samaj",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "assets/solvify_logo.png",
+    "site_logo": "images/ps-light-logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "assets/solvify_logo.png",
+    "login_logo": "images/ps-light-logo.png",
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": "assets/solvify_logo.png",
+    "login_logo_dark": "images/ps-light-logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "",
@@ -176,10 +179,10 @@ JAZZMIN_SETTINGS = {
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "Welcome to the Solvify Hub",
+    "welcome_sign": "Welcome to the Paliwal Samaj",
 
     # Copyright on the footer
-    "copyright": "Solvify Hub, 2024",
+    "copyright": "Electrocom Solutions, 2025",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string
