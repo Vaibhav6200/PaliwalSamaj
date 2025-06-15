@@ -4,14 +4,13 @@ import random
 from datetime import date, time
 from faker import Faker
 
-import SamajApp.models
-
 fake = Faker()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
 django.setup()
 
 from SamajApp.models import Family, Member, QualificationDetail, OccupationDetail, NewsEvent, Comment
+import SamajApp.models
 from django.contrib.auth.models import User
 
 
