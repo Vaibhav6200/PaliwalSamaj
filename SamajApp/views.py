@@ -10,7 +10,7 @@ from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
 from django.core.paginator import Paginator
 from .tasks import translate_member_fields
-
+from django.utils import translation
 
 
 def site_login(request):
@@ -63,6 +63,7 @@ def bio_data(request):
 @login_required
 def handle_bio_data_form(request, family_code):
     if request.method == 'POST':
+
         user_id = request.POST.get('edit_member_user_id')
         family = get_object_or_404(Family, family_code=family_code)
 
@@ -161,7 +162,8 @@ def handle_bio_data_form(request, family_code):
         occupation.save()
 
         # submit task to celery for translations
-        translate_member_fields.delay(member.id)
+        current_language = translation.get_language()
+        translate_member_fields.delay(member.id, current_language)
 
     return redirect('samaj:my_family')
 
