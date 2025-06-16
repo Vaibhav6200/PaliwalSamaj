@@ -38,9 +38,18 @@ def calculate_age(born):
 def assign_translated_field(obj, field_name, value, client):
     if not value:
         return
+
+    # Always set the base field to the original input
+    setattr(obj, field_name, value)
+
     detected = client.detect_language(value)
     lang = detected.get("language", "en")
+
     if lang == "hi":
         setattr(obj, f"{field_name}_hi", value)
+        translated = client.translate(value, target_language="en")
+        setattr(obj, f"{field_name}_en", translated["translatedText"])
     else:
         setattr(obj, f"{field_name}_en", value)
+        translated = client.translate(value, target_language="hi")
+        setattr(obj, f"{field_name}_hi", translated["translatedText"])
