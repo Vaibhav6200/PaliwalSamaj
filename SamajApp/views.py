@@ -1,4 +1,3 @@
-import random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -7,15 +6,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, SamajMemberRoles
 from django.contrib import messages
-
-from paliwalsamaj import settings
-from .utils import generate_username, MessageHandler, calculate_age, assign_translated_field
+from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
 from django.core.paginator import Paginator
-from google.cloud import translate_v2 as translate
+from .tasks import translate_member_fields
 
-
-translate_client = translate.Client.from_service_account_json(settings.GCP_KEY_PATH)
 
 
 def site_login(request):
@@ -92,14 +87,14 @@ def handle_bio_data_form(request, family_code):
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
-        assign_translated_field(member, 'first_name', request.POST.get('first_name'), translate_client)
-        assign_translated_field(member, 'last_name', request.POST.get('last_name'), translate_client)
-        assign_translated_field(member, 'father_name', request.POST.get('father_name'), translate_client)
-        assign_translated_field(member, 'mother_name', request.POST.get('mother_name'), translate_client)
-        assign_translated_field(member, 'birth_place', request.POST.get('birth_place'), translate_client)
-        assign_translated_field(member, 'current_address', request.POST.get('address'), translate_client)
-        assign_translated_field(member, 'current_address_city', request.POST.get('city'), translate_client)
-        assign_translated_field(member, 'current_address_state', request.POST.get('state'), translate_client)
+        member.first_name = first_name
+        member.last_name = last_name
+        member.father_name = request.POST.get('father_name')
+        member.mother_name = request.POST.get('mother_name')
+        member.birth_place = request.POST.get('birth_place')
+        member.current_address = request.POST.get('address')
+        member.current_address_city = request.POST.get('city')
+        member.current_address_state = request.POST.get('state')
 
         member.date_of_birth = request.POST.get('date_of_birth')
         member.birth_time = request.POST.get('birth_time')
@@ -125,22 +120,22 @@ def handle_bio_data_form(request, family_code):
         if member.qualification_type == 'school':
             school_class = request.POST.get('school_class')
             qualification.school_class = int(school_class) if school_class else None
-            assign_translated_field(qualification, 'school_name', request.POST.get('school_name'), translate_client)
+            qualification.school_name = request.POST.get('school_name')
             qualification.college_name = None
             qualification.degree_name = None
         else:
             qualification.school_class = None
             qualification.school_name = None
-            assign_translated_field(qualification, 'college_name', request.POST.get('college_name'), translate_client)
+            qualification.college_name = request.POST.get('college_name')
             qualification.degree_name = request.POST.get('degree_name')
         qualification.save()
 
         # Occupation Details
         occupation, _ = OccupationDetail.objects.get_or_create(member=member)
         if member.occupation_type == 'job':
-            assign_translated_field(occupation, 'company_name', request.POST.get('company_name'), translate_client)
-            assign_translated_field(occupation, 'company_location', request.POST.get('job_location'), translate_client)
-            assign_translated_field(occupation, 'job_description', request.POST.get('job_description'), translate_client)
+            occupation.company_name = request.POST.get('company_name')
+            occupation.company_location = request.POST.get('job_location')
+            occupation.job_description = request.POST.get('job_description')
 
             # Clear business fields
             occupation.business_name = None
@@ -148,9 +143,9 @@ def handle_bio_data_form(request, family_code):
             occupation.business_description = None
 
         elif member.occupation_type == 'business':
-            assign_translated_field(occupation, 'business_name', request.POST.get('business_name'), translate_client)
-            assign_translated_field(occupation, 'business_location', request.POST.get('business_location'), translate_client)
-            assign_translated_field(occupation, 'business_description', request.POST.get('business_description'), translate_client)
+            occupation.business_name = request.POST.get('business_name')
+            occupation.business_location = request.POST.get('business_location')
+            occupation.business_description = request.POST.get('business_description')
 
             # Clear Job fields
             occupation.company_name = None
@@ -164,6 +159,10 @@ def handle_bio_data_form(request, family_code):
             occupation.company_location = None
             occupation.job_description = None
         occupation.save()
+
+        # submit task to celery for translations
+        translate_member_fields.delay(member.id)
+
     return redirect('samaj:my_family')
 
 

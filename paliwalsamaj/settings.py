@@ -161,6 +161,11 @@ FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Celery Settings
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # or your Redis instance URL
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
 # Django Jazzmin Settings
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)

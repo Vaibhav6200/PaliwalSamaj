@@ -3,9 +3,11 @@ import string
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
+from google.cloud import translate_v2 as translate
 from twilio.rest import Client
 from datetime import date
 
+translate_client = translate.Client.from_service_account_json(settings.GCP_KEY_PATH)
 
 def generate_username(first_name, last_name):
     base_username = slugify(f"{first_name}.{last_name}")
@@ -35,21 +37,22 @@ def calculate_age(born):
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
-def assign_translated_field(obj, field_name, value, client):
-    if not value:
-        return
+# def assign_translated_field(obj, field_name, value):
+#     if not value:
+#         return
+#
+#     # Always set the base field to the original input
+#     setattr(obj, field_name, value)
+#
+#     detected = translate_client.detect_language(value)
+#     lang = detected.get("language", "en")
+#
+#     if lang == "hi":
+#         setattr(obj, f"{field_name}_hi", value)
+#         translated = translate_client.translate(value, target_language="en")
+#         setattr(obj, f"{field_name}_en", translated["translatedText"])
+#     else:
+#         setattr(obj, f"{field_name}_en", value)
+#         translated = translate_client.translate(value, target_language="hi")
+#         setattr(obj, f"{field_name}_hi", translated["translatedText"])
 
-    # Always set the base field to the original input
-    setattr(obj, field_name, value)
-
-    detected = client.detect_language(value)
-    lang = detected.get("language", "en")
-
-    if lang == "hi":
-        setattr(obj, f"{field_name}_hi", value)
-        translated = client.translate(value, target_language="en")
-        setattr(obj, f"{field_name}_en", translated["translatedText"])
-    else:
-        setattr(obj, f"{field_name}_en", value)
-        translated = client.translate(value, target_language="hi")
-        setattr(obj, f"{field_name}_hi", translated["translatedText"])
