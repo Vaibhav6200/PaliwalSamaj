@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}Home{% endblock %}
 
 {% block stylesheets %}
@@ -24,8 +25,8 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
                         <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">Celebrating the Heritage of</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Paliwal Samaj Across Generations</h3>
+                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Celebrating the Heritage of" %}</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Paliwal Samaj Across Generations" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -36,8 +37,8 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
                         <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">Rooted in Dharma, Driven by Values</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">A Journey of Faith and Progress</h3>
+                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Rooted in Dharma, Driven by Values" %}</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "A Journey of Faith and Progress" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -48,8 +49,8 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
                         <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">United by Culture</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Strengthening Paliwal Identity Worldwide</h3>
+                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "United by Culture" %}</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Strengthening Paliwal Identity Worldwide" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -60,8 +61,8 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
                         <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">Legacy of Wisdom and Service</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Paliwal Samaj’s Timeless Contribution</h3>
+                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Legacy of Wisdom and Service" %}</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Paliwal Samaj’s Timeless Contribution" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -72,8 +73,8 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100">
                         <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">Tradition Meets Modernity</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">Carrying Forward the Paliwal Spirit</h3>
+                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Tradition Meets Modernity" %}</h2>
+                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Carrying Forward the Paliwal Spirit" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -89,18 +90,18 @@
                 <!-- Text Content -->
                 <div class="col-lg-6 d-flex flex-column justify-content-center">
                     <div>
-                        <h3 class="column-title">About Paliwal Samaj</h3>
+                        <h3 class="column-title">{% trans "About Paliwal Samaj" %}</h3>
                         <p>
-                            Paliwal Samaj is a distinguished and culturally rich Brahmin community with ancient roots in the historic town of Pali, India. Known for its deep commitment to Sanatan Dharma, Vedic values, and spiritual discipline, the community has long symbolized wisdom, unity, and tradition—growing over generations while gracefully adapting to changing times.
+                            {% blocktrans %}Paliwal Samaj is a distinguished and culturally rich Brahmin community with ancient roots in the historic town of Pali, India. Known for its deep commitment to Sanatan Dharma, Vedic values, and spiritual discipline, the community has long symbolized wisdom, unity, and tradition—growing over generations while gracefully adapting to changing times.{% endblocktrans %}
                         </p>
                         <p>
-                            Renowned for its contributions in education, public service, religious leadership, business, and cultural preservation, the Paliwal community continues to thrive across diverse regions and professions. From revered priests and scholars to modern professionals and entrepreneurs, we proudly carry forward a legacy rooted in ethics, excellence, and service.
+                            {% blocktrans %}Renowned for its contributions in education, public service, religious leadership, business, and cultural preservation, the Paliwal community continues to thrive across diverse regions and professions. From revered priests and scholars to modern professionals and entrepreneurs, we proudly carry forward a legacy rooted in ethics, excellence, and service.{% endblocktrans %}
                         </p>
                         <p>
-                            Grounded in Vedic customs, we uphold traditions like the gotra system, kuldevi worship, and observance of key festivals and sanskaras. Today, Paliwal families across India and the globe remain united by shared values, strong family bonds, and a collective spirit of growth—serving as a living bridge between tradition and progress.
+                            {% blocktrans %}Grounded in Vedic customs, we uphold traditions like the gotra system, kuldevi worship, and observance of key festivals and sanskaras. Today, Paliwal families across India and the globe remain united by shared values, strong family bonds, and a collective spirit of growth—serving as a living bridge between tradition and progress.{% endblocktrans %}
                         </p>
                         <a href="{% url 'samaj:paliwal_samaj_history' %}" class="slider btn btn-primary mb-4" tabindex="-1">
-                            Read More
+                            {% trans "Read More" %}
                         </a>
                     </div>
                 </div>
@@ -117,7 +118,7 @@
     <!-- Event Section Start -->
     <section id="event_section" class="main-container">
         <div class="w-100 text-center">
-            <h3 class="column-title">News & Events</h3>
+            <h3 class="column-title">{% trans "News & Events" %}</h3>
         </div>
         <div class="container py-5">
             <div class="swiper mySwiper">
@@ -146,9 +147,9 @@
     <!-- Event Section End -->
 
 
-    <!-- नेतृत्व मंडल (Netritva Mandal)  Section Start -->
+    <!-- Netritva Mandal Section Start -->
     <section class="container bg-light">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">नेतृत्व मंडल (Netritva Mandal)</h3>
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">{% trans "Netritva Mandal" %}</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -248,11 +249,11 @@
             </div>
         </div>
     </section>
-    <!-- नेतृत्व मंडल (Netritva Mandal)  Section End -->
+    <!-- Netritva Mandal Section End -->
 
-    <!-- संचालन समिति (Sanchalan Samiti)  Section Start -->
+    <!-- Sanchalan Samiti Section Start -->
     <section class="container bg-light mt-5">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">संचालन समिति (Sanchalan Samiti)</h3>
+        <h3 class="column-title mb-5 pb-3 w-100 text-center"> {% trans "Sanchalan Samiti" %} </h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -448,12 +449,12 @@
             </div>
         </div>
     </section>
-    <!-- संचालन समिति (Sanchalan Samiti)  Section End -->
+    <!-- Sanchalan Samiti Section End -->
 
 
-    <!-- सलाह एवं आयोजन मंडल (Salah evam Aayojan Mandal)  Section Start -->
+    <!-- Salah evam Aayojan Mandal Section Start -->
     <section class="container bg-light mt-5">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">सलाह एवं आयोजन मंडल (Salah evam Aayojan Mandal)</h3>
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">{% trans "Salah evam Aayojan Mandal" %}</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -721,11 +722,11 @@
             </div>
         </div>
     </section>
-    <!-- सलाह एवं आयोजन मंडल (Salah evam Aayojan Mandal)  Section End -->
+    <!-- Salah evam Aayojan Mandal Section End -->
 
-    <!-- कार्यकारिणी सदस्य (Karyakarini Sadasya)  Section Start -->
+    <!-- Karyakarini Sadasya Section Start -->
     <section class="container bg-light mt-5">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">कार्यकारिणी सदस्य (Karyakarini Sadasya)</h3>
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">{% trans "Karyakarini Sadasya" %}</h3>
         <div class="row m-0">
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
@@ -896,7 +897,7 @@
             </div>
         </div>
     </section>
-    <!-- कार्यकारिणी सदस्य (Karyakarini Sadasya)  Section End -->
+    <!-- Karyakarini Sadasya Section End -->
 
 
     <!-- Suggestion Form Start -->
@@ -904,10 +905,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="column-title mb-2">Share Your Suggestions or Ideas</h3>
-                    <p>If you have any ideas, suggestions, or features you’d like to see added to the Paliwal Samaj
-                        website, please let us know. Your input helps us make the platform better for everyone in the
-                        community.</p>
+                    <h3 class="column-title mb-2">{% trans "Share Your Suggestions or Ideas" %}</h3>
+                    <p>
+                        {% blocktrans %}If you have any ideas, suggestions, or features you’d like to see added to the Paliwal Samaj website, please let us know. Your input helps us make the platform better for everyone in the community.{% endblocktrans %}
+                    </p>
 
                     <form id="suggestion-form" class="pt-4" action="{% url 'samaj:suggestions' %}" method="post"
                           role="form">
@@ -917,29 +918,29 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name">Your Name</label>
-                                    <input class="form-control" name="name" id="name" placeholder="Enter your name"
+                                    <label for="name">{% trans "Your Name" %}</label>
+                                    <input class="form-control" name="name" id="name" placeholder="{% trans 'Enter your name' %}"
                                            type="text" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email">Your Email</label>
-                                    <input class="form-control" name="email" id="email" placeholder="Enter your email"
+                                    <label for="email">{% trans "Your Email" %}</label>
+                                    <input class="form-control" name="email" id="email" placeholder="{% trans 'Enter your email' %}"
                                            type="email" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Detailed Suggestion or Idea</label>
+                            <label for="message">{% trans "Detailed Suggestion or Idea" %}</label>
                             <textarea class="form-control" name="message" id="message"
-                                      placeholder="Please describe your suggestion or idea in detail..." rows="6"
+                                      placeholder="{% trans 'Please describe your suggestion or idea in detail...' %}" rows="6"
                                       required></textarea>
                         </div>
 
                         <div class="text-end mt-3">
-                            <button class="btn btn-primary" type="submit">Submit Suggestion</button>
+                            <button class="btn btn-primary" type="submit">{% trans "Submit Suggestion" %}</button>
                         </div>
                     </form>
                 </div>
@@ -960,25 +961,25 @@
                     <img src="{% static 'images/gopal.png' %}" class="about-dev-image w-100 h-100" alt=""
                          style="object-fit: cover; object-position: center 15%;">
                 </div>
-            </div><!-- Col end -->
+            </div>
 
             <!-- Text Content -->
             <div class="col-lg-6">
-                <h3 class="column-title">Gopal Paliwal</h3>
-                <p>Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, a Chittorgarh-based company specializing in software development, computer hardware services, and government tenders particularly in manpower recruitment. Alongside Electrocom, he also runs a digital library and learning center offering courses like RS-CIT and programming, helping bridge the digital skill gap in the region.</p>
-                <p>Grounded, hardworking, and deeply family-oriented, Gopal is known for leading with purpose and humility. His latest initiative, the creation of the Paliwal Samaj Website reflects his commitment to preserving and connecting the community. The website is envisioned as a one-stop destination where members can access Paliwal-related news, explore family listings, discover community achievements, and stay updated on cultural and social events.</p>
+                <h3 class="column-title">{% trans "Gopal Paliwal" %}</h3>
+                <p>
+                    {% blocktrans %}Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, a Chittorgarh-based company specializing in software development, computer hardware services, and government tenders particularly in manpower recruitment. Alongside Electrocom, he also runs a digital library and learning center offering courses like RS-CIT and programming, helping bridge the digital skill gap in the region.{% endblocktrans %}
+                </p>
+                <p>
+                    {% blocktrans %}Grounded, hardworking, and deeply family-oriented, Gopal is known for leading with purpose and humility. His latest initiative, the creation of the Paliwal Samaj Website reflects his commitment to preserving and connecting the community. The website is envisioned as a one-stop destination where members can access Paliwal-related news, explore family listings, discover community achievements, and stay updated on cultural and social events.{% endblocktrans %}
+                </p>
                 <blockquote class="bg-white">
-                    <p><em>Gopal’s vision is clear: To use technology as a tool to unite, empower, and celebrate the Paliwal identity. Through this effort, he stands out not just as a businessman, but as a community builder and changemaker.</em></p>
+                    <p><em>{% blocktrans %}Gopal’s vision is clear: To use technology as a tool to unite, empower, and celebrate the Paliwal identity. Through this effort, he stands out not just as a businessman, but as a community builder and changemaker.{% endblocktrans %}</em></p>
                 </blockquote>
-            </div><!-- Col end -->
-        </div><!-- Content row end -->
-    </div><!-- Container end -->
+            </div>
+        </div>
+    </div>
 </section>
 <!-- About Developer Family End -->
-
-
-    <!-- About Developer Family End -->
-
 
     {% include 'Includes/footer.html' %}
 
