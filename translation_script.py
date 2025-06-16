@@ -4,7 +4,7 @@ client = translate.Client. from_service_account_json("gcp_key.json")
 
 text = "Hello, Welcome to google cloud"
 
-result = client. translate(text, target_language="hi")
+result = client.translate(text, target_language="hi")
 
 print (result["translatedText"])
 

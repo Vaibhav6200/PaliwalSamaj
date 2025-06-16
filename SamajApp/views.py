@@ -7,9 +7,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, SamajMemberRoles
 from django.contrib import messages
-from .utils import generate_username, MessageHandler, calculate_age
+
+from paliwalsamaj import settings
+from .utils import generate_username, MessageHandler, calculate_age, assign_translated_field
 from datetime import date, timedelta
 from django.core.paginator import Paginator
+from google.cloud import translate_v2 as translate
+
+
+translate_client = translate.Client.from_service_account_json(settings.GCP_KEY_PATH)
 
 
 def site_login(request):
@@ -73,8 +79,6 @@ def handle_bio_data_form(request, family_code):
         if user_id:
             # UPDATE FLOW
             user = get_object_or_404(User, id=user_id)
-            user.first_name = first_name
-            user.last_name = last_name
             user.email = email
             user.save()
 
@@ -84,18 +88,21 @@ def handle_bio_data_form(request, family_code):
             # CREATE FLOW
             user = User.objects.create(
                 username=generate_username(first_name, last_name),
-                first_name=first_name,
-                last_name=last_name,
                 email=email
             )
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
-        # Common fields (both for create & update)
-        member.father_name = request.POST.get('father_name')
-        member.mother_name = request.POST.get('mother_name')
+        assign_translated_field(member, 'first_name', request.POST.get('first_name'), translate_client)
+        assign_translated_field(member, 'last_name', request.POST.get('last_name'), translate_client)
+        assign_translated_field(member, 'father_name', request.POST.get('father_name'), translate_client)
+        assign_translated_field(member, 'mother_name', request.POST.get('mother_name'), translate_client)
+        assign_translated_field(member, 'birth_place', request.POST.get('birth_place'), translate_client)
+        assign_translated_field(member, 'current_address', request.POST.get('address'), translate_client)
+        assign_translated_field(member, 'current_address_city', request.POST.get('city'), translate_client)
+        assign_translated_field(member, 'current_address_state', request.POST.get('state'), translate_client)
+
         member.date_of_birth = request.POST.get('date_of_birth')
-        member.birth_place = request.POST.get('birth_place')
         member.birth_time = request.POST.get('birth_time')
         member.gender = request.POST.get('gender')
         member.marital_status = request.POST.get('marital_status')
@@ -103,7 +110,6 @@ def handle_bio_data_form(request, family_code):
         member.phone_number = request.POST.get('phone_number')
         member.whatsapp_number = request.POST.get('whatsapp_number')
         member.gotra = request.POST.get('gotra')
-        member.current_address = request.POST.get('address')
         member.qualification_type = request.POST.get('qualification')
         member.occupation_type = request.POST.get('occupation')
         member.instagram_link = request.POST.get('instagram_link')
@@ -184,7 +190,7 @@ def handle_member_delete(request):
         # Check if the member to delete is the head of the family
         is_family_head = (login_user_family.family_head == delete_member)
 
-        delete_member_name = f"{delete_member.user.first_name} {delete_member.user.last_name}"
+        delete_member_name = f"{delete_member.first_name} {delete_member.last_name}"
         delete_member.delete()
 
         # If the deleted member was the family head, assign the logged-in user as the new family head
@@ -454,7 +460,7 @@ def get_member_search_list(request):
         objs = Member.objects.filter(query)
         for obj in objs:
             payload.append({
-                'member_name': f"{obj.user.first_name} {obj.user.last_name}",
+                'member_name': f"{obj.first_name} {obj.last_name}",
                 'member_phone': obj.phone_number,
             })
     return JsonResponse({

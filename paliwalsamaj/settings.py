@@ -24,6 +24,8 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
+GCP_KEY_PATH = f"{BASE_DIR}/gcp_key.json"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'SamajApp.apps.SamajappConfig',
+    'modeltranslation',
 ]
 
 MIDDLEWARE = [
@@ -121,6 +124,7 @@ LANGUAGES = [
     ('en', 'English'),
     ('hi', 'Hindi'),
 ]
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale',

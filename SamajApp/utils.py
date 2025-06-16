@@ -34,3 +34,13 @@ def calculate_age(born):
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
+
+def assign_translated_field(obj, field_name, value, client):
+    if not value:
+        return
+    detected = client.detect_language(value)
+    lang = detected.get("language", "en")
+    if lang == "hi":
+        setattr(obj, f"{field_name}_hi", value)
+    else:
+        setattr(obj, f"{field_name}_en", value)

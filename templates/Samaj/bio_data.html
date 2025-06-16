@@ -28,14 +28,14 @@
                                 <div class="form-group">
                                     <label for="first_name">{% trans "First Name" %}</label>
                                     <input class="form-control form-control-name" name="first_name" id="first_name" type="text" required
-                                           value="{{ edit_member.user.first_name|default:'' }}">
+                                           value="{{ edit_member.first_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label for="last_name">{% trans "Last Name" %}</label>
                                     <input class="form-control form-control-name" name="last_name" id="last_name" type="text" required
-                                    value="{{ edit_member.user.last_name|default:'' }}">
+                                    value="{{ edit_member.last_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
@@ -133,11 +133,25 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Address" %}</label>
                                     <input type="text" class="form-control form-control-object" name="address" id="address" required
                                     value="{{ edit_member.current_address|default:'' }}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label>{% trans "City" %}</label>
+                                    <input type="text" class="form-control form-control-object" name="city" id="city" required
+                                    value="{{ edit_member.current_address_city|default:'' }}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label>{% trans "State" %}</label>
+                                    <input type="text" class="form-control form-control-object" name="state" id="state" required
+                                    value="{{ edit_member.current_address_state|default:'' }}">
                                 </div>
                             </div>
                             <!-- Profile Image -->
