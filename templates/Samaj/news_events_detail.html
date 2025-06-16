@@ -4,21 +4,21 @@
 {% block title %}News-Events Detail{% endblock %}
 
 {% block stylesheets %}
-    <style>
-        .image-wrapper {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 4 / 3; /* Automatically adjusts height */
-          overflow: hidden;
-          border-radius: 8px;
-        }
+<style>
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3; /* Automatically adjusts height */
+      overflow: hidden;
+      border-radius: 8px;
+    }
 
-        .event-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-    </style>
+    .event-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -27,174 +27,187 @@
 
     <div class="body-inner">
 
-        <div id="banner-area" class="banner-area" style="background-image:url({% static 'images/banner/banner1.jpg' %})">
-          <div class="banner-text">
-            <div class="container">
-                <div class="row">
-                  <div class="col-lg-12">
-                      <div class="banner-heading">
-                        <h1 class="banner-title">{{ post.title }}</h1>
-                      </div>
-                  </div><!-- Col end -->
-                </div><!-- Row end -->
-            </div><!-- Container end -->
-          </div><!-- Banner text end -->
-        </div><!-- Banner area end -->
+        <div id="banner-area" class="banner-area"
+             style="background-image:url({% static 'images/banner/banner1.jpg' %})">
+            <div class="banner-text">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="banner-heading">
+                                <h1 class="banner-title">{{ post.title }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section id="main-container" class="main-container">
-          <div class="container">
-            <div class="row">
+            <div class="container">
+                <div class="row">
 
-              <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="col-lg-8 mb-5 mb-lg-0">
 
-                <div class="post-content post-single">
-                  <div class="post-media post-image">
-                    <div class="image-wrapper">
-                      <img loading="lazy" src="{{ post.image.url }}" class="img-fluid rounded event-image" alt="post-image">
-                    </div>
-                  </div>
-
-                  <div class="post-body">
-                    <div class="entry-header">
-                      <div class="post-meta">
-                        <span class="post-cat">
-                          <i class="far fa-folder-open"></i><a href="#"> {{ post.get_category_display }}</a>
-                        </span>
-                        <span class="post-meta-date"><i class="far fa-calendar"></i> {{ post.created_at|date:"F j, Y" }}</span>
-<!--                        <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#" class="comments-link">Comments</a></span>-->
-                      </div>
-                      <h2 class="entry-title d-flex flex-column">
-                        <a href="news-single.html">{{ post.title }}</a>
-                        {% if post.subtitle %}
-                        <p class="text-muted fw-normal">{{ post.subtitle }}</p>
-                        {% endif %}
-                      </h2>
-                    </div><!-- header end -->
-                    <div class="entry-content">
-                      <p>{{ post.content }}</p>
-                    </div>
-                  </div><!-- post-body end -->
-                </div><!-- post content end -->
-
-
-                <!-- Post comment start -->
-                <div id="comments" class="comments-area">
-                  <h3 class="comments-heading">{{ comments.count }} Comments</h3>
-
-                  {% if comments %}
-                  <ul class="comments-list">
-                    {% for comment in comments %}
-                    <li>
-                      <div class="comment d-flex">
-                        {% if comment.sender.profile_image %}
-                        <img loading="lazy" class="comment-avatar" alt="author" src="{{ comment.sender.profile_image.url }}">
-                        {% else %}
-                        <img loading="lazy" class="comment-avatar" alt="author" src="{% static 'images/profile.png' %}">
-                        {% endif %}
-                        <div class="comment-body">
-                          <div class="meta-data">
-                            <span class="comment-author mr-3">{{ comment.sender }}</span>
-                            <span class="comment-date float-right">{{ comment.created_at|date:"F j, Y" }} at {{ comment.created_at|date:"g:i a" }}</span>
-                          </div>
-                          <div class="comment-content">
-                            <p>{{ comment.content }}</p>
-                          </div>
-                          <div class="text-left">
-                            <a class="comment-reply font-weight-bold" href="#" onclick="toggleReplyForm({{ comment.id }}); return false;">Reply</a>
-
-                            <!-- Reply form (hidden initially) -->
-                            <div id="reply-form-{{ comment.id }}" class="reply-form mt-2" style="display: none;">
-                              <form method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                                <textarea name="content" class="form-control mb-2" placeholder="Write your reply..." required></textarea>
-                                <button type="submit" class="btn btn-sm btn-primary">Reply</button>
-                              </form>
+                        <div class="post-content post-single">
+                            <div class="post-media post-image">
+                                <div class="image-wrapper">
+                                    <img loading="lazy" src="{{ post.image.url }}" class="img-fluid rounded event-image"
+                                         alt="post-image">
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                      </div><!-- Comments end -->
 
-                      <ul class="comments-reply">
-                        {% for reply in comment.replies.all %}
-                        <li>
-                          <div class="comment d-flex">
-                            {% if reply.sender.profile_image %}
-                            <img loading="lazy" class="comment-avatar" alt="author" src="{{ reply.sender.profile_image.url }}">
+                            <div class="post-body">
+                                <div class="entry-header">
+                                    <div class="post-meta">
+                                        <span class="post-cat">
+                                          <i class="far fa-folder-open"></i><a href="#"> {{ post.get_category_display }}</a>
+                                        </span>
+                                        <span class="post-meta-date"><i class="far fa-calendar"></i> {{ post.created_at|date:"F j, Y" }}</span>
+                                        <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#" class="comments-link">Comments</a></span>-->
+                                    </div>
+                                    <h2 class="entry-title d-flex flex-column">
+                                        <a href="news-single.html">{{ post.title }}</a>
+                                        {% if post.subtitle %}
+                                        <p class="text-muted fw-normal">{{ post.subtitle }}</p>
+                                        {% endif %}
+                                    </h2>
+                                </div>
+                                <div class="entry-content">
+                                    <p>{{ post.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Post comment start -->
+                        <div id="comments" class="comments-area">
+                            <h3 class="comments-heading">{{ comments.count }} {% trans "Comments" %}</h3>
+
+                            {% if comments %}
+                            <ul class="comments-list">
+                                {% for comment in comments %}
+                                <li>
+                                    <div class="comment d-flex">
+                                        {% if comment.sender.profile_image %}
+                                        <img loading="lazy" class="comment-avatar" alt="author"
+                                             src="{{ comment.sender.profile_image.url }}">
+                                        {% else %}
+                                        <img loading="lazy" class="comment-avatar" alt="author"
+                                             src="{% static 'images/profile.png' %}">
+                                        {% endif %}
+                                        <div class="comment-body">
+                                            <div class="meta-data">
+                                                <span class="comment-author mr-3">{{ comment.sender }}</span>
+                                                <span class="comment-date float-right">{{ comment.created_at|date:"F j, Y" }} at {{ comment.created_at|date:"g:i a" }}</span>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>{{ comment.content }}</p>
+                                            </div>
+                                            <div class="text-left">
+                                                <a class="comment-reply font-weight-bold" href="#"
+                                                   onclick="toggleReplyForm({{ comment.id }}); return false;">{% trans "Reply" %}</a>
+
+                                                <!-- Reply form (hidden initially) -->
+                                                <div id="reply-form-{{ comment.id }}" class="reply-form mt-2"
+                                                     style="display: none;">
+                                                    <form method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                                        <textarea name="content" class="form-control mb-2"
+                                                                  placeholder="Write your reply..." required></textarea>
+                                                        <button type="submit" class="btn btn-sm btn-primary">{% trans "Reply" %}
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- Comments end -->
+
+                                    <ul class="comments-reply">
+                                        {% for reply in comment.replies.all %}
+                                        <li>
+                                            <div class="comment d-flex">
+                                                {% if reply.sender.profile_image %}
+                                                <img loading="lazy" class="comment-avatar" alt="author"
+                                                     src="{{ reply.sender.profile_image.url }}">
+                                                {% else %}
+                                                <img loading="lazy" class="comment-avatar" alt="author"
+                                                     src="{% static 'images/profile.png' %}">
+                                                {% endif %}
+                                                <div class="comment-body">
+                                                    <div class="meta-data">
+                                                        <span class="comment-author mr-3">{{ reply.sender }}</span>
+                                                        <span class="comment-date float-right">{{ reply.created_at|date:"F j, Y" }} at {{ reply.created_at|date:"g:i a" }}</span>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p>{{ reply.content }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                                {% endfor %}
+                            </ul>
                             {% else %}
-                            <img loading="lazy" class="comment-avatar" alt="author" src="{% static 'images/profile.png' %}">
+                            <div class="text-muted">{% trans "No Comments Yet!" %}</div>
                             {% endif %}
-                            <div class="comment-body">
-                              <div class="meta-data">
-                                <span class="comment-author mr-3">{{ reply.sender }}</span>
-                                <span class="comment-date float-right">{{ reply.created_at|date:"F j, Y" }} at {{ reply.created_at|date:"g:i a" }}</span>
-                              </div>
-                              <div class="comment-content">
-                                <p>{{ reply.content }}</p>
-                              </div>
-                            </div>
-                          </div><!-- Comments end -->
-                        </li>
-                        {% endfor %}
-                      </ul>
-                      <!-- comments-reply end -->
-                    </li>
-                    {% endfor %}
-                  </ul><!-- Comments-list ul end -->
-                  {% else %}
-                  <div class="text-muted">No Comments Yet!</div>
-                  {% endif %}
-                </div>
-                <!-- Post comment end -->
-
-                <div class="comments-form border-box">
-                  <h3 class="title-normal">Add a comment</h3>
-                  <form method="post">
-                    {% csrf_token %}
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="message" class="w-100">
-                            <textarea name="content" class="form-control required-field" id="message" placeholder="Your Comment" rows="10" required></textarea>
-                          </label>
                         </div>
-                      </div><!-- Col 12 end -->
-                    </div><!-- Form row end -->
-                    <div class="clearfix">
-                      <button class="btn btn-primary" type="submit" aria-label="post-comment">Post Comment</button>
+                        <!-- Post comment end -->
+
+                        <div class="comments-form border-box">
+                            <h3 class="title-normal">{% trans "Add a comment" %}</h3>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="message" class="w-100">
+                                                <textarea name="content" class="form-control required-field"
+                                                          id="message" placeholder="{% trans 'Your Comment' %}" rows="10"
+                                                          required></textarea>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix">
+                                    <button class="btn btn-primary" type="submit" aria-label="post-comment">
+                                        {% trans "Post Comment" %}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                  </form><!-- Form end -->
-                </div><!-- Comments form end -->
-              </div><!-- Content Col end -->
 
-              <div class="col-lg-4">
+                    <div class="col-lg-4">
 
-                <div class="sidebar sidebar-right">
-                  <div class="widget recent-posts">
-                    <h3 class="widget-title">Recent Posts</h3>
-                    <ul class="list-unstyled">
+                        <div class="sidebar sidebar-right">
+                            <div class="widget recent-posts">
+                                <h3 class="widget-title">{% trans "Recent Posts" %}</h3>
+                                <ul class="list-unstyled">
 
-                      {% for recent_post_obj in recent_posts %}
-                      <li class="d-flex align-items-center">
-                        <div class="posts-thumb">
-                          <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}"><img loading="lazy" alt="img" src="{{ recent_post_obj.image.url }}" style="object-fit: cover;"></a>
+                                    {% for recent_post_obj in recent_posts %}
+                                    <li class="d-flex align-items-center">
+                                        <div class="posts-thumb">
+                                            <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}"><img
+                                                    loading="lazy" alt="img" src="{{ recent_post_obj.image.url }}"
+                                                    style="object-fit: cover;"></a>
+                                        </div>
+                                        <div class="post-info">
+                                            <h4 class="entry-title">
+                                                <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}">{{ recent_post_obj.title|truncatewords:15 }}</a>
+                                            </h4>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                        <div class="post-info">
-                          <h4 class="entry-title">
-                            <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}">{{ recent_post_obj.title|truncatewords:15 }}</a>
-                          </h4>
-                        </div>
-                      </li><!-- 1st post end-->
-                      {% endfor %}
-                    </ul>
-                  </div><!-- Recent post end -->
-                </div><!-- Sidebar end -->
-              </div><!-- Sidebar Col end -->
-
-            </div><!-- Main row end -->
-
-          </div><!-- Conatiner end -->
-        </section><!-- Main container end -->
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
     {% include 'Includes/footer.html' %}
@@ -204,23 +217,23 @@
 
 {% block javascripts %}
 <script>
-function toggleReplyForm(commentId) {
-  const formId = `reply-form-${commentId}`;
-  const formElement = document.getElementById(formId);
+    function toggleReplyForm(commentId) {
+      const formId = `reply-form-${commentId}`;
+      const formElement = document.getElementById(formId);
 
-  // Hide all other reply forms
-  document.querySelectorAll('.reply-form').forEach(form => {
-    if (form.id !== formId) {
-      form.style.display = 'none';
+      // Hide all other reply forms
+      document.querySelectorAll('.reply-form').forEach(form => {
+        if (form.id !== formId) {
+          form.style.display = 'none';
+        }
+      });
+
+      // Toggle this form
+      if (formElement.style.display === 'none') {
+        formElement.style.display = 'block';
+      } else {
+        formElement.style.display = 'none';
+      }
     }
-  });
-
-  // Toggle this form
-  if (formElement.style.display === 'none') {
-    formElement.style.display = 'block';
-  } else {
-    formElement.style.display = 'none';
-  }
-}
 </script>
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-16 17:14+0530\n"
+"POT-Creation-Date: 2025-06-16 17:34+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,27 +121,28 @@ msgstr "पहला नाम"
 msgid "Last Name"
 msgstr "अंतिम नाम"
 
-#: templates/Samaj/bio_data.html:43
+#: templates/Samaj/bio_data.html:43 templates/Samaj/user_profile.html:31
 msgid "Father Name"
 msgstr "पिता का नाम"
 
-#: templates/Samaj/bio_data.html:50
+#: templates/Samaj/bio_data.html:50 templates/Samaj/user_profile.html:34
 msgid "Mother Name"
 msgstr "माता का नाम"
 
-#: templates/Samaj/bio_data.html:57
+#: templates/Samaj/bio_data.html:57 templates/Samaj/user_profile.html:37
 msgid "Date Of Birth"
 msgstr "जन्म तिथि"
 
-#: templates/Samaj/bio_data.html:64
+#: templates/Samaj/bio_data.html:64 templates/Samaj/user_profile.html:43
 msgid "Birth Place"
 msgstr "जन्म स्थान"
 
-#: templates/Samaj/bio_data.html:71
+#: templates/Samaj/bio_data.html:71 templates/Samaj/user_profile.html:47
 msgid "Birth Time"
 msgstr "जन्म समय"
 
 #: templates/Samaj/bio_data.html:79 templates/Samaj/community.html:64
+#: templates/Samaj/user_profile.html:50
 msgid "Gender"
 msgstr "लिंग"
 
@@ -153,7 +154,7 @@ msgstr "पुरुष"
 msgid "Female"
 msgstr "महिला"
 
-#: templates/Samaj/bio_data.html:89
+#: templates/Samaj/bio_data.html:89 templates/Samaj/user_profile.html:53
 msgid "Marital Status"
 msgstr "वैवाहिक स्थिति"
 
@@ -165,7 +166,7 @@ msgstr "अविवाहित"
 msgid "Married"
 msgstr "विवाहित"
 
-#: templates/Samaj/bio_data.html:99
+#: templates/Samaj/bio_data.html:99 templates/Samaj/user_profile.html:56
 msgid "Height (In Centimeter)"
 msgstr "ऊंचाई (सेंटीमीटर में)"
 
@@ -182,11 +183,12 @@ msgid "Email (optional)"
 msgstr "ईमेल (वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:127 templates/Samaj/community.html:40
-#: templates/Samaj/my_family.html:113
+#: templates/Samaj/member_family_tree.html:79
+#: templates/Samaj/my_family.html:113 templates/Samaj/user_profile.html:59
 msgid "Gotra"
 msgstr "गोत्र"
 
-#: templates/Samaj/bio_data.html:138
+#: templates/Samaj/bio_data.html:138 templates/Samaj/user_profile.html:82
 msgid "Address"
 msgstr "पता"
 
@@ -194,7 +196,7 @@ msgstr "पता"
 msgid "Profile Image"
 msgstr "प्रोफ़ाइल छवि"
 
-#: templates/Samaj/bio_data.html:166
+#: templates/Samaj/bio_data.html:166 templates/Samaj/user_profile.html:90
 msgid "Educational Details"
 msgstr "शैक्षिक विवरण"
 
@@ -206,7 +208,7 @@ msgstr "योग्यता"
 msgid "Undergraduate"
 msgstr "स्नातक पूर्व"
 
-#: templates/Samaj/bio_data.html:174
+#: templates/Samaj/bio_data.html:174 templates/Samaj/user_profile.html:107
 msgid "Graduate"
 msgstr "स्नातक"
 
@@ -214,23 +216,23 @@ msgstr "स्नातक"
 msgid "School"
 msgstr "विद्यालय"
 
-#: templates/Samaj/bio_data.html:182
+#: templates/Samaj/bio_data.html:182 templates/Samaj/user_profile.html:99
 msgid "Class"
 msgstr "कक्षा"
 
-#: templates/Samaj/bio_data.html:189
+#: templates/Samaj/bio_data.html:189 templates/Samaj/user_profile.html:94
 msgid "School Name"
 msgstr "विद्यालय का नाम"
 
-#: templates/Samaj/bio_data.html:196
+#: templates/Samaj/bio_data.html:196 templates/Samaj/user_profile.html:105
 msgid "College / University"
 msgstr "कॉलेज / विश्वविद्यालय"
 
-#: templates/Samaj/bio_data.html:203
+#: templates/Samaj/bio_data.html:203 templates/Samaj/user_profile.html:116
 msgid "Degree"
 msgstr "डिग्री"
 
-#: templates/Samaj/bio_data.html:215
+#: templates/Samaj/bio_data.html:215 templates/Samaj/user_profile.html:125
 msgid "Professional Details"
 msgstr "पेशेवर विवरण"
 
@@ -246,7 +248,7 @@ msgstr "नौकरी"
 msgid "Business"
 msgstr "व्यवसाय"
 
-#: templates/Samaj/bio_data.html:232
+#: templates/Samaj/bio_data.html:232 templates/Samaj/user_profile.html:135
 msgid "Company Name"
 msgstr "कंपनी का नाम"
 
@@ -254,23 +256,23 @@ msgstr "कंपनी का नाम"
 msgid "Location"
 msgstr "स्थान"
 
-#: templates/Samaj/bio_data.html:246
+#: templates/Samaj/bio_data.html:246 templates/Samaj/user_profile.html:156
 msgid "Job Description"
 msgstr "नौकरी का विवरण"
 
-#: templates/Samaj/bio_data.html:254
+#: templates/Samaj/bio_data.html:254 templates/Samaj/user_profile.html:132
 msgid "Business Name"
 msgstr "व्यवसाय का नाम"
 
-#: templates/Samaj/bio_data.html:261
+#: templates/Samaj/bio_data.html:261 templates/Samaj/user_profile.html:142
 msgid "Business Location"
 msgstr "व्यवसाय का स्थान"
 
-#: templates/Samaj/bio_data.html:268
+#: templates/Samaj/bio_data.html:268 templates/Samaj/user_profile.html:146
 msgid "Business Description"
 msgstr "व्यवसाय का विवरण"
 
-#: templates/Samaj/bio_data.html:276
+#: templates/Samaj/bio_data.html:276 templates/Samaj/user_profile.html:166
 msgid "Social Media Links"
 msgstr "सोशल मीडिया लिंक"
 
@@ -290,7 +292,7 @@ msgstr "किसी भी सदस्य को खोजें"
 msgid "Paliwal Samaj"
 msgstr "पालीवाल समाज"
 
-#: templates/Samaj/community.html:33
+#: templates/Samaj/community.html:33 templates/Samaj/user_profile.html:28
 msgid "Name"
 msgstr "नाम"
 
@@ -299,11 +301,11 @@ msgid "Education"
 msgstr "शिक्षा"
 
 #: templates/Samaj/community.html:74 templates/Samaj/my_family.html:53
-#: templates/Samaj/my_family.html:118
+#: templates/Samaj/my_family.html:118 templates/Samaj/user_profile.html:40
 msgid "Age"
 msgstr "आयु"
 
-#: templates/Samaj/community.html:95
+#: templates/Samaj/community.html:95 templates/Samaj/news_and_events.html:59
 msgid "Search"
 msgstr "खोजें"
 
@@ -565,3 +567,80 @@ msgstr "एडिट"
 #: templates/Samaj/my_family.html:85 templates/Samaj/my_family.html:156
 msgid "Delete"
 msgstr "हटाएं"
+
+#: templates/Samaj/news_and_events.html:51
+msgid "Search News Or Events"
+msgstr "समाचार एवं कार्यक्रम"
+
+#: templates/Samaj/news_and_events.html:106
+msgid "Continue Reading"
+msgstr "पढ़ना जारी रखें"
+
+#: templates/Samaj/news_events_detail.html:84
+msgid "Comments"
+msgstr "टिप्पणियाँ"
+
+#: templates/Samaj/news_events_detail.html:108
+#: templates/Samaj/news_events_detail.html:118
+msgid "Reply"
+msgstr "जवाब दें"
+
+#: templates/Samaj/news_events_detail.html:154
+msgid "No Comments Yet!"
+msgstr "अभी तक कोई टिप्पणी नहीं है!"
+
+#: templates/Samaj/news_events_detail.html:160
+msgid "Add a comment"
+msgstr "टिप्पणी जोड़ें"
+
+#: templates/Samaj/news_events_detail.html:168
+msgid "Your Comment"
+msgstr "आपकी टिप्पणी"
+
+#: templates/Samaj/news_events_detail.html:176
+msgid "Post Comment"
+msgstr "टिप्पणी पोस्ट करें"
+
+#: templates/Samaj/news_events_detail.html:187
+msgid "Recent Posts"
+msgstr "हाल की पोस्ट"
+
+#: templates/Samaj/user_profile.html:14
+msgid "Personal Details"
+msgstr "व्यक्तिगत विवरण"
+
+#: templates/Samaj/user_profile.html:69
+msgid "Contact Details"
+msgstr "संपर्क विवरण"
+
+#: templates/Samaj/user_profile.html:72
+msgid "Phone Number"
+msgstr "फोन नंबर"
+
+#: templates/Samaj/user_profile.html:75
+msgid "Whatsapp Number"
+msgstr "व्हाट्सएप नंबर"
+
+#: templates/Samaj/user_profile.html:79
+msgid "Email"
+msgstr "ईमेल"
+
+#: templates/Samaj/user_profile.html:109
+msgid "Under Graduate"
+msgstr "स्नातक पूर्व"
+
+#: templates/Samaj/user_profile.html:128
+msgid "Occupation Type"
+msgstr "व्यवसाय का प्रकार"
+
+#: templates/Samaj/user_profile.html:151
+msgid "Job Location"
+msgstr "नौकरी का स्थान"
+
+#: templates/Samaj/user_profile.html:169
+msgid "Facebook"
+msgstr "फेसबुक"
+
+#: templates/Samaj/user_profile.html:180
+msgid "Instagram"
+msgstr "इंस्टाग्राम"
