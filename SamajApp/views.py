@@ -26,12 +26,14 @@ def index(request):
 
 @login_required
 def bio_data(request):
-    context = {'family_code': Member.objects.get(user=request.user).family.family_code}
+    context = {
+        'family_code': Member.objects.get(user=request.user).family.family_code,
+        'gotras': Member.GOTRA_CHOICES,
+        'degrees': QualificationDetail.DEGREE_CHOICES,
+    }
     if request.method == 'POST':
         edit_member_user_id = request.POST.get('user_id')
         context['edit_member'] = Member.objects.get(user__id = edit_member_user_id)
-        context['gotras'] = Member.GOTRA_CHOICES
-        context['degrees'] = QualificationDetail.DEGREE_CHOICES
     return render(request, 'Samaj/bio_data.html', context)
 
 

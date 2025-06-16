@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block title %}Bio Data{% endblock %}
 
 {% block content %}
@@ -10,7 +11,7 @@
         <div class="container">
             <div class="row mt-5">
                 <div class="col-md-12">
-                    <h3 class="column-title mb-2">Bio Data</h3>
+                    <h3 class="column-title mb-2">{% trans "Bio Data" %}</h3>
                     <form id="contact-form" class="pt-4" action="{% url 'samaj:handle_bio_data_form' family_code %}" method="post" role="form" enctype="multipart/form-data">
                         {% csrf_token %}
 
@@ -21,53 +22,53 @@
                         <div class="row">
                             <!-- Personal Details -->
                             <div class="my-4">
-                                <h4 class="column-title mb-2">Personal details</h4>
+                                <h4 class="column-title mb-2">{% trans "Personal details" %}</h4>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label for="first_name">First Name</label>
+                                    <label for="first_name">{% trans "First Name" %}</label>
                                     <input class="form-control form-control-name" name="first_name" id="first_name" type="text" required
                                            value="{{ edit_member.user.first_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label for="last_name">Last Name</label>
+                                    <label for="last_name">{% trans "Last Name" %}</label>
                                     <input class="form-control form-control-name" name="last_name" id="last_name" type="text" required
                                     value="{{ edit_member.user.last_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Father Name</label>
+                                    <label>{% trans "Father Name" %}</label>
                                     <input class="form-control form-control-email" name="father_name" id="father_name" type="text" required
                                     value="{{ edit_member.father_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Mother Name</label>
+                                    <label>{% trans "Mother Name" %}</label>
                                     <input class="form-control form-control-name" name="mother_name" id="mother_name" type="text" required
                                     value="{{ edit_member.mother_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Date Of Birth</label>
+                                    <label>{% trans "Date Of Birth" %}</label>
                                     <input type="date" class="form-control form-control-subject" name="date_of_birth" id="date_of_birth" required
                                     value="{{ edit_member.date_of_birth|date:'Y-m-d' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Birth Place</label>
+                                    <label>{% trans "Birth Place" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="birth_place" id="birth_place" required
                                     value="{{ edit_member.birth_place|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Birth Time</label>
+                                    <label>{% trans "Birth Time" %}</label>
                                     <input type="time" class="form-control form-control-subject" name="birth_time" id="birth_time" required
                                     value="{{ edit_member.birth_time|time:'H:i' }}">
                                 </div>
@@ -75,55 +76,55 @@
                             <!-- Gender -->
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Gender</label>
+                                    <label>{% trans "Gender" %}</label>
                                     <select name="gender" class="form-control" id="gender">
                                         <option value="" disabled {% if not edit_member.gender %}selected{% endif %}>Select</option>
-                                        <option value="male" {% if edit_member.gender == 'male' %}selected{% endif %}>Male</option>
-                                        <option value="female" {% if edit_member.gender == 'female' %}selected{% endif %}>Female</option>
+                                        <option value="male" {% if edit_member.gender == 'male' %}selected{% endif %}>{% trans "Male" %}</option>
+                                        <option value="female" {% if edit_member.gender == 'female' %}selected{% endif %}>{% trans "Female" %}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Marital Status</label>
+                                    <label>{% trans 'Marital Status' %}</label>
                                     <select name="marital_status" class="form-control" id="marital_status">
                                         <option value="" disabled {% if not edit_member.marital_status %}selected{% endif %}>Select</option>
-                                        <option value="unmarried" {% if edit_member.marital_status == 'unmarried' %}selected{% endif %}>Unmarried</option>
-                                        <option value="married" {% if edit_member.marital_status == 'married' %}selected{% endif %}>Married</option>
+                                        <option value="unmarried" {% if edit_member.marital_status == 'unmarried' %}selected{% endif %}>{% trans "Unmarried" %}</option>
+                                        <option value="married" {% if edit_member.marital_status == 'married' %}selected{% endif %}>{% trans "Married" %}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Height (In Centimeter)</label>
+                                    <label>{% trans 'Height (In Centimeter)' %}</label>
                                     <input type="number" class="form-control form-control-subject" name="height" id="height" min="0" placeholder="168" required
                                     value="{{ edit_member.height|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Phone Number (10 digit)</label>
+                                    <label>{% trans "Phone Number (10 digit)" %}</label>
                                     <input type="number" class="form-control form-control-subject" name="phone_number" id="phone_number" placeholder="9988776655" required
                                     value="{{ edit_member.phone_number|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Whatsapp Number (10 digit)</label>
+                                    <label>{% trans "Whatsapp Number (10 digit)" %}</label>
                                     <input type="number" class="form-control form-control-subject" name="whatsapp_number" id="whatsapp_number" placeholder="9988776655" required
                                     value="{{ edit_member.whatsapp_number|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>Email (optional)</label>
+                                    <label>{% trans "Email (optional)" %}</label>
                                     <input type="text" class="form-control form-control-email" name="email" id="email"
                                     value="{{ edit_member.user.email|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="gotra">Gotra</label>
+                                    <label for="gotra">{% trans "Gotra" %}</label>
                                     <select name="gotra" class="form-control" id="gotra" required>
                                         <option value="" disabled {% if not edit_member.gotra %}selected{% endif %}>Select</option>
                                         {% for value, label in gotras %}
@@ -134,7 +135,7 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label>Address</label>
+                                    <label>{% trans "Address" %}</label>
                                     <input type="text" class="form-control form-control-object" name="address" id="address" required
                                     value="{{ edit_member.current_address|default:'' }}">
                                 </div>
@@ -154,7 +155,7 @@
                                 </div>
 
                                 <label for="profileImage" class="profile-upload-btn ms-4">
-                                    <span>Profile Image</span>
+                                    <span>{% trans "Profile Image" %}</span>
                                     <input class="form-control mt-1" type="file" name="profileImage" id="profileImage"
                                            accept=".jpg, .jpeg, .png">
                                 </label>
@@ -162,44 +163,44 @@
 
                             <!-- Educational Details -->
                             <div class="my-4">
-                                <h4 class="column-title mb-2">Educational Details</h4>
+                                <h4 class="column-title mb-2">{% trans "Educational Details" %}</h4>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="qualification">Qualification</label>
+                                    <label for="qualification">{% trans "Qualification" %}</label>
                                     <select name="qualification" class="form-control" id="qualification">
-                                        <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select Qualification</option>
-                                        <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>Undergraduate</option>
-                                        <option value="graduate" {% if edit_member.qualification_type == 'graduate' %}selected{% endif %}>Graduate</option>
-                                        <option value="school" {% if edit_member.qualification_type == 'school' %}selected{% endif %}>School</option>
+                                        <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select</option>
+                                        <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>{% trans "Undergraduate" %}</option>
+                                        <option value="graduate" {% if edit_member.qualification_type == 'graduate' %}selected{% endif %}>{% trans "Graduate" %}</option>
+                                        <option value="school" {% if edit_member.qualification_type == 'school' %}selected{% endif %}>{% trans "School" %}</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md-6 school_field {% if edit_member.qualification_type != 'school' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Class (1 - 12)</label>
+                                    <label>{% trans "Class" %} (1 - 12)</label>
                                     <input type="number" min="1" max="12" class="form-control form-control-subject" name="school_class" id="school_class"
                                     value="{{ edit_member.qualification_detail.first.school_class|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 school_field {% if edit_member.qualification_type != 'school' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>School Name</label>
+                                    <label>{% trans "School Name" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="school_name" id="school_name"
                                     value="{{ edit_member.qualification_detail.first.school_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 ugpg_field {% if edit_member.qualification_type != 'undergraduate' and edit_member.qualification_type != 'graduate' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>College / University</label>
+                                    <label>{% trans "College / University" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="college_name" id="collge_uni_name"
                                     value="{{ edit_member.qualification_detail.first.college_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 ugpg_field {% if edit_member.qualification_type != 'undergraduate' and edit_member.qualification_type != 'graduate' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label for="degree_name">Degree</label>
+                                    <label for="degree_name">{% trans "Degree" %}</label>
                                     <select name="degree_name" class="form-control" id="degree_name" required>
                                         <option value="" disabled {% if not edit_member.qualification_detail.first.degree_name %}selected{% endif %}>Select</option>
                                         {% for value, label in degrees %}
@@ -211,16 +212,16 @@
 
                             <!-- Professional Details -->
                             <div class="my-4">
-                                <h4 class="column-title mb-2">Professional Details</h4>
+                                <h4 class="column-title mb-2">{% trans "Professional Details" %}</h4>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="occupation">Occupation {{ edit_member.occupation_detail.first.company_name|default:'' }}</label>
+                                    <label for="occupation">Occupation</label>
                                     <select name="occupation" class="form-control" id="occupation">
                                         <option value="" disabled {% if not edit_member.occupation_type %}selected{% endif %}>Select Occupation</option>
-                                        <option value="none" {% if edit_member.occupation_type == 'none' %}selected{% endif %}>Not Applicable</option>
-                                        <option value="job" {% if edit_member.occupation_type == 'job' %}selected{% endif %}>Job</option>
-                                        <option value="business" {% if edit_member.occupation_type == 'business' %}selected{% endif %}>Business</option>
+                                        <option value="none" {% if edit_member.occupation_type == 'none' %}selected{% endif %}>{% trans "Not Applicable" %}</option>
+                                        <option value="job" {% if edit_member.occupation_type == 'job' %}selected{% endif %}>{% trans "Job" %}</option>
+                                        <option value="business" {% if edit_member.occupation_type == 'business' %}selected{% endif %}>{% trans "Business" %}</option>
                                     </select>
                                 </div>
                             </div>
@@ -228,21 +229,21 @@
                             <!-- Job Fields -->
                             <div class="col-12 col-md-6 job_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Company Name</label>
+                                    <label>{% trans "Company Name" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="company_name" id="company_name"
                                     value="{{ edit_member.occupation_detail.first.company_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 job_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Location</label>
+                                    <label>{% trans "Location" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="job_location" id="job_location"
                                     value="{{ edit_member.occupation_detail.first.company_location|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 job_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'job' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Job Description</label>
+                                    <label>{% trans "Job Description" %}</label>
                                     <textarea class="form-control form-control-message" name="job_description" id="job_description" rows="10">{{ edit_member.occupation_detail.first.job_description|default:'' }}</textarea>
                                 </div>
                             </div>
@@ -250,21 +251,21 @@
                             <!-- Business Fields -->
                             <div class="col-12 col-md-6 business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Business Name</label>
+                                    <label>{% trans "Business Name" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="business_name" id="business_name"
                                     value="{{ edit_member.occupation_detail.first.business_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>Business Location</label>
+                                    <label>{% trans "Business Location" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="business_location" id="business_location"
                                     value="{{ edit_member.occupation_detail.first.business_location|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group business_field {% if not edit_member.occupation_type or not edit_member.occupation_type == 'business' %}d-none{% endif %}">
-                                    <label>Business Description</label>
+                                    <label>{% trans "Business Description" %}</label>
                                     <textarea class="form-control form-control-message" name="business_description"
                                               id="business_description" rows="10">{{ edit_member.occupation_detail.first.business_description|default:'' }}</textarea>
                                 </div>
@@ -272,26 +273,26 @@
                         </div>
 
                         <div class="my-4">
-                            <h4 class="column-title mb-2">Social Media Links</h4>
+                            <h4 class="column-title mb-2">{% trans "Social Media Links" %}</h4>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label>Instagram Link (optional)</label>
+                                    <label>{% trans "Instagram Link (optional)" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="instagram_link"
                                     value="{{ edit_member.instagram_link|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label>Facebook Link (optional)</label>
+                                    <label>{% trans "Facebook Link (optional)" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="facebook_link"
                                     value="{{ edit_member.facebook_link|default:'' }}">
                                 </div>
                             </div>
                         </div>
                         <div class="text-right"><br>
-                            <button class="btn btn-primary solid blank" type="submit">Submit</button>
+                            <button class="btn btn-primary solid blank" type="submit">{% trans "Submit" %}</button>
                         </div>
                     </form>
                 </div>
