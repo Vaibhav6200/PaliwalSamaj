@@ -2,6 +2,16 @@
 {% load static %}
 {% block title %}Home{% endblock %}
 
+{% block stylesheets %}
+<style>
+    .about-dev-image {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <main>
 
@@ -940,31 +950,38 @@
     <!-- Suggestion Form End -->
 
     <!-- About Developer Family End -->
-    <section id="about_developer_section" class="main-container">
-        <div class="container p-4 py-5 bg-light">
-            <div class="row m-0 align-items-center">
-                <!-- About Image  -->
-                <div class="col-lg-6 mt-5 mt-lg-0">
-                    <div class="overflow-hidden">
-                        <img src="{% static 'images/user-icon.png' %}" class="about-dev-image" alt="">
-                    </div>
-                </div><!-- Col end -->
-                <div class="col-lg-6">
-                    <h3 class="column-title">Gopal Paliwal</h3>
-                    <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a
-                        horrible
-                        vermin.</p>
-                    <blockquote class="bg-white"><p>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut
-                        optio cumque nihil necessitatibus autemn ec tincidunt nunc posuere ut</p></blockquote>
-                    <p>He lay on his armour-like back, and if he lifted. ultrices ultrices sapien, nec tincidunt nunc
-                        posuere ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. If you are going to use a
-                        passage of Lorem Ipsum, you need to be sure there isn’t anything embarrassing.</p>
-                    <a href="" class="slider btn btn-primary" tabindex="-1">Read More</a>
-                </div><!-- Col end -->
-            </div><!-- Content row end -->
+    <!-- About Developer Family End -->
+<section id="about_developer_section" class="main-container">
+    <div class="container p-4 py-5 bg-light">
+        <div class="row m-0 align-items-center">
+            <!-- About Image  -->
+            <div class="col-lg-6 mt-5 mt-lg-0 d-flex justify-content-center mb-3">
+                <div class="overflow-hidden" style="height: 500px; width: 500px;">
+                    <img src="{% static 'images/gopal.png' %}" class="about-dev-image w-100 h-100" alt=""
+                         style="object-fit: cover; object-position: center 15%;">
+                </div>
+            </div><!-- Col end -->
 
-        </div><!-- Container end -->
-    </section>
+            <!-- Text Content -->
+            <div class="col-lg-6">
+                <h3 class="column-title">Gopal Paliwal</h3>
+                <p>when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</p>
+                <blockquote class="bg-white">
+                    <p><em>Semporibus autem quibusdam et aut officiis debitis aut rerum est aut optio cumque nihil necessitatibus autemn ec tincidunt nunc posuere ut</em></p>
+                </blockquote>
+                <p>He lay on his armour-like back, and if he lifted. ultrices ultrices sapien, nec tincidunt nunc
+                    posuere ut. Lorem ipsum dolor sit amet, consectetur adipiscing elit. If you are going to use a
+                    passage of Lorem Ipsum, you need to be sure there isn’t anything embarrassing.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, nostrum?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, nostrum?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, nostrum?</p>
+            </div><!-- Col end -->
+        </div><!-- Content row end -->
+    </div><!-- Container end -->
+</section>
+<!-- About Developer Family End -->
+
+
     <!-- About Developer Family End -->
 
 
