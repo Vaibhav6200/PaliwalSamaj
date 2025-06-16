@@ -264,8 +264,8 @@ class SamajMemberRoles(models.Model):
         ('karyakari_sadasya', 'Karyakari Sadasya'),
     ]
     member_name = models.CharField(max_length=255)
-    member_image = models.FileField('samaj_role_members')
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES, unique=True)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES)
+    member_image = models.FileField('samaj_role_members', null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

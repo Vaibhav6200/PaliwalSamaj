@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion
+    Suggestion, SamajMemberRoles
 from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
@@ -18,8 +18,30 @@ def site_login(request):
 
 def index(request):
     news_events_obj = NewsEvent.objects.all()
+
+    netritva_mandal = SamajMemberRoles.objects.filter(
+        Q(role='adhyaksh')|
+        Q(role='mahila_adhyaksh')|
+        Q(role='upadhyaksh')|
+        Q(role='koshadhyaksh')
+    )
+    sanchalan_samiti = SamajMemberRoles.objects.filter(
+        Q(role='sachiv') |
+        Q(role='saha_sachiv') |
+        Q(role='sanrakshak')
+    )
+    aayojan_mandal = SamajMemberRoles.objects.filter(
+        Q(role='salahkaar') |
+        Q(role='aayojan_samiti')
+    )
+    karyakarini_sadasya = SamajMemberRoles.objects.filter(role='karyakari_sadasya')
+
     context = {
         'news_and_events': news_events_obj,
+        'netritva_mandal': netritva_mandal,
+        'sanchalan_samiti': sanchalan_samiti,
+        'aayojan_mandal': aayojan_mandal,
+        'karyakarini_sadasya': karyakarini_sadasya,
     }
     return render(request, 'Samaj/index.html', context)
 

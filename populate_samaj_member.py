@@ -1,0 +1,97 @@
+import os
+import django
+
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
+django.setup()
+
+from SamajApp.models import SamajMemberRoles
+from django.core.files import File
+
+
+role_data = {
+	'adhyaksh': [
+		('Shri Bheru Lal Paliwal', 'Kannauj', 'BHERU_LAL_JI_PALIWAL_kannauj.JPG', '9530164855')
+	],
+	'upadhyaksh': [
+		('Shrimati Shobha Lal Paliwal', 'Kannauj', 'SHOBHA LAL JI PALIWAL.JPG', '7568930566')
+	],
+	'sachiv': [
+		('Shri Pradeep Purohit', 'Chittorgarh', 'PRADEEP JI PUROHIT.JPG', '9413791302'),
+	],
+    'sanrakshak': [
+        ('Shri D. S. Joshi', 'Chittorgarh', 'DS_JOSHI_SB.JPG'),
+        ('Shri Ramchandra Purohit', 'Lopda', 'RAM CHANDAR JI PUROHIT.JPG'),
+        ('Shri Premprakash Purohit', 'Shiro. ka Samta', 'PREM PRAKASH JI PUROHIT.JPG'),
+        ('Shri Banshilal Paliwal', 'Kannauj', 'BANSHI LAL JI PUROHIT.JPG'),
+        ('Shri Kanchanlal Paliwal', 'Bhootlavash', ''),
+        ('Shri Amrutlal Purohit', 'Bherda', '')
+    ],
+    'mahila_adhyaksh': [
+        ('Shrimati Sushma Purohit', 'Chittorgarh', 'SUSHMA JI PUROHIT.JPG')
+    ],
+    'koshadhyaksh': [
+        ('Shri Premnarayan Paliwal', 'Bhootlavash', 'PREM NARAYAN JI PALIWAL.JPG')
+    ],
+    'saha_sachiv': [
+        ('Shri Dinesh Kumar Purohit', 'Siyaliya', 'DINESH CHANDAR JI PUROHIT.JPG')
+    ],
+    'salahkaar': [
+        ('Shri Azad Paliwal', 'Samta', 'azad_paliwal_salahkar.jpeg'),
+        ('Shri Bherulal Purohit', 'Samta', 'BHERU LAL PALIWAL JI Samta.JPG'),
+        ('Shri Chandrashekhar Purohit', 'Devgad', 'CHANDAR SHEKHAR JI PUROHIT.JPG'),
+        ('Shri Narendra Paliwal', 'Tai', 'NARENDAR JI PALIWAL.JPG'),
+        ('Shri Harish Purohit', 'Bherda', ''),
+        ('Shri Kamlesh Purohit', 'Chittorgarh', ''),
+        ('Shrimati Priyanka Paliwal', 'Chittorgarh', ''),
+    ],
+    'aayojan_samiti': [
+        ('Shri Shankarlal Paliwal', 'Hoda', 'SHANKAR LAL JI PALIWAL.jpeg'),
+        ('Shri Udaylal Paliwal', 'Kannauj', 'UDAY LAL JI PALIWAL.JPG'),
+        ('Shri Himanshu Purohit', 'Samta', 'HIMANSHU JI SAMTA.JPG'),
+        ('Shri Naresh Paliwal', 'Senti', ''),
+    ],
+    'karyakari_sadasya': [
+        ('Shri Umesh Paliwal', 'Tai', 'UMESH JI PALIWAL.JPG'),
+        ('Shri Mukesh Purohit', 'Aavlaheda', 'MUKESH JI PUROHIT.JPG'),
+        ('Shri Piyush Purohit', 'Bherda', 'PIYUSH JI PUROHIT.JPG'),
+        ('Shri Rameshchandra Purohit', 'Samta', 'RAMESH CHANDAR PUROHIT JI.JPG'),
+        ('Shri Premraj Paliwal', 'Samta', ''),
+        ('Shri Himanshu Purohit', 'Soniyana', ''),
+        ('Shri Prakashchandra Purohit', 'Bengu', ''),
+    ]
+}
+
+# Base path for your local static images
+IMAGE_DIR = 'static/images/profile/'
+
+
+def populate_members():
+    for role, members in role_data.items():
+        for member in members:
+            if len(member) == 4:
+                name, location, image_name, phone = member
+            else:
+                name, location, image_name = member
+                phone = ''
+
+            image_path = os.path.join(IMAGE_DIR, image_name) if image_name else None
+
+            instance = SamajMemberRoles(
+                member_name=name,
+                location=location,
+                phone_number=phone,
+                role=role
+            )
+
+            if image_name and os.path.isfile(image_path):
+                with open(image_path, 'rb') as img_file:
+                    instance.member_image.save(f"samaj_home_members/{image_name}", File(img_file), save=False)
+
+            instance.save()
+            print(f"✅ Saved: {name} - Role: {role}")
+
+
+if __name__ == "__main__":
+    populate_members()
+    print("Members Populated successfully.")
