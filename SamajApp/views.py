@@ -404,6 +404,8 @@ def handle_login_otp(request):
         )
         messages.success(request, f'Password sent to your registered number : {contact_input}')
 
+        # Set login password for user - 6 digit OTP pin
+
         # if member:
         #     verification_code = random.randint(100000, 999999)
         #     handler = MessageHandler(phone_number=contact_input, otp=verification_code)
