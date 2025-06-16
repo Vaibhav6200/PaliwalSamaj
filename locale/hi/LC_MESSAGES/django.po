@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-16 16:46+0530\n"
+"POT-Creation-Date: 2025-06-16 17:04+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,7 +52,7 @@ msgstr "होम"
 msgid "News"
 msgstr "समाचार"
 
-#: templates/Includes/navbar.html:77
+#: templates/Includes/navbar.html:77 templates/Samaj/community.html:17
 msgid "Community"
 msgstr "समुदाय"
 
@@ -140,15 +140,15 @@ msgstr "जन्म स्थान"
 msgid "Birth Time"
 msgstr "जन्म समय"
 
-#: templates/Samaj/bio_data.html:79
+#: templates/Samaj/bio_data.html:79 templates/Samaj/community.html:64
 msgid "Gender"
 msgstr "लिंग"
 
-#: templates/Samaj/bio_data.html:82
+#: templates/Samaj/bio_data.html:82 templates/Samaj/community.html:67
 msgid "Male"
 msgstr "पुरुष"
 
-#: templates/Samaj/bio_data.html:83
+#: templates/Samaj/bio_data.html:83 templates/Samaj/community.html:68
 msgid "Female"
 msgstr "महिला"
 
@@ -180,7 +180,7 @@ msgstr "व्हाट्सएप नंबर (10 अंकों का)"
 msgid "Email (optional)"
 msgstr "ईमेल (वैकल्पिक)"
 
-#: templates/Samaj/bio_data.html:127
+#: templates/Samaj/bio_data.html:127 templates/Samaj/community.html:40
 msgid "Gotra"
 msgstr "गोत्र"
 
@@ -215,6 +215,7 @@ msgstr "विद्यालय"
 #: templates/Samaj/bio_data.html:182
 msgid "Class"
 msgstr "कक्षा"
+
 #: templates/Samaj/bio_data.html:189
 msgid "School Name"
 msgstr "विद्यालय का नाम"
@@ -278,6 +279,45 @@ msgstr "इंस्टाग्राम लिंक (वैकल्पिक
 #: templates/Samaj/bio_data.html:288
 msgid "Facebook Link (optional)"
 msgstr "फेसबुक लिंक (वैकल्पिक)"
+#: templates/Samaj/community.html:28
+msgid "Search Any Member From"
+msgstr "किसी भी सदस्य को खोजें"
+
+#: templates/Samaj/community.html:28
+msgid "Paliwal Samaj"
+msgstr "पालीवाल समाज"
+
+#: templates/Samaj/community.html:33
+msgid "Name"
+msgstr "नाम"
+
+#: templates/Samaj/community.html:52
+msgid "Education"
+msgstr "शिक्षा"
+
+#: templates/Samaj/community.html:74
+msgid "Age"
+msgstr "आयु"
+
+#: templates/Samaj/community.html:95
+msgid "Search"
+msgstr "खोजें"
+
+#: templates/Samaj/community.html:102
+msgid "Result"
+msgstr "परिणाम"
+
+#: templates/Samaj/community.html:139
+msgid "View Profile"
+msgstr "प्रोफ़ाइल देखें"
+
+#: templates/Samaj/community.html:145
+msgid "Show Family"
+msgstr "परिवार दिखाएं"
+
+#: templates/Samaj/community.html:155
+msgid "Family Member Not Found"
+msgstr "परिवार का सदस्य नहीं मिला"
 
 #: templates/Samaj/index.html:28
 msgid "Celebrating the Heritage of"
@@ -367,31 +407,31 @@ msgstr ""
 msgid "Read More"
 msgstr "और पढ़ें"
 
-#: templates/Samaj/index.html:121
+#: templates/Samaj/index.html:122
 msgid "News & Events"
 msgstr "समाचार एवं कार्यक्रम"
 
-#: templates/Samaj/index.html:152
+#: templates/Samaj/index.html:153
 msgid "Netritva Mandal"
 msgstr "नेतृत्व मंडल"
 
-#: templates/Samaj/index.html:256
+#: templates/Samaj/index.html:258
 msgid "Sanchalan Samiti"
 msgstr "संचालन समिति"
 
-#: templates/Samaj/index.html:457
+#: templates/Samaj/index.html:459
 msgid "Salah evam Aayojan Mandal"
 msgstr "सलाह एवं आयोजन मंडल"
 
-#: templates/Samaj/index.html:729
+#: templates/Samaj/index.html:732
 msgid "Karyakarini Sadasya"
 msgstr "कार्यकारिणी सदस्य"
 
-#: templates/Samaj/index.html:908
+#: templates/Samaj/index.html:909
 msgid "Share Your Suggestions or Ideas"
 msgstr "अपने सुझाव या विचार साझा करें"
 
-#: templates/Samaj/index.html:910
+#: templates/Samaj/index.html:911
 msgid ""
 "If you have any ideas, suggestions, or features you’d like to see added to "
 "the Paliwal Samaj website, please let us know. Your input helps us make the "
@@ -401,31 +441,31 @@ msgstr ""
 "चाहते हैं, तो कृपया हमें बताएं। आपके सुझाव इस मंच को समुदाय के सभी सदस्यों के लिए और भी "
 "बेहतर बनाने में मदद करते हैं।"
 
-#: templates/Samaj/index.html:921
+#: templates/Samaj/index.html:922
 msgid "Your Name"
 msgstr "आपका नाम"
 
-#: templates/Samaj/index.html:922
+#: templates/Samaj/index.html:923
 msgid "Enter your name"
 msgstr "अपना नाम दर्ज करें"
 
-#: templates/Samaj/index.html:928
+#: templates/Samaj/index.html:929
 msgid "Your Email"
 msgstr "आपका ईमेल"
 
-#: templates/Samaj/index.html:929
+#: templates/Samaj/index.html:930
 msgid "Enter your email"
 msgstr "अपना ईमेल दर्ज करें"
 
-#: templates/Samaj/index.html:936
+#: templates/Samaj/index.html:937
 msgid "Detailed Suggestion or Idea"
 msgstr "विस्तृत सुझाव या विचार"
 
-#: templates/Samaj/index.html:938
+#: templates/Samaj/index.html:939
 msgid "Please describe your suggestion or idea in detail..."
 msgstr "कृपया अपने सुझाव या विचार को विस्तार से वर्णन करें..."
 
-#: templates/Samaj/index.html:943
+#: templates/Samaj/index.html:944
 msgid "Submit Suggestion"
 msgstr "सुझाव सबमिट करें"
 

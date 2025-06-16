@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% load custom_tags %}
 {% block title %}Community{% endblock %}
 
@@ -13,30 +14,30 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="banner-heading">
-                            <h1 class="banner-title">Community</h1>
+                            <h1 class="banner-title">{% trans "Community" %}</h1>
                         </div>
-                    </div><!-- Col end -->
-                </div><!-- Row end -->
-            </div><!-- Container end -->
-        </div><!-- Banner text end -->
-    </div><!-- Banner area end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section id="main-container" class="main-container">
         <div class="container">
             <form id="search_family_form">
                 <div class="text-center w-100 mb-5">
-                    <h2 class="fs-4">Search Any Member From <span class="text-warning">Paliwal Samaj</span></h2>
+                    <h2 class="fs-4">{% trans "Search Any Member From" %} <span class="text-warning">{% trans "Paliwal Samaj" %}</span></h2>
                 </div>
                 <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">{% trans "Name" %}</label>
                             <input class="form-control form-control-name only_alphabets" name="name" id="name"
                                    maxlength="50" placeholder="Name" type="text">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="gotra">Gotra</label>
+                            <label for="gotra">{% trans "Gotra" %}</label>
                             <select name="gotra" class="form-control" id="gotra">
                                 <option value="" selected disabled>Select Gotra</option>
                                 {% for value, label in gotras %}
@@ -48,7 +49,7 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="education">Education</label>
+                            <label for="education">{% trans "Education" %}</label>
                             <select name="education" class="form-control" id="education">
                                 <option value="" selected disabled>Select</option>
                                 {% for value, label in degrees %}
@@ -60,17 +61,17 @@
 
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="gender">Gender</label>
+                            <label for="gender">{% trans "Gender" %}</label>
                             <select name="gender" class="form-control" id="gender">
                                 <option value="" selected disabled>Select</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="male">{% trans "Male" %}</option>
+                                <option value="female">{% trans "Female" %}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-12 col-md-8">
                         <div class="form-group">
-                            <label class="form-label">Age:</label>
+                            <label class="form-label">{% trans "Age" %}</label>
                             <div class="form-control">
                                 <div class="slider-wrapper w-100 pt-1">
                                     <div class="d-flex align-items-center justify-content-center">
@@ -91,14 +92,14 @@
                         </div>
                     </div>
                     <div class="col-12 my-3 text-end">
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="container mt-5 pt-4">
-            <div class="border-bottom py-2"><h3 class="m-0">Result</h3></div>
+            <div class="border-bottom py-2"><h3 class="m-0">{% trans "Result" %}</h3></div>
             <div class="row m-0 mt-4">
                 {% if community_members %}
                 {% for member in community_members %}
@@ -135,23 +136,23 @@
                                 <div class="row m-0 p-0 mt-2 justify-content-around">
                                     <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                         <a href="{% url 'samaj:user_profile' member.id %}" class="btn btn-light fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> View Profile
+                                            <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
                                         </a>
                                     </div>
 
                                     <div class="col-12 p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Show Family">
                                         <a href="{% url 'samaj:member_family_tree' member.id %}" class="btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                            <span class="material-icons me-2">diversity_3</span>Show Family
+                                            <span class="material-icons me-2">diversity_3</span>{% trans "Show Family" %}
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        </div><!--/ Team wrapper end -->
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
                 {% else %}
-                <div class="py-3">Family Member Not Found 🥲</div>
+                <div class="py-3">{% trans "Family Member Not Found" %} 🥲</div>
                 {% endif %}
             </div>
         </div>
