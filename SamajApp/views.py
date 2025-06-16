@@ -81,15 +81,14 @@ def handle_bio_data_form(request, family_code):
             user = get_object_or_404(User, id=user_id)
             user.email = email
             user.save()
-
             member, _ = Member.objects.get_or_create(user=user, family=family)
             messages.success(request, 'Profile Updated Successfully')
         else:
             # CREATE FLOW
-            user = User.objects.create(
-                username=generate_username(first_name, last_name),
-                email=email
-            )
+            user = User(username=generate_username(first_name, last_name))
+            if email:
+                user.email=email
+            user.save()
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
@@ -126,22 +125,22 @@ def handle_bio_data_form(request, family_code):
         if member.qualification_type == 'school':
             school_class = request.POST.get('school_class')
             qualification.school_class = int(school_class) if school_class else None
-            qualification.school_name = request.POST.get('school_name')
+            assign_translated_field(qualification, 'school_name', request.POST.get('school_name'), translate_client)
             qualification.college_name = None
             qualification.degree_name = None
         else:
             qualification.school_class = None
             qualification.school_name = None
-            qualification.college_name = request.POST.get('college_name')
+            assign_translated_field(qualification, 'college_name', request.POST.get('college_name'), translate_client)
             qualification.degree_name = request.POST.get('degree_name')
         qualification.save()
 
         # Occupation Details
         occupation, _ = OccupationDetail.objects.get_or_create(member=member)
         if member.occupation_type == 'job':
-            occupation.company_name = request.POST.get('company_name')
-            occupation.company_location = request.POST.get('job_location')
-            occupation.job_description = request.POST.get('job_description')
+            assign_translated_field(occupation, 'company_name', request.POST.get('company_name'), translate_client)
+            assign_translated_field(occupation, 'company_location', request.POST.get('job_location'), translate_client)
+            assign_translated_field(occupation, 'job_description', request.POST.get('job_description'), translate_client)
 
             # Clear business fields
             occupation.business_name = None
@@ -149,11 +148,11 @@ def handle_bio_data_form(request, family_code):
             occupation.business_description = None
 
         elif member.occupation_type == 'business':
-            occupation.business_name = request.POST.get('business_name')
-            occupation.business_location = request.POST.get('business_location')
-            occupation.business_description = request.POST.get('business_description')
+            assign_translated_field(occupation, 'business_name', request.POST.get('business_name'), translate_client)
+            assign_translated_field(occupation, 'business_location', request.POST.get('business_location'), translate_client)
+            assign_translated_field(occupation, 'business_description', request.POST.get('business_description'), translate_client)
 
-            # Clear job fields
+            # Clear Job fields
             occupation.company_name = None
             occupation.company_location = None
             occupation.job_description = None
