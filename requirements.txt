@@ -6,6 +6,7 @@ asgiref==3.8.1
 async-timeout==5.0.1
 attrs==25.3.0
 backports.functools-lru-cache==2.0.0
+cachetools==5.5.2
 certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.1.8
@@ -15,6 +16,14 @@ dotenv==0.9.9
 et_xmlfile==2.0.0
 Faker==37.4.0
 frozenlist==1.7.0
+google-api-core==2.25.1
+google-auth==2.40.3
+google-cloud-core==2.4.3
+google-cloud-translate==3.20.3
+googleapis-common-protos==1.70.0
+grpc-google-iam-v1==0.14.2
+grpcio==1.73.0
+grpcio-status==1.73.0
 idna==3.10
 indic-transliteration==2.3.69
 markdown-it-py==3.0.0
@@ -25,6 +34,10 @@ openpyxl==3.1.5
 pandas==2.3.0
 pillow==11.2.1
 propcache==0.3.2
+proto-plus==1.26.1
+protobuf==6.31.1
+pyasn1==0.6.1
+pyasn1_modules==0.4.2
 Pygments==2.19.1
 PyJWT==2.10.1
 python-dateutil==2.9.0.post0
@@ -34,6 +47,7 @@ regex==2024.11.6
 requests==2.32.4
 rich==14.0.0
 roman==5.0
+rsa==4.9.1
 shellingham==1.5.4
 six==1.17.0
 sqlparse==0.5.3

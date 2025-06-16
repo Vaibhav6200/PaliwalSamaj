@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "paliwal-samaj-463116",
+  "private_key_id": "791b2be378cd3a92cf5292897b87c6d567efe643",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQCQxqufyP7jLvug\nNlUOSd01rmWfoyn8S5UeqwynQOKNXXQy03bmkHzbv2uSJ/N/LR0q96YL3Uhf6yPJ\nrY9+uqJOSHWSiy3HGX73s5IZ6CMsbO0/R98OPBm1DHy3ASnrFOsirwMUwEJQiilN\n6jua8NQ+SuU3YXyUfHk2MAiTjmF0lgsdg53tSDuZX+9ERGAy2Kiy4sxnxJlhpezo\nunsfL8ilCKsJkksh/eMnnnIkD+l98Om1iXmUs+OabPiyYX8+TDtd1Z82TnetaU4E\nRD1Uk9avPwtm+AltYtGexlWLQCHf8cKNK6S1VYnYrKamLu+XbnZeeY116JAsmtUN\nHS4hhYU9AgMBAAECgf8BQG7KyefXeM30+wvO3TQx9BzYVY1jiSGeyYMOOjm0YiuH\nH2ujesixdm2uRnOJZRfltG419yRybv/SjsV7oYRwYtqoMxRiB0cK6ttHcoqQN1ai\nkZYbQbhFr300woK4/Q7pPdr4wC8Tch5Z8RZOkoxvlwnOG3AQMVU6hbF/or7p3Lem\nyn9jMMONqzR8bp0F9AhJOCavPY/zgaKyf5nihpzUVr8tWjWkKsKB8QA+FEIsH6Zj\n921b43IoF/qyG9DI9Rw8vQJ1m8V1QfIpBr2kLVz/FqFznFdz0c/WafmK5uegsd8f\nNm070xys2OLU6gKso7zVxChIwFCWkCyUbjIEzkECgYEAwjelKci9o/QXtm6Ab3+c\nJTTw3OkVKAZ+zITDMicZ+huYd+UlzCSsR5p0yhqykgun44KOMfAXwGivlozwFTj1\nEYREl6fuBZNM0ACtokSERtKoytfe1+Z1m2SEU9BHwGMvaUn86pCNVDAkRE/n9W0g\nYk7vIFwNLKks5rNw/RmIbnUCgYEAvtS0h5jPcvTIZ7KhTopfuALCdfyS5HCCG1eN\n1bHib3frPNtEZYGSQS+43MogT/LPsg8l9UcKnHA+oQ7vVe/JDrOOsXUm6miARfjq\niHFzRc1bmTupZl6xV7dFNQVe2jLH1D4SvgrLZ8wXqWc42ZICqkXW347W4UX6AUgt\nhMii8qkCgYBldeZtvrX7eeANaQrltLeg5FhUP9vSjhodw9mpUK4Mb/Al6mrli98I\nhRMwJeRV0YsCmsioI/J0jPv13Wjq3VeBsCSZSZxaA0qke0Y6OCsWSKTvWvjKt1WH\nOWq70lo5kldJXOKos51xdrjriwb1uu2pDe10bUJgq3yOhP2o63bPpQKBgA9SaMRS\nYqWqPcUFtKnntlPB9PcgNnMdDXVAjGTSCYpFqJ+UQ2ObCbEuMbuYhwukRUTYroWJ\nFLMG2CB6YIEX5Z7Gj/hznZJInbQAjmQyJ709BdPB1JIhnD+cuXPOYJVIan8CFOMp\nXreQzX2OiiP98zTUsrH0eBBSXAZqUy1MJrkxAoGACB+H1o94aQJA3BeXsP/f/Fof\nWCd6QXY1UcmY4xTcBdhOqSGev5dw/VuIbhnlolSPhnuQt9wWmbh5EOwzQLRStj/q\n/PwifP+LYqjGaam2Ld69bgP7L8tb5iIz3+OK6lPhEiHY2CbhnQJCruDnGuDkFfW0\ntPsaTTcX+7Gaa+gyypg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "paliwal-samaj@paliwal-samaj-463116.iam.gserviceaccount.com",
+  "client_id": "117795676107375331407",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/paliwal-samaj%40paliwal-samaj-463116.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
