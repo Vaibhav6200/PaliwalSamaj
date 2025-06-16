@@ -8,30 +8,30 @@
     <div class=" m-0 login-container">
         <form class="login-form" id="login-form" action="{% url 'samaj:handle_login_otp' %}" method="post">
             {% csrf_token %}
-            <h3 class="text-center mb-4">Login</h3>
+            <h3 class="text-center mb-4">{% trans "Login" %}</h3>
 
             <div class="mb-3">
-                <label for="contact_input" class="form-label">Mobile Number</label>
+                <label for="contact_input" class="form-label">{% trans "Mobile Number" %}</label>
                 <div id="autocomplete_container" class="autocomplete debounced">
                     <input class="autocomplete-input my-2" name="contact_input" id="contact_input" required />
                     <ul class="autocomplete-result-list"></ul>
                 </div>
-                <span class="text-secondary">Example : 9414110473</span>
+                <span class="text-secondary">{% trans "Example" %} : 9414110473</span>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">{% trans "Password" %}</label>
                 <input type="text" class="form-control" id="password" name="password" placeholder="Enter your password">
             </div>
 
             <div class="d-grid mb-2">
-                <button type="submit" class="btn btn-primary disabled" id="login_submit_btn">Submit</button>
+                <button type="submit" class="btn btn-primary disabled" id="login_submit_btn">{% trans "Submit" %}</button>
             </div>
-            <p class="note-text">If you don't have a password then
-                <button type="submit" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">Click here</button>
+            <p class="note-text">{% trans "If you don't have a password then" %}
+                <button type="submit" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">{% trans "Click here" %}</button>
             </p>
 
             <div class="p-3 rounded border bg-light">
-                if you are child then login with your parent's phone number.
+                {% trans "If you are child then login with your parent's phone number." %}
             </div>
         </form>
     </div>

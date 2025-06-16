@@ -15,7 +15,7 @@
     <section id="main-container" class="main-container pt-0">
         <div class="bg-info container-fluid p-4 row m-0">
             <div class="col-12 col-sm-6 align-self-center">
-                <h3 class="mb-0">My Family</h3>
+                <h3 class="mb-0">{% trans "My Family" %}</h3>
             </div>
             <div class="col-12 col-sm-6 text-end">
                 <div class="">
@@ -23,7 +23,7 @@
                         <div class="d-flex align-items-center">
                             <span class="material-icons me-2">add</span>
                             <div>
-                                Add New Member
+                                {% trans "Add New Member" %}
                             </div>
                         </div>
                     </a>
@@ -46,11 +46,11 @@
                             </div>
                             <div class="ts-team-content">
                                 <h3 class="ts-name">{{family_head.user.first_name}} {{family_head.user.last_name}}</h3>
-                                <p class="ts-designation">Family Head</p>
+                                <p class="ts-designation">{% trans "Family Head" %}</p>
                                 <div class="">
                                     <div class="d-flex align-items-center py-2 border-bottom border-white">
                                         <div class=""><span class="material-icons fs-5 ">cake</span></div>
-                                        <div class="text-white ms-2">Age: {{ family_head.date_of_birth|get_member_age }}</div>
+                                        <div class="text-white ms-2">{% trans "Age" %}: {{ family_head.date_of_birth|get_member_age }}</div>
                                     </div>
                                     <div class="d-flex align-items-center py-2 border-bottom border-white">
                                         <div class=""><span class="material-icons fs-5 ">location_on</span></div>
@@ -62,7 +62,7 @@
                                     <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                         <a href="{% url 'samaj:user_profile' family_head.id %}"
                                            class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> View Profile
+                                            <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
                                         </a>
                                     </div>
 
@@ -72,7 +72,7 @@
                                             <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
                                             <button type="submit"
                                                     class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                <span class="material-icons me-2">edit</span> Edit
+                                                <span class="material-icons me-2">edit</span> {% trans "Edit" %}
                                             </button>
                                         </form>
                                     </div>
@@ -82,7 +82,7 @@
                                             <input type="hidden" value="{{ family_head.id }}" name="member_id">
                                             <button type="submit"
                                                     class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
-                                                <span class="material-icons me-2">delete</span> Delete
+                                                <span class="material-icons me-2">delete</span> {% trans "Delete" %}
                                             </button>
                                         </form>
                                     </div>
@@ -110,12 +110,12 @@
                             <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between">
                                 <div>
                                     <h3 class="ts-name">{{ member.user.first_name }} {{ member.user.last_name }}</h3>
-                                    <p class="ts-designation">Gotra: {{ member.gotra }}</p>
+                                    <p class="ts-designation">{% trans "Gotra" %}: {{ member.gotra }}</p>
                                     <div class="">
                                         {% if member.date_of_birth %}
                                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                                             <div><span class="material-icons fs-5">cake</span></div>
-                                            <div class="text-white ms-2">Age: {{ member.date_of_birth|get_member_age }}</div>
+                                            <div class="text-white ms-2">{% trans "Age" %}: {{ member.date_of_birth|get_member_age }}</div>
                                         </div>
                                         {% endif %}
                                         {% if member.current_address %}
@@ -134,7 +134,7 @@
                                     <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                         <a href="{% url 'samaj:user_profile' member.id %}"
                                            class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> View Profile
+                                            <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
                                         </a>
                                     </div>
                                     <div class="col-12 col-md-6 p-0">
@@ -143,7 +143,7 @@
                                             <input type="hidden" name="user_id" value="{{ member.user.id }}">
                                             <button type="submit"
                                                     class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                <span class="material-icons me-2">edit</span> Edit
+                                                <span class="material-icons me-2">edit</span> {% trans "Edit" %}
                                             </button>
                                         </form>
                                     </div>
@@ -153,7 +153,7 @@
                                             <input type="hidden" name="member_id" value="{{ member.id }}">
                                             <button type="submit"
                                                     class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
-                                                <span class="material-icons me-2">delete</span> Delete
+                                                <span class="material-icons me-2">delete</span> {% trans "Delete" %}
                                             </button>
                                         </form>
                                     </div>

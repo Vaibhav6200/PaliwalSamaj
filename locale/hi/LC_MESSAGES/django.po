@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-16 17:04+0530\n"
+"POT-Creation-Date: 2025-06-16 17:14+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,10 +33,11 @@ msgid "News Letter"
 msgstr "न्यूज़लेटर"
 
 #: templates/Includes/footer.html:24 templates/Samaj/bio_data.html:295
+#: templates/Samaj/login.html:27
 msgid "Submit"
 msgstr "सबमिट"
 
-#: templates/Includes/navbar.html:51
+#: templates/Includes/navbar.html:51 templates/Samaj/login.html:11
 msgid "Login"
 msgstr "लॉगिन"
 
@@ -56,7 +57,7 @@ msgstr "समाचार"
 msgid "Community"
 msgstr "समुदाय"
 
-#: templates/Includes/navbar.html:78
+#: templates/Includes/navbar.html:78 templates/Samaj/my_family.html:18
 msgid "My Family"
 msgstr "मेरा परिवार"
 
@@ -181,6 +182,7 @@ msgid "Email (optional)"
 msgstr "ईमेल (वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:127 templates/Samaj/community.html:40
+#: templates/Samaj/my_family.html:113
 msgid "Gotra"
 msgstr "गोत्र"
 
@@ -279,6 +281,7 @@ msgstr "इंस्टाग्राम लिंक (वैकल्पिक
 #: templates/Samaj/bio_data.html:288
 msgid "Facebook Link (optional)"
 msgstr "फेसबुक लिंक (वैकल्पिक)"
+
 #: templates/Samaj/community.html:28
 msgid "Search Any Member From"
 msgstr "किसी भी सदस्य को खोजें"
@@ -295,7 +298,8 @@ msgstr "नाम"
 msgid "Education"
 msgstr "शिक्षा"
 
-#: templates/Samaj/community.html:74
+#: templates/Samaj/community.html:74 templates/Samaj/my_family.html:53
+#: templates/Samaj/my_family.html:118
 msgid "Age"
 msgstr "आयु"
 
@@ -308,6 +312,9 @@ msgid "Result"
 msgstr "परिणाम"
 
 #: templates/Samaj/community.html:139
+#: templates/Samaj/member_family_tree.html:52
+#: templates/Samaj/member_family_tree.html:108
+#: templates/Samaj/my_family.html:65 templates/Samaj/my_family.html:137
 msgid "View Profile"
 msgstr "प्रोफ़ाइल देखें"
 
@@ -514,3 +521,47 @@ msgstr ""
 "गोपाल का दृष्टिकोण स्पष्ट है: तकनीक को एक ऐसा माध्यम बनाना जो पालीवाल पहचान को "
 "जोड़ने, सशक्त करने और सम्मानित करने का कार्य करे। इस प्रयास के माध्यम से वह केवल एक "
 "व्यवसायी ही नहीं, बल्कि एक समुदाय निर्माता और बदलाव लाने वाले के रूप में भी सामने आते हैं।"
+
+#: templates/Samaj/login.html:14
+msgid "Mobile Number"
+msgstr "मोबाइल नंबर"
+
+#: templates/Samaj/login.html:19
+msgid "Example"
+msgstr "उदाहरण"
+
+#: templates/Samaj/login.html:22
+msgid "Password"
+msgstr "पासवर्ड"
+
+#: templates/Samaj/login.html:29
+msgid "If you don't have a password then"
+msgstr "अगर आपके पास पासवर्ड नहीं है तो"
+
+#: templates/Samaj/login.html:30
+msgid "Click here"
+msgstr "यहां क्लिक करें"
+
+#: templates/Samaj/login.html:34
+msgid "If you are child then login with your parent's phone number."
+msgstr "यदि आप बच्चे हैं तो अपने माता-पिता के फोन नंबर से लॉगिन करें।"
+
+#: templates/Samaj/member_family_tree.html:17
+msgid "Family Tree"
+msgstr "परिवार वृक्ष"
+
+#: templates/Samaj/member_family_tree.html:36 templates/Samaj/my_family.html:49
+msgid "Family Head"
+msgstr "परिवार के मुखिया"
+
+#: templates/Samaj/my_family.html:26
+msgid "Add New Member"
+msgstr "नया सदस्य जोड़ें"
+
+#: templates/Samaj/my_family.html:75 templates/Samaj/my_family.html:146
+msgid "Edit"
+msgstr "एडिट"
+
+#: templates/Samaj/my_family.html:85 templates/Samaj/my_family.html:156
+msgid "Delete"
+msgstr "हटाएं"
