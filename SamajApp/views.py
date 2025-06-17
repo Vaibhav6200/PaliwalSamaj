@@ -515,6 +515,5 @@ def get_member_search_list(request):
     })
 
 
-
 def image_and_video_gallery(request):
     return render(request, 'Samaj/image_and_video_gallery.html')
