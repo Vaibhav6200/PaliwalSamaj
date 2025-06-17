@@ -47,9 +47,11 @@
                                     </div>
                                 </form>
                             </li>
+                            {% if not request.user.is_authenticated %}
                             <li class=" pe-0">
                                 <a class="btn btn-primary" href="{% url 'samaj:site_login' %}">{% trans "Login" %}</a>
                             </li>
+                            {% endif %}
                             <li class="">
                                 <a class="btn btn-primary" href="{% url 'samaj:sandesh' %}">{% trans "SANDESH" %}</a>
                             </li>
