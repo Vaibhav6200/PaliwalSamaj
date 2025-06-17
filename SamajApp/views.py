@@ -217,6 +217,10 @@ def community(request):
         gotra = request.GET.get('gotra')
         gender = request.GET.get('gender')
         education = request.GET.get('education')
+        village = request.GET.get('village')
+        city = request.GET.get('city')
+        state = request.GET.get('state')
+
 
         # 🔍 Name filtering (splitting and checking each word in both first_name and last_name)
         if name:
@@ -252,6 +256,15 @@ def community(request):
 
         if education:
             community_members = community_members.filter(qualification_detail__degree_name__icontains=education)
+
+        if village:
+            community_members = community_members.filter(Q(current_address_village__icontains=village)|Q(current_address__icontains=village))
+
+        if city:
+            community_members = community_members.filter(Q(current_address_city__icontains=city)|Q(current_address__icontains=city))
+
+        if state:
+            community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
 
     context['community_members'] = community_members
     return render(request, 'Samaj/community.html', context)

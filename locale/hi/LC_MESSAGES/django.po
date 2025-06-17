@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-17 17:18+0530\n"
+"POT-Creation-Date: 2025-06-17 17:34+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgid "Undergraduate"
 msgstr "स्नातक पूर्व"
 
 #: SamajApp/models.py:47 templates/Samaj/bio_data.html:196
-#: templates/Samaj/user_profile.html:121
+#: templates/Samaj/user_profile.html:125
 msgid "Graduate"
 msgstr "स्नातक"
 
@@ -380,11 +380,9 @@ msgstr "सबमिट"
 msgid "Login"
 msgstr "लॉगिन"
 
-#: templates/Includes/navbar.html:54
-#, fuzzy
-#| msgid "Shandesh"
-msgid "Sandesh"
-msgstr "शंदेश"
+#: templates/Includes/navbar.html:54 templates/Samaj/sandesh.html:15
+msgid "SANDESH"
+msgstr "संदेश"
 
 #: templates/Includes/navbar.html:75
 msgid "Home"
@@ -512,7 +510,7 @@ msgid "Email (optional)"
 msgstr "ईमेल (वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:127 templates/Samaj/community.html:40
-#: templates/Samaj/community.html:123
+#: templates/Samaj/community.html:144
 #: templates/Samaj/member_family_tree.html:79 templates/Samaj/my_family.html:53
 #: templates/Samaj/my_family.html:135 templates/Samaj/user_profile.html:59
 msgid "Gotra"
@@ -522,15 +520,18 @@ msgstr "गोत्र"
 msgid "Address"
 msgstr "पता"
 
-#: templates/Samaj/bio_data.html:146
+#: templates/Samaj/bio_data.html:146 templates/Samaj/community.html:96
+#: templates/Samaj/user_profile.html:88
 msgid "Village"
-msgstr ""
+msgstr "गाँव"
 
-#: templates/Samaj/bio_data.html:153 templates/Samaj/user_profile.html:88
+#: templates/Samaj/bio_data.html:153 templates/Samaj/community.html:103
+#: templates/Samaj/user_profile.html:92
 msgid "City"
 msgstr "शहर"
 
-#: templates/Samaj/bio_data.html:160 templates/Samaj/user_profile.html:92
+#: templates/Samaj/bio_data.html:160 templates/Samaj/community.html:110
+#: templates/Samaj/user_profile.html:96
 msgid "State"
 msgstr "राज्य"
 
@@ -538,7 +539,7 @@ msgstr "राज्य"
 msgid "Profile Image"
 msgstr "प्रोफ़ाइल छवि"
 
-#: templates/Samaj/bio_data.html:188 templates/Samaj/user_profile.html:104
+#: templates/Samaj/bio_data.html:188 templates/Samaj/user_profile.html:108
 msgid "Educational Details"
 msgstr "शैक्षिक विवरण"
 
@@ -546,23 +547,23 @@ msgstr "शैक्षिक विवरण"
 msgid "Qualification"
 msgstr "योग्यता"
 
-#: templates/Samaj/bio_data.html:204 templates/Samaj/user_profile.html:113
+#: templates/Samaj/bio_data.html:204 templates/Samaj/user_profile.html:117
 msgid "Class"
 msgstr "कक्षा"
 
-#: templates/Samaj/bio_data.html:211 templates/Samaj/user_profile.html:108
+#: templates/Samaj/bio_data.html:211 templates/Samaj/user_profile.html:112
 msgid "School Name"
 msgstr "विद्यालय का नाम"
 
-#: templates/Samaj/bio_data.html:218 templates/Samaj/user_profile.html:119
+#: templates/Samaj/bio_data.html:218 templates/Samaj/user_profile.html:123
 msgid "College / University"
 msgstr "कॉलेज / विश्वविद्यालय"
 
-#: templates/Samaj/bio_data.html:225 templates/Samaj/user_profile.html:130
+#: templates/Samaj/bio_data.html:225 templates/Samaj/user_profile.html:134
 msgid "Degree"
 msgstr "डिग्री"
 
-#: templates/Samaj/bio_data.html:237 templates/Samaj/user_profile.html:139
+#: templates/Samaj/bio_data.html:237 templates/Samaj/user_profile.html:143
 msgid "Professional Details"
 msgstr "पेशेवर विवरण"
 
@@ -570,7 +571,7 @@ msgstr "पेशेवर विवरण"
 msgid "Not Applicable"
 msgstr "लागू नहीं"
 
-#: templates/Samaj/bio_data.html:254 templates/Samaj/user_profile.html:149
+#: templates/Samaj/bio_data.html:254 templates/Samaj/user_profile.html:153
 msgid "Company Name"
 msgstr "कंपनी का नाम"
 
@@ -578,23 +579,23 @@ msgstr "कंपनी का नाम"
 msgid "Location"
 msgstr "स्थान"
 
-#: templates/Samaj/bio_data.html:268 templates/Samaj/user_profile.html:170
+#: templates/Samaj/bio_data.html:268 templates/Samaj/user_profile.html:174
 msgid "Job Description"
 msgstr "नौकरी का विवरण"
 
-#: templates/Samaj/bio_data.html:276 templates/Samaj/user_profile.html:146
+#: templates/Samaj/bio_data.html:276 templates/Samaj/user_profile.html:150
 msgid "Business Name"
 msgstr "व्यवसाय का नाम"
 
-#: templates/Samaj/bio_data.html:283 templates/Samaj/user_profile.html:156
+#: templates/Samaj/bio_data.html:283 templates/Samaj/user_profile.html:160
 msgid "Business Location"
 msgstr "व्यवसाय का स्थान"
 
-#: templates/Samaj/bio_data.html:290 templates/Samaj/user_profile.html:160
+#: templates/Samaj/bio_data.html:290 templates/Samaj/user_profile.html:164
 msgid "Business Description"
 msgstr "व्यवसाय का विवरण"
 
-#: templates/Samaj/bio_data.html:298 templates/Samaj/user_profile.html:180
+#: templates/Samaj/bio_data.html:298 templates/Samaj/user_profile.html:184
 msgid "Social Media Links"
 msgstr "सोशल मीडिया लिंक"
 
@@ -622,32 +623,32 @@ msgstr "नाम"
 msgid "Education"
 msgstr "शिक्षा"
 
-#: templates/Samaj/community.html:74 templates/Samaj/community.html:128
+#: templates/Samaj/community.html:74 templates/Samaj/community.html:149
 #: templates/Samaj/my_family.html:57 templates/Samaj/my_family.html:140
 #: templates/Samaj/user_profile.html:40
 msgid "Age"
 msgstr "आयु"
 
-#: templates/Samaj/community.html:95 templates/Samaj/news_and_events.html:59
+#: templates/Samaj/community.html:116 templates/Samaj/news_and_events.html:59
 msgid "Search"
 msgstr "खोजें"
 
-#: templates/Samaj/community.html:102
+#: templates/Samaj/community.html:123
 msgid "Result"
 msgstr "परिणाम"
 
-#: templates/Samaj/community.html:150
+#: templates/Samaj/community.html:171
 #: templates/Samaj/member_family_tree.html:52
 #: templates/Samaj/member_family_tree.html:108
 #: templates/Samaj/my_family.html:82 templates/Samaj/my_family.html:162
 msgid "View Profile"
 msgstr "प्रोफ़ाइल देखें"
 
-#: templates/Samaj/community.html:155
+#: templates/Samaj/community.html:176
 msgid "Show Family"
 msgstr "परिवार दिखाएं"
 
-#: templates/Samaj/community.html:166
+#: templates/Samaj/community.html:187
 msgid "Family Member Not Found"
 msgstr "परिवार का सदस्य नहीं मिला"
 
@@ -939,10 +940,6 @@ msgstr "टिप्पणी पोस्ट करें"
 msgid "Recent Posts"
 msgstr "हाल की पोस्ट"
 
-#: templates/Samaj/sandesh.html:15
-msgid "SANDESH"
-msgstr "संदेश"
-
 #: templates/Samaj/sandesh.html:21
 msgid "Whom you want to send"
 msgstr "आप किसे भेजना चाहते हैं"
@@ -1011,26 +1008,31 @@ msgstr "व्हाट्सएप नंबर"
 msgid "Email"
 msgstr "ईमेल"
 
-#: templates/Samaj/user_profile.html:96
+#: templates/Samaj/user_profile.html:100
 msgid "Pincode"
 msgstr "पिनकोड"
 
-#: templates/Samaj/user_profile.html:123
+#: templates/Samaj/user_profile.html:127
 msgid "Under Graduate"
 msgstr "स्नातक पूर्व"
 
-#: templates/Samaj/user_profile.html:142
+#: templates/Samaj/user_profile.html:146
 msgid "Occupation Type"
 msgstr "व्यवसाय का प्रकार"
 
-#: templates/Samaj/user_profile.html:165
+#: templates/Samaj/user_profile.html:169
 msgid "Job Location"
 msgstr "नौकरी का स्थान"
 
-#: templates/Samaj/user_profile.html:183
+#: templates/Samaj/user_profile.html:187
 msgid "Facebook"
 msgstr "फेसबुक"
 
-#: templates/Samaj/user_profile.html:194
+#: templates/Samaj/user_profile.html:198
 msgid "Instagram"
 msgstr "इंस्टाग्राम"
+
+#, fuzzy
+#~| msgid "Shandesh"
+#~ msgid "Sandesh"
+#~ msgstr "शंदेश"
