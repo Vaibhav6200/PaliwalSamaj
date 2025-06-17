@@ -75,7 +75,9 @@
                                 <li class="nav-item active"><a class="nav-link" href="{% url 'samaj:index' %}">{% trans "Home" %}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:news_and_events' %}">{% trans "News" %}</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:community' %}">{% trans "Community" %}</a></li>
+                                {% if request.user.is_authenticated %}
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:my_family' %}">{% trans "My Family" %}</a></li>
+                                {% endif %}
                                 <li class="nav-item dropdown">
                                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{% trans "Culture" %} <i class="fa fa-angle-down"></i></a>
                                   <ul class="dropdown-menu custom-dropdown" role="menu">
