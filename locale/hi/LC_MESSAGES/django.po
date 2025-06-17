@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-17 16:56+0530\n"
+"POT-Creation-Date: 2025-06-17 17:18+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -967,17 +967,29 @@ msgstr "भेजें"
 msgid "Filter"
 msgstr "फ़िल्टर"
 
-#: templates/Samaj/sandesh.html:51
+#: templates/Samaj/sandesh.html:52
 msgid "all"
 msgstr "सभी"
 
-#: templates/Samaj/sandesh.html:52
+#: templates/Samaj/sandesh.html:53 templates/Samaj/sandesh.html:85
 msgid "Receive"
 msgstr "प्राप्त"
 
-#: templates/Samaj/sandesh.html:53
+#: templates/Samaj/sandesh.html:54 templates/Samaj/sandesh.html:83
 msgid "Sent"
 msgstr "भेजे गए"
+
+#: templates/Samaj/sandesh.html:73
+msgid "Sent to"
+msgstr "को भेजा गया"
+
+#: templates/Samaj/sandesh.html:75
+msgid "Sent by"
+msgstr "द्वारा भेजा गया"
+
+#: templates/Samaj/sandesh.html:93
+msgid "No Sandesh Received or Sent"
+msgstr "कोई संदेश प्राप्त या भेजा नहीं गया है"
 
 #: templates/Samaj/user_profile.html:14
 msgid "Personal Details"
