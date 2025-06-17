@@ -116,7 +116,7 @@ class Member(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS_CHOICES)
     height = models.PositiveSmallIntegerField(null=True, blank=True, help_text="Height in cm")
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, unique=True)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
     gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES)
     current_address = models.TextField()
@@ -280,6 +280,9 @@ class SamajMemberRoles(models.Model):
 
 
 class Suggestion(models.Model):
+    class Meta:
+        verbose_name_plural = 'Website Suggestions'
+
     name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
     message = models.TextField()
@@ -288,3 +291,18 @@ class Suggestion(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+
+class Sandesh(models.Model):
+    class Meta:
+        verbose_name_plural = 'Sandesh'
+
+    sender = models.ForeignKey(Member, on_delete=models.SET_NULL, null=True, related_name='sandesh_sender')
+    receiver = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='sandesh_receiver')
+    message = models.TextField()
+    image = models.FileField(upload_to='sandesh', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.sender} -> {self.receiver}"

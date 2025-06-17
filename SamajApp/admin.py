@@ -140,3 +140,16 @@ class SuggestionAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
 
 
+@admin.register(Sandesh)
+class SandeshAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'sender',
+        'receiver',
+        'message',
+        'image',
+        'created_at',
+    )
+    list_display_links = ('id', 'sender')
+
+

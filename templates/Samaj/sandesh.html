@@ -15,7 +15,8 @@
                     <h1 class="fw-bold display-3 text-white">{% trans "SANDESH" %}</h1>
                 </div>
                 <div class="col-md-6">
-                    <form id="sandeshForm" class="form-container" enctype="multipart/form-data">
+                    <form action="{% url 'samaj:sandesh' %}" id="sandeshForm" class="form-container" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="mb-3">
                             <label for="contact_input" class="form-label">{% trans "Whom you want to send" %} ?*</label>
                             <div id="autocomplete_container" class="autocomplete debounced">
@@ -23,10 +24,6 @@
                                 <ul class="autocomplete-result-list"></ul>
                             </div>
                             <small class="text-muted">{% trans "search by name or their number" %}</small>
-                        </div>
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">{% trans "Subject" %} *</label>
-                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject" required>
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">{% trans "Image (required, < 10MB)" %}</label>
@@ -49,49 +46,47 @@
         <div class="container">
 
             <div class="form-group col-8 col-sm-6 col-md-4 px-0">
-                <label>Filter</label>
-                <select name="shandesh_filter" class="form-control" id="shandesh_filter">
-                    <option value="all" selected>all</option>
-                    <option value="Receive">Receive</option>
-                    <option value="Sent">Sent</option>
-                </select>
+                <label>{% trans "Filter" %}</label>
+                <form method="get" class="">
+                    <select name="shandesh_filter" class="form-control" id="shandesh_filter" onchange="this.form.submit()">
+                        <option value="all" {% if selected_filter == "all" %}selected{% endif %}>{% trans "all" %}</option>
+                        <option value="receive" {% if selected_filter == "Receive" %}selected{% endif %}>{% trans "Receive" %}</option>
+                        <option value="sent" {% if selected_filter == "Sent" %}selected{% endif %}>{% trans "Sent" %}</option>
+                    </select>
+                </form>
             </div>
 
             <div class="row g-4  mt-3">
+                {% if my_sandesh %}
+                {% for sandesh in my_sandesh %}
                 <div class="col-12 col-md-6">
                     <div class="card h-100 d-flex flex-column bg-light card_shandesh border-0">
+                        {% if sandesh.image %}
+                        <img src="{{ sandesh.image.url }}" class=" custom-card-img" alt="Card image">
+                        {% else %}
                         <img src="{% static 'images/news.jpeg' %}" class=" custom-card-img" alt="Card image">
+                        {% endif %}
                         <div class="card-body d-flex flex-column p-4">
-                            <h5 class="news-card-title fs-5 border-bottom pb-2 border-secondary">This is a very long
-                                heading that may take two lines</h5>
+                            <h5 class="news-card-title fs-5 border-bottom pb-2 border-secondary">
+                                {% trans "Sent by" %} : {{ sandesh.sender }}
+                            </h5>
                             <p class="card-text card-description mb-3">
-                                This is a full card description that will be shown in a popover on hover. This content
-                                is also trimmed to avoid overflow and keep layout aligned. Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Similique beatae odit veritatis soluta minima quod hic
-                                cupiditate dignissimos atque, asperiores sed cum ratione labore cumque doloribus eaque
-                                repudiandae dolores. Natus, aut aliquam omnis error voluptas illo repellat esse sunt
-                                nobis distinctio, odit repellendus. Nemo accusantium est qui consequuntur laboriosam
-                                praesentium.
+                                {{ sandesh.message }}
                             </p>
-                            <span class="badge bg-danger mt-auto align-self-start">Receive</span>
+                            {% if sandesh.sender.user == request.user %}
+                            <span class="badge bg-success mt-auto align-self-start">{% trans "Sent" %}</span>
+                            {% else %}
+                            <span class="badge bg-danger mt-auto align-self-start">{% trans "Receive" %}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-
-                <div class="col-12 col-md-6">
-                    <div class="card h-100 d-flex flex-column bg-light card_shandesh border-0">
-                        <img src="{% static 'images/banner/carousel-image-4.jpg' %}" class=" custom-card-img" alt="Card image">
-                        <div class="card-body d-flex flex-column p-4">
-                            <h5 class="news-card-title fs-5 border-bottom pb-2 border-secondary">Short Title Lorem ipsum
-                                dolor, sit amet consectetur adipisicing elit. Voluptas, veritatis.</h5>
-                            <p class="card-text card-description mb-3">
-                                This is another card description that will be clamped at a few lines to match the
-                                design.
-                            </p>
-                            <span class="badge bg-dark mt-auto align-self-start">Sent</span>
-                        </div>
-                    </div>
+                {% endfor %}
+                {% else %}
+                <div>
+                    <h1 class="text-muted">{% trans "No Sandesh Received or Sent" %} !</h1>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -103,6 +98,6 @@
 
 
 {% block javascripts %}
-<script src="{% static 'js/autocomplete_sandesh.js' %}"></script>
+<script src="{% static 'js/autocomplete_search.js' %}"></script>
 {% endblock %}
 }

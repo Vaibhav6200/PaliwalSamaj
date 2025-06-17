@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-16 17:38+0530\n"
+"POT-Creation-Date: 2025-06-17 16:56+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,15 +36,15 @@ msgstr "अविवाहित"
 msgid "Married"
 msgstr "विवाहित"
 
-#: SamajApp/models.py:45 templates/Samaj/bio_data.html:189
+#: SamajApp/models.py:45 templates/Samaj/bio_data.html:197
 msgid "School"
 msgstr "विद्यालय"
 
-#: SamajApp/models.py:46 templates/Samaj/bio_data.html:187
+#: SamajApp/models.py:46 templates/Samaj/bio_data.html:195
 msgid "Undergraduate"
 msgstr "स्नातक पूर्व"
 
-#: SamajApp/models.py:47 templates/Samaj/bio_data.html:188
+#: SamajApp/models.py:47 templates/Samaj/bio_data.html:196
 #: templates/Samaj/user_profile.html:121
 msgid "Graduate"
 msgstr "स्नातक"
@@ -53,11 +53,11 @@ msgstr "स्नातक"
 msgid "None"
 msgstr "कोई नहीं"
 
-#: SamajApp/models.py:51 templates/Samaj/bio_data.html:237
+#: SamajApp/models.py:51 templates/Samaj/bio_data.html:245
 msgid "Job"
 msgstr "नौकरी"
 
-#: SamajApp/models.py:52 templates/Samaj/bio_data.html:238
+#: SamajApp/models.py:52 templates/Samaj/bio_data.html:246
 msgid "Business"
 msgstr "व्यवसाय"
 
@@ -257,103 +257,103 @@ msgstr "विश्वामित्र"
 msgid "Yajnavalkya"
 msgstr "याज्ञवल्क्य"
 
-#: SamajApp/models.py:140
+#: SamajApp/models.py:144
 msgid "B.A. (Bachelor of Arts)"
 msgstr "बी.ए. (कला स्नातक)"
 
-#: SamajApp/models.py:141
+#: SamajApp/models.py:145
 msgid "B.Sc. (Bachelor of Science)"
 msgstr "बी.एससी. (विज्ञान स्नातक)"
 
-#: SamajApp/models.py:142
+#: SamajApp/models.py:146
 msgid "B.Com. (Bachelor of Commerce)"
 msgstr "बी.कॉम. (वाणिज्य स्नातक)"
 
-#: SamajApp/models.py:143
+#: SamajApp/models.py:147
 msgid "BBA (Bachelor of Business Administration)"
 msgstr "बीबीए (व्यवसाय प्रबंधन स्नातक)"
 
-#: SamajApp/models.py:144
+#: SamajApp/models.py:148
 msgid "BCA (Bachelor of Computer Applications)"
 msgstr "बीसीए (कंप्यूटर अनुप्रयोग स्नातक)"
 
-#: SamajApp/models.py:145
+#: SamajApp/models.py:149
 msgid "B.Tech (Bachelor of Technology)"
 msgstr "बी.टेक (प्रौद्योगिकी स्नातक)"
 
-#: SamajApp/models.py:146
+#: SamajApp/models.py:150
 msgid "B.E. (Bachelor of Engineering)"
 msgstr "बी.ई. (इंजीनियरिंग स्नातक)"
 
-#: SamajApp/models.py:147
+#: SamajApp/models.py:151
 msgid "LLB (Bachelor of Laws)"
 msgstr "एलएलबी (कानून स्नातक)"
 
-#: SamajApp/models.py:148
+#: SamajApp/models.py:152
 msgid "MBBS (Bachelor of Medicine and Bachelor of Surgery)"
 msgstr "एमबीबीएस (चिकित्सा और शल्य चिकित्सा स्नातक)"
 
-#: SamajApp/models.py:149
+#: SamajApp/models.py:153
 msgid "M.A. (Master of Arts)"
 msgstr "एम.ए. (कला स्नातकोत्तर)"
 
-#: SamajApp/models.py:150
+#: SamajApp/models.py:154
 msgid "M.Sc. (Master of Science)"
 msgstr "एम.एससी. (विज्ञान स्नातकोत्तर)"
 
-#: SamajApp/models.py:151
+#: SamajApp/models.py:155
 msgid "M.Com. (Master of Commerce)"
 msgstr "एम.कॉम. (वाणिज्य स्नातकोत्तर)"
 
-#: SamajApp/models.py:152
+#: SamajApp/models.py:156
 msgid "MBA (Master of Business Administration)"
 msgstr "एमबीए (व्यवसाय प्रबंधन स्नातकोत्तर)"
 
-#: SamajApp/models.py:153
+#: SamajApp/models.py:157
 msgid "MCA (Master of Computer Applications)"
 msgstr "एमसीए (कंप्यूटर अनुप्रयोग स्नातकोत्तर)"
 
-#: SamajApp/models.py:154
+#: SamajApp/models.py:158
 msgid "M.Tech (Master of Technology)"
 msgstr "एम.टेक (प्रौद्योगिकी स्नातकोत्तर)"
 
-#: SamajApp/models.py:155
+#: SamajApp/models.py:159
 msgid "M.E. (Master of Engineering)"
 msgstr "एम.ई. (इंजीनियरिंग स्नातकोत्तर)"
 
-#: SamajApp/models.py:156
+#: SamajApp/models.py:160
 msgid "LLM (Master of Laws)"
 msgstr "एलएलएम (कानून स्नातकोत्तर)"
 
-#: SamajApp/models.py:157
+#: SamajApp/models.py:161
 msgid "MD (Doctor of Medicine)"
 msgstr "एमडी (चिकित्सा स्नातकोत्तर)"
 
-#: SamajApp/models.py:158
+#: SamajApp/models.py:162
 msgid "Diploma"
 msgstr "डिप्लोमा"
 
-#: SamajApp/models.py:159
+#: SamajApp/models.py:163
 msgid "ITI (Industrial Training Institute)"
 msgstr "आईटीआई (औद्योगिक प्रशिक्षण संस्थान)"
 
-#: SamajApp/models.py:160
+#: SamajApp/models.py:164
 msgid "Polytechnic"
 msgstr "पॉलिटेक्निक"
 
-#: SamajApp/models.py:161
+#: SamajApp/models.py:165
 msgid "Certification Course"
 msgstr "प्रमाणन पाठ्यक्रम"
 
-#: SamajApp/models.py:162
+#: SamajApp/models.py:166
 msgid "Ph.D. (Doctor of Philosophy)"
 msgstr "पीएच.डी. (दर्शनशास्त्र में डॉक्टरेट)"
 
-#: SamajApp/models.py:163
+#: SamajApp/models.py:167
 msgid "D.Litt (Doctor of Literature)"
 msgstr "डी.लिट. (साहित्य में डॉक्टरेट)"
 
-#: SamajApp/models.py:164
+#: SamajApp/models.py:168
 msgid "Other"
 msgstr "अन्य"
 
@@ -371,7 +371,7 @@ msgstr ""
 msgid "News Letter"
 msgstr "न्यूज़लेटर"
 
-#: templates/Includes/footer.html:24 templates/Samaj/bio_data.html:309
+#: templates/Includes/footer.html:24 templates/Samaj/bio_data.html:317
 #: templates/Samaj/login.html:27
 msgid "Submit"
 msgstr "सबमिट"
@@ -381,7 +381,9 @@ msgid "Login"
 msgstr "लॉगिन"
 
 #: templates/Includes/navbar.html:54
-msgid "Shandesh"
+#, fuzzy
+#| msgid "Shandesh"
+msgid "Sandesh"
 msgstr "शंदेश"
 
 #: templates/Includes/navbar.html:75
@@ -520,83 +522,87 @@ msgstr "गोत्र"
 msgid "Address"
 msgstr "पता"
 
-#: templates/Samaj/bio_data.html:145 templates/Samaj/user_profile.html:88
+#: templates/Samaj/bio_data.html:146
+msgid "Village"
+msgstr ""
+
+#: templates/Samaj/bio_data.html:153 templates/Samaj/user_profile.html:88
 msgid "City"
 msgstr "शहर"
 
-#: templates/Samaj/bio_data.html:152 templates/Samaj/user_profile.html:92
+#: templates/Samaj/bio_data.html:160 templates/Samaj/user_profile.html:92
 msgid "State"
 msgstr "राज्य"
 
-#: templates/Samaj/bio_data.html:172
+#: templates/Samaj/bio_data.html:180
 msgid "Profile Image"
 msgstr "प्रोफ़ाइल छवि"
 
-#: templates/Samaj/bio_data.html:180 templates/Samaj/user_profile.html:104
+#: templates/Samaj/bio_data.html:188 templates/Samaj/user_profile.html:104
 msgid "Educational Details"
 msgstr "शैक्षिक विवरण"
 
-#: templates/Samaj/bio_data.html:184
+#: templates/Samaj/bio_data.html:192
 msgid "Qualification"
 msgstr "योग्यता"
 
-#: templates/Samaj/bio_data.html:196 templates/Samaj/user_profile.html:113
+#: templates/Samaj/bio_data.html:204 templates/Samaj/user_profile.html:113
 msgid "Class"
 msgstr "कक्षा"
 
-#: templates/Samaj/bio_data.html:203 templates/Samaj/user_profile.html:108
+#: templates/Samaj/bio_data.html:211 templates/Samaj/user_profile.html:108
 msgid "School Name"
 msgstr "विद्यालय का नाम"
 
-#: templates/Samaj/bio_data.html:210 templates/Samaj/user_profile.html:119
+#: templates/Samaj/bio_data.html:218 templates/Samaj/user_profile.html:119
 msgid "College / University"
 msgstr "कॉलेज / विश्वविद्यालय"
 
-#: templates/Samaj/bio_data.html:217 templates/Samaj/user_profile.html:130
+#: templates/Samaj/bio_data.html:225 templates/Samaj/user_profile.html:130
 msgid "Degree"
 msgstr "डिग्री"
 
-#: templates/Samaj/bio_data.html:229 templates/Samaj/user_profile.html:139
+#: templates/Samaj/bio_data.html:237 templates/Samaj/user_profile.html:139
 msgid "Professional Details"
 msgstr "पेशेवर विवरण"
 
-#: templates/Samaj/bio_data.html:236
+#: templates/Samaj/bio_data.html:244
 msgid "Not Applicable"
 msgstr "लागू नहीं"
 
-#: templates/Samaj/bio_data.html:246 templates/Samaj/user_profile.html:149
+#: templates/Samaj/bio_data.html:254 templates/Samaj/user_profile.html:149
 msgid "Company Name"
 msgstr "कंपनी का नाम"
 
-#: templates/Samaj/bio_data.html:253
+#: templates/Samaj/bio_data.html:261
 msgid "Location"
 msgstr "स्थान"
 
-#: templates/Samaj/bio_data.html:260 templates/Samaj/user_profile.html:170
+#: templates/Samaj/bio_data.html:268 templates/Samaj/user_profile.html:170
 msgid "Job Description"
 msgstr "नौकरी का विवरण"
 
-#: templates/Samaj/bio_data.html:268 templates/Samaj/user_profile.html:146
+#: templates/Samaj/bio_data.html:276 templates/Samaj/user_profile.html:146
 msgid "Business Name"
 msgstr "व्यवसाय का नाम"
 
-#: templates/Samaj/bio_data.html:275 templates/Samaj/user_profile.html:156
+#: templates/Samaj/bio_data.html:283 templates/Samaj/user_profile.html:156
 msgid "Business Location"
 msgstr "व्यवसाय का स्थान"
 
-#: templates/Samaj/bio_data.html:282 templates/Samaj/user_profile.html:160
+#: templates/Samaj/bio_data.html:290 templates/Samaj/user_profile.html:160
 msgid "Business Description"
 msgstr "व्यवसाय का विवरण"
 
-#: templates/Samaj/bio_data.html:290 templates/Samaj/user_profile.html:180
+#: templates/Samaj/bio_data.html:298 templates/Samaj/user_profile.html:180
 msgid "Social Media Links"
 msgstr "सोशल मीडिया लिंक"
 
-#: templates/Samaj/bio_data.html:295
+#: templates/Samaj/bio_data.html:303
 msgid "Instagram Link (optional)"
 msgstr "इंस्टाग्राम लिंक (वैकल्पिक)"
 
-#: templates/Samaj/bio_data.html:302
+#: templates/Samaj/bio_data.html:310
 msgid "Facebook Link (optional)"
 msgstr "फेसबुक लिंक (वैकल्पिक)"
 
@@ -660,47 +666,47 @@ msgstr "इवेंट गैलरी"
 msgid "Celebrating the Heritage of"
 msgstr "विरासत का उत्सव"
 
-#: templates/Samaj/index.html:29
+#: templates/Samaj/index.html:30
 msgid "Paliwal Samaj Across Generations"
 msgstr "पीढ़ियों तक पालीवाल समाज की परंपरा"
 
-#: templates/Samaj/index.html:40
+#: templates/Samaj/index.html:42
 msgid "Rooted in Dharma, Driven by Values"
 msgstr "धर्म में निहित, मूल्यों से प्रेरित"
 
-#: templates/Samaj/index.html:41
+#: templates/Samaj/index.html:43
 msgid "A Journey of Faith and Progress"
 msgstr "श्रद्धा और प्रगति की यात्रा"
 
-#: templates/Samaj/index.html:52
+#: templates/Samaj/index.html:55
 msgid "United by Culture"
 msgstr "संस्कृति से एकजुट"
 
-#: templates/Samaj/index.html:53
+#: templates/Samaj/index.html:56
 msgid "Strengthening Paliwal Identity Worldwide"
 msgstr "विश्वभर में पालीवाल पहचान को सशक्त बनाना"
 
-#: templates/Samaj/index.html:64
+#: templates/Samaj/index.html:68
 msgid "Legacy of Wisdom and Service"
 msgstr "ज्ञान और सेवा की विरासत"
 
-#: templates/Samaj/index.html:65
+#: templates/Samaj/index.html:69
 msgid "Paliwal Samaj’s Timeless Contribution"
 msgstr "पालीवाल समाज का शाश्वत योगदान"
 
-#: templates/Samaj/index.html:76
+#: templates/Samaj/index.html:81
 msgid "Tradition Meets Modernity"
 msgstr "परंपरा का आधुनिकता से संगम"
 
-#: templates/Samaj/index.html:77
+#: templates/Samaj/index.html:82
 msgid "Carrying Forward the Paliwal Spirit"
 msgstr "पालीवाल भावना को आगे बढ़ाना"
 
-#: templates/Samaj/index.html:93
+#: templates/Samaj/index.html:98
 msgid "About Paliwal Samaj"
 msgstr "पालीवाल समाज के बारे में"
 
-#: templates/Samaj/index.html:95
+#: templates/Samaj/index.html:100
 msgid ""
 "Paliwal Samaj is a distinguished and culturally rich Brahmin community with "
 "ancient roots in the historic town of Pali, India. Known for its deep "
@@ -714,7 +720,7 @@ msgstr ""
 "का प्रतीक रहा है—जो पीढ़ियों से विकसित होता आ रहा है और समय के साथ सुंदरता से ढलता भी "
 "रहा है।"
 
-#: templates/Samaj/index.html:98
+#: templates/Samaj/index.html:103
 msgid ""
 "Renowned for its contributions in education, public service, religious "
 "leadership, business, and cultural preservation, the Paliwal community "
@@ -727,7 +733,7 @@ msgstr ""
 "है। पूज्य पुरोहितों और विद्वानों से लेकर आधुनिक पेशेवरों और उद्यमियों तक—हम गर्व से उस विरासत "
 "को आगे बढ़ा रहे हैं जो नैतिकता, उत्कृष्टता और सेवा में निहित है।"
 
-#: templates/Samaj/index.html:101
+#: templates/Samaj/index.html:106
 msgid ""
 "Grounded in Vedic customs, we uphold traditions like the gotra system, "
 "kuldevi worship, and observance of key festivals and sanskaras. Today, "
@@ -740,35 +746,35 @@ msgstr ""
 "साझा मूल्यों, मजबूत पारिवारिक बंधनों और सामूहिक विकास की भावना से जुड़े हुए हैं—जो परंपरा "
 "और प्रगति के बीच एक जीवंत सेतु का कार्य कर रहे हैं।"
 
-#: templates/Samaj/index.html:104
+#: templates/Samaj/index.html:110
 msgid "Read More"
 msgstr "और पढ़ें"
 
-#: templates/Samaj/index.html:122
+#: templates/Samaj/index.html:129
 msgid "News & Events"
 msgstr "समाचार एवं कार्यक्रम"
 
-#: templates/Samaj/index.html:153
+#: templates/Samaj/index.html:160
 msgid "Netritva Mandal"
 msgstr "नेतृत्व मंडल"
 
-#: templates/Samaj/index.html:258
+#: templates/Samaj/index.html:203
 msgid "Sanchalan Samiti"
 msgstr "संचालन समिति"
 
-#: templates/Samaj/index.html:459
+#: templates/Samaj/index.html:247
 msgid "Salah evam Aayojan Mandal"
 msgstr "सलाह एवं आयोजन मंडल"
 
-#: templates/Samaj/index.html:732
+#: templates/Samaj/index.html:291
 msgid "Karyakarini Sadasya"
 msgstr "कार्यकारिणी सदस्य"
 
-#: templates/Samaj/index.html:909
+#: templates/Samaj/index.html:338
 msgid "Share Your Suggestions or Ideas"
 msgstr "अपने सुझाव या विचार साझा करें"
 
-#: templates/Samaj/index.html:911
+#: templates/Samaj/index.html:340
 msgid ""
 "If you have any ideas, suggestions, or features you’d like to see added to "
 "the Paliwal Samaj website, please let us know. Your input helps us make the "
@@ -778,39 +784,39 @@ msgstr ""
 "चाहते हैं, तो कृपया हमें बताएं। आपके सुझाव इस मंच को समुदाय के सभी सदस्यों के लिए और भी "
 "बेहतर बनाने में मदद करते हैं।"
 
-#: templates/Samaj/index.html:922
+#: templates/Samaj/index.html:351
 msgid "Your Name"
 msgstr "आपका नाम"
 
-#: templates/Samaj/index.html:923
+#: templates/Samaj/index.html:353
 msgid "Enter your name"
 msgstr "अपना नाम दर्ज करें"
 
-#: templates/Samaj/index.html:929
+#: templates/Samaj/index.html:359
 msgid "Your Email"
 msgstr "आपका ईमेल"
 
-#: templates/Samaj/index.html:930
+#: templates/Samaj/index.html:361
 msgid "Enter your email"
 msgstr "अपना ईमेल दर्ज करें"
 
-#: templates/Samaj/index.html:937
+#: templates/Samaj/index.html:368
 msgid "Detailed Suggestion or Idea"
 msgstr "विस्तृत सुझाव या विचार"
 
-#: templates/Samaj/index.html:939
+#: templates/Samaj/index.html:370
 msgid "Please describe your suggestion or idea in detail..."
 msgstr "कृपया अपने सुझाव या विचार को विस्तार से वर्णन करें..."
 
-#: templates/Samaj/index.html:944
+#: templates/Samaj/index.html:376
 msgid "Submit Suggestion"
 msgstr "सुझाव सबमिट करें"
 
-#: templates/Samaj/index.html:968
+#: templates/Samaj/index.html:400
 msgid "Gopal Paliwal"
 msgstr "गोपाल पालीवाल"
 
-#: templates/Samaj/index.html:970
+#: templates/Samaj/index.html:402
 msgid ""
 "Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, a "
 "Chittorgarh-based company specializing in software development, computer "
@@ -825,7 +831,7 @@ msgstr ""
 "लर्निंग सेंटर भी संचालित करते हैं जो RS-CIT और प्रोग्रामिंग जैसे पाठ्यक्रम प्रदान करता है, "
 "जिससे क्षेत्र में डिजिटल कौशल की खाई को पाटने में मदद मिलती है।"
 
-#: templates/Samaj/index.html:973
+#: templates/Samaj/index.html:405
 msgid ""
 "Grounded, hardworking, and deeply family-oriented, Gopal is known for "
 "leading with purpose and humility. His latest initiative, the creation of "
@@ -842,7 +848,7 @@ msgstr ""
 "की उपलब्धियों को जान सकते हैं और सांस्कृतिक व सामाजिक कार्यक्रमों की जानकारी प्राप्त कर "
 "सकते हैं।"
 
-#: templates/Samaj/index.html:976
+#: templates/Samaj/index.html:408
 msgid ""
 "Gopal’s vision is clear: To use technology as a tool to unite, empower, and "
 "celebrate the Paliwal identity. Through this effort, he stands out not just "
@@ -880,7 +886,7 @@ msgstr "यदि आप बच्चे हैं तो अपने मात
 msgid "Family Tree"
 msgstr "परिवार वृक्ष"
 
-#: templates/Samaj/member_family_tree.html:36 templates/Samaj/my_family.html:49
+#: templates/Samaj/member_family_tree.html:36
 msgid "Family Head"
 msgstr "परिवार के मुखिया"
 
@@ -888,11 +894,11 @@ msgstr "परिवार के मुखिया"
 msgid "Add New Member"
 msgstr "नया सदस्य जोड़ें"
 
-#: templates/Samaj/my_family.html:75 templates/Samaj/my_family.html:146
+#: templates/Samaj/my_family.html:92 templates/Samaj/my_family.html:171
 msgid "Edit"
 msgstr "एडिट"
 
-#: templates/Samaj/my_family.html:85 templates/Samaj/my_family.html:156
+#: templates/Samaj/my_family.html:103 templates/Samaj/my_family.html:182
 msgid "Delete"
 msgstr "हटाएं"
 
@@ -933,6 +939,46 @@ msgstr "टिप्पणी पोस्ट करें"
 msgid "Recent Posts"
 msgstr "हाल की पोस्ट"
 
+#: templates/Samaj/sandesh.html:15
+msgid "SANDESH"
+msgstr "संदेश"
+
+#: templates/Samaj/sandesh.html:21
+msgid "Whom you want to send"
+msgstr "आप किसे भेजना चाहते हैं"
+
+#: templates/Samaj/sandesh.html:26
+msgid "search by name or their number"
+msgstr "नाम या नंबर से खोजें"
+
+#: templates/Samaj/sandesh.html:29
+msgid "Image (required, < 10MB)"
+msgstr "छवि (अनिवार्य, 10MB से कम)"
+
+#: templates/Samaj/sandesh.html:33
+msgid "Message"
+msgstr "संदेश"
+
+#: templates/Samaj/sandesh.html:36
+msgid "Send"
+msgstr "भेजें"
+
+#: templates/Samaj/sandesh.html:49
+msgid "Filter"
+msgstr "फ़िल्टर"
+
+#: templates/Samaj/sandesh.html:51
+msgid "all"
+msgstr "सभी"
+
+#: templates/Samaj/sandesh.html:52
+msgid "Receive"
+msgstr "प्राप्त"
+
+#: templates/Samaj/sandesh.html:53
+msgid "Sent"
+msgstr "भेजे गए"
+
 #: templates/Samaj/user_profile.html:14
 msgid "Personal Details"
 msgstr "व्यक्तिगत विवरण"
@@ -945,11 +991,11 @@ msgstr "संपर्क विवरण"
 msgid "Phone Number"
 msgstr "फोन नंबर"
 
-#: templates/Samaj/user_profile.html:75
+#: templates/Samaj/user_profile.html:76
 msgid "Whatsapp Number"
 msgstr "व्हाट्सएप नंबर"
 
-#: templates/Samaj/user_profile.html:79
+#: templates/Samaj/user_profile.html:80
 msgid "Email"
 msgstr "ईमेल"
 
@@ -961,18 +1007,18 @@ msgstr "पिनकोड"
 msgid "Under Graduate"
 msgstr "स्नातक पूर्व"
 
-#: templates/Samaj/user_profile.html:128
+#: templates/Samaj/user_profile.html:142
 msgid "Occupation Type"
 msgstr "व्यवसाय का प्रकार"
 
-#: templates/Samaj/user_profile.html:151
+#: templates/Samaj/user_profile.html:165
 msgid "Job Location"
 msgstr "नौकरी का स्थान"
 
-#: templates/Samaj/user_profile.html:169
+#: templates/Samaj/user_profile.html:183
 msgid "Facebook"
 msgstr "फेसबुक"
 
-#: templates/Samaj/user_profile.html:180
+#: templates/Samaj/user_profile.html:194
 msgid "Instagram"
 msgstr "इंस्टाग्राम"

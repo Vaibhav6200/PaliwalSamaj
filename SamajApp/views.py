@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, SamajMemberRoles
+    Suggestion, SamajMemberRoles, Sandesh
 from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
@@ -282,8 +282,41 @@ def member_family_tree(request, member_id):
 
 @login_required
 def sandesh(request):
-    context = {}
-    return render(request, "Samaj/sandesh.html", context={})
+    current_member = Member.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        receiver = get_object_or_404(Member, phone_number=request.POST.get('contact_input'))
+
+        sandesh_obj = Sandesh(
+            sender=current_member,
+            receiver=receiver,
+            message = request.POST.get('message'),
+        )
+
+        image_file = request.FILES.get('image')
+        if image_file:
+            sandesh_obj.image = image_file
+        sandesh_obj.save()
+
+        messages.success(request, "Sandesh Sent!")
+        return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+
+    filter_type = request.GET.get('shandesh_filter', 'all')  # default to 'all'
+
+    if filter_type == 'receive':
+        my_sandesh = Sandesh.objects.filter(receiver=current_member)
+    elif filter_type == 'sent':
+        my_sandesh = Sandesh.objects.filter(sender=current_member)
+    else:
+        my_sandesh = Sandesh.objects.filter(Q(sender=current_member) | Q(receiver=current_member))
+    my_sandesh = my_sandesh.order_by('-created_at')
+
+    context = {
+        'my_sandesh': my_sandesh,
+        'selected_filter': filter_type,  # for retaining selected option
+    }
+    return render(request, "Samaj/sandesh.html", context)
 
 
 @login_required
