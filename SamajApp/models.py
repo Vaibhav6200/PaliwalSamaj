@@ -306,3 +306,14 @@ class Sandesh(models.Model):
 
     def __str__(self):
         return f"{self.sender} -> {self.receiver}"
+
+
+class Gallery(models.Model):
+    GALLERY_TYPE_CHOICES = (
+        ('photo', 'Photo'),
+        ('video', 'Video'),
+    )
+
+    title = models.CharField(max_length=255)
+    year = models.PositiveIntegerField()
+    media_type = models.CharField(max_length=10, choices=GALLERY_TYPE_CHOICES)

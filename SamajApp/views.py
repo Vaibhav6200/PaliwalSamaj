@@ -22,12 +22,12 @@ def index(request):
 
     netritva_mandal = SamajMemberRoles.objects.filter(
         Q(role='adhyaksh')|
-        Q(role='mahila_adhyaksh')|
         Q(role='upadhyaksh')|
+        Q(role='sachiv') |
         Q(role='koshadhyaksh')
     )
     sanchalan_samiti = SamajMemberRoles.objects.filter(
-        Q(role='sachiv') |
+        Q(role='mahila_adhyaksh')|
         Q(role='saha_sachiv') |
         Q(role='sanrakshak')
     )
