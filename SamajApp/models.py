@@ -1,9 +1,13 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.utils.text import slugify
+import datetime
+from urllib.parse import urlparse, parse_qs
 
 
 class Family(models.Model):
@@ -309,11 +313,48 @@ class Sandesh(models.Model):
 
 
 class Gallery(models.Model):
+    class Meta:
+        verbose_name_plural = 'Gallery'
+
     GALLERY_TYPE_CHOICES = (
         ('photo', 'Photo'),
         ('video', 'Video'),
     )
 
     title = models.CharField(max_length=255)
-    year = models.PositiveIntegerField()
+    year = models.PositiveIntegerField(
+        validators=[MinValueValidator(1980),MaxValueValidator(datetime.date.today().year)],
+        help_text=f'year should be between 1980 - {datetime.date.today().year}'
+    )
     media_type = models.CharField(max_length=10, choices=GALLERY_TYPE_CHOICES)
+    image = models.FileField(upload_to='gallery', null=True, blank=True)
+    video = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    @property
+    def get_youtube_embed_url(self):
+        if self.video:
+            parsed_url = urlparse(f"{self.video}")
+            if 'youtube.com' in parsed_url.netloc:
+                video_id = parse_qs(parsed_url.query).get('v')
+                if video_id:
+                    return f'https://www.youtube.com/embed/{video_id[0]}'
+            elif 'youtu.be' in parsed_url.netloc:
+                return f'https://www.youtube.com/embed/{parsed_url.path.lstrip("/")}'
+        return None
+
+    def clean(self, scheduled=False):
+        super().clean()
+        if self.media_type == 'photo' and not self.image:
+            raise ValidationError({
+                'image': "You must upload an image if 'Photo' is selected as media type.",
+            })
+        elif self.media_type == 'video' and not self.video:
+            raise ValidationError({
+                'video': "You must enter a YouTube video URL if 'Video' is selected as media type.",
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)

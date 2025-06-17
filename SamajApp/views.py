@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, SamajMemberRoles, Sandesh
+    Suggestion, SamajMemberRoles, Sandesh, Gallery
 from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
@@ -515,4 +515,9 @@ def get_member_search_list(request):
 
 
 def image_and_video_gallery(request):
-    return render(request, 'Samaj/image_and_video_gallery.html')
+    context = {
+        'years': Gallery.objects.filter(media_type='photo').values_list('year', flat=True).distinct().order_by('-year'),
+        'images': Gallery.objects.filter(media_type='photo'),
+        'videos': Gallery.objects.filter(media_type='video'),
+    }
+    return render(request, 'Samaj/image_and_video_gallery.html', context)

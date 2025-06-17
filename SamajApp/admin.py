@@ -153,3 +153,17 @@ class SandeshAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'sender')
 
 
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'title',
+        'year',
+        'media_type',
+        'image',
+        'video',
+        'created_at',
+    )
+    list_display_links = ('id', 'title')
+
+
