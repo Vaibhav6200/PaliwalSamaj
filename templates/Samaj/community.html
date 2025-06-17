@@ -153,11 +153,13 @@
                                         <div class="d-flex align-items-center py-1 border-bottom border-white">
                                             <div class=""><span class="material-icons fs-5 ">location_on</span></div>
                                             <div class="text-white ms-2">
-                                            {% if member.current_address_city and member.current_address_state %}
-                                                {{ member.current_address_city }}, {{ member.current_address_state }}
-                                            {% else %}
-                                            <div class="text-white ms-2">{{ member.current_address }}</div>
-                                            {% endif %}
+                                                {% if member.current_address_city %}
+                                                    {{ member.current_address_city }}
+                                                {% elif member.current_address_state %}
+                                                    {{ member.current_address_state }}
+                                                {% else %}
+                                                    {{ member.current_address }}
+                                                {% endif %}
                                             </div>
                                         </div>
                                         {% endif %}
