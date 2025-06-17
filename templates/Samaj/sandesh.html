@@ -12,29 +12,31 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 text-center mb-4 mt-5 mb-md-0 mt-md-0">
-                    <h1 class="fw-bold display-3 text-white">SANDESH</h1>
+                    <h1 class="fw-bold display-3 text-white">{% trans "SANDESH" %}</h1>
                 </div>
                 <div class="col-md-6">
                     <form id="sandeshForm" class="form-container" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label for="contact" class="form-label">Where you want to send?*</label>
-                            <input type="text" name="contact" class="form-control" id="contact"
-                                   placeholder="Email or phone no.">
+                            <label for="contact_input" class="form-label">{% trans "Whom you want to send" %} ?*</label>
+                            <div id="autocomplete_container" class="autocomplete debounced">
+                                <input class="autocomplete-input my-2" name="contact_input" id="contact_input" required />
+                                <ul class="autocomplete-result-list"></ul>
+                            </div>
+                            <small class="text-muted">{% trans "search by name or their number" %}</small>
                         </div>
                         <div class="mb-3">
-                            <label for="subject" class="form-label">Subject*</label>
-                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject">
+                            <label for="subject" class="form-label">{% trans "Subject" %} *</label>
+                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Subject" required>
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">Image (required, < 10MB)</label>
+                            <label for="image" class="form-label">{% trans "Image (required, < 10MB)" %}</label>
                             <input type="file" name="image" class="form-control" id="image" accept="image/*">
                         </div>
                         <div class="mb-3">
-                            <label for="message" class="form-label">Message*</label>
-                            <textarea name="message" class="form-control" id="message" rows="4"
-                                      placeholder="Message"></textarea>
+                            <label for="message" class="form-label">{% trans "Message" %}*</label>
+                            <textarea name="message" class="form-control" id="message" rows="4"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-warning w-100">Send</button>
+                        <button type="submit" class="btn btn-warning w-100">{% trans "Send" %}</button>
                     </form>
                 </div>
             </div>
@@ -99,3 +101,8 @@
 </main>
 {% endblock %}
 
+
+{% block javascripts %}
+<script src="{% static 'js/autocomplete_sandesh.js' %}"></script>
+{% endblock %}
+}
