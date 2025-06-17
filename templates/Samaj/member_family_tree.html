@@ -41,7 +41,15 @@
                                     </div>
                                     <div class="d-flex align-items-center py-2 border-bottom border-white">
                                         <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                        <div class="text-white ms-2">{{ family_head.current_address }}</div>
+                                        <div class="text-white ms-2">
+                                            {% if family_head.current_address_city %}
+                                                {{ family_head.current_address_city }}
+                                            {% elif family_head.current_address_state %}
+                                                {{ family_head.current_address_state }}
+                                            {% else %}
+                                                {{ family_head.current_address }}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -92,11 +100,15 @@
                                         {% if member.current_address %}
                                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                                             <div><span class="material-icons fs-5">location_on</span></div>
-                                            {% if member.current_address_city and member.current_address_state %}
-                                            <div class="text-white ms-2">{{ member.current_address_city }}, {{ member.current_address_state }}</div>
-                                            {% else %}
-                                            <div class="text-white ms-2">{{ member.current_address }}</div>
-                                            {% endif %}
+                                            <div class="text-white ms-2">
+                                                {% if member.current_address_city %}
+                                                    {{ member.current_address_city }}
+                                                {% elif member.current_address_state %}
+                                                    {{ member.current_address_state }}
+                                                {% else %}
+                                                    {{ member.current_address }}
+                                                {% endif %}
+                                            </div>
                                         </div>
                                         {% endif %}
                                     </div>
