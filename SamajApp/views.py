@@ -1,4 +1,3 @@
-import random
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -10,6 +9,8 @@ from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
 from django.core.paginator import Paginator
+from .tasks import translate_member_fields
+from django.utils import translation
 
 
 def site_login(request):
@@ -62,6 +63,7 @@ def bio_data(request):
 @login_required
 def handle_bio_data_form(request, family_code):
     if request.method == 'POST':
+
         user_id = request.POST.get('edit_member_user_id')
         family = get_object_or_404(Family, family_code=family_code)
 
@@ -73,29 +75,29 @@ def handle_bio_data_form(request, family_code):
         if user_id:
             # UPDATE FLOW
             user = get_object_or_404(User, id=user_id)
-            user.first_name = first_name
-            user.last_name = last_name
             user.email = email
             user.save()
-
             member, _ = Member.objects.get_or_create(user=user, family=family)
             messages.success(request, 'Profile Updated Successfully')
         else:
             # CREATE FLOW
-            user = User.objects.create(
-                username=generate_username(first_name, last_name),
-                first_name=first_name,
-                last_name=last_name,
-                email=email
-            )
+            user = User(username=generate_username(first_name, last_name))
+            if email:
+                user.email=email
+            user.save()
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
-        # Common fields (both for create & update)
+        member.first_name = first_name
+        member.last_name = last_name
         member.father_name = request.POST.get('father_name')
         member.mother_name = request.POST.get('mother_name')
-        member.date_of_birth = request.POST.get('date_of_birth')
         member.birth_place = request.POST.get('birth_place')
+        member.current_address = request.POST.get('address')
+        member.current_address_city = request.POST.get('city')
+        member.current_address_state = request.POST.get('state')
+
+        member.date_of_birth = request.POST.get('date_of_birth')
         member.birth_time = request.POST.get('birth_time')
         member.gender = request.POST.get('gender')
         member.marital_status = request.POST.get('marital_status')
@@ -103,7 +105,6 @@ def handle_bio_data_form(request, family_code):
         member.phone_number = request.POST.get('phone_number')
         member.whatsapp_number = request.POST.get('whatsapp_number')
         member.gotra = request.POST.get('gotra')
-        member.current_address = request.POST.get('address')
         member.qualification_type = request.POST.get('qualification')
         member.occupation_type = request.POST.get('occupation')
         member.instagram_link = request.POST.get('instagram_link')
@@ -147,7 +148,7 @@ def handle_bio_data_form(request, family_code):
             occupation.business_location = request.POST.get('business_location')
             occupation.business_description = request.POST.get('business_description')
 
-            # Clear job fields
+            # Clear Job fields
             occupation.company_name = None
             occupation.company_location = None
             occupation.job_description = None
@@ -159,6 +160,11 @@ def handle_bio_data_form(request, family_code):
             occupation.company_location = None
             occupation.job_description = None
         occupation.save()
+
+        # submit task to celery for translations
+        current_language = translation.get_language()
+        translate_member_fields.delay(member.id, current_language)
+
     return redirect('samaj:my_family')
 
 
@@ -184,7 +190,7 @@ def handle_member_delete(request):
         # Check if the member to delete is the head of the family
         is_family_head = (login_user_family.family_head == delete_member)
 
-        delete_member_name = f"{delete_member.user.first_name} {delete_member.user.last_name}"
+        delete_member_name = f"{delete_member.first_name} {delete_member.last_name}"
         delete_member.delete()
 
         # If the deleted member was the family head, assign the logged-in user as the new family head
@@ -454,7 +460,7 @@ def get_member_search_list(request):
         objs = Member.objects.filter(query)
         for obj in objs:
             payload.append({
-                'member_name': f"{obj.user.first_name} {obj.user.last_name}",
+                'member_name': f"{obj.first_name} {obj.last_name}",
                 'member_phone': obj.phone_number,
             })
     return JsonResponse({

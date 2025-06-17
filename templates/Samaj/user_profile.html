@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="detail-label">{% trans "Name" %}</div>
-                                <div class="detail-value">{{ profile.user.first_name }} {{ profile.user.last_name }}</div>
+                                <div class="detail-value">{{ profile.user.first_name }} {{ profile.user.first_name }}</div>
 
                                 <div class="detail-label">{% trans "Father Name" %}</div>
                                 <div class="detail-value">{{ profile.father_name }}</div>
@@ -68,19 +68,33 @@
             <div class="profile-card p-4">
                 <h2 class="card-title">{% trans "Contact Details" %}</h2>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="detail-label">{% trans "Phone Number" %}</div>
                         <div class="detail-value">{{ profile.phone_number }}</div>
-
+                    </div>
+                    <div class="col-md-4">
                         <div class="detail-label">{% trans "Whatsapp Number" %}</div>
                         <div class="detail-value">{{ profile.whatsapp_number }}</div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="detail-label">{% trans "Email" %}</div>
                         <div class="detail-value">{{ profile.user.email }}</div>
-
+                    </div>
+                    <div class="col-md-4">
                         <div class="detail-label">{% trans "Address" %}</div>
                         <div class="detail-value">{{ profile.current_address }}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="detail-label">{% trans "City" %}</div>
+                        <div class="detail-value">{{ profile.current_address_city }}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="detail-label">{% trans "State" %}</div>
+                        <div class="detail-value">{{ profile.current_address_state }}</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="detail-label">{% trans "Pincode" %}</div>
+                        <div class="detail-value">{{ profile.current_address_pincode }}</div>
                     </div>
                 </div>
             </div>
@@ -114,7 +128,7 @@
 
                     <div class="col-md-6">
                         <div class="detail-label">{% trans "Degree" %}</div>
-                        <div class="detail-value">{{ profile.qualification_detail.first.degree_name }}</div>
+                        <div class="detail-value">{{ profile.qualification_detail.first.get_degree_name_display }}</div>
                     </div>
                     {% endif %}
                 </div>
