@@ -1,5 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions
-from .models import Member, QualificationDetail, OccupationDetail
+from .models import Member, QualificationDetail, OccupationDetail, Culture
 
 
 class MemberTranslationOptions(TranslationOptions):
@@ -30,6 +30,12 @@ class OccupationTranslationOptions(TranslationOptions):
         'business_description',
     )
 
+class CultureTranslationOptions(TranslationOptions):
+    fields = (
+        'title',
+    )
+
 translator.register(Member, MemberTranslationOptions)
 translator.register(QualificationDetail, QualificationTranslationOptions)
 translator.register(OccupationDetail, OccupationTranslationOptions)
+translator.register(Culture, CultureTranslationOptions)

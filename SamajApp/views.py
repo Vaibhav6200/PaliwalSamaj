@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, SamajMemberRoles, Sandesh, Gallery
+    Suggestion, SamajMemberRoles, Sandesh, Gallery, Culture
 from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
@@ -395,46 +395,6 @@ def news_events_detail(request, event_slug):
     return render(request, 'Samaj/news_events_detail.html', context)
 
 
-def paliwal_samaj_history(request):
-    return render(request, "Culture/P1_paliwal_samaj_history.html")
-
-
-def karyarat_sangathan(request):
-    return render(request, "Culture/P2_karyarat_sangathan.html")
-
-
-def sandhya_vandana(request):
-    return render(request, "Culture/P3_sandhya_vandana.html")
-
-
-def brahman_16_sanskar(request):
-    return render(request, "Culture/P4_brahman_16_sanskar.html")
-
-
-def upanayan_sanskar(request):
-    return render(request, "Culture/P5_upanayan_sanskar.html")
-
-
-def mewar_paliwal_samaj_ke_teerth_purohit(request):
-    return render(request, "Culture/P6_mewar_paliwal_samaj_ke_teerth_purohit.html")
-
-
-def vivah_karyakram(request):
-    return render(request, "Culture/P7_vivah_karyakram.html")
-
-
-def vivah_geet(request):
-    return render(request, "Culture/P8_vivah_geet.html")
-
-
-def antyeshti_kriya_paddhati(request):
-    return render(request, "Culture/P9_antyeshti_kriya_paddhati.html")
-
-
-def dasva_gyarahva_evam_barahva_karyakram(request):
-    return render(request, "Culture/P10_dasva_gyarahva_evam_barahva_karyakram.html")
-
-
 def newsletter_subscribe(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -521,3 +481,8 @@ def image_and_video_gallery(request):
         'videos': Gallery.objects.filter(media_type='video'),
     }
     return render(request, 'Samaj/image_and_video_gallery.html', context)
+
+
+def culture_details(request, culture_slug=None):
+    culture_obj = Culture.objects.get(slug=culture_slug)
+    return render(request, "Samaj/culture_details.html", {'culture': culture_obj})

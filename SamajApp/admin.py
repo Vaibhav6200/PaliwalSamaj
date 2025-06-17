@@ -172,7 +172,7 @@ class CultureAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
-        'content',
+        'slug',
         'created_at',
     )
     list_display_links = ('id', 'title')

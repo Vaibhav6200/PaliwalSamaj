@@ -368,9 +368,14 @@ class Culture(models.Model):
         verbose_name_plural = 'Culture'
 
     title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     content = CKEditor5Field('Text', config_name='extends')
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
