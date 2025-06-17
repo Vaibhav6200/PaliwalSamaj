@@ -120,6 +120,7 @@ class Member(models.Model):
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
     gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES)
     current_address = models.TextField()
+    current_address_village = models.TextField(max_length=100, null=True, blank=True)
     current_address_city = models.TextField(max_length=100, null=True, blank=True)
     current_address_state = models.TextField(max_length=100, null=True, blank=True)
     current_address_pincode = models.CharField(max_length=10, null=True, blank=True)

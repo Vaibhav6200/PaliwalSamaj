@@ -140,6 +140,14 @@
                                     value="{{ edit_member.current_address|default:'' }}">
                                 </div>
                             </div>
+
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
+                                    <label>{% trans "Village" %}</label>
+                                    <input type="text" class="form-control form-control-object" name="city" id="village" required
+                                    value="{{ edit_member.current_address_village|default:'' }}">
+                                </div>
+                            </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "City" %}</label>

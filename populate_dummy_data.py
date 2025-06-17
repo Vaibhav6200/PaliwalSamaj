@@ -73,7 +73,10 @@ def populate_members(n):
             phone_number=f"98765432{i:02}",
             whatsapp_number=f"98765432{i:02}",
             gotra=random.choice(gotras)[0],
-        current_address=random.choice(locations),
+            current_address=random.choice(locations),
+            current_address_village = fake.village(),
+            current_address_city = fake.city(),
+            current_address_state = fake.state(),
             qualification_type=random.choice(['school', 'undergraduate', 'graduate']),
             occupation_type=random.choice(['job', 'business'])
         )
