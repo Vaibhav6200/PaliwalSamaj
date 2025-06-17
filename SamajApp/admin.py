@@ -167,3 +167,14 @@ class GalleryAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
+@admin.register(Culture)
+class CultureAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'title',
+        'content',
+        'created_at',
+    )
+    list_display_links = ('id', 'title')
+
+

@@ -37,7 +37,7 @@
                 <div class="col-12">
                     <div class="shuffle-btn-group">
                         <label class="active" for="all">
-                            <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">Show All
+                            <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">{% trans "Show All" %}
                         </label>
                         {% for year in years %}
                         <label for="{{year}}">
@@ -77,7 +77,7 @@
         <div class="container py-4 mt-5">
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <h3 class="section-sub-title">Video Gallery</h3>
+                    <h3 class="section-sub-title">{% trans "Video Gallery" %}</h3>
                 </div>
             </div>
             <div class="row g-4">
@@ -94,7 +94,7 @@
                 </div>
                 {% endfor %}
                 {% else %}
-                <div>No Videos Available!</div>
+                <div>{% trans "No Videos Available" %}!</div>
                 {% endif %}
             </div>
         </div>

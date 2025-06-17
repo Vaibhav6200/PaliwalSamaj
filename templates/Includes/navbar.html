@@ -80,6 +80,7 @@
                                 {% if request.user.is_authenticated %}
                                 <li class="nav-item"><a class="nav-link" href="{% url 'samaj:my_family' %}">{% trans "My Family" %}</a></li>
                                 {% endif %}
+                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:image_and_video_gallery' %}">{% trans "Gallery" %}</a></li>
                                 <li class="nav-item dropdown">
                                   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{% trans "Culture" %} <i class="fa fa-angle-down"></i></a>
                                   <ul class="dropdown-menu custom-dropdown" role="menu">
@@ -95,7 +96,6 @@
                                       <li><a href="{% url 'samaj:dasva_gyarahva_evam_barahva_karyakram' %}">{% trans "Dasva Gyarahva Evam Barahva Karyakram" %}</a></li>
                                   </ul>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:image_and_video_gallery' %}">{% trans "Gallery" %}</a></li>
                             </ul>
                         </div>
                     </nav>

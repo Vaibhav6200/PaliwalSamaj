@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 import datetime
 from urllib.parse import urlparse, parse_qs
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class Family(models.Model):
@@ -30,7 +31,6 @@ class Family(models.Model):
 
     def __str__(self):
         return f"{self.name} Family ({self.family_code})"
-
 
 
 class Member(models.Model):
@@ -344,6 +344,9 @@ class Gallery(models.Model):
                 return f'https://www.youtube.com/embed/{parsed_url.path.lstrip("/")}'
         return None
 
+    def __str__(self):
+        return self.title
+
     def clean(self, scheduled=False):
         super().clean()
         if self.media_type == 'photo' and not self.image:
@@ -358,3 +361,16 @@ class Gallery(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
+
+
+class Culture(models.Model):
+    class Meta:
+        verbose_name_plural = 'Culture'
+
+    title = models.CharField(max_length=255)
+    content = CKEditor5Field('Text', config_name='extends')
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.title
