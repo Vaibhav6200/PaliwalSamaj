@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-16 17:38+0530\n"
+"POT-Creation-Date: 2025-06-17 12:21+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,9 @@ msgid "Login"
 msgstr "लॉगिन"
 
 #: templates/Includes/navbar.html:54
-msgid "Shandesh"
+#, fuzzy
+#| msgid "Shandesh"
+msgid "Sandesh"
 msgstr "शंदेश"
 
 #: templates/Includes/navbar.html:75
@@ -104,6 +106,10 @@ msgstr "बड़ा पालीवाल समाज की अन्त्य�
 #: templates/Includes/navbar.html:91
 msgid "Dasva Gyarahva Evam Barahva Karyakram"
 msgstr "दसवाँ, ग्यारहवाँ एवं बाहरवाँ कार्यक्रम"
+
+#: templates/Includes/navbar.html:94
+msgid "Gallery"
+msgstr "गैलरी"
 
 #: templates/Samaj/bio_data.html:14
 msgid "Bio Data"
@@ -183,8 +189,9 @@ msgid "Email (optional)"
 msgstr "ईमेल (वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:127 templates/Samaj/community.html:40
-#: templates/Samaj/member_family_tree.html:79
-#: templates/Samaj/my_family.html:113 templates/Samaj/user_profile.html:59
+#: templates/Samaj/community.html:123
+#: templates/Samaj/member_family_tree.html:79 templates/Samaj/my_family.html:53
+#: templates/Samaj/my_family.html:135 templates/Samaj/user_profile.html:59
 msgid "Gotra"
 msgstr "गोत्र"
 
@@ -300,8 +307,9 @@ msgstr "नाम"
 msgid "Education"
 msgstr "शिक्षा"
 
-#: templates/Samaj/community.html:74 templates/Samaj/my_family.html:53
-#: templates/Samaj/my_family.html:118 templates/Samaj/user_profile.html:40
+#: templates/Samaj/community.html:74 templates/Samaj/community.html:128
+#: templates/Samaj/my_family.html:57 templates/Samaj/my_family.html:140
+#: templates/Samaj/user_profile.html:40
 msgid "Age"
 msgstr "आयु"
 
@@ -313,72 +321,92 @@ msgstr "खोजें"
 msgid "Result"
 msgstr "परिणाम"
 
-#: templates/Samaj/community.html:139
+#: templates/Samaj/community.html:150
 #: templates/Samaj/member_family_tree.html:52
 #: templates/Samaj/member_family_tree.html:108
-#: templates/Samaj/my_family.html:65 templates/Samaj/my_family.html:137
+#: templates/Samaj/my_family.html:82 templates/Samaj/my_family.html:162
 msgid "View Profile"
 msgstr "प्रोफ़ाइल देखें"
 
-#: templates/Samaj/community.html:145
+#: templates/Samaj/community.html:155
 msgid "Show Family"
 msgstr "परिवार दिखाएं"
 
-#: templates/Samaj/community.html:155
+#: templates/Samaj/community.html:166
 msgid "Family Member Not Found"
 msgstr "परिवार का सदस्य नहीं मिला"
 
-#: templates/Samaj/index.html:28
+#: templates/Samaj/image_and_video_gallery.html:17
+#: templates/Samaj/image_and_video_gallery.html:30
+#, fuzzy
+#| msgid "Culture"
+msgid "Cultural Memory"
+msgstr "संस्कृति"
+
+#: templates/Samaj/image_and_video_gallery.html:31
+msgid "Event Gallery"
+msgstr "इवेंट गैलरी"
+
+#: templates/Samaj/index.html:29
 msgid "Celebrating the Heritage of"
 msgstr "विरासत का उत्सव"
 
-#: templates/Samaj/index.html:29
+#: templates/Samaj/index.html:30
 msgid "Paliwal Samaj Across Generations"
 msgstr "पीढ़ियों तक पालीवाल समाज की परंपरा"
 
-#: templates/Samaj/index.html:40
+#: templates/Samaj/index.html:42
 msgid "Rooted in Dharma, Driven by Values"
 msgstr "धर्म में निहित, मूल्यों से प्रेरित"
 
-#: templates/Samaj/index.html:41
+#: templates/Samaj/index.html:43
 msgid "A Journey of Faith and Progress"
 msgstr "श्रद्धा और प्रगति की यात्रा"
 
-#: templates/Samaj/index.html:52
+#: templates/Samaj/index.html:55
 msgid "United by Culture"
 msgstr "संस्कृति से एकजुट"
 
-#: templates/Samaj/index.html:53
+#: templates/Samaj/index.html:56
 msgid "Strengthening Paliwal Identity Worldwide"
 msgstr "विश्वभर में पालीवाल पहचान को सशक्त बनाना"
 
-#: templates/Samaj/index.html:64
+#: templates/Samaj/index.html:68
 msgid "Legacy of Wisdom and Service"
 msgstr "ज्ञान और सेवा की विरासत"
 
-#: templates/Samaj/index.html:65
+#: templates/Samaj/index.html:69
 msgid "Paliwal Samaj’s Timeless Contribution"
 msgstr "पालीवाल समाज का शाश्वत योगदान"
 
-#: templates/Samaj/index.html:76
+#: templates/Samaj/index.html:81
 msgid "Tradition Meets Modernity"
 msgstr "परंपरा का आधुनिकता से संगम"
 
-#: templates/Samaj/index.html:77
+#: templates/Samaj/index.html:82
 msgid "Carrying Forward the Paliwal Spirit"
 msgstr "पालीवाल भावना को आगे बढ़ाना"
 
-#: templates/Samaj/index.html:93
+#: templates/Samaj/index.html:98
 msgid "About Paliwal Samaj"
 msgstr "पालीवाल समाज के बारे में"
 
-#: templates/Samaj/index.html:95
+#: templates/Samaj/index.html:100
+#, fuzzy
+#| msgid ""
+#| "Paliwal Samaj is a distinguished and culturally rich Brahmin community "
+#| "with ancient roots in the historic town of Pali, India. Known for its "
+#| "deep commitment to Sanatan Dharma, Vedic values, and spiritual "
+#| "discipline, the community has long symbolized wisdom, unity, and tradition"
+#| "—growing over generations while gracefully adapting to changing times."
 msgid ""
-"Paliwal Samaj is a distinguished and culturally rich Brahmin community with "
-"ancient roots in the historic town of Pali, India. Known for its deep "
-"commitment to Sanatan Dharma, Vedic values, and spiritual discipline, the "
-"community has long symbolized wisdom, unity, and tradition—growing over "
-"generations while gracefully adapting to changing times."
+"Paliwal Samaj is a distinguished and culturally rich Brahmin community with\n"
+"                            ancient roots in the historic town of Pali, "
+"India. Known for its deep commitment to Sanatan\n"
+"                            Dharma, Vedic values, and spiritual discipline, "
+"the community has long symbolized wisdom,\n"
+"                            unity, and tradition—growing over generations "
+"while gracefully adapting to changing times."
 msgstr ""
 "पालीवाल समाज एक प्रतिष्ठित और सांस्कृतिक रूप से समृद्ध ब्राह्मण समुदाय है, जिसकी प्राचीन "
 "जड़ें भारत के ऐतिहासिक नगर पाली में स्थित हैं। सनातन धर्म, वैदिक मूल्यों और आध्यात्मिक "
@@ -386,25 +414,44 @@ msgstr ""
 "का प्रतीक रहा है—जो पीढ़ियों से विकसित होता आ रहा है और समय के साथ सुंदरता से ढलता भी "
 "रहा है।"
 
-#: templates/Samaj/index.html:98
+#: templates/Samaj/index.html:106
+#, fuzzy
+#| msgid ""
+#| "Renowned for its contributions in education, public service, religious "
+#| "leadership, business, and cultural preservation, the Paliwal community "
+#| "continues to thrive across diverse regions and professions. From revered "
+#| "priests and scholars to modern professionals and entrepreneurs, we "
+#| "proudly carry forward a legacy rooted in ethics, excellence, and service."
 msgid ""
-"Renowned for its contributions in education, public service, religious "
-"leadership, business, and cultural preservation, the Paliwal community "
-"continues to thrive across diverse regions and professions. From revered "
-"priests and scholars to modern professionals and entrepreneurs, we proudly "
-"carry forward a legacy rooted in ethics, excellence, and service."
+"Renowned for its contributions in education, public service, religious\n"
+"                            leadership, business, and cultural preservation, "
+"the Paliwal community continues to thrive\n"
+"                            across diverse regions and professions. From "
+"revered priests and scholars to modern\n"
+"                            professionals and entrepreneurs, we proudly "
+"carry forward a legacy rooted in ethics,\n"
+"                            excellence, and service."
 msgstr ""
 "शिक्षा, लोकसेवा, धार्मिक नेतृत्व, व्यापार और सांस्कृतिक संरक्षण में अपने योगदान के लिए "
 "विख्यात पालीवाल समाज आज विभिन्न क्षेत्रों और व्यवसायों में सफलता की नई ऊंचाइयों को छू रहा "
 "है। पूज्य पुरोहितों और विद्वानों से लेकर आधुनिक पेशेवरों और उद्यमियों तक—हम गर्व से उस विरासत "
 "को आगे बढ़ा रहे हैं जो नैतिकता, उत्कृष्टता और सेवा में निहित है।"
 
-#: templates/Samaj/index.html:101
+#: templates/Samaj/index.html:113
+#, fuzzy
+#| msgid ""
+#| "Grounded in Vedic customs, we uphold traditions like the gotra system, "
+#| "kuldevi worship, and observance of key festivals and sanskaras. Today, "
+#| "Paliwal families across India and the globe remain united by shared "
+#| "values, strong family bonds, and a collective spirit of growth—serving as "
+#| "a living bridge between tradition and progress."
 msgid ""
-"Grounded in Vedic customs, we uphold traditions like the gotra system, "
-"kuldevi worship, and observance of key festivals and sanskaras. Today, "
-"Paliwal families across India and the globe remain united by shared values, "
-"strong family bonds, and a collective spirit of growth—serving as a living "
+"Grounded in Vedic customs, we uphold traditions like the gotra system,\n"
+"                            kuldevi worship, and observance of key festivals "
+"and sanskaras. Today, Paliwal families\n"
+"                            across India and the globe remain united by "
+"shared values, strong family bonds, and a\n"
+"                            collective spirit of growth—serving as a living "
 "bridge between tradition and progress."
 msgstr ""
 "वैदिक परंपराओं में निहित, हम गोत्र प्रणाली, कुलदेवी पूजन तथा प्रमुख पर्वों और संस्कारों के "
@@ -412,84 +459,101 @@ msgstr ""
 "साझा मूल्यों, मजबूत पारिवारिक बंधनों और सामूहिक विकास की भावना से जुड़े हुए हैं—जो परंपरा "
 "और प्रगति के बीच एक जीवंत सेतु का कार्य कर रहे हैं।"
 
-#: templates/Samaj/index.html:104
+#: templates/Samaj/index.html:120
 msgid "Read More"
 msgstr "और पढ़ें"
 
-#: templates/Samaj/index.html:122
+#: templates/Samaj/index.html:139
 msgid "News & Events"
 msgstr "समाचार एवं कार्यक्रम"
 
-#: templates/Samaj/index.html:153
+#: templates/Samaj/index.html:170
 msgid "Netritva Mandal"
 msgstr "नेतृत्व मंडल"
 
-#: templates/Samaj/index.html:258
+#: templates/Samaj/index.html:213
 msgid "Sanchalan Samiti"
 msgstr "संचालन समिति"
 
-#: templates/Samaj/index.html:459
+#: templates/Samaj/index.html:257
 msgid "Salah evam Aayojan Mandal"
 msgstr "सलाह एवं आयोजन मंडल"
 
-#: templates/Samaj/index.html:732
+#: templates/Samaj/index.html:301
 msgid "Karyakarini Sadasya"
 msgstr "कार्यकारिणी सदस्य"
 
-#: templates/Samaj/index.html:909
+#: templates/Samaj/index.html:348
 msgid "Share Your Suggestions or Ideas"
 msgstr "अपने सुझाव या विचार साझा करें"
 
-#: templates/Samaj/index.html:911
+#: templates/Samaj/index.html:350
+#, fuzzy
+#| msgid ""
+#| "If you have any ideas, suggestions, or features you’d like to see added "
+#| "to the Paliwal Samaj website, please let us know. Your input helps us "
+#| "make the platform better for everyone in the community."
 msgid ""
 "If you have any ideas, suggestions, or features you’d like to see added to "
-"the Paliwal Samaj website, please let us know. Your input helps us make the "
-"platform better for everyone in the community."
+"the\n"
+"                        Paliwal Samaj website, please let us know. Your "
+"input helps us make the platform better for\n"
+"                        everyone in the community."
 msgstr ""
 "यदि आपके पास कोई विचार, सुझाव या विशेषताएँ हैं जो आप पालीवाल समाज की वेबसाइट में देखना "
 "चाहते हैं, तो कृपया हमें बताएं। आपके सुझाव इस मंच को समुदाय के सभी सदस्यों के लिए और भी "
 "बेहतर बनाने में मदद करते हैं।"
 
-#: templates/Samaj/index.html:922
+#: templates/Samaj/index.html:363
 msgid "Your Name"
 msgstr "आपका नाम"
 
-#: templates/Samaj/index.html:923
+#: templates/Samaj/index.html:365
 msgid "Enter your name"
 msgstr "अपना नाम दर्ज करें"
 
-#: templates/Samaj/index.html:929
+#: templates/Samaj/index.html:371
 msgid "Your Email"
 msgstr "आपका ईमेल"
 
-#: templates/Samaj/index.html:930
+#: templates/Samaj/index.html:373
 msgid "Enter your email"
 msgstr "अपना ईमेल दर्ज करें"
 
-#: templates/Samaj/index.html:937
+#: templates/Samaj/index.html:380
 msgid "Detailed Suggestion or Idea"
 msgstr "विस्तृत सुझाव या विचार"
 
-#: templates/Samaj/index.html:939
+#: templates/Samaj/index.html:382
 msgid "Please describe your suggestion or idea in detail..."
 msgstr "कृपया अपने सुझाव या विचार को विस्तार से वर्णन करें..."
 
-#: templates/Samaj/index.html:944
+#: templates/Samaj/index.html:388
 msgid "Submit Suggestion"
 msgstr "सुझाव सबमिट करें"
 
-#: templates/Samaj/index.html:968
+#: templates/Samaj/index.html:412
 msgid "Gopal Paliwal"
 msgstr "गोपाल पालीवाल"
 
-#: templates/Samaj/index.html:970
+#: templates/Samaj/index.html:414
+#, fuzzy
+#| msgid ""
+#| "Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, "
+#| "a Chittorgarh-based company specializing in software development, "
+#| "computer hardware services, and government tenders particularly in "
+#| "manpower recruitment. Alongside Electrocom, he also runs a digital "
+#| "library and learning center offering courses like RS-CIT and programming, "
+#| "helping bridge the digital skill gap in the region."
 msgid ""
-"Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, a "
-"Chittorgarh-based company specializing in software development, computer "
-"hardware services, and government tenders particularly in manpower "
-"recruitment. Alongside Electrocom, he also runs a digital library and "
-"learning center offering courses like RS-CIT and programming, helping bridge "
-"the digital skill gap in the region."
+"Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, a\n"
+"                        Chittorgarh-based company specializing in software "
+"development, computer hardware services, and\n"
+"                        government tenders particularly in manpower "
+"recruitment. Alongside Electrocom, he also runs a\n"
+"                        digital library and learning center offering courses "
+"like RS-CIT and programming, helping bridge\n"
+"                        the digital skill gap in the region."
 msgstr ""
 "गोपाल पालीवाल एक ऊर्जावान उद्यमी हैं और चित्तौड़गढ़ स्थित कंपनी 'इलेक्ट्रोकॉम' के स्वामी "
 "हैं, जो सॉफ्टवेयर विकास, कंप्यूटर हार्डवेयर सेवाओं, और विशेष रूप से जनशक्ति भर्ती से जुड़े "
@@ -497,15 +561,27 @@ msgstr ""
 "लर्निंग सेंटर भी संचालित करते हैं जो RS-CIT और प्रोग्रामिंग जैसे पाठ्यक्रम प्रदान करता है, "
 "जिससे क्षेत्र में डिजिटल कौशल की खाई को पाटने में मदद मिलती है।"
 
-#: templates/Samaj/index.html:973
+#: templates/Samaj/index.html:421
+#, fuzzy
+#| msgid ""
+#| "Grounded, hardworking, and deeply family-oriented, Gopal is known for "
+#| "leading with purpose and humility. His latest initiative, the creation of "
+#| "the Paliwal Samaj Website reflects his commitment to preserving and "
+#| "connecting the community. The website is envisioned as a one-stop "
+#| "destination where members can access Paliwal-related news, explore family "
+#| "listings, discover community achievements, and stay updated on cultural "
+#| "and social events."
 msgid ""
 "Grounded, hardworking, and deeply family-oriented, Gopal is known for "
-"leading with purpose and humility. His latest initiative, the creation of "
-"the Paliwal Samaj Website reflects his commitment to preserving and "
-"connecting the community. The website is envisioned as a one-stop "
-"destination where members can access Paliwal-related news, explore family "
-"listings, discover community achievements, and stay updated on cultural and "
-"social events."
+"leading\n"
+"                        with purpose and humility. His latest initiative, "
+"the creation of the Paliwal Samaj Website\n"
+"                        reflects his commitment to preserving and connecting "
+"the community. The website is envisioned as\n"
+"                        a one-stop destination where members can access "
+"Paliwal-related news, explore family listings,\n"
+"                        discover community achievements, and stay updated on "
+"cultural and social events."
 msgstr ""
 "सादगीपूर्ण, मेहनती और परिवार के प्रति समर्पित गोपाल, उद्देश्यपूर्ण नेतृत्व और विनम्रता के "
 "लिए जाने जाते हैं। उनका नवीनतम प्रयास, 'पालीवाल समाज वेबसाइट' का निर्माण, समुदाय को "
@@ -514,11 +590,18 @@ msgstr ""
 "की उपलब्धियों को जान सकते हैं और सांस्कृतिक व सामाजिक कार्यक्रमों की जानकारी प्राप्त कर "
 "सकते हैं।"
 
-#: templates/Samaj/index.html:976
+#: templates/Samaj/index.html:428
+#, fuzzy
+#| msgid ""
+#| "Gopal’s vision is clear: To use technology as a tool to unite, empower, "
+#| "and celebrate the Paliwal identity. Through this effort, he stands out "
+#| "not just as a businessman, but as a community builder and changemaker."
 msgid ""
-"Gopal’s vision is clear: To use technology as a tool to unite, empower, and "
-"celebrate the Paliwal identity. Through this effort, he stands out not just "
-"as a businessman, but as a community builder and changemaker."
+"Gopal’s vision is clear: To use technology as a tool to unite, empower,\n"
+"                            and celebrate the Paliwal identity. Through this "
+"effort, he stands out not just as a\n"
+"                            businessman, but as a community builder and "
+"changemaker."
 msgstr ""
 "गोपाल का दृष्टिकोण स्पष्ट है: तकनीक को एक ऐसा माध्यम बनाना जो पालीवाल पहचान को "
 "जोड़ने, सशक्त करने और सम्मानित करने का कार्य करे। इस प्रयास के माध्यम से वह केवल एक "
@@ -552,7 +635,7 @@ msgstr "यदि आप बच्चे हैं तो अपने मात
 msgid "Family Tree"
 msgstr "परिवार वृक्ष"
 
-#: templates/Samaj/member_family_tree.html:36 templates/Samaj/my_family.html:49
+#: templates/Samaj/member_family_tree.html:36
 msgid "Family Head"
 msgstr "परिवार के मुखिया"
 
@@ -560,11 +643,11 @@ msgstr "परिवार के मुखिया"
 msgid "Add New Member"
 msgstr "नया सदस्य जोड़ें"
 
-#: templates/Samaj/my_family.html:75 templates/Samaj/my_family.html:146
+#: templates/Samaj/my_family.html:92 templates/Samaj/my_family.html:171
 msgid "Edit"
 msgstr "एडिट"
 
-#: templates/Samaj/my_family.html:85 templates/Samaj/my_family.html:156
+#: templates/Samaj/my_family.html:103 templates/Samaj/my_family.html:182
 msgid "Delete"
 msgstr "हटाएं"
 
