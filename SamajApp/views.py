@@ -282,7 +282,6 @@ def my_family(request):
     return render(request, 'Samaj/my_family.html', context)
 
 
-@login_required
 def member_family_tree(request, member_id):
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
