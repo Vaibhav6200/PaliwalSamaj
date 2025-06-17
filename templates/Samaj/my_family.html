@@ -44,47 +44,66 @@
                                      alt="team-img">
                                 {% endif %}
                             </div>
-                            <div class="ts-team-content">
-                                <h3 class="ts-name">{{family_head.user.first_name}} {{family_head.user.last_name}}</h3>
-                                <p class="ts-designation">{% trans "Family Head" %}</p>
-                                <div class="">
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">cake</span></div>
-                                        <div class="text-white ms-2">{% trans "Age" %}: {{ family_head.date_of_birth|get_member_age }}</div>
-                                    </div>
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                        <div class="text-white ms-2">{{ family_head.current_address }}</div>
-                                    </div>
+                            <div class="ts-team-content d-flex flex-column justify-content-between">
+                                <div>
+                                    <h3 class="ts-name">{{family_head.user.first_name}} {{family_head.user.last_name}}</h3>
                                 </div>
-
-                                <div class="row m-0 p-0 mt-2">
-                                    <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                        <a href="{% url 'samaj:user_profile' family_head.id %}"
-                                           class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
-                                        </a>
+                                <div>
+                                    <div class="">
+                                        <div class="ts-designation mb-0 border-bottom pb-1 mb-1">{% trans "Gotra" %} {{family_head.get_gotra_display}}</div>
+                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                            <div class=""><span class="material-icons fs-5 ">cake</span></div>
+                                            <div class="text-white ms-2">
+                                                {% trans "Age" %}: {{ family_head.date_of_birth|get_member_age }}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                            <div class=""><span class="material-icons fs-5 ">location_on</span>
+                                            </div>
+                                            <div class="text-white ms-2">Ahmedabad</div>
+                                            {% if member.current_address %}
+                                            {% if member.current_address_city and member.current_address_state %}
+                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                                <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                                <div class="text-white ms-2">{{ member.current_address_city }}, {{ member.current_address_state }}
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="text-white ms-2">{{ member.current_address }}</div>
+                                            {% endif %}
+                                            {% endif %}
+                                        </div>
                                     </div>
+                                    <div class="row m-0 p-0 mt-2">
+                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                             title="View Profile">
+                                            <a href="{% url 'samaj:user_profile' family_head.id %}"
+                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
+                                                <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
+                                            </a>
+                                        </div>
 
-                                    <div class="col-12 col-md-6 p-0">
-                                        <form action="{% url 'samaj:bio_data' %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
-                                            <button type="submit"
-                                                    class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                <span class="material-icons me-2">edit</span> {% trans "Edit" %}
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="col-12 col-md-6 p-0">
-                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100 delete-member-form">
-                                            {% csrf_token %}
-                                            <input type="hidden" value="{{ family_head.id }}" name="member_id">
-                                            <button type="submit"
-                                                    class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
-                                                <span class="material-icons me-2">delete</span> {% trans "Delete" %}
-                                            </button>
-                                        </form>
+                                        <div class="col-12 col-md-6 p-0">
+                                            <form action="{% url 'samaj:bio_data' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
+                                                <button type="submit"
+                                                        class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
+                                                    <span class="material-icons me-2">edit</span> {% trans "Edit" %}
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 col-md-6 p-0">
+                                            <form action="{% url 'samaj:handle_member_delete' %}" method="post"
+                                                  class="m-0 p-0 w-100 delete-member-form">
+                                                {% csrf_token %}
+                                                <input type="hidden" value="{{ family_head.id }}" name="member_id">
+                                                <button type="submit"
+                                                        class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
+                                                    <span class="material-icons me-2">delete</span> {% trans "Delete" %}
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,8 +116,8 @@
                 {% for member in all_family_members %}
                 {% if not member == member.family.family_head %}
                 <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item h-100">
-                        <div class="ts-team-wrapper d-flex flex-column h-100">
+                    <div class="my_family_card item">
+                        <div class="ts-team-wrapper">
                             <div class="team-img-wrapper">
                                 {% if member.profile_image %}
                                 <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
@@ -107,59 +126,67 @@
                                      alt="team-img">
                                 {% endif %}
                             </div>
-                            <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between">
+                            <div class="ts-team-content d-flex flex-column justify-content-between">
                                 <div>
                                     <h3 class="ts-name">{{ member.user.first_name }} {{ member.user.last_name }}</h3>
-                                    <p class="ts-designation">{% trans "Gotra" %}: {{ member.gotra }}</p>
-                                    <div class="">
-                                        {% if member.date_of_birth %}
-                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                            <div><span class="material-icons fs-5">cake</span></div>
-                                            <div class="text-white ms-2">{% trans "Age" %}: {{ member.date_of_birth|get_member_age }}</div>
-                                        </div>
-                                        {% endif %}
-                                        {% if member.current_address %}
-                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                            <div><span class="material-icons fs-5">location_on</span></div>
-                                            {% if member.current_address_city and member.current_address_state %}
-                                            <div class="text-white ms-2">{{ member.current_address_city }}, {{ member.current_address_state }}</div>
-                                            {% else %}
-                                            <div class="text-white ms-2">{{ member.current_address }}</div>
-                                            {% endif %}
-                                        </div>
-                                        {% endif %}
-                                    </div>
                                 </div>
-                                <div class="row m-0 p-0 mt-2">
-                                    <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                        <a href="{% url 'samaj:user_profile' member.id %}"
-                                           class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
-                                        </a>
+                                <div>
+                                    <div class="">
+                                        <div class="ts-designation mb-0 border-bottom pb-2 mb-1">{% trans "Gotra" %}: {{ member.get_gotra_display }}
+                                        </div>
+                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                            <div class=""><span class="material-icons fs-5 ">cake</span></div>
+                                            <div class="text-white ms-2">
+                                                {% trans "Age" %}: {{ member.date_of_birth|get_member_age }}
+                                            </div>
+                                        </div>
+                                        {% if member.current_address %}
+                                        {% if member.current_address_city and member.current_address_state %}
+                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                            <div class=""><span class="material-icons fs-5 ">location_on</span></div>
+                                            <div class="text-white ms-2">
+                                                {{ member.current_address_city }}, {{ member.current_address_state }}
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="text-white ms-2">{{ member.current_address }}</div>
+                                        {% endif %}
+                                        {% endif %}
                                     </div>
-                                    <div class="col-12 col-md-6 p-0">
-                                        <form action="{% url 'samaj:bio_data' %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="user_id" value="{{ member.user.id }}">
-                                            <button type="submit"
-                                                    class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                <span class="material-icons me-2">edit</span> {% trans "Edit" %}
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="col-12 col-md-6 p-0">
-                                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0 p-0 w-100 delete-member-form">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="member_id" value="{{ member.id }}">
-                                            <button type="submit"
-                                                    class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
-                                                <span class="material-icons me-2">delete</span> {% trans "Delete" %}
-                                            </button>
-                                        </form>
+                                    <div class="row m-0 p-0 mt-3">
+                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                             title="View Profile">
+                                            <a href="{% url 'samaj:user_profile' member.id %}"
+                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
+                                                <span class="material-icons me-2">visibility</span>
+                                                {% trans "View Profile" %}
+                                            </a>
+                                        </div>
+                                        <div class="col-12 col-md-6 p-0">
+                                            <form action="{% url 'samaj:bio_data' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="user_id" value="{{ member.user.id }}">
+                                                <button type="submit"
+                                                        class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
+                                                    <span class="material-icons me-2">edit</span> {% trans "Edit" %}
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 col-md-6 p-0">
+                                            <form action="{% url 'samaj:handle_member_delete' %}" method="post"
+                                                  class="m-0 p-0 w-100 delete-member-form">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="member_id" value="{{ member.id }}">
+                                                <button type="submit"
+                                                        class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
+                                                    <span class="material-icons me-2">delete</span> {% trans "Delete" %}
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div><!--/ Team wrapper end -->
                     </div>
                 </div>
                 {% endif %}

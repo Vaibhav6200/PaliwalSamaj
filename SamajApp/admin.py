@@ -14,6 +14,8 @@ class MemberAdmin(admin.ModelAdmin):
         'id',
         'user',
         'family',
+        # 'first_name',
+        # 'last_name',
         'father_name',
         'mother_name',
         'date_of_birth',
