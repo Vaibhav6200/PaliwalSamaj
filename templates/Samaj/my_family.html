@@ -61,20 +61,6 @@
                                             <div class=""><span class="material-icons fs-5 ">location_on</span>
                                             </div>
                                             <div class="text-white ms-2">Ahmedabad</div>
-                                            {% if member.current_address %}
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                                <div class="text-white ms-2">
-                                                    {% if member.current_address_city %}
-                                                        {{ member.current_address_city }}
-                                                    {% elif member.current_address_state %}
-                                                        {{ member.current_address_state }}
-                                                    {% else %}
-                                                        {{ member.current_address }}
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            {% endif %}
                                         </div>
                                     </div>
                                     <div class="row m-0 p-0 mt-2">
@@ -143,20 +129,7 @@
                                                 {% trans "Age" %}: {{ member.date_of_birth|get_member_age }}
                                             </div>
                                         </div>
-                                        {% if member.current_address %}
-                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                            <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                            <div class="text-white ms-2">
-                                                {% if member.current_address_city %}
-                                                    {{ member.current_address_city }}
-                                                {% elif member.current_address_state %}
-                                                    {{ member.current_address_state }}
-                                                {% else %}
-                                                    {{ member.current_address }}
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        {% endif %}
+
                                     </div>
                                     <div class="row m-0 p-0 mt-3">
                                         <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
