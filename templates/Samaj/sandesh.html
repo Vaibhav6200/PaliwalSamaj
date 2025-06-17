@@ -6,7 +6,9 @@
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
-    <div class="section-bg" style="background: url('{% static 'images/banner/banner2.jpg' %}') no-repeat center center/cover;">
+
+    <!-- Carousel Start Here -->
+    <div class="section-bg" style="background: url('{% static 'images/banner/carousel-image-6.jpg' %}') no-repeat center center/cover;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 text-center mb-4 mt-5 mb-md-0 mt-md-0">
@@ -17,7 +19,7 @@
                         <div class="mb-3">
                             <label for="contact" class="form-label">Where you want to send?*</label>
                             <input type="text" name="contact" class="form-control" id="contact"
-                                   placeholder="enter 10 digit phone no (9988770000)">
+                                   placeholder="Email or phone no.">
                         </div>
                         <div class="mb-3">
                             <label for="subject" class="form-label">Subject*</label>
@@ -38,10 +40,13 @@
             </div>
         </div>
     </div>
+    <!-- Carousel End Here -->
+
+
     <section id="main-container" class="main-container">
         <div class="container">
 
-            <div class="form-group col-8 col-sm-6 col-md-4">
+            <div class="form-group col-8 col-sm-6 col-md-4 px-0">
                 <label>Filter</label>
                 <select name="shandesh_filter" class="form-control" id="shandesh_filter">
                     <option value="all" selected>all</option>
@@ -50,59 +55,46 @@
                 </select>
             </div>
 
-            <div class="row m-0 mt-5">
-                <!-- Duplicate more cards like this one as needed -->
-                <div class="col-12">
-                    <div class="card mb-3 d-flex flex-column flex-md-row border border-dark rounded-0 card_shandesh">
-                        <img src="{% static 'images/banner/banner1.jpg' %}" class="img-fluid card-img-left" alt="Card image">
-                        <a href="#" class="card-body p-lg-4 text-decoration-none">
-                            <h5 class="card-title fs-5">Another Card</h5>
-                            <p class="card-text card-description">
-                                This is another full card description that will be shown in a popover on hover. Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Dicta fuga minima architecto quasi
-                                iure et porro sint, qui modi labore in incidunt aut nihil impedit aliquid voluptatibus
-                                a, quod sapiente possimus ad perspiciatis ex. Accusamus rerum dignissimos eaque libero,
-                                amet eius ducimus velit? Ab autem accusamus exercitationem laborum, nulla earum! Lorem
-                                ipsum dolor, sit amet consectetur adipisicing elit. Ut ad eius laudantium alias
-                                voluptates laboriosam non nisi cum vitae! Nesciunt voluptate, quis enim aperiam eos
-                                corporis totam doloribus dignissimos facilis praesentium veritatis, quasi error in a eum
-                                laborum deserunt? Quae molestiae animi ad, veniam illo amet sint quasi laboriosam
-                                maiores explicabo, exercitationem non quo repellendus? Id ullam aut magnam odio officiis
-                                reiciendis distinctio iste dolores nesciunt eaque. Recusandae dolorem magnam a deleniti
-                                sint quidem animi dignissimos voluptatum eveniet voluptas, sapiente placeat ab veritatis
-                                nihil quis vitae delectus dolore dolores enim omnis officiis possimus id alias unde.
-                                Rerum officia consequuntur aliquid.
+            <div class="row g-4  mt-3">
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 d-flex flex-column bg-light card_shandesh border-0">
+                        <img src="{% static 'images/news.jpeg' %}" class=" custom-card-img" alt="Card image">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="news-card-title fs-5 border-bottom pb-2 border-secondary">This is a very long
+                                heading that may take two lines</h5>
+                            <p class="card-text card-description mb-3">
+                                This is a full card description that will be shown in a popover on hover. This content
+                                is also trimmed to avoid overflow and keep layout aligned. Lorem ipsum dolor sit amet
+                                consectetur adipisicing elit. Similique beatae odit veritatis soluta minima quod hic
+                                cupiditate dignissimos atque, asperiores sed cum ratione labore cumque doloribus eaque
+                                repudiandae dolores. Natus, aut aliquam omnis error voluptas illo repellat esse sunt
+                                nobis distinctio, odit repellendus. Nemo accusantium est qui consequuntur laboriosam
+                                praesentium.
                             </p>
-                            <span class="badge bg-danger text-uppercase">Receive</span>
-                        </a>
+                            <span class="badge bg-danger mt-auto align-self-start">Receive</span>
+                        </div>
                     </div>
-                    <div class="card mb-3 d-flex flex-column flex-md-row border border-dark rounded-0 card_shandesh">
-                        <img src="{% static 'images/icon-image/SAMAJ.png' %}" class="img-fluid card-img-left" alt="Card image">
-                        <a href="#" class="card-body p-lg-4 text-decoration-none">
-                            <h5 class="card-title fs-5">Another Card</h5>
-                            <p class="card-text card-description">
-                                This is another full card description that will be shown in a popover on hover. Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Dicta fuga minima architecto quasi
-                                iure et porro sint, qui modi labore in incidunt aut nihil impedit aliquid voluptatibus
-                                a, quod sapiente possimus ad perspiciatis ex. Accusamus rerum dignissimos eaque libero,
-                                amet eius ducimus velit? Ab autem accusamus exercitationem laborum, nulla earum! Lorem
-                                ipsum dolor, sit amet consectetur adipisicing elit. Ut ad eius laudantium alias
-                                voluptates laboriosam non nisi cum vitae! Nesciunt voluptate, quis enim aperiam eos
-                                corporis totam doloribus dignissimos facilis praesentium veritatis, quasi error in a eum
-                                laborum deserunt? Quae molestiae animi ad, veniam illo amet sint quasi laboriosam
-                                maiores explicabo, exercitationem non quo repellendus? Id ullam aut magnam odio officiis
-                                reiciendis distinctio iste dolores nesciunt eaque. Recusandae dolorem magnam a deleniti
-                                sint quidem animi dignissimos voluptatum eveniet voluptas, sapiente placeat ab veritatis
-                                nihil quis vitae delectus dolore dolores enim omnis officiis possimus id alias unde.
-                                Rerum officia consequuntur aliquid.
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="card h-100 d-flex flex-column bg-light card_shandesh border-0">
+                        <img src="{% static 'images/banner/carousel-image-4.jpg' %}" class=" custom-card-img" alt="Card image">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="news-card-title fs-5 border-bottom pb-2 border-secondary">Short Title Lorem ipsum
+                                dolor, sit amet consectetur adipisicing elit. Voluptas, veritatis.</h5>
+                            <p class="card-text card-description mb-3">
+                                This is another card description that will be clamped at a few lines to match the
+                                design.
                             </p>
-                            <span class="badge bg-dark text-uppercase">Sent</span>
-                        </a>
+                            <span class="badge bg-dark mt-auto align-self-start">Sent</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div><!-- Container end -->
-    </section>
+    </section><!-- Main container end -->
+
+
     {% include 'Includes/footer.html' %}
 </main>
 {% endblock %}

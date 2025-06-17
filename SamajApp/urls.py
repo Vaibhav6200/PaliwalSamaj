@@ -37,4 +37,5 @@ urlpatterns = [
     path('newsletter_subscribe/', newsletter_subscribe, name='newsletter_subscribe'),
     path('suggestions/', suggestions, name='suggestions'),
     path('get_member_search_list/', get_member_search_list, name='get_member_search_list'),
+    path('image_and_video_gallery/', image_and_video_gallery, name='image_and_video_gallery'),
 ]

@@ -76,6 +76,12 @@ $(document).ready(function () {
     return value >= 24 && value <= 300;
   }, "Height must be between 24 and 300 cm");
 
+  // Add custom validator for image file size (max 1MB)
+  $.validator.addMethod("filesize1mb", function(value, element) {
+      if (element.files.length === 0) return true; 
+      return element.files[0].size <= 1024 * 1024;
+  }, "Image size must be less than 1 MB");
+
   $("#contact-form").validate({
   rules: {
     name: {
@@ -130,14 +136,18 @@ $(document).ready(function () {
       noSpace: true,
       addressClean: true
     },
+    profileImage:{
+      filesize1mb:true,
+      required:true,
+    },
     qualification: "required",
     occupation: "required",
-    "school_class": {
+    "12th_result": {
       required: function () {
         return $("#qualification").val() === "school";
       }
     },
-    "school_name": {
+    "12th_school_name": {
       required: function () {
         return $("#qualification").val() === "school";
       },
@@ -205,10 +215,11 @@ $(document).ready(function () {
     email: { required: "Please enter your email address" },
     gotra: { required: "Please enter your gotra" },
     address: { required: "Please enter your address" },
+    profileImage:{ required: "Please uplaod your profile picture" },
     qualification: "Please select your qualification",
     occupation: "Please select your occupation",
-    "school_class": { required: "Please enter the Class in which you Study" },
-    "school_name": { required: "Please enter your school name" },
+    "12th_result": { required: "Please enter your 12th result" },
+    "12th_school_name": { required: "Please enter your 12th school name" },
     collge_uni_name: { required: "Please enter your college/university name" },
     degree_name: { required: "Please enter your degree name" },
     company_name: { required: "Please enter your company name" },

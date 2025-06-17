@@ -51,7 +51,7 @@
                                 <a class="btn btn-primary" href="{% url 'samaj:site_login' %}">{% trans "Login" %}</a>
                             </li>
                             <li class="">
-                                <a class="btn btn-primary" href="#">{% trans "Shandesh" %}</a>
+                                <a class="btn btn-primary" href="{% url 'samaj:sandesh' %}">{% trans "Sandesh" %}</a>
                             </li>
                         </ul>
                     </div>
@@ -91,6 +91,7 @@
                                       <li><a href="{% url 'samaj:dasva_gyarahva_evam_barahva_karyakram' %}">{% trans "Dasva Gyarahva Evam Barahva Karyakram" %}</a></li>
                                   </ul>
                                 </li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:image_and_video_gallery' %}">{% trans "Gallery" %}</a></li>
                             </ul>
                         </div>
                     </nav>

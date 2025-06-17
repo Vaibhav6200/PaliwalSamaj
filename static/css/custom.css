@@ -6,6 +6,16 @@
   --color-dark:    #003049ff;
   --color-info:    #eae2b7ff;
 }
+/* Dropdown CSS Start*/
+.custom-dropdown{
+  width: 300px;
+}
+@media screen and (min-width:776px) {
+  .custom-dropdown{
+    width: 350px;
+  } 
+}
+/* Dropdown CSS End*/
 /* Erro CSS Start */
 label.error {
   color: red;
@@ -202,37 +212,46 @@ border:none;
 
 /* SANDESH CSS START */
 /* Shandesh Card Css start */
-.card-img-left {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    height: 250px;
-    object-position: center;
+
+.custom-card-img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  object-position: center;
+  /* Remove height: 100% */
 }
 
-@media (min-width: 768px) {
-  .card-img-left {
-    width: 40%;
-    aspect-ratio: 4 / 3;
-  }
+.news-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit title to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 1rem;
 }
 
 .card-description {
-    display: -webkit-box;
-    -webkit-line-clamp: 5; /* updated to 5 lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
+  font-size: 0.95rem;
+  color: #444;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Max 5 lines for description */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .card_shandesh {
-    transition: 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
+  border-radius: 0;
 }
 
 .card_shandesh:hover {
-    box-shadow: 0px 0px 20px #1d003a38;
+  box-shadow: 0px 0px 20px #1d003a38;
 }
+
 
 
 /* Shandesh Card Css End */
@@ -470,3 +489,21 @@ input[type="range"]:active::-webkit-slider-thumb {
   object-fit: cover;
 }
 /* User Profile End*/
+
+/* Video gallary css start */
+.video-card {
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  border-radius: 0.5rem;
+}
+.video-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.video-title {
+  padding-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: start;
+  padding: 12px;
+}
+/* Video gallary css End */

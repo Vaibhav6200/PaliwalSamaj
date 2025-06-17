@@ -2,10 +2,8 @@ const occupation = document.getElementById("occupation");
 const job_fields = document.querySelectorAll(".job_field");
 const business_fields = document.querySelectorAll(".business_field");
 occupation.addEventListener("input",function(){
-
+    
     if(occupation.value == "job"){
-        console.log(job_fields)
-
         business_fields.forEach((field)=>{
             if(!field.classList.contains("d-none")){
                 field.classList.add("d-none");
@@ -23,19 +21,6 @@ occupation.addEventListener("input",function(){
         });
         business_fields.forEach((field)=>{
             field.classList.remove("d-none");
-        });
-    }
-
-    if(occupation.value == "none"){
-        job_fields.forEach((field)=>{
-            if(!field.classList.contains("d-none")){
-                field.classList.add("d-none");
-            }
-        });
-        business_fields.forEach((field)=>{
-            if(!field.classList.contains("d-none")){
-                field.classList.add("d-none");
-            }
         });
     }
 });

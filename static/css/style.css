@@ -2918,7 +2918,7 @@ img.testimonial-thumb {
 
 .ts-team-wrapper:hover .ts-team-content {
   top: 0;
-  padding-top: 50px;
+  /* padding-top: 50px; */
 }
 
 /* Team Classic */
