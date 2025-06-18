@@ -84,7 +84,11 @@ $(document).ready(function () {
 
   $("#contact-form").validate({
   rules: {
-    name: {
+    first_name: {
+      required: true,
+      noSpace: true
+    },
+    last_name: {
       required: true,
       noSpace: true
     },
@@ -120,11 +124,9 @@ $(document).ready(function () {
       tenDigits: true
     },
     whatsapp_number: {
-      required: true,
       tenDigits: true
     },
     email: {
-      required: true,
       emailFormat: true
     },
     gotra: {
@@ -142,12 +144,12 @@ $(document).ready(function () {
     },
     qualification: "required",
     occupation: "required",
-    "12th_result": {
+    "school_class": {
       required: function () {
         return $("#qualification").val() === "school";
       }
     },
-    "12th_school_name": {
+    "school_name": {
       required: function () {
         return $("#qualification").val() === "school";
       },
@@ -259,47 +261,6 @@ $(document).ready(function () {
 });
 
 // Bio Data Form End
-
-// Shandesh Form Start
-$("#sandeshForm").validate({
-  rules: {
-    contact: {
-      required: true,
-      emailOrPhone: true
-    },
-    subject: {
-      required: true,
-      validSubject: true
-    },
-    image: {
-      required: true,
-      filesize200kb: true
-    },
-    message: {
-      required: true,
-      validMessage: true
-    }
-  },
-  messages: {
-    contact: {
-      required: "This field is required"
-    },
-    subject: {
-      required: "This field is required"
-    },
-    image: {
-      required: "Please upload an image"
-    },
-    message: {
-      required: "This field is required"
-    }
-  },
-  errorElement: "div",
-  errorPlacement: function(error, element) {
-    error.insertAfter(element);
-  }
-
-});
 $("#login-form").validate({
   rules: {
     mobile_number:{
