@@ -1,7 +1,7 @@
 from celery import shared_task
 from .models import Member, QualificationDetail, OccupationDetail
 from google.transliteration import transliterate_text
-from indicate import transliterate
+# from indicate import transliterate
 
 
 @shared_task
@@ -24,8 +24,8 @@ def translate_member_fields(member_id, lang='en'):
                 if not value:
                     return
                 setattr(obj, f"{modal_field}_hi", value)
-                # transliterated = transliterate_text(value, lang_code='en')
-                transliterated = transliterate.hindi2english(value)
+                transliterated = transliterate_text(value, lang_code='en')
+                # transliterated = transliterate.hindi2english(value)
                 setattr(obj, f"{modal_field}_en", transliterated)
 
         except Exception as e:
