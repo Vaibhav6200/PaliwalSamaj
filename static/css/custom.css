@@ -145,7 +145,7 @@ label.error {
 }
 
 .team-img-wrapper img {
-  object-fit: fill;
+  object-fit: cover;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -435,7 +435,15 @@ input[type="range"]:active::-webkit-slider-thumb {
 }
 
 /* Community HTML Dual Range CSS End */
-
+/* Community Result Start */
+.results-tab{
+  color: var(--color-dark) !important;
+  font-weight: 600;
+}
+.results-tab.active{
+  background: var(--color-primary) !important;
+}
+/* Community Result End */
 /* User Profile Start*/
 .profile-card {
   border: 1px solid #dee2e6;

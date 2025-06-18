@@ -76,11 +76,11 @@ $(document).ready(function () {
     return value >= 24 && value <= 300;
   }, "Height must be between 24 and 300 cm");
 
-  // Add custom validator for image file size (max 1MB)
-  $.validator.addMethod("filesize1mb", function(value, element) {
+  // Add custom validator for image file size (max 200KB)
+  $.validator.addMethod("filesize200kb", function(value, element) {
       if (element.files.length === 0) return true; 
-      return element.files[0].size <= 1024 * 1024;
-  }, "Image size must be less than 1 MB");
+      return element.files[0].size <= 200 * 1024;
+  }, "Image size must be less than 200 KB");
 
   $("#contact-form").validate({
   rules: {
@@ -137,7 +137,7 @@ $(document).ready(function () {
       addressClean: true
     },
     profileImage:{
-      filesize1mb:true,
+      filesize200kb:true,
       required:true,
     },
     qualification: "required",
@@ -273,7 +273,7 @@ $("#sandeshForm").validate({
     },
     image: {
       required: true,
-      imageSize: true
+      filesize200kb: true
     },
     message: {
       required: true,
