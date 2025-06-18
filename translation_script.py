@@ -13,8 +13,6 @@ text = "Hello, Welcome to google cloud"
 result = transliterate_text(text, lang_code='hi')
 
 
-from google.transliteration import transliterate_text
-
 text = "Hello, Welcome to google cloud"
 
 # Perform transliteration (not translation)

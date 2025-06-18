@@ -2,9 +2,8 @@ from celery import shared_task
 from django.conf import settings
 from google.cloud import translate_v2 as translate
 from .models import Member, QualificationDetail, OccupationDetail
-import time
-from django.utils import translation
 from google.transliteration import transliterate_text
+from indicate import transliterate
 
 
 client = translate.Client.from_service_account_json(settings.GCP_KEY_PATH)
@@ -26,19 +25,18 @@ def translate_member_fields(member_id, lang='en'):
                 setattr(obj, f"{modal_field}_en", value)
                 setattr(obj, f"{modal_field}_hi", transliterated)
             elif lang == 'hi':
-                print(f"fetching data from {modal_field}_hi attribute")
                 value = getattr(obj, f"{modal_field}_hi")
-                print(f"value: {value}")
                 if not value:
                     return
-                transliterated = transliterate_text(value, lang_code='en')
                 setattr(obj, f"{modal_field}_hi", value)
+                # transliterated = transliterate_text(value, lang_code='en')
+                transliterated = transliterate.hindi2english(value)
                 setattr(obj, f"{modal_field}_en", transliterated)
 
         except Exception as e:
             print(f"Translation failed for field '{modal_field}': {e}")
 
-    member_modal_translation_fields = ['first_name', 'last_name', 'father_name', 'mother_name', 'birth_place', 'current_address', 'current_address_city', 'current_address_state']
+    member_modal_translation_fields = ['first_name', 'last_name', 'father_name', 'mother_name', 'birth_place', 'current_address', 'current_address_village', 'current_address_city', 'current_address_state']
     qualification_modal_translation_fields = ['school_name', 'college_name']
     occupation_modal_translation_fields = ['company_name', 'company_location', 'job_description', 'business_name', 'business_location', 'business_description']
 

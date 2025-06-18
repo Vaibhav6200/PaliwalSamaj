@@ -10,6 +10,7 @@ class MemberTranslationOptions(TranslationOptions):
         'mother_name',
         'birth_place',
         'current_address',
+        'current_address_village',
         'current_address_city',
         'current_address_state',
     )
