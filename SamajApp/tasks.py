@@ -1,12 +1,7 @@
 from celery import shared_task
-from django.conf import settings
-from google.cloud import translate_v2 as translate
 from .models import Member, QualificationDetail, OccupationDetail
 from google.transliteration import transliterate_text
 from indicate import transliterate
-
-
-client = translate.Client.from_service_account_json(settings.GCP_KEY_PATH)
 
 
 @shared_task
