@@ -3,7 +3,6 @@ import string
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.conf import settings
-from twilio.rest import Client
 from datetime import date
 
 def generate_username(first_name, last_name):
@@ -24,9 +23,10 @@ class MessageHandler:
         self.otp = otp
 
     def send_otp_via_message(self):
-        client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-        client.messages.create(body=f'your otp is:{self.otp}', from_=f'{settings.TWILIO_PHONE_NUMBER}',
-                               to=f'{settings.TWILIO_COUNTRY_CODE}{self.phone_number}')
+        pass
+        # client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+        # client.messages.create(body=f'your otp is:{self.otp}', from_=f'{settings.TWILIO_PHONE_NUMBER}',
+        #                        to=f'{settings.TWILIO_COUNTRY_CODE}{self.phone_number}')
 
 
 def calculate_age(born):
