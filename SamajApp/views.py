@@ -266,7 +266,11 @@ def community(request):
         if state:
             community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
 
-    context['community_members'] = community_members
+    community_members = community_members.order_by('first_name', 'last_name')
+    paginator = Paginator(community_members, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context['community_members'] = page_obj
     return render(request, 'Samaj/community.html', context)
 
 
