@@ -1,0 +1,8 @@
+django
+celery
+dotenv
+django-jazzmin
+django-modeltranslation
+django-ckeditor-5
+google-transliteration-api
+requests
