@@ -110,8 +110,8 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>{% trans "Whatsapp Number (10 digit)" %}</label>
-                                    <input type="number" class="form-control form-control-subject" name="whatsapp_number" id="whatsapp_number" placeholder="9988776655" required
+                                    <label>{% trans "Whatsapp Number (10 digit)" %}  {% trans "(optional)" %}</label>
+                                    <input type="number" class="form-control form-control-subject" name="whatsapp_number" id="whatsapp_number" placeholder="9988776655"
                                     value="{{ edit_member.whatsapp_number|default:'' }}">
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
 
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>{% trans "Village" %}</label>
+                                    <label>{% trans "Village" %} {% trans "(optional)" %}</label>
                                     <input type="text" class="form-control form-control-object" name="city" id="village"
                                     value="{{ edit_member.current_address_village|default:'' }}">
                                 </div>
