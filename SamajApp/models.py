@@ -218,7 +218,7 @@ class NewsEvent(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
     slug = models.SlugField(unique=True, blank=True)
-    image = models.ImageField(upload_to='news_events/')
+    image = models.ImageField(upload_to='news_events/', help_text="Dimensions of image should be: 730 × 548 px")
     content = models.TextField()
     category = models.CharField(max_length=10, choices=EVENT_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)

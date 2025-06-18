@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-18 01:43+0530\n"
+"POT-Creation-Date: 2025-06-18 11:57+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -400,53 +400,13 @@ msgstr "समुदाय"
 msgid "My Family"
 msgstr "मेरा परिवार"
 
-#: templates/Includes/navbar.html:84
-msgid "Culture"
-msgstr "संस्कृति"
-
-#: templates/Includes/navbar.html:86
-msgid "Paliwal Samaj History"
-msgstr "बड़ा पालीवाल समाज की उत्पत्ती और इतिहास"
-
-#: templates/Includes/navbar.html:87
-msgid "Karyarat Sangathan"
-msgstr "बड़ा पालीवाल समाज में कार्यरत संगठन"
-
-#: templates/Includes/navbar.html:88
-msgid "Sandhya Vandana"
-msgstr "संध्या वन्दन"
-
-#: templates/Includes/navbar.html:89
-msgid "Brahman Sanskar"
-msgstr "ब्राह्मणो के सोलह संस्कार"
-
-#: templates/Includes/navbar.html:90
-msgid "Upanayan Sanskar"
-msgstr "उपनयन संस्कार"
-
-#: templates/Includes/navbar.html:91
-msgid "Mewar Paliwal Samaj Teerth Purohit"
-msgstr "मेवाड़ पालीवाल समाज के तीर्थ पुरोहित"
-
-#: templates/Includes/navbar.html:92
-msgid "Vivah Karyakram"
-msgstr "बड़ा पालीवाल समाज के विवाह कार्यक्रम"
-
-#: templates/Includes/navbar.html:93
-msgid "Vivah Geet"
-msgstr "विवाह गीत"
-
-#: templates/Includes/navbar.html:94
-msgid "Antyeshti Kriya Paddhati"
-msgstr "बड़ा पालीवाल समाज की अन्त्येष्टी क्रिया पद्धति"
-
-#: templates/Includes/navbar.html:95
-msgid "Dasva Gyarahva Evam Barahva Karyakram"
-msgstr "दसवाँ, ग्यारहवाँ एवं बाहरवाँ कार्यक्रम"
-
-#: templates/Includes/navbar.html:98
+#: templates/Includes/navbar.html:83
 msgid "Gallery"
 msgstr "गैलरी"
+
+#: templates/Includes/navbar.html:85
+msgid "Culture"
+msgstr "संस्कृति"
 
 #: templates/Samaj/bio_data.html:14
 msgid "Bio Data"
@@ -510,7 +470,7 @@ msgid "Email (optional)"
 msgstr "ईमेल (वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:127 templates/Samaj/community.html:40
-#: templates/Samaj/community.html:144
+#: templates/Samaj/community.html:161
 #: templates/Samaj/member_family_tree.html:76 templates/Samaj/my_family.html:53
 #: templates/Samaj/my_family.html:124 templates/Samaj/user_profile.html:59
 msgid "Gotra"
@@ -538,6 +498,10 @@ msgstr "राज्य"
 #: templates/Samaj/bio_data.html:180
 msgid "Profile Image"
 msgstr "प्रोफ़ाइल छवि"
+
+#: templates/Samaj/bio_data.html:180
+msgid "size"
+msgstr "आकार"
 
 #: templates/Samaj/bio_data.html:188 templates/Samaj/user_profile.html:108
 msgid "Educational Details"
@@ -623,7 +587,7 @@ msgstr "नाम"
 msgid "Education"
 msgstr "शिक्षा"
 
-#: templates/Samaj/community.html:74 templates/Samaj/community.html:149
+#: templates/Samaj/community.html:74 templates/Samaj/community.html:166
 #: templates/Samaj/my_family.html:57 templates/Samaj/my_family.html:129
 #: templates/Samaj/user_profile.html:40
 msgid "Age"
@@ -633,22 +597,18 @@ msgstr "आयु"
 msgid "Search"
 msgstr "खोजें"
 
-#: templates/Samaj/community.html:123
-msgid "Result"
-msgstr "परिणाम"
-
-#: templates/Samaj/community.html:173
+#: templates/Samaj/community.html:185
 #: templates/Samaj/member_family_tree.html:49
 #: templates/Samaj/member_family_tree.html:88 templates/Samaj/my_family.html:71
 #: templates/Samaj/my_family.html:140
 msgid "View Profile"
 msgstr "प्रोफ़ाइल देखें"
 
-#: templates/Samaj/community.html:178
+#: templates/Samaj/community.html:190
 msgid "Show Family"
 msgstr "परिवार दिखाएं"
 
-#: templates/Samaj/community.html:189
+#: templates/Samaj/community.html:200 templates/Samaj/community.html:244
 msgid "Family Member Not Found"
 msgstr "परिवार का सदस्य नहीं मिला"
 
@@ -759,35 +719,31 @@ msgstr ""
 "साझा मूल्यों, मजबूत पारिवारिक बंधनों और सामूहिक विकास की भावना से जुड़े हुए हैं—जो परंपरा "
 "और प्रगति के बीच एक जीवंत सेतु का कार्य कर रहे हैं।"
 
-#: templates/Samaj/index.html:110
-msgid "Read More"
-msgstr "और पढ़ें"
-
-#: templates/Samaj/index.html:129
+#: templates/Samaj/index.html:125
 msgid "News & Events"
 msgstr "समाचार एवं कार्यक्रम"
 
-#: templates/Samaj/index.html:160
+#: templates/Samaj/index.html:156
 msgid "Netritva Mandal"
 msgstr "नेतृत्व मंडल"
 
-#: templates/Samaj/index.html:203
+#: templates/Samaj/index.html:199
 msgid "Sanchalan Samiti"
 msgstr "संचालन समिति"
 
-#: templates/Samaj/index.html:247
+#: templates/Samaj/index.html:243
 msgid "Salah evam Aayojan Mandal"
 msgstr "सलाह एवं आयोजन मंडल"
 
-#: templates/Samaj/index.html:291
+#: templates/Samaj/index.html:287
 msgid "Karyakarini Sadasya"
 msgstr "कार्यकारिणी सदस्य"
 
-#: templates/Samaj/index.html:338
+#: templates/Samaj/index.html:334
 msgid "Share Your Suggestions or Ideas"
 msgstr "अपने सुझाव या विचार साझा करें"
 
-#: templates/Samaj/index.html:340
+#: templates/Samaj/index.html:336
 msgid ""
 "If you have any ideas, suggestions, or features you’d like to see added to "
 "the Paliwal Samaj website, please let us know. Your input helps us make the "
@@ -797,39 +753,39 @@ msgstr ""
 "चाहते हैं, तो कृपया हमें बताएं। आपके सुझाव इस मंच को समुदाय के सभी सदस्यों के लिए और भी "
 "बेहतर बनाने में मदद करते हैं।"
 
-#: templates/Samaj/index.html:351
+#: templates/Samaj/index.html:347
 msgid "Your Name"
 msgstr "आपका नाम"
 
-#: templates/Samaj/index.html:353
+#: templates/Samaj/index.html:349
 msgid "Enter your name"
 msgstr "अपना नाम दर्ज करें"
 
-#: templates/Samaj/index.html:359
+#: templates/Samaj/index.html:355
 msgid "Your Email"
 msgstr "आपका ईमेल"
 
-#: templates/Samaj/index.html:361
+#: templates/Samaj/index.html:357
 msgid "Enter your email"
 msgstr "अपना ईमेल दर्ज करें"
 
-#: templates/Samaj/index.html:368
+#: templates/Samaj/index.html:364
 msgid "Detailed Suggestion or Idea"
 msgstr "विस्तृत सुझाव या विचार"
 
-#: templates/Samaj/index.html:370
+#: templates/Samaj/index.html:366
 msgid "Please describe your suggestion or idea in detail..."
 msgstr "कृपया अपने सुझाव या विचार को विस्तार से वर्णन करें..."
 
-#: templates/Samaj/index.html:376
+#: templates/Samaj/index.html:372
 msgid "Submit Suggestion"
 msgstr "सुझाव सबमिट करें"
 
-#: templates/Samaj/index.html:400
+#: templates/Samaj/index.html:392
 msgid "Gopal Paliwal"
 msgstr "गोपाल पालीवाल"
 
-#: templates/Samaj/index.html:402
+#: templates/Samaj/index.html:394
 msgid ""
 "Gopal Paliwal is a dynamic entrepreneur and the proprietor of Electrocom, a "
 "Chittorgarh-based company specializing in software development, computer "
@@ -844,7 +800,7 @@ msgstr ""
 "लर्निंग सेंटर भी संचालित करते हैं जो RS-CIT और प्रोग्रामिंग जैसे पाठ्यक्रम प्रदान करता है, "
 "जिससे क्षेत्र में डिजिटल कौशल की खाई को पाटने में मदद मिलती है।"
 
-#: templates/Samaj/index.html:405
+#: templates/Samaj/index.html:399
 msgid ""
 "Grounded, hardworking, and deeply family-oriented, Gopal is known for "
 "leading with purpose and humility. His latest initiative, the creation of "
@@ -861,7 +817,7 @@ msgstr ""
 "की उपलब्धियों को जान सकते हैं और सांस्कृतिक व सामाजिक कार्यक्रमों की जानकारी प्राप्त कर "
 "सकते हैं।"
 
-#: templates/Samaj/index.html:408
+#: templates/Samaj/index.html:402
 msgid ""
 "Gopal’s vision is clear: To use technology as a tool to unite, empower, and "
 "celebrate the Paliwal identity. Through this effort, he stands out not just "
@@ -961,8 +917,8 @@ msgid "search by name or their number"
 msgstr "नाम या नंबर से खोजें"
 
 #: templates/Samaj/sandesh.html:29
-msgid "Image (required, < 10MB)"
-msgstr "छवि (अनिवार्य, 10MB से कम)"
+msgid "Image (required, < 200KB)"
+msgstr "छवि (अनिवार्य, 200KB से कम)"
 
 #: templates/Samaj/sandesh.html:33
 msgid "Message"
@@ -1043,6 +999,42 @@ msgstr "फेसबुक"
 #: templates/Samaj/user_profile.html:198
 msgid "Instagram"
 msgstr "इंस्टाग्राम"
+
+#~ msgid "Paliwal Samaj History"
+#~ msgstr "बड़ा पालीवाल समाज की उत्पत्ती और इतिहास"
+
+#~ msgid "Karyarat Sangathan"
+#~ msgstr "बड़ा पालीवाल समाज में कार्यरत संगठन"
+
+#~ msgid "Sandhya Vandana"
+#~ msgstr "संध्या वन्दन"
+
+#~ msgid "Brahman Sanskar"
+#~ msgstr "ब्राह्मणो के सोलह संस्कार"
+
+#~ msgid "Upanayan Sanskar"
+#~ msgstr "उपनयन संस्कार"
+
+#~ msgid "Mewar Paliwal Samaj Teerth Purohit"
+#~ msgstr "मेवाड़ पालीवाल समाज के तीर्थ पुरोहित"
+
+#~ msgid "Vivah Karyakram"
+#~ msgstr "बड़ा पालीवाल समाज के विवाह कार्यक्रम"
+
+#~ msgid "Vivah Geet"
+#~ msgstr "विवाह गीत"
+
+#~ msgid "Antyeshti Kriya Paddhati"
+#~ msgstr "बड़ा पालीवाल समाज की अन्त्येष्टी क्रिया पद्धति"
+
+#~ msgid "Dasva Gyarahva Evam Barahva Karyakram"
+#~ msgstr "दसवाँ, ग्यारहवाँ एवं बाहरवाँ कार्यक्रम"
+
+#~ msgid "Result"
+#~ msgstr "परिणाम"
+
+#~ msgid "Read More"
+#~ msgstr "और पढ़ें"
 
 #, fuzzy
 #~| msgid "Shandesh"
