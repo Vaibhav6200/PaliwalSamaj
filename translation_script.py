@@ -7,17 +7,17 @@
 # print(result_2["language"])
 
 
-from google.transliteration import transliterate_text
-
-text = "Hello, Welcome to google cloud"
-result = transliterate_text(text, lang_code='hi')
-
-
-text = "Hello, Welcome to google cloud"
-
-# Perform transliteration (not translation)
-transliterated = transliterate_text(text, lang_code='hi')
-
-# Print result
-print(f"Original Text: {text}")
-print(f"Transliterated (Hindi Script): {transliterated}")
+# from google.transliteration import transliterate_text
+#
+# text = "Hello, Welcome to google cloud"
+# result = transliterate_text(text, lang_code='hi')
+#
+#
+# text = "Hello, Welcome to google cloud"
+#
+# # Perform transliteration (not translation)
+# transliterated = transliterate_text(text, lang_code='hi')
+#
+# # Print result
+# print(f"Original Text: {text}")
+# print(f"Transliterated (Hindi Script): {transliterated}")
