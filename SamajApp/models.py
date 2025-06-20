@@ -62,24 +62,32 @@ class Member(models.Model):
         ('aankiras', _('Aankiras')),
         ('aarti', _('Aarti')),
         ('aashwalaayana', _('Aashwalaayana')),
+        ('aastik', _('Aastik')),        # Sheet
         ('aatreya', _('Aatreya')),
+        ('baneda', _('Baneda')),        # Sheet
         ('bhrigu', _('Bhrigu')),
-        ('bhardwaja', _('Bhardwaja')),
+        ('bharadwaja', _('Bharadwaja')),        # Sheet
         ('bhargava', _('Bhargava')),
         ('chandratreya', _('Chandratreya')),
         ('chyavana', _('Chyavana')),
+        ('dave', _('Dave')),        # Sheet
         ('garga', _('Garga')),
         ('gautam', _('Gautam')),
         ('harita', _('Harita')),
         ('jamadagni', _('Jamadagni')),
         ('jambu', _('Jambu')),
+        ('joshi', _('Joshi')),        # Sheet
         ('kaakshivan', _('Kaakshivan')),
         ('kanva', _('Kanva')),
         ('kapi', _('Kapi')),
-        ('kashyapa', _('Kashyapa')),
+        ('kashyapa', _('Kashyapa')),        # Sheet
         ('kaushika', _('Kaushika')),
+        ('kavachh', _('Kavachh')),        # Sheet
         ('katyayana', _('Katyayana')),
         ('kaundinya', _('Kaundinya')),
+        ('kavachhas', _('Kavachhas')),        # Sheet
+        ('kauts', _('Kauts')),        # Sheet
+        ('kotsas', _('Kotsas')),        # Sheet
         ('kutsa', _('Kutsa')),
         ('mandavya', _('Mandavya')),
         ('marichi', _('Marichi')),
@@ -89,21 +97,30 @@ class Member(models.Model):
         ('parashara', _('Parashara')),
         ('pulaha', _('Pulaha')),
         ('pulastya', _('Pulastya')),
+        ('pandya', _('Pandya')),        # Sheet
         ('reva', _('Reva')),
         ('rishyashringa', _('Rishyashringa')),
-        ('saandilya', _('Saandilya')),
+        ('saandilya', _('Saandilya')),        # Sheet
         ('shaandilya', _('Shaandilya')),
         ('shakalya', _('Shakalya')),
+        ('samarayan', _('Samarayan')),        # Sheet
         ('shandilya', _('Shandilya')),
         ('shatamarshana', _('Shatamarshana')),
         ('shaunak', _('Shaunak')),
         ('shukla', _('Shukla')),
         ('srivatsa', _('Srivatsa')),
         ('sutapa', _('Sutapa')),
+        ('tiwadi', _('Tiwadi')),        # Sheet
+        ('trivadi', _('Trivadi')),        # Sheet
+        ('vachchhas', _('Vachchhas')),        # Sheet
+        ('vachchhav', _('Vachchhav')),        # Sheet
         ('vadhoola', _('Vadhoola')),
-        ('vasishta', _('Vasishta')),
-        ('vatsa', _('Vatsa')),
+        ('Vashishtha', _('Vasishta')),        # Sheet
+        ('vatsat', _('Vatsat')),        # Sheet
+        ('vatsa', _('Vatsa')),        # Sheet
+        ('vatsak', _('Vatsak')),        # Sheet
         ('vishvamitra', _('Vishvamitra')),
+        ('vyas', _('Vyas')),        # Sheet
         ('yajnavalkya', _('Yajnavalkya')),
     ]
 

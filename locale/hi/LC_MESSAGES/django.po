@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-18 11:57+0530\n"
+"POT-Creation-Date: 2025-06-20 11:38+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,274 +86,348 @@ msgid "Aashwalaayana"
 msgstr "आश्वलायन"
 
 #: SamajApp/models.py:65
+msgid "Aastik"
+msgstr "आस्तिक"
+
+#: SamajApp/models.py:66
 msgid "Aatreya"
 msgstr "आत्रेय"
 
-#: SamajApp/models.py:66
+#: SamajApp/models.py:67
+msgid "Baneda"
+msgstr "बनेड़ा"
+
+#: SamajApp/models.py:68
 msgid "Bhrigu"
 msgstr "भृगु"
 
-#: SamajApp/models.py:67
-msgid "Bhardwaja"
+#: SamajApp/models.py:69
+msgid "Bharadwaja"
 msgstr "भारद्वाज"
 
-#: SamajApp/models.py:68
+#: SamajApp/models.py:70
 msgid "Bhargava"
 msgstr "भार्गव"
 
-#: SamajApp/models.py:69
+#: SamajApp/models.py:71
 msgid "Chandratreya"
 msgstr "चन्द्रात्रेय"
 
-#: SamajApp/models.py:70
+#: SamajApp/models.py:72
 msgid "Chyavana"
 msgstr "च्यवन"
 
-#: SamajApp/models.py:71
+#: SamajApp/models.py:73
+msgid "Dave"
+msgstr "दवे"
+
+#: SamajApp/models.py:74
 msgid "Garga"
 msgstr "गार्ग"
 
-#: SamajApp/models.py:72
+#: SamajApp/models.py:75
 msgid "Gautam"
 msgstr "गौतम"
 
-#: SamajApp/models.py:73
+#: SamajApp/models.py:76
 msgid "Harita"
 msgstr "हरित"
 
-#: SamajApp/models.py:74
+#: SamajApp/models.py:77
 msgid "Jamadagni"
 msgstr "जमदग्नि"
 
-#: SamajApp/models.py:75
+#: SamajApp/models.py:78
 msgid "Jambu"
 msgstr "जम्बु"
 
-#: SamajApp/models.py:76
+#: SamajApp/models.py:79
+msgid "Joshi"
+msgstr "जोशी"
+
+#: SamajApp/models.py:80
 msgid "Kaakshivan"
 msgstr "काक्षिवान"
 
-#: SamajApp/models.py:77
+#: SamajApp/models.py:81
 msgid "Kanva"
 msgstr "कण्व"
 
-#: SamajApp/models.py:78
+#: SamajApp/models.py:82
 msgid "Kapi"
 msgstr "कपि"
 
-#: SamajApp/models.py:79
+#: SamajApp/models.py:83
 msgid "Kashyapa"
 msgstr "कश्यप"
 
-#: SamajApp/models.py:80
+#: SamajApp/models.py:84
 msgid "Kaushika"
 msgstr "कौशिक"
 
-#: SamajApp/models.py:81
+#: SamajApp/models.py:85
+msgid "Kavachh"
+msgstr "कवच्छ"
+
+#: SamajApp/models.py:86
 msgid "Katyayana"
 msgstr "कात्यायन"
 
-#: SamajApp/models.py:82
+#: SamajApp/models.py:87
 msgid "Kaundinya"
 msgstr "कौण्डिन्य"
 
-#: SamajApp/models.py:83
+#: SamajApp/models.py:88
+msgid "Kavachhas"
+msgstr "कवच्छस"
+
+#: SamajApp/models.py:89
+msgid "Kauts"
+msgstr "कौत्स"
+
+#: SamajApp/models.py:90
+msgid "Kotsas"
+msgstr "कोत्सस"
+
+#: SamajApp/models.py:91
 msgid "Kutsa"
 msgstr "कुत्स"
 
-#: SamajApp/models.py:84
+#: SamajApp/models.py:92
 msgid "Mandavya"
 msgstr "माण्डव्य"
 
-#: SamajApp/models.py:85
+#: SamajApp/models.py:93
 msgid "Marichi"
 msgstr "मारीचि"
 
-#: SamajApp/models.py:86
+#: SamajApp/models.py:94
 msgid "Moudgalya"
 msgstr "मौद्गल्य"
 
-#: SamajApp/models.py:87
+#: SamajApp/models.py:95
 msgid "Mrukandu"
 msgstr "मृकण्डु"
 
-#: SamajApp/models.py:88
+#: SamajApp/models.py:96
 msgid "Paingya"
 msgstr "पैंग्य"
 
-#: SamajApp/models.py:89
+#: SamajApp/models.py:97
 msgid "Parashara"
 msgstr "पराशर"
 
-#: SamajApp/models.py:90
+#: SamajApp/models.py:98
 msgid "Pulaha"
 msgstr "पुलह"
 
-#: SamajApp/models.py:91
+#: SamajApp/models.py:99
 msgid "Pulastya"
 msgstr "पुलस्त्य"
 
-#: SamajApp/models.py:92
+#: SamajApp/models.py:100
+msgid "Pandya"
+msgstr "पाण्ड्या"
+
+#: SamajApp/models.py:101
 msgid "Reva"
 msgstr "रेवा"
 
-#: SamajApp/models.py:93
+#: SamajApp/models.py:102
 msgid "Rishyashringa"
 msgstr "ऋष्यश्रृंग"
 
-#: SamajApp/models.py:94
+#: SamajApp/models.py:103
 msgid "Saandilya"
 msgstr "सांदिल्य"
 
-#: SamajApp/models.py:95
+#: SamajApp/models.py:104
 msgid "Shaandilya"
 msgstr "शांडिल्य"
 
-#: SamajApp/models.py:96
+#: SamajApp/models.py:105
 msgid "Shakalya"
 msgstr "शाकल्य"
 
-#: SamajApp/models.py:97
+#: SamajApp/models.py:106
+#, fuzzy
+#| msgid "Shatamarshana"
+msgid "Samarayan"
+msgstr "शतमर्षण"
+
+#: SamajApp/models.py:107
 msgid "Shandilya"
 msgstr "शांडिल्य"
 
-#: SamajApp/models.py:98
+#: SamajApp/models.py:108
 msgid "Shatamarshana"
 msgstr "शतमर्षण"
 
-#: SamajApp/models.py:99
+#: SamajApp/models.py:109
 msgid "Shaunak"
 msgstr "शौनक"
 
-#: SamajApp/models.py:100
+#: SamajApp/models.py:110
 msgid "Shukla"
 msgstr "शुक्ल"
 
-#: SamajApp/models.py:101
+#: SamajApp/models.py:111
 msgid "Srivatsa"
 msgstr "श्रीवत्स"
 
-#: SamajApp/models.py:102
+#: SamajApp/models.py:112
 msgid "Sutapa"
 msgstr "सुतप"
 
-#: SamajApp/models.py:103
+#: SamajApp/models.py:113
+msgid "Tiwadi"
+msgstr "तिवाडी"
+
+#: SamajApp/models.py:114
+msgid "Trivadi"
+msgstr "त्रिवाडी"
+
+#: SamajApp/models.py:115
+msgid "Vachchhas"
+msgstr "वच्छस"
+
+#: SamajApp/models.py:116
+msgid "Vachchhav"
+msgstr "वच्छव"
+
+#: SamajApp/models.py:117
 msgid "Vadhoola"
 msgstr "वधूल"
 
-#: SamajApp/models.py:104
+#: SamajApp/models.py:118
 msgid "Vasishta"
-msgstr "वसिष्ठ"
+msgstr "वशिष्ठ"
 
-#: SamajApp/models.py:105
+#: SamajApp/models.py:119
+#, fuzzy
+#| msgid "Vatsa"
+msgid "Vatsat"
+msgstr "वत्स"
+
+#: SamajApp/models.py:120
 msgid "Vatsa"
 msgstr "वत्स"
 
-#: SamajApp/models.py:106
+#: SamajApp/models.py:121
+#, fuzzy
+#| msgid "Vatsa"
+msgid "Vatsak"
+msgstr "वत्स"
+
+#: SamajApp/models.py:122
 msgid "Vishvamitra"
 msgstr "विश्वामित्र"
 
-#: SamajApp/models.py:107
+#: SamajApp/models.py:123
+msgid "Vyas"
+msgstr "व्यास"
+
+#: SamajApp/models.py:124
 msgid "Yajnavalkya"
 msgstr "याज्ञवल्क्य"
 
-#: SamajApp/models.py:148
+#: SamajApp/models.py:165
 msgid "B.A. (Bachelor of Arts)"
 msgstr "बी.ए. (कला स्नातक)"
 
-#: SamajApp/models.py:149
+#: SamajApp/models.py:166
 msgid "B.Sc. (Bachelor of Science)"
 msgstr "बी.एससी. (विज्ञान स्नातक)"
 
-#: SamajApp/models.py:150
+#: SamajApp/models.py:167
 msgid "B.Com. (Bachelor of Commerce)"
 msgstr "बी.कॉम. (वाणिज्य स्नातक)"
 
-#: SamajApp/models.py:151
+#: SamajApp/models.py:168
 msgid "BBA (Bachelor of Business Administration)"
 msgstr "बीबीए (व्यवसाय प्रबंधन स्नातक)"
 
-#: SamajApp/models.py:152
+#: SamajApp/models.py:169
 msgid "BCA (Bachelor of Computer Applications)"
 msgstr "बीसीए (कंप्यूटर अनुप्रयोग स्नातक)"
 
-#: SamajApp/models.py:153
+#: SamajApp/models.py:170
 msgid "B.Tech (Bachelor of Technology)"
 msgstr "बी.टेक (प्रौद्योगिकी स्नातक)"
 
-#: SamajApp/models.py:154
+#: SamajApp/models.py:171
 msgid "B.E. (Bachelor of Engineering)"
 msgstr "बी.ई. (इंजीनियरिंग स्नातक)"
 
-#: SamajApp/models.py:155
+#: SamajApp/models.py:172
 msgid "LLB (Bachelor of Laws)"
 msgstr "एलएलबी (कानून स्नातक)"
 
-#: SamajApp/models.py:156
+#: SamajApp/models.py:173
 msgid "MBBS (Bachelor of Medicine and Bachelor of Surgery)"
 msgstr "एमबीबीएस (चिकित्सा और शल्य चिकित्सा स्नातक)"
 
-#: SamajApp/models.py:157
+#: SamajApp/models.py:174
 msgid "M.A. (Master of Arts)"
 msgstr "एम.ए. (कला स्नातकोत्तर)"
 
-#: SamajApp/models.py:158
+#: SamajApp/models.py:175
 msgid "M.Sc. (Master of Science)"
 msgstr "एम.एससी. (विज्ञान स्नातकोत्तर)"
 
-#: SamajApp/models.py:159
+#: SamajApp/models.py:176
 msgid "M.Com. (Master of Commerce)"
 msgstr "एम.कॉम. (वाणिज्य स्नातकोत्तर)"
 
-#: SamajApp/models.py:160
+#: SamajApp/models.py:177
 msgid "MBA (Master of Business Administration)"
 msgstr "एमबीए (व्यवसाय प्रबंधन स्नातकोत्तर)"
 
-#: SamajApp/models.py:161
+#: SamajApp/models.py:178
 msgid "MCA (Master of Computer Applications)"
 msgstr "एमसीए (कंप्यूटर अनुप्रयोग स्नातकोत्तर)"
 
-#: SamajApp/models.py:162
+#: SamajApp/models.py:179
 msgid "M.Tech (Master of Technology)"
 msgstr "एम.टेक (प्रौद्योगिकी स्नातकोत्तर)"
 
-#: SamajApp/models.py:163
+#: SamajApp/models.py:180
 msgid "M.E. (Master of Engineering)"
 msgstr "एम.ई. (इंजीनियरिंग स्नातकोत्तर)"
 
-#: SamajApp/models.py:164
+#: SamajApp/models.py:181
 msgid "LLM (Master of Laws)"
 msgstr "एलएलएम (कानून स्नातकोत्तर)"
 
-#: SamajApp/models.py:165
+#: SamajApp/models.py:182
 msgid "MD (Doctor of Medicine)"
 msgstr "एमडी (चिकित्सा स्नातकोत्तर)"
 
-#: SamajApp/models.py:166
+#: SamajApp/models.py:183
 msgid "Diploma"
 msgstr "डिप्लोमा"
 
-#: SamajApp/models.py:167
+#: SamajApp/models.py:184
 msgid "ITI (Industrial Training Institute)"
 msgstr "आईटीआई (औद्योगिक प्रशिक्षण संस्थान)"
 
-#: SamajApp/models.py:168
+#: SamajApp/models.py:185
 msgid "Polytechnic"
 msgstr "पॉलिटेक्निक"
 
-#: SamajApp/models.py:169
+#: SamajApp/models.py:186
 msgid "Certification Course"
 msgstr "प्रमाणन पाठ्यक्रम"
 
-#: SamajApp/models.py:170
+#: SamajApp/models.py:187
 msgid "Ph.D. (Doctor of Philosophy)"
 msgstr "पीएच.डी. (दर्शनशास्त्र में डॉक्टरेट)"
 
-#: SamajApp/models.py:171
+#: SamajApp/models.py:188
 msgid "D.Litt (Doctor of Literature)"
 msgstr "डी.लिट. (साहित्य में डॉक्टरेट)"
 
-#: SamajApp/models.py:172
+#: SamajApp/models.py:189
 msgid "Other"
 msgstr "अन्य"
 
@@ -464,6 +538,12 @@ msgstr "फोन नंबर (10 अंकों का)"
 #: templates/Samaj/bio_data.html:113
 msgid "Whatsapp Number (10 digit)"
 msgstr "व्हाट्सएप नंबर (10 अंकों का)"
+
+#: templates/Samaj/bio_data.html:113 templates/Samaj/bio_data.html:146
+#, fuzzy
+#| msgid "Email (optional)"
+msgid "(optional)"
+msgstr "ईमेल (वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:120
 msgid "Email (optional)"
