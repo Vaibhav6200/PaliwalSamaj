@@ -126,7 +126,6 @@ class Member(models.Model):
 
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
     father_name = models.CharField(max_length=100)
@@ -162,31 +161,31 @@ class QualificationDetail(models.Model):
     class Meta:
         verbose_name_plural = 'Qualification Details'
     DEGREE_CHOICES = [
-        ("B.A.", _("B.A. (Bachelor of Arts)")),
-        ("B.Sc.", _("B.Sc. (Bachelor of Science)")),
-        ("B.Com.", _("B.Com. (Bachelor of Commerce)")),
-        ("BBA", _("BBA (Bachelor of Business Administration)")),
-        ("BCA", _("BCA (Bachelor of Computer Applications)")),
-        ("B.Tech", _("B.Tech (Bachelor of Technology)")),
-        ("BE", _("B.E. (Bachelor of Engineering)")),
-        ("LLB", _("LLB (Bachelor of Laws)")),
-        ("MBBS", _("MBBS (Bachelor of Medicine and Bachelor of Surgery)")),
-        ("M.A.", _("M.A. (Master of Arts)")),
-        ("M.Sc.", _("M.Sc. (Master of Science)")),
-        ("M.Com.", _("M.Com. (Master of Commerce)")),
-        ("MBA", _("MBA (Master of Business Administration)")),
-        ("MCA", _("MCA (Master of Computer Applications)")),
-        ("M.Tech", _("M.Tech (Master of Technology)")),
-        ("ME", _("M.E. (Master of Engineering)")),
-        ("LLM", _("LLM (Master of Laws)")),
-        ("MD", _("MD (Doctor of Medicine)")),
-        ("Diploma", _("Diploma")),
-        ("ITI", _("ITI (Industrial Training Institute)")),
-        ("Polytechnic", _("Polytechnic")),
-        ("Certification", _("Certification Course")),
-        ("PhD", _("Ph.D. (Doctor of Philosophy)")),
-        ("D.Litt", _("D.Litt (Doctor of Literature)")),
-        ("Other", _("Other")),
+        ("ba", _("B.A. (Bachelor of Arts)")),
+        ("bsc", _("B.Sc. (Bachelor of Science)")),
+        ("bcom.", _("B.Com. (Bachelor of Commerce)")),
+        ("bba", _("BBA (Bachelor of Business Administration)")),
+        ("bca", _("BCA (Bachelor of Computer Applications)")),
+        ("btech", _("B.Tech (Bachelor of Technology)")),
+        ("be", _("B.E. (Bachelor of Engineering)")),
+        ("llb", _("LLB (Bachelor of Laws)")),
+        ("mbbs", _("MBBS (Bachelor of Medicine and Bachelor of Surgery)")),
+        ("ma", _("M.A. (Master of Arts)")),
+        ("msc", _("M.Sc. (Master of Science)")),
+        ("mcom", _("M.Com. (Master of Commerce)")),
+        ("mba", _("MBA (Master of Business Administration)")),
+        ("mca", _("MCA (Master of Computer Applications)")),
+        ("mtech", _("M.Tech (Master of Technology)")),
+        ("me", _("M.E. (Master of Engineering)")),
+        ("llm", _("LLM (Master of Laws)")),
+        ("md", _("MD (Doctor of Medicine)")),
+        ("diploma", _("Diploma")),
+        ("iti", _("ITI (Industrial Training Institute)")),
+        ("polytechnic", _("Polytechnic")),
+        ("certification", _("Certification Course")),
+        ("phd", _("Ph.D. (Doctor of Philosophy)")),
+        ("dlitt", _("D.Litt (Doctor of Literature)")),
+        ("other", _("Other")),
     ]
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='qualification_detail')
     school_class = models.PositiveSmallIntegerField(blank=True, null=True)  # Only if School

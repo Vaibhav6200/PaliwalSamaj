@@ -307,7 +307,7 @@ msgstr "वशिष्ठ"
 #, fuzzy
 #| msgid "Vatsa"
 msgid "Vatsat"
-msgstr "वत्स"
+msgstr "वत्सत"
 
 #: SamajApp/models.py:120
 msgid "Vatsa"
