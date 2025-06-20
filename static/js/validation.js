@@ -78,9 +78,19 @@ $(document).ready(function () {
 
   // Add custom validator for image file size (max 200KB)
   $.validator.addMethod("filesize200kb", function(value, element) {
-      if (element.files.length === 0) return true; 
-      return element.files[0].size <= 200 * 1024;
-  }, "Image size must be less than 200 KB");
+        if (element.files.length === 0) return true;
+
+              if (element.files[0].size > 200 * 1024) {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'File Too Large',
+                      text: 'Image size must be less than 200 KB.',
+                  });
+                  return false;
+              }
+
+      return true;
+  }, "");
 
   $("#contact-form").validate({
   rules: {
