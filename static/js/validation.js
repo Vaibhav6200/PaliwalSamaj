@@ -78,17 +78,15 @@ $(document).ready(function () {
 
   // Add custom validator for image file size (max 200KB)
   $.validator.addMethod("filesize200kb", function(value, element) {
-        if (element.files.length === 0) return true;
-
-              if (element.files[0].size > 200 * 1024) {
-                  Swal.fire({
-                      icon: 'error',
-                      title: 'File Too Large',
-                      text: 'Image size must be less than 200 KB.',
-                  });
-                  return false;
-              }
-
+    if (element.files.length === 0) return true;
+      if (element.files[0].size > 200 * 1024) {
+          Swal.fire({
+              icon: 'error',
+              title: 'File Too Large',
+              text: 'Image size must be less than 200 KB.',
+          });
+          return false;
+      }
       return true;
   }, "");
 
@@ -280,14 +278,14 @@ $("#login-form").validate({
   },
   messages: {
     mobile_number: {
-      required: "Mobile Nnumber is required"
+      required: "Mobile Nnumber is required",
     },
   },
   errorElement: "div",
   errorPlacement: function(error, element) {
     error.insertAfter(element);
   }
-})
+});
 // Shandesh Form End
 
 // Community Form Start

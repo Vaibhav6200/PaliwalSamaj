@@ -68,14 +68,16 @@ function setupImagePreview(inputId, previewImageId, removeButtonId, dummyImageSr
         
         if (file) {
             const fileExtension = file.name.split('.').pop().toLowerCase();
-            
+
             if (fileExtension === 'pdf') {
                 previewImage.src = 'assets/DummyPdf.png';
+                removeImgBtn.classList.add("d-flex");
                 removeImgBtn.classList.remove("d-none");
             } else {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     previewImage.src = e.target.result;
+                    removeImgBtn.classList.add("d-flex");
                     removeImgBtn.classList.remove("d-none");
                 };
                 reader.readAsDataURL(file);
@@ -86,9 +88,10 @@ function setupImagePreview(inputId, previewImageId, removeButtonId, dummyImageSr
     removeImgBtn.addEventListener('click', function() {
         previewImage.src = dummyImageSrc;
         imageInput.value = '';
+        removeImgBtn.classList.remove("d-flex");
         removeImgBtn.classList.add("d-none");
     });
 }
-setupImagePreview('profileImage','previewImage','remove-img-btn','images/profile.png');
+setupImagePreview('profileImage','previewImage','remove-img-btn','/static/images/profile.png');
 
 // Preview Image JS End
