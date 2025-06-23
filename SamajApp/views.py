@@ -21,7 +21,7 @@ def index(request):
     news_events_obj = NewsEvent.objects.all()
 
     # Get all groups and prefetch members ordered by rank
-    display_groups = DisplayMemberGroup.objects.prefetch_related(
+    display_groups = DisplayMemberGroup.objects.order_by('group_rank').prefetch_related(
         Prefetch(
             'displaymember_set',
             queryset=DisplayMember.objects.order_by('rank')

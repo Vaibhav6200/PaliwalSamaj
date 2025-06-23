@@ -287,6 +287,7 @@ class DisplayMemberGroup(models.Model):
         verbose_name_plural = 'Display Groups'
 
     group_name = models.CharField(max_length=255)
+    group_rank = models.PositiveSmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 

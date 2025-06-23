@@ -182,6 +182,7 @@ class DisplayMemberGroupAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'group_name',
+        'group_rank',
         'created_at',
     )
     list_display_links = ('id', 'group_name')
