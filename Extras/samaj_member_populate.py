@@ -1,5 +1,6 @@
-import os, sys, random
-
+import os
+import sys
+import random
 
 # 1) find the repo root: that's one level up from Extras/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -101,6 +102,12 @@ def populate_members():
             print(f"✅ Saved: {name} - Role: {role}")
 
 
+def populate_groups():
+    grp_list = ['Karyakarini Sadasya', 'Netritva Mandal', 'Sanchalan Samiti', 'Salah evam Aayojan Mandal']
+    for group in grp_list:
+        DisplayMemberGroup.objects.create(group_name=group)
+
 if __name__ == "__main__":
+    populate_groups()
     populate_members()
     print("Members Populated successfully.")
