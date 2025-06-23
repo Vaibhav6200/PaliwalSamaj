@@ -543,6 +543,32 @@ def kru2uni(kru_text):
 
 
 def convert_kruti_excel(input_file, output_file, skip_columns):
+    def infer_occupation_type(eng_value):
+        if not eng_value or pd.isna(eng_value):
+            return "none"
+
+        val = eng_value.lower()
+
+        if any(k in val for k in ["retired", "pensioner"]):
+            return "retired"
+        elif any(k in val for k in ["student", "studying"]):
+            return "student"
+        elif any(k in val for k in ["housewife"]):
+            return "housewife"
+        elif any(k in val for k in [
+            "business", "shopkeeper", "dealer", "store", "transport", "restaurant",
+            "marble", "property", "mining", "scrap", "stone", "millinery"
+        ]):
+            return "business"
+        elif any(k in val for k in [
+            "engineer", "doctor", "nurse", "lecturer", "teacher", "professor", "accountant",
+            "job", "employee", "freelance", "artist", "developer", "advocate",
+            "manager", "driver", "assistant", "bank", "government", "service", "police",
+            "railway", "court", "contractor"
+        ]):
+            return "job"
+        else:
+            return "job"  # Default fallback
     # Read Excel file
     df = pd.read_excel(input_file, engine='openpyxl')
 
@@ -761,6 +787,254 @@ def convert_kruti_excel(input_file, output_file, skip_columns):
         "अशिक्षित": "uneducated",
         "बीएससी दजी": "bsc"
     }
+    occupation_map = {
+        "स्वव्यसाय": "Self-employed",  # Business
+        "समाजसेविका": "Social worker",  # Job
+        "स्वव्यवसाय": "Self-business",  # Business
+        "मेवाड ले0": "Mewar Ltd.",  # Job
+        "डेल कं.": "Dell Company",  # Job
+        "व्याख्याता": "Lecturer",  # Job
+        "एबीपीएम": "ABPM (Assistance Branch Post Master)",  # Job
+        "रा0नौकरी": "Government Job",  # Job
+        "टंलरिंग": "Tailoring",  # Business
+        "सर.नौकरी": "Government Job",  # Job
+        "फ्रीलांस आर्टीस्ट": "Freelance Artist",  # Business
+        "मैकेनिक": "Mechanic",  # Job
+        "स्क्रेप व्यापार": "Scrap Business",  # Business
+        "जोशी प्रिन्टर्स": "Joshi Printers",  # Business
+        "एडवोकेट": "Advocate",  # Job
+        "नौकरी": "Job",  # Job
+        "प्रिन्ट प्रेस": "Print Press",  # Business
+        "आकाउटेन्ट": "Accountant",  # Job
+        "प्राध्यापक": "Professor",  # Job
+        "रा.सेवा वि.": "Government Service - Education",  # Job
+        "रा0 सेवा": "Government Service",  # Job
+        "पेंशनर": "Pensioner",  # Retired
+        "साॅ. इन्जि.": "Software Engineer",  # Job
+        "हलवाई": "Cook",  # Business
+        "आ.सहयेागिनी": "Health Worker Assistant",  # Job
+        "राज0सेवा": "State Government Service",  # Job
+        "व्यवसाय": "Business",  # Business
+        "आ0 माईन्स": "Mining Sector",  # Business
+        "श्रम न्यायालय": "Labour Court",  # Job
+        "वकालात": "Lawyer",  # Job
+        "ठेकेदार": "Contractor",  # Business
+        "रा. सेवा.शि.": "Government Service - Education",  # Job
+        "इन्जिनियर": "Engineer",  # Job
+        "अधययन": "Studying",  # Student
+        "अध्ययन": "Studying",  # Student
+        "सरकारी क0": "Government Employee",  # Job
+        "प्रा0 नौकरी": "Private Job",  # Job
+        "डाॅक्यूमेन्ट असि0": "Document Assistant",  # Job
+        "हि.जिंक": "Hindustan Zinc Ltd.",  # Job
+        "अध्यापिक": "Teacher",  # Job
+        "स0नौकरी": "Government Job",  # Job
+        "नर्सिंग": "Nursing",  # Job
+        "पं. सहायक": "Panchayat Assistant",  # Job
+        "ट्रांसपोर्ट": "Transport Business",  # Business
+        "अमूल डेयरी": "Amul Dairy",  # Business
+        "अकाउंटेन्ट": "Accountant",  # Job
+        "साॅ. डवलपर": "Software Developer",  # Job
+        "सीए": "Chartered Accountant",  # Job
+        "बि. उपकरण": "Business Equipment",  # Business
+        "नौकरी टीसीसी": "TCC Job",  # Job
+        "साॅफ्ट.इन्जि": "Software Engineer",  # Job
+        "प्रो0 डिलर": "Product Dealer",  # Business
+        "महाप्रबंधक": "General Manager",  # Job
+        "मा.इन्जि": "Mechanical Engineer",  # Job
+        "न्याय वि0": "Judicial Service",  # Job
+        "बैंक सेवा": "Bank Service",  # Job
+        "प्रा.नौकरी": "Private Job",  # Job
+        "ग्राम सेवक": "Village Worker",  # Job
+        "प्रा. नौकरी": "Private Job",  # Job
+        "रा. सेवा": "Government Service",  # Job
+        "रेस्टोरेन्ट": "Restaurant",  # Business
+        "फि0 चेकर": "Fit Checker",  # Job
+        "आंगूचा मा0": "Anganwadi Worker",  # Job
+        "पंचायत रा.": "Panchayat Government Work",  # Job
+        "मार्बल": "Marble Business",  # Business
+        "ब्यूटी पार्लर": "Beauty Parlour",  # Business
+        "अ.बाल.क.स.": "Integrated Child Development Worker",  # Job
+        "मैनेजर रेमडस": "Manager at Remdes",  # Job
+        "बैंक मैनेजर": "Bank Manager",  # Job
+        "सेवानिवृत": "Retired",  # Retired
+        "कनि.लेख.": "Junior Accountant",  # Job
+        "कृषि": "Agriculture",  # Business
+        "फीटर": "Fitter",  # Job
+        "रा.पुलिस": "State Police",  # Job
+        "राज. सेवा": "State Government Service",  # Job
+        "बि0मे0सप्ला0": "BMSPL (Business Name Abbreviation)",  # Job
+        "गृहिणी": "Housewife",  # Housewife
+        "होमगार्ड": "Home Guard",  # Job
+        "एसडीएम": "Sub-Divisional Magistrate (SDM)",  # Job
+        "सॉफ्ट. इन्जि": "Software Engineer",  # Job
+        "प्रोपर्टी": "Property Business",  # Business
+        "प्रधानाध्यापिका": "Headmistress",  # Job
+        "साफ्टवेयर डवलपर": "Software Developer",  # Job
+        "आंगनवाड़ी": "Anganwadi Worker",  # Job
+        "राज.सेवा": "State Government Service",  # Job
+        "पण्डिताई": "Priesthood",  # Job
+        "ज्योतिष": "Astrologer",  # Business
+        "प्रो. स्टोर": "Provision Store",  # Business
+        "आंगनवाडी": "Anganwadi Worker",  # Job
+        "अध्यापक": "Teacher",  # Job
+        "रा.सेवा": "Government Service",  # Job
+        "कृषि व्यापार": "Agriculture Business",  # Business
+        "खनन व्य0": "Mining Business",  # Business
+        "जि.परिषद": "District Council",  # Job
+        "व.सहा.": "Senior Assistant",  # Job
+        "से0सि0इन": "SSC (Staff Selection Commission)",  # Job
+        "मैलनर्स व्यापार": "Millinery Business",  # Business
+        "व्यापार": "Business",  # Business
+        "शाॅप": "Shopkeeper",  # Business
+        "एमआर": "Medical Representative",  # Job
+        "अध्यापिका": "Teacher",  # Job
+        "ब्लाॅक मै.": "Block Manager",  # Job
+        "स0डेयरी": "Dairy Business",  # Business
+        "डाॅक्टर": "Doctor",  # Job
+        "पैंशनर": "Pensioner",  # Retired
+        "मैकनिक": "Mechanic",  # Job
+        "मैके.इन्जि": "Mechanical Engineer",  # Job
+        "ड्राईवर": "Driver",  # Job
+        "पटवारी": "Land Record Officer (Patwari)",  # Job
+        "व.सीमेन्ट": "Cement Worker",  # Job
+        "आयुष नर्स": "Ayush Nurse",  # Job
+        "रा0सेवा": "Government Service",  # Job
+        "अधयापिका": "Teacher",  # Job
+        "प. स्टोन": "Stone Business",  # Business
+        "अधयापक": "Teacher",  # Job
+        "सो.इन्जिनियर": "Software Engineer",  # Job
+        "भा.रे.सेवा.": "Indian Railways Service",  # Job
+        "कॉनट्रेक्टर": "Contractor",  # Business
+        "ईले. इन्जि": "Electrical Engineer",  # Job
+        "बैंक मैं.": "Bank Staff",  # Job
+        "सीमेन्ट फ.": "Cement Factory",  # Business
+        "रा0नौ": "Government Job"  # Job
+    }
+    occupation_type_map = {
+        "स्वव्यसाय": "Business",
+        "समाजसेविका": "Job",
+        "स्वव्यवसाय": "Business",
+        "मेवाड ले0": "Job",
+        "डेल कं.": "Job",
+        "व्याख्याता": "Job",
+        "एबीपीएम": "Job",
+        "रा0नौकरी": "Job",
+        "टंलरिंग": "Business",
+        "सर.नौकरी": "Job",
+        "फ्रीलांस आर्टीस्ट": "Business",
+        "मैकेनिक": "Job",
+        "स्क्रेप व्यापार": "Business",
+        "जोशी प्रिन्टर्स": "Business",
+        "एडवोकेट": "Job",
+        "नौकरी": "Job",
+        "प्रिन्ट प्रेस": "Business",
+        "आकाउटेन्ट": "Job",
+        "प्राध्यापक": "Job",
+        "रा.सेवा वि.": "Job",
+        "रा0 सेवा": "Job",
+        "पेंशनर": "Retired",
+        "साॅ. इन्जि.": "Job",
+        "हलवाई": "Business",
+        "आ.सहयेागिनी": "Job",
+        "राज0सेवा": "Job",
+        "व्यवसाय": "Business",
+        "आ0 माईन्स": "Business",
+        "श्रम न्यायालय": "Job",
+        "वकालात": "Job",
+        "ठेकेदार": "Business",
+        "रा. सेवा.शि.": "Job",
+        "इन्जिनियर": "Job",
+        "अधययन": "Student",
+        "अध्ययन": "Student",
+        "सरकारी क0": "Job",
+        "प्रा0 नौकरी": "Job",
+        "डाॅक्यूमेन्ट असि0": "Job",
+        "हि.जिंक": "Job",
+        "अध्यापिक": "Job",
+        "स0नौकरी": "Job",
+        "नर्सिंग": "Job",
+        "पं. सहायक": "Job",
+        "ट्रांसपोर्ट": "Business",
+        "अमूल डेयरी": "Business",
+        "अकाउंटेन्ट": "Job",
+        "साॅ. डवलपर": "Job",
+        "सीए": "Job",
+        "बि. उपकरण": "Business",
+        "नौकरी टीसीसी": "Job",
+        "साॅफ्ट.इन्जि": "Job",
+        "प्रो0 डिलर": "Business",
+        "महाप्रबंधक": "Job",
+        "मा.इन्जि": "Job",
+        "न्याय वि0": "Job",
+        "बैंक सेवा": "Job",
+        "प्रा.नौकरी": "Job",
+        "ग्राम सेवक": "Job",
+        "प्रा. नौकरी": "Job",
+        "रा. सेवा": "Job",
+        "रेस्टोरेन्ट": "Business",
+        "फि0 चेकर": "Job",
+        "आंगूचा मा0": "Job",
+        "पंचायत रा.": "Job",
+        "मार्बल": "Business",
+        "ब्यूटी पार्लर": "Business",
+        "अ.बाल.क.स.": "Job",
+        "मैनेजर रेमडस": "Job",
+        "बैंक मैनेजर": "Job",
+        "सेवानिवृत": "Retired",
+        "कनि.लेख.": "Job",
+        "कृषि": "Business",
+        "फीटर": "Job",
+        "रा.पुलिस": "Job",
+        "राज. सेवा": "Job",
+        "बि0मे0सप्ला0": "Job",
+        "गृहिणी": "Housewife",
+        "होमगार्ड": "Job",
+        "एसडीएम": "Job",
+        "सॉफ्ट. इन्जि": "Job",
+        "प्रोपर्टी": "Business",
+        "प्रधानाध्यापिका": "Job",
+        "साफ्टवेयर डवलपर": "Job",
+        "आंगनवाड़ी": "Job",
+        "राज.सेवा": "Job",
+        "पण्डिताई": "Job",
+        "ज्योतिष": "Business",
+        "प्रो. स्टोर": "Business",
+        "आंगनवाडी": "Job",
+        "अध्यापक": "Job",
+        "रा.सेवा": "Job",
+        "कृषि व्यापार": "Business",
+        "खनन व्य0": "Business",
+        "जि.परिषद": "Job",
+        "व.सहा.": "Job",
+        "से0सि0इन": "Job",
+        "मैलनर्स व्यापार": "Business",
+        "व्यापार": "Business",
+        "शाॅप": "Business",
+        "एमआर": "Job",
+        "अध्यापिका": "Job",
+        "ब्लाॅक मै.": "Job",
+        "स0डेयरी": "Business",
+        "डाॅक्टर": "Job",
+        "पैंशनर": "Retired",
+        "मैकनिक": "Job",
+        "मैके.इन्जि": "Job",
+        "ड्राईवर": "Job",
+        "पटवारी": "Job",
+        "व.सीमेन्ट": "Job",
+        "आयुष नर्स": "Job",
+        "रा0सेवा": "Job",
+        "अधयापिका": "Job",
+        "प. स्टोन": "Business",
+        "अधयापक": "Job",
+        "सो.इन्जिनियर": "Job",
+        "भा.रे.सेवा.": "Job",
+        "कॉनट्रेक्टर": "Business",
+        "ईले. इन्जि": "Job",
+        "बैंक मैं.": "Job",
+        "सीमेन्ट फ.": "Business",
+        "रा0नौ": "Job",
+    }
     if 'gotra' in df.columns:
         df['gotra'] = df['gotra'].apply(lambda x: gotra_map.get(str(x).strip(), x))
 
@@ -772,6 +1046,9 @@ def convert_kruti_excel(input_file, output_file, skip_columns):
 
     if 'degree' in df.columns:
         df['degree'] = df['degree'].apply(lambda x: degree_map.get(str(x).strip(), x))
+
+    df['occupation'] = df['occupation_type'].apply(lambda x: occupation_map.get(str(x).strip(), x))
+    df['occupation_type'] = df['occupation_type'].apply(lambda x: occupation_type_map.get(str(x).strip(), x))
 
     # Save converted DataFrame to a new Excel file
     df.to_excel(output_file, index=False)
