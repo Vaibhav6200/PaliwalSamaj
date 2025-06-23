@@ -65,7 +65,7 @@ role_data = {
 }
 
 # Base path for your local static images
-IMAGE_DIR = 'static/images/profile/'
+IMAGE_DIR = '../static/images/profile/'
 
 
 def populate_members():
