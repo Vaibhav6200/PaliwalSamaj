@@ -4,7 +4,7 @@ import random
 import django
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '../paliwalsamaj.settings')
 django.setup()
 
 from SamajApp.models import DisplayMember, DisplayMemberGroup

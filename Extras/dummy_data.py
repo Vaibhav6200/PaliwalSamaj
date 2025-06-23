@@ -6,7 +6,7 @@ from faker import Faker
 
 fake = Faker()
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '../paliwalsamaj.settings')
 django.setup()
 
 from SamajApp.models import Family, Member, QualificationDetail, OccupationDetail, NewsEvent, Comment
