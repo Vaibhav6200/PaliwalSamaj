@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from django.utils.html import format_html
 
 
 @admin.register(Family)
@@ -27,6 +28,7 @@ class MemberAdmin(admin.ModelAdmin):
         'user',
         'family',
         'full_name',
+        'email',
         'father_name',
         'mother_name',
         'date_of_birth',
@@ -125,20 +127,6 @@ class NewsletterAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'email')
 
 
-@admin.register(SamajMemberRoles)
-class SamajMemberRolesAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'member_name',
-        'member_image',
-        'role',
-        'location',
-        'phone_number',
-        'created_at',
-    )
-    list_display_links = ('id', 'member_name')
-
-
 @admin.register(Suggestion)
 class SuggestionAdmin(admin.ModelAdmin):
     list_display = (
@@ -189,3 +177,35 @@ class CultureAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
+@admin.register(DisplayMemberGroup)
+class DisplayMemberGroupAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'group_name',
+        'created_at',
+    )
+    list_display_links = ('id', 'group_name')
+
+
+@admin.register(DisplayMember)
+class DisplayMemberAdmin(admin.ModelAdmin):
+    def member_image_thumbnail(self, object):
+        if object.member_image:
+            return format_html(
+                '<img src="{}" width="50px"  height="50px" style="border-radius: 50%; " />'.format(object.member_image.url))
+        else:
+            return format_html('<img src="/static/images/user-icon.png" width="50" height="50" style="border-radius: 50%;" />')
+
+    list_display = (
+        'member_image_thumbnail',
+        'member_name',
+        'group',
+        'rank',
+        'role',
+        'location',
+        'phone_number',
+        'created_at',
+    )
+    list_display_links = ('member_name',)
+    member_image_thumbnail.short_description = "member photo"
+    list_filter = ('group',)

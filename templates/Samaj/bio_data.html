@@ -34,7 +34,7 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Father Name" %}</label>
-                                    <input class="form-control form-control-email" name="father_name" id="father_name" type="text" required
+                                    <input class="form-control form-control-name" name="father_name" id="father_name" type="text" required
                                     value="{{ edit_member.father_name|default:'' }}">
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                 <div class="form-group">
                                     <label>{% trans "Email (optional)" %}</label>
                                     <input type="text" class="form-control form-control-email" name="email" id="email"
-                                    value="{{ edit_member.user.email|default:'' }}">
+                                    value="{{ edit_member.email|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
@@ -185,9 +185,9 @@
                                     <label for="qualification">{% trans "Qualification" %}</label>
                                     <select name="qualification" class="form-control" id="qualification">
                                         <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select</option>
-                                        <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>{% trans "Undergraduate" %}</option>
-                                        <option value="graduate" {% if edit_member.qualification_type == 'graduate' %}selected{% endif %}>{% trans "Graduate" %}</option>
                                         <option value="school" {% if edit_member.qualification_type == 'school' %}selected{% endif %}>{% trans "School" %}</option>
+                                        <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>{% trans "College" %}</option>
+                                        <option value="graduate" {% if edit_member.qualification_type == 'graduate' %}selected{% endif %}>{% trans "Graduate" %}</option>
                                     </select>
                                 </div>
                             </div>
@@ -234,9 +234,9 @@
                                     <label for="occupation">Occupation</label>
                                     <select name="occupation" class="form-control" id="occupation">
                                         <option value="" disabled {% if not edit_member.occupation_type %}selected{% endif %}>Select Occupation</option>
-                                        <option value="none" {% if edit_member.occupation_type == 'none' %}selected{% endif %}>{% trans "Not Applicable" %}</option>
-                                        <option value="job" {% if edit_member.occupation_type == 'job' %}selected{% endif %}>{% trans "Job" %}</option>
-                                        <option value="business" {% if edit_member.occupation_type == 'business' %}selected{% endif %}>{% trans "Business" %}</option>
+                                        {% for label, value in occupation_type %}
+                                            <option value="{{ label }}" {% if edit_member.occupation_type == label %}selected{% endif %}>{{ value }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>

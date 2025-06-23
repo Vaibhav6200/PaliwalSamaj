@@ -1,11 +1,13 @@
 import os
+import random
+
 import django
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
 django.setup()
 
-from SamajApp.models import SamajMemberRoles
+from SamajApp.models import DisplayMember, DisplayMemberGroup
 from django.core.files import File
 
 
@@ -67,8 +69,9 @@ IMAGE_DIR = 'static/images/profile/'
 
 
 def populate_members():
+    groups = DisplayMemberGroup.objects.all()
     for role, members in role_data.items():
-        for member in members:
+        for index, member in enumerate(members):
             if len(member) == 4:
                 name, location, image_name, phone = member
             else:
@@ -77,11 +80,13 @@ def populate_members():
 
             image_path = os.path.join(IMAGE_DIR, image_name) if image_name else None
 
-            instance = SamajMemberRoles(
+            instance = DisplayMember(
+                group = random.choice(groups),
                 member_name=name,
                 location=location,
                 phone_number=phone,
-                role=role
+                role=role,
+                rank = index+1
             )
 
             if image_name and os.path.isfile(image_path):

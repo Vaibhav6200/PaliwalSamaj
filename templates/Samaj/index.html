@@ -151,11 +151,12 @@
     <!-- Event Section End -->
 
 
-    <!-- Netritva Mandal Section Start -->
-    <section class="container bg-light">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">{% trans "Netritva Mandal" %}</h3>
+    <!-- Display Member Section Start -->
+    {% for group in display_groups %}
+    <section class="container bg-light mb-3">
+        <h3 class="column-title mb-5 pb-3 w-100 text-center">{{ group.group_name }}</h3>
         <div class="row m-0">
-            {% for member in netritva_mandal %}
+            {% for member in group.displaymember_set.all %}
             <div class="col-6 col-md-4 col-lg-3 p-2">
                 <div class="item">
                     <div class="ts-team-wrapper">
@@ -186,145 +187,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!--/ Team wrapper end -->
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </section>
-    <!-- Netritva Mandal Section End -->
-
-    <!-- Sanchalan Samiti Section Start -->
-    <section class="container bg-light mt-5">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center"> {% trans "Sanchalan Samiti" %} </h3>
-        <div class="row m-0">
-            {% for member in sanchalan_samiti %}
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            {% if member.member_image %}
-                            <img loading="lazy" class="w-100" src="{{ member.member_image.url }}" alt="team-img">
-                            {% else %}
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                            {% endif %}
-                        </div>
-                        <div class="ts-team-content d-flex flex-column justify-content-between">
-                            <div>
-                                <h3 class="ts-name">{{ member.member_name }}</h3>
-                            </div>
-                            <div>
-                                <div class="">
-                                    <div class="ts-designation mb-0 border-bottom pb-2 mb-1">{{ member.get_role_display }}</div>
-                                    {% if member.phone_number %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                        <div class="text-white ms-2">{{ member.phone_number }}</div>
-                                    </div>
-                                    {% endif %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                        <div class="text-white ms-2">{{ member.location }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    <!-- Sanchalan Samiti Section End -->
-
-
-    <!-- Salah evam Aayojan Mandal Section Start -->
-    <section class="container bg-light mt-5">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">{% trans "Salah evam Aayojan Mandal" %}</h3>
-        <div class="row m-0">
-            {% for member in aayojan_mandal %}
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            {% if member.member_image %}
-                            <img loading="lazy" class="w-100" src="{{ member.member_image.url }}" alt="team-img">
-                            {% else %}
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                            {% endif %}
-                        </div>
-                        <div class="ts-team-content d-flex flex-column justify-content-between">
-                            <div>
-                                <h3 class="ts-name">{{ member.member_name }}</h3>
-                            </div>
-                            <div>
-                                <div class="">
-                                    <div class="ts-designation mb-0 border-bottom pb-2 mb-1">{{ member.get_role_display }}</div>
-                                    {% if member.phone_number %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                        <div class="text-white ms-2">{{ member.phone_number }}</div>
-                                    </div>
-                                    {% endif %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                        <div class="text-white ms-2">{{ member.location }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    <!-- Salah evam Aayojan Mandal Section End -->
-
-
-    <!-- Karyakarini Sadasya Section Start -->
-    <section class="container bg-light mt-5">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">{% trans "Karyakarini Sadasya" %}</h3>
-        <div class="row m-0">
-            {% for member in karyakarini_sadasya %}
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper">
-                        <div class="team-img-wrapper">
-                            {% if member.member_image %}
-                            <img loading="lazy" class="w-100" src="{{ member.member_image.url }}" alt="team-img">
-                            {% else %}
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
-                            {% endif %}
-                        </div>
-                        <div class="ts-team-content d-flex flex-column justify-content-between">
-                            <div>
-                                <h3 class="ts-name">{{ member.member_name }}</h3>
-                            </div>
-                            <div>
-                                <div class="">
-                                    <div class="ts-designation mb-0 border-bottom pb-2 mb-1">{{ member.get_role_display }}</div>
-                                    {% if member.phone_number %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                        <div class="text-white ms-2">{{ member.phone_number }}</div>
-                                    </div>
-                                    {% endif %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                        <div class="text-white ms-2">{{ member.location }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!--/ Team wrapper end -->
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    <!-- Karyakarini Sadasya Section End -->
-
+    {% endfor %}
+    <!-- Display Member Section End -->
 
     <!-- Suggestion Form Start -->
     <section id="suggestion_section" class="main-container">

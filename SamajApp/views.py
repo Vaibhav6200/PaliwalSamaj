@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, SamajMemberRoles, Sandesh, Gallery, Culture
+    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup
 from django.contrib import messages
 from .utils import generate_username, MessageHandler, calculate_age
 from datetime import date, timedelta
@@ -20,30 +20,19 @@ def site_login(request):
 def index(request):
     news_events_obj = NewsEvent.objects.all()
 
-    netritva_mandal = SamajMemberRoles.objects.filter(
-        Q(role='adhyaksh')|
-        Q(role='upadhyaksh')|
-        Q(role='sachiv') |
-        Q(role='koshadhyaksh')
+    # Get all groups and prefetch members ordered by rank
+    display_groups = DisplayMemberGroup.objects.prefetch_related(
+        Prefetch(
+            'displaymember_set',
+            queryset=DisplayMember.objects.order_by('rank')
+        )
     )
-    sanchalan_samiti = SamajMemberRoles.objects.filter(
-        Q(role='mahila_adhyaksh')|
-        Q(role='saha_sachiv') |
-        Q(role='sanrakshak')
-    )
-    aayojan_mandal = SamajMemberRoles.objects.filter(
-        Q(role='salahkaar') |
-        Q(role='aayojan_samiti')
-    )
-    karyakarini_sadasya = SamajMemberRoles.objects.filter(role='karyakari_sadasya')
 
     context = {
         'news_and_events': news_events_obj,
-        'netritva_mandal': netritva_mandal,
-        'sanchalan_samiti': sanchalan_samiti,
-        'aayojan_mandal': aayojan_mandal,
-        'karyakarini_sadasya': karyakarini_sadasya,
+        'display_groups': display_groups,
     }
+
     return render(request, 'Samaj/index.html', context)
 
 
@@ -53,6 +42,7 @@ def bio_data(request):
         'family_code': Member.objects.get(user=request.user).family.family_code,
         'gotras': Member.GOTRA_CHOICES,
         'degrees': QualificationDetail.DEGREE_CHOICES,
+        'occupation_type': Member.OCCUPATION_CHOICES,
     }
     if request.method == 'POST':
         edit_member_user_id = request.POST.get('user_id')
@@ -74,20 +64,16 @@ def handle_bio_data_form(request, family_code):
         if user_id:
             # UPDATE FLOW
             user = get_object_or_404(User, id=user_id)
-            user.email = email
-            user.save()
             member, _ = Member.objects.get_or_create(user=user, family=family)
             messages.success(request, 'Profile Updated Successfully')
         else:
             # CREATE FLOW
-            user = User(username=generate_username(full_name))
-            if email:
-                user.email=email
-            user.save()
+            user = User.objects.create(username=generate_username(full_name))
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
         member.full_name = full_name
+        member.email = email
         member.father_name = request.POST.get('father_name')
         member.mother_name = request.POST.get('mother_name')
         member.birth_place = request.POST.get('birth_place')

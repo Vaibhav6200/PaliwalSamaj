@@ -59,6 +59,9 @@ class Member(models.Model):
         ('none', _('None')),
         ('job', _('Job')),
         ('business', _('Business')),
+        ('student', _("Student")),
+        ('retired', _("Retired")),
+        ('housewife', _("Housewife"))
     ]
     GOTRA_CHOICES = [
         ('agastya', _('Agastya')),
@@ -132,18 +135,19 @@ class Member(models.Model):
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
+    email = models.EmailField(null=True, blank=True)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100, null=True, blank=True)
     date_of_birth = models.DateField()
-    birth_place = models.CharField(max_length=100)
-    birth_time = models.TimeField()
+    birth_place = models.CharField(max_length=100, null=True, blank=True)
+    birth_time = models.TimeField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS_CHOICES)
     height = models.PositiveSmallIntegerField(null=True, blank=True, help_text="Height in cm")
-    phone_number = models.CharField(max_length=15, unique=True)
+    phone_number = models.CharField(max_length=15, unique=True, null=True, blank=True)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
     gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES)
-    current_address = models.TextField()
+    current_address = models.TextField(null=True, blank=True)
     current_address_village = models.TextField(max_length=100, null=True, blank=True)
     current_address_city = models.TextField(max_length=100, null=True, blank=True)
     current_address_state = models.TextField(max_length=100, null=True, blank=True)
@@ -223,7 +227,7 @@ class OccupationDetail(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"Occupation for {self.member.user}"
+        return f"Occupation for {self.member}"
 
 
 class NewsEvent(models.Model):
@@ -278,24 +282,42 @@ class Newsletter(models.Model):
     objects = models.Manager()
 
 
-class SamajMemberRoles(models.Model):
+class DisplayMemberGroup(models.Model):
     class Meta:
-        verbose_name_plural = 'Samaj Member Roles'
+        verbose_name_plural = 'Display Groups'
+
+    group_name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.group_name}"
+
+
+class DisplayMember(models.Model):
+    class Meta:
+        verbose_name_plural = 'Display Members'
 
     ROLE_CHOICES = [
-        ('sanrakshak', 'Sanrakshak'),
-        ('mahila_adhyaksh', 'Mahila Adhyaksh'),
-        ('koshadhyaksh', 'Koshadhyaksh'),
-        ('saha_sachiv', 'Saha Sachiv'),
-        ('salahkaar', 'Salahkaar'),
-        ('aayojan_samiti', 'Aayojan Samiti'),
-        ('karyakari_sadasya', 'Karyakari Sadasya'),
+        ('adhyaksh', _('Adhyaksh')),
+        ('upadhyaksh', _('Upadhyaksh')),
+        ('sachiv', _('Sachiv')),
+        ('sanrakshak', _('Sanrakshak')),
+        ('mahila_adhyaksh', _('Mahila Adhyaksh')),
+        ('koshadhyaksh', _('Koshadhyaksh')),
+        ('saha_sachiv', _('Saha Sachiv')),
+        ('salahkaar', _('Salahkaar')),
+        ('aayojan_samiti', _('Aayojan Samiti')),
+        ('karyakari_sadasya', _('Karyakari Sadasya')),
     ]
+    group = models.ForeignKey(DisplayMemberGroup, on_delete=models.CASCADE)
     member_name = models.CharField(max_length=255)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES)
-    member_image = models.FileField('samaj_role_members', null=True, blank=True)
+    member_image = models.FileField(upload_to='samaj_display_members', null=True, blank=True)
     location = models.CharField(max_length=100, null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
+    rank = models.PositiveSmallIntegerField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
