@@ -4,8 +4,7 @@ from .models import Member, QualificationDetail, OccupationDetail, Culture
 
 class MemberTranslationOptions(TranslationOptions):
     fields = (
-        'first_name',
-        'last_name',
+        'full_name',
         'father_name',
         'mother_name',
         'birth_place',

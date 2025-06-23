@@ -31,7 +31,7 @@ def translate_member_fields(member_id, lang='en'):
         except Exception as e:
             print(f"Translation failed for field '{modal_field}': {e}")
 
-    member_modal_translation_fields = ['first_name', 'last_name', 'father_name', 'mother_name', 'birth_place', 'current_address', 'current_address_village', 'current_address_city', 'current_address_state']
+    member_modal_translation_fields = ['full_name', 'father_name', 'mother_name', 'birth_place', 'current_address', 'current_address_village', 'current_address_city', 'current_address_state']
     qualification_modal_translation_fields = ['school_name', 'college_name']
     occupation_modal_translation_fields = ['company_name', 'company_location', 'job_description', 'business_name', 'business_location', 'business_description']
 

@@ -70,9 +70,9 @@
                             <h5 class="news-card-title fs-5 border-bottom pb-2 border-secondary">
 
                                 {% if sandesh.sender.user == request.user %}
-                                    {% trans "Sent to" %} - {{ sandesh.receiver.first_name }} {{ sandesh.receiver.last_name }}
+                                    {% trans "Sent to" %} - {{ sandesh.receiver.full_name }}
                                 {% else %}
-                                    {% trans "Sent by" %} - {{ sandesh.sender.first_name }} {{ sandesh.sender.last_name }}
+                                    {% trans "Sent by" %} - {{ sandesh.sender.full_name }}
                                 {% endif %}
 
                             </h5>

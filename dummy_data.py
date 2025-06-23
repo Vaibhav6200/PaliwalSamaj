@@ -60,8 +60,7 @@ def populate_members(n):
         member = Member.objects.create(
             family=family,
             user = user,
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
+            full_name=f"{fake.first_name()} {fake.last_name()}",
             father_name=f"{fake.first_name()} {fake.last_name()}",
             mother_name=f"{fake.first_name()} {fake.last_name()}",
             date_of_birth=date(1990 + i % 10, 1, 15),

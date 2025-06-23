@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from datetime import date
 
-def generate_username(first_name, last_name):
-    base_username = slugify(f"{first_name}.{last_name}")
+def generate_username(full_name):
+    base_username = slugify(full_name)
     while True:
         random_suffix = ''.join(random.choices(string.digits, k=4))
         username = f"{base_username}{random_suffix}"

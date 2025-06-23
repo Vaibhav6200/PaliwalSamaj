@@ -92,11 +92,7 @@ $(document).ready(function () {
 
   $("#contact-form").validate({
   rules: {
-    first_name: {
-      required: true,
-      noSpace: true
-    },
-    last_name: {
+    full_name: {
       required: true,
       noSpace: true
     },

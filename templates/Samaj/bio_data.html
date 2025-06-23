@@ -26,16 +26,9 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label for="first_name">{% trans "First Name" %}</label>
-                                    <input class="form-control form-control-name" name="first_name" id="first_name" type="text" required
-                                           value="{{ edit_member.first_name|default:'' }}">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <div class="form-group">
-                                    <label for="last_name">{% trans "Last Name" %}</label>
-                                    <input class="form-control form-control-name" name="last_name" id="last_name" type="text" required
-                                    value="{{ edit_member.last_name|default:'' }}">
+                                    <label for="full_name">{% trans "Full Name" %}</label>
+                                    <input class="form-control form-control-name" name="full_name" id="full_name" type="text" required
+                                           value="{{ edit_member.full_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
@@ -122,7 +115,7 @@
                                     value="{{ edit_member.user.email|default:'' }}">
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label for="gotra">{% trans "Gotra" %}</label>
                                     <select name="gotra" class="form-control" id="gotra" required>
@@ -133,7 +126,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-8">
                                 <div class="form-group">
                                     <label>{% trans "Address" %}</label>
                                     <input type="text" class="form-control form-control-object" name="address" id="address" required

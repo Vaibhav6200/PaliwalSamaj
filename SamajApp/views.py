@@ -67,8 +67,7 @@ def handle_bio_data_form(request, family_code):
         user_id = request.POST.get('edit_member_user_id')
         family = get_object_or_404(Family, family_code=family_code)
 
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
+        full_name = request.POST.get('full_name')
         email = request.POST.get('email')
 
         # Check if we're updating or creating
@@ -81,15 +80,14 @@ def handle_bio_data_form(request, family_code):
             messages.success(request, 'Profile Updated Successfully')
         else:
             # CREATE FLOW
-            user = User(username=generate_username(first_name, last_name))
+            user = User(username=generate_username(full_name))
             if email:
                 user.email=email
             user.save()
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
-        member.first_name = first_name
-        member.last_name = last_name
+        member.full_name = full_name
         member.father_name = request.POST.get('father_name')
         member.mother_name = request.POST.get('mother_name')
         member.birth_place = request.POST.get('birth_place')
@@ -190,7 +188,7 @@ def handle_member_delete(request):
         # Check if the member to delete is the head of the family
         is_family_head = (login_user_family.family_head == delete_member)
 
-        delete_member_name = f"{delete_member.first_name} {delete_member.last_name}"
+        delete_member_name = f"{delete_member.full_name}"
         delete_member.delete()
 
         # If the deleted member was the family head, assign the logged-in user as the new family head
@@ -222,14 +220,11 @@ def community(request):
         state = request.GET.get('state')
 
 
-        # 🔍 Name filtering (splitting and checking each word in both first_name and last_name)
+        # 🔍 Name filtering (splitting and checking each word in full_name)
         if name:
             name_parts = name.strip().split()
             for part in name_parts:
-                community_members = (
-                    community_members.filter(user__first_name__icontains=part) |
-                    community_members.filter(user__last_name__icontains=part)
-                )
+                community_members = (community_members.filter(user__full_name__icontains=part))
 
         today = date.today()
         if min_age_value and max_age_value:
@@ -266,7 +261,7 @@ def community(request):
         if state:
             community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
 
-    community_members = community_members.order_by('first_name', 'last_name')
+    community_members = community_members.order_by('full_name')
     paginator = Paginator(community_members, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -464,12 +459,11 @@ def get_member_search_list(request):
         query = Q()
         for word in words:
             query |= Q(phone_number__icontains=word)
-            query |= Q(user__first_name__icontains=word)
-            query |= Q(user__last_name__icontains=word)
+            query |= Q(user__full_name__icontains=word)
         objs = Member.objects.filter(query)
         for obj in objs:
             payload.append({
-                'member_name': f"{obj.first_name} {obj.last_name}",
+                'member_name': obj.full_name,
                 'member_phone': obj.phone_number,
             })
     return JsonResponse({

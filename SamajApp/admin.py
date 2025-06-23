@@ -4,7 +4,19 @@ from .models import *
 
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'family_code', 'family_head', 'created_at', 'updated_at')
+    list_display = (
+        'id',
+        'name',
+        'family_code',
+        'family_head',
+        'paitrik_address',
+        'paitrik_address_village',
+        'paitrik_address_city',
+        'paitrik_address_state',
+        'paitrik_address_pincode',
+        'created_at',
+        'updated_at'
+    )
     list_display_links = ('id', 'name')
 
 
@@ -14,8 +26,7 @@ class MemberAdmin(admin.ModelAdmin):
         'id',
         'user',
         'family',
-        'first_name',
-        'last_name',
+        'full_name',
         'father_name',
         'mother_name',
         'date_of_birth',
