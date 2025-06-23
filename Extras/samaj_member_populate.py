@@ -1,10 +1,14 @@
-import os
-import random
+import os, sys, random
 
-import django
 
+# 1) find the repo root: that's one level up from Extras/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# 2) make sure Python can import your `paliwalsamaj` package
+sys.path.insert(0, BASE_DIR)
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paliwalsamaj.settings')
+import django
+
 django.setup()
 
 from SamajApp.models import DisplayMember, DisplayMemberGroup
