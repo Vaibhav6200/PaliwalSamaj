@@ -153,7 +153,7 @@ class Member(models.Model):
     current_address_state = models.TextField(max_length=100, null=True, blank=True)
     current_address_pincode = models.CharField(max_length=10, null=True, blank=True)
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-    qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES)
+    qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES, null=True, blank=True)
     occupation_type = models.CharField(max_length=20, choices=OCCUPATION_CHOICES, default='none')
     facebook_link = models.URLField(null=True, blank=True)
     instagram_link = models.URLField(null=True, blank=True)

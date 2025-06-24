@@ -6,7 +6,7 @@ from django.conf import settings
 from datetime import date
 
 def generate_username(full_name):
-    base_username = slugify(full_name)
+    base_username = slugify(full_name, allow_unicode=True)
     while True:
         random_suffix = ''.join(random.choices(string.digits, k=4))
         username = f"{base_username}{random_suffix}"
