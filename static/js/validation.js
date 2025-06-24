@@ -106,9 +106,6 @@ $(document).ready(function () {
     date_of_birth: {
       birthDateCheck: true
     },
-    birth_place: {
-      birthDateCheck: true
-    },
     birth_time: {
       birthTimeCheck: true
     },
