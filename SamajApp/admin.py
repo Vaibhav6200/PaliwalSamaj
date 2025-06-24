@@ -20,6 +20,7 @@ class FamilyAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'name')
+    list_filter = ('name', 'family_head', 'family_code')
 
 
 class CustomUserAdmin(DefaultUserAdmin):
@@ -59,7 +60,7 @@ class MemberAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'family', 'user')
-    list_filter = ('full_name', 'phone_number')
+    list_filter = ('full_name', 'family', 'phone_number')
 
 
 @admin.register(QualificationDetail)
@@ -75,6 +76,7 @@ class QualificationDetailAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'member')
+    list_filter = ('member',)
 
 
 @admin.register(OccupationDetail)
@@ -92,6 +94,7 @@ class OccupationDetailAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'member')
+    list_filter = ('member',)
 
 
 @admin.register(NewsEvent)
@@ -108,6 +111,7 @@ class NewsEventAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'title')
+    list_filter = ('title',)
 
 
 @admin.register(Comment)
@@ -131,6 +135,7 @@ class NewsletterAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'email')
+    list_filter = ('email',)
 
 
 @admin.register(Suggestion)
@@ -143,6 +148,7 @@ class SuggestionAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'name')
+    list_filter = ('name','email')
 
 
 @admin.register(Sandesh)
@@ -156,6 +162,7 @@ class SandeshAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'sender')
+    list_filter = ('sender', 'receiver')
 
 
 @admin.register(Gallery)
@@ -170,6 +177,7 @@ class GalleryAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'title')
+    list_filter = ('year',)
 
 
 @admin.register(Culture)
