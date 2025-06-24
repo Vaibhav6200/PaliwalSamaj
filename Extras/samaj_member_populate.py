@@ -104,8 +104,8 @@ def populate_members():
 
 def populate_groups():
     grp_list = ['Karyakarini Sadasya', 'Netritva Mandal', 'Sanchalan Samiti', 'Salah evam Aayojan Mandal']
-    for group in grp_list:
-        DisplayMemberGroup.objects.create(group_name=group)
+    for idx, group in enumerate(grp_list):
+        DisplayMemberGroup.objects.create(group_name=group, group_rank=idx+1)
 
 if __name__ == "__main__":
     populate_groups()
