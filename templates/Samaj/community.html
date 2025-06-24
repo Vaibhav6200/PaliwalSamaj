@@ -30,8 +30,8 @@
                 <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="name">{% trans "Name" %}</label>
-                            <input class="form-control form-control-name only_alphabets" name="name" id="name"
+                            <label for="full_name">{% trans "Name" %}</label>
+                            <input class="form-control form-control-name only_alphabets" name="full_name" id="full_name"
                                    maxlength="50" placeholder="Name" type="text">
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="gender">{% trans "Gender" %}</label>
-                            <select name="gender" class="form-control" id="gender">
+                            <select name="member_gender" class="form-control" id="gender">
                                 <option value="" selected disabled>Select</option>
                                 <option value="male">{% trans "Male" %}</option>
                                 <option value="female">{% trans "Female" %}</option>
@@ -114,6 +114,7 @@
                     </div>
                     <div class="col-12 my-3 text-end">
                         <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
+                        <a href="{% url 'samaj:community' %}" class="btn btn-primary" type="submit">{% trans "Clear" %}</a>
                     </div>
                 </div>
             </form>
@@ -169,13 +170,7 @@
                                             <div class="d-flex align-items-center py-2 border-bottom border-white">
                                                 <div class=""><span class="material-icons fs-5 ">location_on</span></div>
                                                 <div class="text-white ms-2">
-                                                    {% if member.current_address_city %}
-                                                        {{ member.current_address_city }}
-                                                    {% elif member.current_address_state %}
-                                                        {{ member.current_address_state }}
-                                                    {% else %}
-                                                        {{ member.current_address }}
-                                                    {% endif %}
+                                                        {{ member.current_address_city }}, {{ member.current_address_state }}
                                                 </div>
                                             </div>
                                         </div>
@@ -209,6 +204,7 @@
                         <table class="table table-bordered table-hover">
                             <thead class="table-light">
                                 <tr>
+                                    <th>Sr. No.</th>
                                     <th>Full Name</th>
                                     <th>Father Name</th>
                                     <th>DOB</th>
@@ -220,11 +216,12 @@
                             <tbody>
                                 {% for member in community_members %}
                                 <tr>
+                                    <td>{{ forloop.counter }}</td>
                                     <td>{{ member.full_name }}</td>
                                     <td>{{ member.father_name }}</td>
                                     <td>{{ member.date_of_birth }}</td>
                                     <td>{{ member.get_marital_status_display }}</td>
-                                    <td>{{ member.city }}, {{ member.state }}</td>
+                                    <td>{{ member.current_address_city }}, {{ member.current_address_state }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{% url 'samaj:user_profile' member.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"

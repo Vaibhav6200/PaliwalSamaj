@@ -195,11 +195,11 @@ def community(request):
 
     community_members = Member.objects.all()
     if request.method == 'GET':
-        name = request.GET.get('name')
+        name = request.GET.get('full_name')
         min_age_value = request.GET.get('min_age_value')
         max_age_value = request.GET.get('max_age_value')
         gotra = request.GET.get('gotra')
-        gender = request.GET.get('gender')
+        gender = request.GET.get('member_gender')
         education = request.GET.get('education')
         village = request.GET.get('village')
         city = request.GET.get('city')
@@ -248,7 +248,7 @@ def community(request):
             community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
 
     community_members = community_members.order_by('full_name')
-    paginator = Paginator(community_members, 10)
+    paginator = Paginator(community_members, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context['community_members'] = page_obj
