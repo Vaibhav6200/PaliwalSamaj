@@ -96,7 +96,7 @@ def populate_members():
 
             if image_name and os.path.isfile(image_path):
                 with open(image_path, 'rb') as img_file:
-                    instance.member_image.save(f"samaj_home_members/{image_name}", File(img_file), save=False)
+                    instance.member_image.save(f"samaj_display_members/{image_name}", File(img_file), save=False)
 
             instance.save()
             print(f"✅ Saved: {name} - Role: {role}")
