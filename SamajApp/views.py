@@ -210,7 +210,7 @@ def community(request):
         if name:
             name_parts = name.strip().split()
             for part in name_parts:
-                community_members = (community_members.filter(user__full_name__icontains=part))
+                community_members = (community_members.filter(full_name__icontains=part))
 
         today = date.today()
         if min_age_value and max_age_value:
@@ -445,7 +445,7 @@ def get_member_search_list(request):
         query = Q()
         for word in words:
             query |= Q(phone_number__icontains=word)
-            query |= Q(user__full_name__icontains=word)
+            query |= Q(full_name__icontains=word)
         objs = Member.objects.filter(query)
         for obj in objs:
             payload.append({
