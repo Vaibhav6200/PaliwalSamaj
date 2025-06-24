@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 from django.utils.html import format_html
+from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 
 
 @admin.register(Family)
@@ -19,6 +20,10 @@ class FamilyAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'name')
+
+
+class CustomUserAdmin(DefaultUserAdmin):
+    search_fields = ('username',)
 
 
 @admin.register(Member)
@@ -54,6 +59,7 @@ class MemberAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'family', 'user')
+    list_filter = ('full_name', 'phone_number')
 
 
 @admin.register(QualificationDetail)
