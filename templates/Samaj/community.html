@@ -205,6 +205,7 @@
                 <!-- Table View -->
                 <div class="tab-pane fade show active" id="table" role="tabpanel">
                     <div class="table-responsive">
+                        {% if community_members %}
                         <table class="table table-bordered table-hover">
                             <thead class="table-light">
                                 <tr>
@@ -217,7 +218,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if community_members %}
                                 {% for member in community_members %}
                                 <tr>
                                     <td>{{ member.full_name }}</td>
@@ -240,11 +240,11 @@
                                 </tr>
 
                                 {% endfor %}
-                                {% else %}
-                                    <tr class="py-3">{% trans "Family Member Not Found" %} 🥲</tr>
-                                {% endif %}
                             </tbody>
                         </table>
+                        {% else %}
+                            <div class="py-3">{% trans "Family Member Not Found" %} 🥲</div>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Table View End -->
