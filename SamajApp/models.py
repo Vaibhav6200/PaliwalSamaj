@@ -142,7 +142,7 @@ class Member(models.Model):
     birth_place = models.CharField(max_length=100, null=True, blank=True)
     birth_time = models.TimeField(null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
-    marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS_CHOICES)
+    marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS_CHOICES, default='unmarried')
     height = models.PositiveSmallIntegerField(null=True, blank=True, help_text="Height in cm")
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)

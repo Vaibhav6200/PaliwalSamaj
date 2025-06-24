@@ -101,30 +101,24 @@ $(document).ready(function () {
       noSpace: true
     },
     mother_name: {
-      required: true,
       noSpace: true
     },
     date_of_birth: {
-      required: true,
       birthDateCheck: true
     },
     birth_place: {
-      required: true,
       birthDateCheck: true
     },
     birth_time: {
-      required: true,
       birthTimeCheck: true
     },
     gender: "required",
     marital_status: "required",
     height: {
-      required: true,
       number: true,
       validHeight: true
     },
     phone_number: {
-      required: true,
       tenDigits: true
     },
     whatsapp_number: {
@@ -134,20 +128,15 @@ $(document).ready(function () {
       emailFormat: true
     },
     gotra: {
-      required: true,
       noSpace: true
     },
     address: {
-      required: true,
       noSpace: true,
       addressClean: true
     },
     profileImage:{
       filesize200kb:true,
-      required:true,
     },
-    qualification: "required",
-    occupation: "required",
     "school_class": {
       required: function () {
         return $("#qualification").val() === "school";
@@ -224,8 +213,8 @@ $(document).ready(function () {
     profileImage:{ required: "Please uplaod your profile picture" },
     qualification: "Please select your qualification",
     occupation: "Please select your occupation",
-    "12th_result": { required: "Please enter your 12th result" },
-    "12th_school_name": { required: "Please enter your 12th school name" },
+    "school_class": { required: "Please enter your 12th result" },
+    "school_name": { required: "Please enter your 12th school name" },
     collge_uni_name: { required: "Please enter your college/university name" },
     degree_name: { required: "Please enter your degree name" },
     company_name: { required: "Please enter your company name" },
