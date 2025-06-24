@@ -138,15 +138,15 @@ class Member(models.Model):
     email = models.EmailField(null=True, blank=True)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100, null=True, blank=True)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True, blank=True)
     birth_place = models.CharField(max_length=100, null=True, blank=True)
     birth_time = models.TimeField(null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
     marital_status = models.CharField(max_length=10, choices=MARITAL_STATUS_CHOICES)
     height = models.PositiveSmallIntegerField(null=True, blank=True, help_text="Height in cm")
-    phone_number = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
-    gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES)
+    gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES, null=True, blank=True)
     current_address = models.TextField(null=True, blank=True)
     current_address_village = models.TextField(max_length=100, null=True, blank=True)
     current_address_city = models.TextField(max_length=100, null=True, blank=True)
@@ -168,16 +168,27 @@ class Member(models.Model):
 class QualificationDetail(models.Model):
     class Meta:
         verbose_name_plural = 'Qualification Details'
+
     DEGREE_CHOICES = [
+        # Undergraduate Degrees
         ("ba", _("B.A. (Bachelor of Arts)")),
         ("bsc", _("B.Sc. (Bachelor of Science)")),
-        ("bcom.", _("B.Com. (Bachelor of Commerce)")),
+        ("bcom", _("B.Com. (Bachelor of Commerce)")),
         ("bba", _("BBA (Bachelor of Business Administration)")),
         ("bca", _("BCA (Bachelor of Computer Applications)")),
+        ("bpharma", _("B.Pharma (Bachelor of Pharmacy)")),
         ("btech", _("B.Tech (Bachelor of Technology)")),
         ("be", _("B.E. (Bachelor of Engineering)")),
         ("llb", _("LLB (Bachelor of Laws)")),
-        ("mbbs", _("MBBS (Bachelor of Medicine and Bachelor of Surgery)")),
+        ("ca", _("CA (Chartered Accountant)")),
+        ("cs", _("CS (Company Secretary)")),
+        ("mbbs", _("MBBS (Bachelor of Medicine & Surgery)")),
+        ("bped", _("B.P.Ed (Bachelor of Physical Education)")),
+        ("bstc", _("BSTC (Basic School Teaching Certificate)")),
+        ("stc", _("STC (School Teaching Certificate)")),
+        ("dllb", _("DLLB (Diploma in Law)")),
+
+        # Postgraduate Degrees
         ("ma", _("M.A. (Master of Arts)")),
         ("msc", _("M.Sc. (Master of Science)")),
         ("mcom", _("M.Com. (Master of Commerce)")),
@@ -185,14 +196,35 @@ class QualificationDetail(models.Model):
         ("mca", _("MCA (Master of Computer Applications)")),
         ("mtech", _("M.Tech (Master of Technology)")),
         ("me", _("M.E. (Master of Engineering)")),
+        ("ms", _("MS (Master of Science)")),
+        ("med", _("M.Ed (Master of Education)")),
+        ("mpharma", _("M.Pharma (Master of Pharmacy)")),
+        ("msw", _("MSW (Master of Social Work)")),
         ("llm", _("LLM (Master of Laws)")),
+
+        # Doctorate & Super-specializations
+        ("dlitt", _("D.Litt (Doctor of Literature)")),
+        ("phd", _("Ph.D. (Doctor of Philosophy)")),
+        ("mch", _("M.Ch (Magister Chirurgiae / Master of Surgery)")),
         ("md", _("MD (Doctor of Medicine)")),
-        ("diploma", _("Diploma")),
+        ("pediatrician", _("Pediatrician")),
+
+        # Diplomas & Certificates
+        ("bed", _("B.Ed (Bachelor of Education)")),
+        ("pgdca", _("PGDCA (Post Graduate Diploma in Computer Applications)")),
         ("iti", _("ITI (Industrial Training Institute)")),
         ("polytechnic", _("Polytechnic")),
-        ("certification", _("Certification Course")),
-        ("phd", _("Ph.D. (Doctor of Philosophy)")),
-        ("dlitt", _("D.Litt (Doctor of Literature)")),
+        ("stenography", _("Stenography")),
+
+        # Extras
+        ("nursery", _("Nursery")),
+        ("uneducated", _("Uneducated")),
+        ("primary", _("Primary Education")),
+        ("secondary", _("Secondary (10th)")),
+        ("ssc", _("SSC (10th Grade)")),
+        ("puc", _("PUC / HSC / 12th Grade")),
+
+        # Other
         ("other", _("Other")),
     ]
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='qualification_detail')
@@ -200,6 +232,7 @@ class QualificationDetail(models.Model):
     school_name = models.CharField(max_length=255, blank=True, null=True)
     college_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
     degree_name = models.CharField(choices=DEGREE_CHOICES, max_length=100, blank=True, null=True)  # For UG/Graduate
+    other_degree_text = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()
