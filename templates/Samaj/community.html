@@ -32,28 +32,28 @@
                         <div class="form-group">
                             <label for="full_name">{% trans "Name" %}</label>
                             <input class="form-control form-control-name only_alphabets" name="full_name" id="full_name"
-                                   maxlength="50" placeholder="Name" type="text">
+                                   maxlength="50" placeholder="Name" type="text" value="{{ name_filter_value }}">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="gotra">{% trans "Gotra" %}</label>
                             <select name="gotra" class="form-control" id="gotra">
-                                <option value="" selected disabled>Select Gotra</option>
+                                <option value="" disabled {% if not gotra_filter_value %}selected{% endif %}>Select Gotra</option>
                                 {% for value, label in gotras %}
-                                <option value="{{value}}">{{label}}</option>
+                                    <option value="{{ value }}" {% if gotra_filter_value == value %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
-
                         </div>
                     </div>
+
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="education">{% trans "Education" %}</label>
                             <select name="education" class="form-control" id="education">
-                                <option value="" selected disabled>Select</option>
+                                <option value="" disabled {% if not education_filter_value %}selected{% endif %}>Select</option>
                                 {% for value, label in degrees %}
-                                <option value="{{value}}">{{label}}</option>
+                                    <option value="{{ value }}" {% if education_filter_value == value %}selected{% endif %}>{{ label }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -63,9 +63,9 @@
                         <div class="form-group">
                             <label for="gender">{% trans "Gender" %}</label>
                             <select name="member_gender" class="form-control" id="gender">
-                                <option value="" selected disabled>Select</option>
-                                <option value="male">{% trans "Male" %}</option>
-                                <option value="female">{% trans "Female" %}</option>
+                                <option value="" {% if not gender_filter_value %}selected{% endif %}>Select</option>
+                                <option value="male" {% if gender_filter_value == "male" %}selected{% endif %}>{% trans "Male" %}</option>
+                                <option value="female" {% if gender_filter_value == "female" %}selected{% endif %}>{% trans "Female" %}</option>
                             </select>
                         </div>
                     </div>
@@ -93,36 +93,37 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="name">{% trans "Village" %}</label>
+                            <label for="village">{% trans "Village" %}</label>
                             <input class="form-control form-control-name only_alphabets" name="village" id="village"
-                                   maxlength="50" type="text">
+                                   maxlength="50" type="text" value="{{village_filter_value}}">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="name">{% trans "City" %}</label>
+                            <label for="city">{% trans "City" %}</label>
                             <input class="form-control form-control-name only_alphabets" name="city" id="city"
-                                   maxlength="50" type="text">
+                                   maxlength="50" type="text" value="{{ city_filter_value }}">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="name">{% trans "State" %}</label>
+                            <label for="state">{% trans "State" %}</label>
                             <input class="form-control form-control-name only_alphabets" name="state" id="state"
-                                   maxlength="50" type="text">
+                                   maxlength="50" type="text" value="{{ state_filter_value }}">
                         </div>
                     </div>
                     <div class="col-12 my-3 text-end">
                         <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
-                        <a href="{% url 'samaj:community' %}" class="btn btn-primary" type="submit">{% trans "Clear" %}</a>
+                        <a href="{% url 'samaj:community' %}" class="btn btn-primary">{% trans "Clear" %}</a>
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="container mt-5 pt-4">
-            <div class=" py-3">
+            <div class="py-3 d-flex justify-content-between">
                 <h3 class="m-0">Result</h3>
+                <h3>({{ records_count }}) Records</h3>
             </div>
             <!-- Table and Grid View Start -->
             <!-- Tabs nav -->
@@ -216,7 +217,7 @@
                             <tbody>
                                 {% for member in community_members %}
                                 <tr>
-                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ community_members.start_index|add:forloop.counter0 }}</td>
                                     <td>{{ member.full_name }}</td>
                                     <td>{{ member.father_name }}</td>
                                     <td>{{ member.date_of_birth }}</td>
@@ -247,49 +248,56 @@
                 <!-- Table View End -->
 
                 {% if community_members.has_other_pages %}
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center mt-4">
-                        {% if community_members.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1" aria-label="First">
-                                &laquo;&laquo;
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ community_members.previous_page_number }}" aria-label="Previous">
-                                &laquo;
-                            </a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
-                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-                        {% endif %}
-
-                        {% for num in community_members.paginator.page_range %}
-                            {% if community_members.number == num %}
-                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                            {% elif num > community_members.number|add:'-3' and num < community_members.number|add:'3' %}
-                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% with query_params=request.GET.urlencode %}
+                    {% comment %} Remove "page=..." from the query string {% endcomment %}
+                    {% with query_string=query_params|cut:"page="|cut:"&page=" %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mt-4">
+                            {% if community_members.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1&{{ query_string }}" aria-label="First">
+                                    &laquo;&laquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ community_members.previous_page_number }}&{{ query_string }}" aria-label="Previous">
+                                    &laquo;
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
+                            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                             {% endif %}
-                        {% endfor %}
 
-                        {% if community_members.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ community_members.next_page_number }}" aria-label="Next">
-                                &raquo;
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ community_members.paginator.num_pages }}" aria-label="Last">
-                                &raquo;&raquo;
-                            </a>
-                        </li>
-                        {% else %}
-                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-                        <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
-                        {% endif %}
-                    </ul>
-                </nav>
+                            {% for num in community_members.paginator.page_range %}
+                                {% if community_members.number == num %}
+                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                {% elif num > community_members.number|add:'-3' and num < community_members.number|add:'3' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}&{{ query_string }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if community_members.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ community_members.next_page_number }}&{{ query_string }}" aria-label="Next">
+                                    &raquo;
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ community_members.paginator.num_pages }}&{{ query_string }}" aria-label="Last">
+                                    &raquo;&raquo;
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                            <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endwith %}
+                {% endwith %}
+
+
                 {% endif %}
 
             </div>
@@ -304,4 +312,17 @@
 <script src="{% static 'js/bio_data_form.js' %}"></script>
 <script src="{% static 'js/validation.js' %}"></script>
 <script src="{% static 'js/community.js' %}"></script>
+<script>
+  document.getElementById("search_family_form").addEventListener("submit", function (e) {
+    const form = this;
+    const elements = form.querySelectorAll("input, select");
+
+    elements.forEach(function (el) {
+      if (!el.value.trim()) {
+        el.removeAttribute("name");  // Prevents it from being included in URL
+      }
+    });
+  });
+</script>
+
 {% endblock %}

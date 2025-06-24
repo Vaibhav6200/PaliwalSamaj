@@ -208,6 +208,7 @@ def community(request):
 
         # 🔍 Name filtering (splitting and checking each word in full_name)
         if name:
+            context['name_filter_value'] = name
             name_parts = name.strip().split()
             for part in name_parts:
                 community_members = (community_members.filter(full_name__icontains=part))
@@ -230,24 +231,31 @@ def community(request):
             community_members = community_members.filter(date_of_birth__gte=min_dob)
 
         if gotra:
+            context['gotra_filter_value'] = gotra
             community_members = community_members.filter(gotra__icontains=gotra)
 
         if gender:
+            context['gender_filter_value'] = gender
             community_members = community_members.filter(gender=gender)
 
         if education:
+            context['education_filter_value'] = education
             community_members = community_members.filter(qualification_detail__degree_name__icontains=education)
 
         if village:
+            context['village_filter_value'] = village
             community_members = community_members.filter(Q(current_address_village__icontains=village)|Q(current_address__icontains=village))
 
         if city:
+            context['city_filter_value'] = city
             community_members = community_members.filter(Q(current_address_city__icontains=city)|Q(current_address__icontains=city))
 
         if state:
+            context['state_filter_value'] = state
             community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
 
     community_members = community_members.order_by('full_name')
+    context['records_count'] = community_members.count()
     paginator = Paginator(community_members, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
