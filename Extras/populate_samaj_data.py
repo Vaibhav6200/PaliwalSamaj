@@ -37,11 +37,23 @@ def parse_date(date_input):
         except ValueError:
             pass
 
+    # Handle full datetime in format YYYY-MM-DD HH:MM:SS
+    try:
+        return datetime.datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S").date()
+    except ValueError:
+        pass
+
+    # Handle date only in format YYYY-MM-DD
+    try:
+        return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+    except ValueError:
+        pass
+
     # Handle 4-digit year (e.g., 1994 or 1994.0)
     if date_str.isdigit() and len(date_str) == 4:
         return datetime.date(int(date_str), 1, 1)
 
-    # If it's like 1994.0, cast to int safely
+    # Handle year with decimal (e.g., 1994.0)
     try:
         year = int(float(date_str))
         if 1000 <= year <= 9999:
@@ -81,6 +93,10 @@ def import_members_from_excel(filepath):
 
     family_map = {}
     head_candidates = {}
+    allowed_degrees = ['ba', 'bsc', 'bcom', 'bba', 'bca', 'bpharma', 'btech', 'be', 'llb', 'ca', 'cs', 'mbbs', 'bped',
+                       'bstc', 'stc', 'dllb', 'ma', 'msc', 'mcom', 'mba', 'mca', 'mtech', 'me', 'ms', 'med', 'mpharma',
+                       'msw', 'llm', 'dlitt', 'phd', 'mch', 'md', 'pediatrician', 'bed', 'pgdca', 'iti', 'polytechnic',
+                       'stenography', 'nursery', 'uneducated', 'primary', 'secondary', 'ssc', 'puc']
 
     try:
         with transaction.atomic():
@@ -114,14 +130,14 @@ def import_members_from_excel(filepath):
                 current_address_pincode = clean_string(row.get("current_address_pincode"))
                 relation_with_head = clean_string(row.get("relation_with_head"))
                 school_class = clean_string(row.get("school_class"))
-                degree = clean_string(row.get("degree"))
+                raw_degree_string = clean_string(row.get("degree"))
 
                 print(family_id, full_name, gotra, father_name, relation_with_head, phone_number, whatsapp_no, dob,
                       birth_place,
                       birth_time, gender, marital_status, height, email, current_address, current_address_city,
                       current_address_state, current_address_pincode, paitrik_nivas, paitrik_nivas_city,
                       paitrik_nivas_state,
-                      paitrik_nivas_pincode, qualification_type, school_class, degree, occupation_type, occupation)
+                      paitrik_nivas_pincode, qualification_type, school_class, raw_degree_string, occupation_type, occupation)
                 print()
 
                 if pd.isna(family_id):
@@ -187,8 +203,15 @@ def import_members_from_excel(filepath):
                     QualificationDetail.objects.create(member=member, school_class=school_class_val)
                     print("🎓 Added school qualification")
                 else:
-                    QualificationDetail.objects.create(member=member, degree_name=degree)
-                    print(f"🎓 Added degree qualification")
+                    if raw_degree_string:
+                        for degree in raw_degree_string.split(","):
+                            degree = degree.strip()
+                            if not QualificationDetail.objects.filter(member=member, degree_name=degree).exists():
+                                if degree in allowed_degrees:
+                                    QualificationDetail.objects.create(member=member, degree_name=degree)
+                                else:
+                                    QualificationDetail.objects.create(member=member, degree_name='other', other_degree_text=degree)
+                        print(f"🎓 Added degree qualification")
 
                 if occupation_type == 'job':
                     OccupationDetail.objects.create(member=member, job_description=occupation)
@@ -213,7 +236,7 @@ def import_members_from_excel(filepath):
         raise
 
 if __name__ == "__main__":
-    data_sheet_path = './test_1.xlsx'
+    data_sheet_path = './paliwal_samaj_data_unicode.xlsx'
 
     print("🚀 Starting member import script...")
     if not os.path.exists(data_sheet_path):

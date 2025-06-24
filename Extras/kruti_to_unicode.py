@@ -676,6 +676,7 @@ def convert_kruti_excel(input_file, output_file, skip_columns):
         "बीए बीएड": "ba, bed",
         "बीए एमएस": "ba, ms",
         "बीए नर्सिंग": "ba, nursing",
+        "बीए बीपीएड": "ba, bped",
         "बी.ए. एमएसडब्लू": "ba, msw",
         "बीएड": "bed",
         "बी.एड.": "bed",
