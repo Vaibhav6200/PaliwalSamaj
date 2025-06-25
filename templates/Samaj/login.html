@@ -6,7 +6,7 @@
 {% block content %}
 <div class="full-container" style="background-image: url({% static 'images/login_bg.jpeg' %});">
     <div class=" m-0 login-container">
-        <form class="login-form" id="login-form" action="{% url 'samaj:handle_login_otp' %}" method="post">
+        <form class="login-form" id="login-form" action="{% url 'samaj:site_login' %}" method="post">
             {% csrf_token %}
             <h3 class="text-center mb-4">{% trans "Login" %}</h3>
 
@@ -20,11 +20,11 @@
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">{% trans "Password" %}</label>
-                <input type="text" class="form-control" id="password" name="password" placeholder="Enter your password">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
             </div>
 
             <div class="d-grid mb-2">
-                <button type="submit" class="btn btn-primary disabled" id="login_submit_btn">{% trans "Submit" %}</button>
+                <button type="submit" class="btn btn-primary" id="login_submit_btn">{% trans "Submit" %}</button>
             </div>
             <p class="note-text">{% trans "If you don't have a password then" %}
                 <button type="submit" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">{% trans "Click here" %}</button>

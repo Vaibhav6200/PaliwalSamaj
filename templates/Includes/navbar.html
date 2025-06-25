@@ -53,8 +53,9 @@
                             </li>
                             {% endif %}
                             {% if request.user.is_authenticated %}
-                            <li class="">
-                                <a class="btn btn-primary" href="{% url 'samaj:sandesh' %}">{% trans "SANDESH" %}</a>
+                            <li class="d-flex justify-content-center">
+                                <a class="btn btn-primary me-2" href="{% url 'samaj:sandesh' %}">{% trans "SANDESH" %}</a>
+                                <a class="btn btn-primary" href="{% url 'samaj:site_logout' %}">{% trans "Logout" %}</a>
                             </li>
                             {% endif %}
                         </ul>

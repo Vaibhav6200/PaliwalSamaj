@@ -6,16 +6,42 @@ from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup
 from django.contrib import messages
-from .utils import generate_username, MessageHandler, calculate_age
+from .utils import generate_username, MessageHandler, calculate_age, generate_random_password
 from datetime import date, timedelta
 from django.core.paginator import Paginator
 from .tasks import translate_member_fields
 from django.utils import translation
 from django.core.files.storage import default_storage
+from django.contrib.auth import authenticate, login, logout
 
 
 def site_login(request):
+    if request.method == 'POST':
+        phone = request.POST.get('contact_input')
+        password = request.POST.get('password')
+
+        member = Member.objects.filter(phone_number=phone)
+        if not member.exists():
+            messages.error(request, 'No Member Found with this Phone Number.')
+            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+        member = member.first()
+        user = authenticate(request, username=member.user.username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Login Successful, Welcome {member.full_name}.')
+            return redirect('samaj:index')
+        else:
+            messages.error(request, 'Invalid password.')
+
     return render(request, 'Samaj/login.html')
+
+
+def site_logout(request):
+    logout(request)
+    messages.success(request, 'Logout Successful')
+    return redirect('samaj:index')
 
 
 def index(request):
@@ -423,34 +449,6 @@ def suggestions(request):
             messages.success(request, 'Thank you! Your suggestion has been submitted.')
         else:
             messages.error(request, 'All fields are required. Please complete the form.')
-    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
-
-
-@login_required
-def handle_login_otp(request):
-    if request.method == 'POST':
-        contact_input = request.POST.get('contact_input', None)
-        if not contact_input:
-            messages.error(request, 'Please enter a phone number.')
-            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
-
-        # Check if the number exists in either phone_number or whatsapp_number
-        member = (
-            Member.objects.filter(phone_number=contact_input).first() or
-            Member.objects.filter(whatsapp_number=contact_input).first()
-        )
-        messages.success(request, f'Password sent to your registered number : {contact_input}')
-
-        # Set login password for user - 6 digit OTP pin
-
-        # if member:
-        #     verification_code = random.randint(100000, 999999)
-        #     handler = MessageHandler(phone_number=contact_input, otp=verification_code)
-        #     handler.send_otp_via_message()
-        #     request.session['phone_verification_code'] = verification_code
-        #     messages.success(request, f'OTP send to your registered number: {contact_input}')
-        # else:
-        #     messages.error(request,'This number is not registered in our database.')
     return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
 

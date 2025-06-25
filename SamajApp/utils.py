@@ -33,3 +33,7 @@ def calculate_age(born):
     today = date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
+
+def generate_random_password():
+    return str(random.randint(100000, 999999))  # 6-digit password
+

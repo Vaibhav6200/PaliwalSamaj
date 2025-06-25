@@ -6,7 +6,7 @@ app_name = 'samaj'
 urlpatterns = [
     path('', index, name='index'),
     path('login/', site_login, name='site_login'),
-    path('handle_login_otp/', handle_login_otp, name='handle_login_otp'),
+    path('logout/', site_logout, name='site_logout'),
 
     path('community/', community, name='community'),
     path('news_and_events/', news_and_events, name='news_and_events'),
