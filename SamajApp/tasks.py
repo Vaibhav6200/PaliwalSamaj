@@ -19,14 +19,14 @@ def translate_member_fields(member_id, lang='en'):
                 transliterated = transliterate_text(value, lang_code='hi')
                 setattr(obj, f"{modal_field}_en", value)
                 setattr(obj, f"{modal_field}_hi", transliterated)
-            elif lang == 'hi':
-                value = getattr(obj, f"{modal_field}_hi")
-                if not value:
-                    return
-                setattr(obj, f"{modal_field}_hi", value)
-                transliterated = transliterate_text(value, lang_code='en')
-                # transliterated = transliterate.hindi2english(value)
-                setattr(obj, f"{modal_field}_en", transliterated)
+            # elif lang == 'hi':
+            #     value = getattr(obj, f"{modal_field}_hi")
+            #     if not value:
+            #         return
+            #     setattr(obj, f"{modal_field}_hi", value)
+            #     transliterated = transliterate_text(value, lang_code='en')
+            #     # transliterated = transliterate.hindi2english(value)
+            #     setattr(obj, f"{modal_field}_en", transliterated)
 
         except Exception as e:
             print(f"Translation failed for field '{modal_field}': {e}")

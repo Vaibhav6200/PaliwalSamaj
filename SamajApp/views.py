@@ -82,10 +82,12 @@ def handle_bio_data_form(request, family_code):
         member.current_address_state = request.POST.get('state')
 
         member.date_of_birth = request.POST.get('date_of_birth')
-        member.birth_time = request.POST.get('birth_time')
+        if request.POST.get('birth_time'):
+            member.birth_time = request.POST.get('birth_time')
         member.gender = request.POST.get('gender')
         member.marital_status = request.POST.get('marital_status')
-        member.height = request.POST.get('height')
+        if request.POST.get('height'):
+            member.height = request.POST.get('height')
         member.phone_number = request.POST.get('phone_number')
         member.whatsapp_number = request.POST.get('whatsapp_number')
         member.gotra = request.POST.get('gotra')
@@ -97,7 +99,6 @@ def handle_bio_data_form(request, family_code):
         profile_image = request.FILES.get('profileImage')
         if profile_image:
             member.profile_image = profile_image
-
         member.save()
 
         # Qualification Details

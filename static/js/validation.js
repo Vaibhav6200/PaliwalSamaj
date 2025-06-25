@@ -103,33 +103,14 @@ $(document).ready(function () {
     mother_name: {
       noSpace: true
     },
-    date_of_birth: {
-      birthDateCheck: true
-    },
-    birth_time: {
-      birthTimeCheck: true
-    },
-    gender: "required",
-    marital_status: "required",
-    height: {
-      number: true,
-      validHeight: true
-    },
     phone_number: {
       tenDigits: true
     },
     whatsapp_number: {
       tenDigits: true
     },
-    email: {
-      emailFormat: true
-    },
     gotra: {
       noSpace: true
-    },
-    address: {
-      noSpace: true,
-      addressClean: true
     },
     profileImage:{
       filesize200kb:true,
