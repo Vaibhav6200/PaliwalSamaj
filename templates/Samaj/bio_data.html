@@ -41,28 +41,28 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Mother Name" %}</label>
-                                    <input class="form-control form-control-name" name="mother_name" id="mother_name" type="text" required
+                                    <input class="form-control form-control-name" name="mother_name" id="mother_name" type="text"
                                     value="{{ edit_member.mother_name|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Date Of Birth" %}</label>
-                                    <input type="date" class="form-control form-control-subject" name="date_of_birth" id="date_of_birth" required
+                                    <input type="date" class="form-control form-control-subject" name="date_of_birth" id="date_of_birth"
                                     value="{{ edit_member.date_of_birth|date:'Y-m-d' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Birth Place" %}</label>
-                                    <input type="text" class="form-control form-control-subject" name="birth_place" id="birth_place" required
+                                    <input type="text" class="form-control form-control-subject" name="birth_place" id="birth_place"
                                     value="{{ edit_member.birth_place|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Birth Time" %}</label>
-                                    <input type="time" class="form-control form-control-subject" name="birth_time" id="birth_time" required
+                                    <input type="time" class="form-control form-control-subject" name="birth_time" id="birth_time"
                                     value="{{ edit_member.birth_time|time:'H:i' }}">
                                 </div>
                             </div>
@@ -90,14 +90,14 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans 'Height (In Centimeter)' %}</label>
-                                    <input type="number" class="form-control form-control-subject" name="height" id="height" min="0" placeholder="168" required
+                                    <input type="number" class="form-control form-control-subject" name="height" id="height" min="0" placeholder="168"
                                     value="{{ edit_member.height|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Phone Number (10 digit)" %}</label>
-                                    <input type="number" class="form-control form-control-subject" name="phone_number" id="phone_number" placeholder="9988776655" required
+                                    <input type="number" class="form-control form-control-subject" name="phone_number" id="phone_number" placeholder="9988776655"
                                     value="{{ edit_member.phone_number|default:'' }}">
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label for="gotra">{% trans "Gotra" %}</label>
-                                    <select name="gotra" class="form-control" id="gotra" required>
+                                    <select name="gotra" class="form-control" id="gotra" >
                                         <option value="" disabled {% if not edit_member.gotra %}selected{% endif %}>Select</option>
                                         {% for value, label in gotras %}
                                         <option value="{{value}}" {% if value == edit_member.gotra %}selected{% endif %}>{{label}}</option>
@@ -129,7 +129,7 @@
                             <div class="col-12 col-md-8">
                                 <div class="form-group">
                                     <label>{% trans "Address" %}</label>
-                                    <input type="text" class="form-control form-control-object" name="address" id="address" required
+                                    <input type="text" class="form-control form-control-object" name="address" id="address"
                                     value="{{ edit_member.current_address|default:'' }}">
                                 </div>
                             </div>
@@ -144,14 +144,14 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "City" %}</label>
-                                    <input type="text" class="form-control form-control-object" name="city" id="city" required
+                                    <input type="text" class="form-control form-control-object" name="city" id="city"
                                     value="{{ edit_member.current_address_city|default:'' }}">
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "State" %}</label>
-                                    <input type="text" class="form-control form-control-object" name="state" id="state" required
+                                    <input type="text" class="form-control form-control-object" name="state" id="state"
                                     value="{{ edit_member.current_address_state|default:'' }}">
                                 </div>
                             </div>
@@ -216,7 +216,7 @@
                             <div class="col-12 col-md-6 ugpg_field {% if edit_member.qualification_type != 'undergraduate' and edit_member.qualification_type != 'graduate' %}d-none{% endif %}">
                                 <div class="form-group">
                                     <label for="degree_name">{% trans "Degree" %}</label>
-                                    <select name="degree_name" class="form-control" id="degree_name" required>
+                                    <select name="degree_name" class="form-control" id="degree_name" >
                                         <option value="" disabled {% if not edit_member.qualification_detail.first.degree_name %}selected{% endif %}>Select</option>
                                         {% for value, label in degrees %}
                                         <option value="{{value}}" {% if value == edit_member.qualification_detail.first.degree_name %}selected{% endif %}>{{label}}</option>
