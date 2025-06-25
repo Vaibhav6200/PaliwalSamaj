@@ -52,9 +52,11 @@
                                 <a class="btn btn-primary" href="{% url 'samaj:site_login' %}">{% trans "Login" %}</a>
                             </li>
                             {% endif %}
+                            {% if request.user.is_authenticated %}
                             <li class="">
                                 <a class="btn btn-primary" href="{% url 'samaj:sandesh' %}">{% trans "SANDESH" %}</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
