@@ -187,8 +187,8 @@ def handle_member_delete(request):
 
 def community(request):
     context = {
-        'min_age_default_value': 10,
-        'max_age_default_value': 50,
+        'min_age_default_value': 1,
+        'max_age_default_value': 80,
         'gotras': Member.GOTRA_CHOICES,
         'degrees': QualificationDetail.DEGREE_CHOICES,
     }
