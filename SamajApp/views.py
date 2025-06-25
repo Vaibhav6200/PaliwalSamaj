@@ -11,6 +11,7 @@ from datetime import date, timedelta
 from django.core.paginator import Paginator
 from .tasks import translate_member_fields
 from django.utils import translation
+from django.core.files.storage import default_storage
 
 
 def site_login(request):
@@ -98,6 +99,9 @@ def handle_bio_data_form(request, family_code):
 
         profile_image = request.FILES.get('profileImage')
         if profile_image:
+            # Delete previous image file if exists
+            if member.profile_image and default_storage.exists(member.profile_image.name):
+                member.profile_image.delete(save=False)
             member.profile_image = profile_image
         member.save()
 
