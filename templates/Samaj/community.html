@@ -112,6 +112,13 @@
                                    maxlength="50" type="text" value="{{ state_filter_value }}">
                         </div>
                     </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="phone_number">{% trans "Phone Number" %}</label>
+                            <input class="form-control form-control-name" name="phone_number" id="phone_number"
+                                   maxlength="10" type="number" value="{{ phone_number_filter_value }}">
+                        </div>
+                    </div>
                     <div class="col-12 my-3 text-end">
                         <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
                         <a href="{% url 'samaj:community' %}" class="btn btn-primary">{% trans "Clear" %}</a>

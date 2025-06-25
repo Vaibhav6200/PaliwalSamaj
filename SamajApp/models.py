@@ -133,7 +133,7 @@ class Member(models.Model):
     ]
 
     family = models.ForeignKey('Family', on_delete=models.SET_NULL, null=True, blank=True, related_name='my_family')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
     father_name = models.CharField(max_length=100)

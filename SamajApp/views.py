@@ -204,7 +204,7 @@ def community(request):
         village = request.GET.get('village')
         city = request.GET.get('city')
         state = request.GET.get('state')
-
+        phone_number = request.GET.get('phone_number')
 
         # 🔍 Name filtering (splitting and checking each word in full_name)
         if name:
@@ -254,6 +254,10 @@ def community(request):
             context['state_filter_value'] = state
             community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
 
+        if phone_number:
+            context['phone_number_filter_value'] = phone_number.strip()
+            community_members = community_members.filter(phone_number__contains=phone_number.strip())
+
     community_members = community_members.order_by('full_name')
     context['records_count'] = community_members.count()
     paginator = Paginator(community_members, 12)
@@ -265,7 +269,7 @@ def community(request):
 
 @login_required
 def my_family(request):
-    login_member = Member.objects.get(user = request.user)
+    login_member = Member.objects.filter(user = request.user).first()
     all_family_members = Member.objects.filter(family=login_member.family)
 
     context = {

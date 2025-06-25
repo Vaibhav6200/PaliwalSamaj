@@ -11,7 +11,12 @@
         <div class="container py-5">
             <!-- Personal Details Card -->
             <div class="profile-card p-4">
-                <h2 class="card-title">{% trans "Personal Details" %}</h2>
+                <div class="d-flex justify-content-between card-title">
+                    <h2 class="card-title border-0 mb-0">{% trans "Personal Details" %}</h2>
+                    <a href="{% url 'samaj:member_family_tree' profile.id %}" class="border btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
+                        <span class="material-icons me-2">diversity_3</span>{% trans "Show Family" %}
+                    </a>
+                </div>
                 <div class="row">
                     <div class="col-md-4 text-center mb-4 mb-md-0">
                         <div class="square-img-container">
