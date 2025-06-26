@@ -21,7 +21,7 @@
         <div class="container mt-5">
             <div class="d-flex justify-content-center">
                 <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item border border-3 border-dark">
+                    <div class="my_family_card item border">
                         <div class="ts-team-wrapper">
                             <div class="team-img-wrapper">
                                 {% if family_head.profile_image %}
@@ -60,7 +60,7 @@
                 {% for member in family_members %}
                 {% if not member == member.family.family_head %}
                 <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item h-100">
+                    <div class="my_family_card item h-100 border">
                         <div class="ts-team-wrapper d-flex flex-column h-100">
                             <div class="team-img-wrapper">
                                 {% if member.profile_image %}
