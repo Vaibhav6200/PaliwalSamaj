@@ -136,7 +136,7 @@ class Member(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
-    father_name = models.CharField(max_length=100)
+    father_name = models.CharField(max_length=100, null=True, blank=True)
     mother_name = models.CharField(max_length=100, null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     birth_place = models.CharField(max_length=100, null=True, blank=True)

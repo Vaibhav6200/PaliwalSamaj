@@ -97,7 +97,6 @@ $(document).ready(function () {
       noSpace: true
     },
     father_name: {
-      required: true,
       noSpace: true
     },
     mother_name: {
