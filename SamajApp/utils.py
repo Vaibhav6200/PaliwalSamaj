@@ -37,3 +37,6 @@ def calculate_age(born):
 def generate_random_password():
     return str(random.randint(100000, 999999))  # 6-digit password
 
+
+def str_to_bool(s):
+    return s.lower() in ['true', '1', 'yes', 'y', 'True']

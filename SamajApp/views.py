@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup
 from django.contrib import messages
+
+from paliwalsamaj import settings
 from .utils import generate_username, MessageHandler, calculate_age, generate_random_password
 from datetime import date, timedelta
 from django.core.paginator import Paginator
@@ -177,8 +179,9 @@ def handle_bio_data_form(request, family_code):
         occupation.save()
 
         # submit task to celery for translations
-        current_language = translation.get_language()
-        translate_member_fields.delay(member.id, current_language)
+        if settings.ENABLE_TRANSLITERATION:
+            current_language = translation.get_language()
+            translate_member_fields.delay(member.id, current_language)
 
     return redirect('samaj:my_family')
 
