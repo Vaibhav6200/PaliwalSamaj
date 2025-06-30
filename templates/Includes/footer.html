@@ -36,9 +36,15 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="copyright-info text-center">
-          <span>Copyright &copy; <script>
-              document.write(new Date().getFullYear())
-            </script>, Designed &amp; Developed by <b>Electrocom Solutions</b></span>
+                        <span>Copyright &copy;
+                            <script>document.write(new Date().getFullYear())</script>,
+                            Designed &amp; Developed by
+                            {% if show_gopal_branding %}
+                            <b>Electrocom Solutions</b>
+                            {% else %}
+                            <b>SolvifyHub</b>
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
             </div><!-- Row end -->

@@ -37,6 +37,7 @@ DEBUG = os.getenv('DEBUG')
 
 
 ENABLE_TRANSLITERATION = os.getenv('ENABLE_TRANSLITERATION').lower() in ['true', '1', 'yes', 'y']
+SHOW_GOPAL_BRANDING = os.getenv('SHOW_GOPAL_BRANDING').lower() in ['true', '1', 'yes', 'y']
 
 # Added a coment on allowed hosts
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
@@ -82,6 +83,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'SamajApp.context_processors.culture_menu_items',
+                'SamajApp.context_processors.show_gopal_branding',
             ],
         },
     },
