@@ -239,6 +239,8 @@ def community(request):
         city = request.GET.get('city')
         state = request.GET.get('state')
         phone_number = request.GET.get('phone_number')
+        marital_status = request.GET.get('marital_status')
+
 
         # 🔍 Name filtering (splitting and checking each word in full_name)
         if name:
@@ -291,6 +293,10 @@ def community(request):
         if phone_number:
             context['phone_number_filter_value'] = phone_number.strip()
             community_members = community_members.filter(phone_number__contains=phone_number.strip())
+
+        if marital_status:
+            context['marital_status_filter_value'] = marital_status
+            community_members = community_members.filter(marital_status=marital_status)
 
     community_members = community_members.order_by('full_name')
     context['records_count'] = community_members.count()

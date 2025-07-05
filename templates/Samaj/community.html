@@ -119,6 +119,16 @@
                                    maxlength="10" type="number" value="{{ phone_number_filter_value }}">
                         </div>
                     </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="marital_status">{% trans "Marital Status" %}</label>
+                            <select name="marital_status" class="form-control" id="marital_status">
+                                <option value="" {% if not marital_status_filter_value %}selected{% endif %}>Select</option>
+                                <option value="married" {% if marital_status_filter_value == "married" %}selected{% endif %}>{% trans "Married" %}</option>
+                                <option value="unmarried" {% if marital_status_filter_value == "unmarried" %}selected{% endif %}>{% trans "Unmarried" %}</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-12 my-3 text-end">
                         <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
                         <a href="{% url 'samaj:community' %}" class="btn btn-primary">{% trans "Clear" %}</a>
