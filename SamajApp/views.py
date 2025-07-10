@@ -15,6 +15,10 @@ from .tasks import translate_member_fields
 from django.utils import translation
 from django.core.files.storage import default_storage
 from django.contrib.auth import authenticate, login, logout
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 def site_login(request):
@@ -183,6 +187,13 @@ def handle_bio_data_form(request, family_code):
             current_language = translation.get_language()
             translate_member_fields.delay(member.id, current_language)
 
+        if settings.ENABLE_TRANSLITERATION:
+            current_language = translation.get_language()
+            try:
+                translate_member_fields.delay(member.id, current_language)
+            except Exception as e:
+                logger.error(f"Celery task failed. Reason: {e}")
+                # translate_member_fields(member.id, current_language)
     return redirect('samaj:my_family')
 
 
