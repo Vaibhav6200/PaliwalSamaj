@@ -10,3 +10,5 @@ redis
 faker
 openpyxl
 pandas
+gunicorn
+nginx
