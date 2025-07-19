@@ -21,7 +21,7 @@ role_data = {
 		('Shri Bheru Lal Paliwal', 'Kannauj', 'BHERU_LAL_JI_PALIWAL_kannauj.JPG', '9530164855')
 	],
 	'upadhyaksh': [
-		('Shrimati Shobha Lal Paliwal', 'Kannauj', 'SHOBHA LAL JI PALIWAL.JPG', '7568930566')
+		('Shri Shobha Lal Paliwal', 'Kannauj', 'SHOBHA LAL JI PALIWAL.JPG', '7568930566')
 	],
 	'sachiv': [
 		('Shri Pradeep Purohit', 'Chittorgarh', 'PRADEEP JI PUROHIT.JPG', '9413791302'),
