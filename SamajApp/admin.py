@@ -103,7 +103,6 @@ class NewsEventAdmin(admin.ModelAdmin):
         'id',
         'title',
         'subtitle',
-        'slug',
         'image',
         'content',
         'category',
