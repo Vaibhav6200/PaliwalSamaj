@@ -6,7 +6,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup
 from django.contrib import messages
-
 from paliwalsamaj import settings
 from .utils import generate_username, MessageHandler, calculate_age, generate_random_password, get_or_create_address
 from datetime import date, timedelta
@@ -112,11 +111,7 @@ def handle_bio_data_form(request, family_code):
         member.birth_place = request.POST.get('birth_place')
         member.current_address = request.POST.get('address')
 
-        state, city, village = get_or_create_address(
-            request.POST.get('city'),
-            request.POST.get('state'),
-            request.POST.get('village')
-        )
+        state, city, village = get_or_create_address(request.POST.get('state'), request.POST.get('city'), request.POST.get('village'))
 
         member.current_address_state = state
         member.current_address_city = city

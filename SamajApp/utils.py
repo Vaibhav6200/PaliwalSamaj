@@ -4,12 +4,33 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from datetime import date
 from .models import State, City, Village
+from django.utils import translation
+from google.transliteration import transliterate_text
+from indicate import transliterate
+from modeltranslation.utils import build_localized_fieldname
 
 
 def get_or_create_address(state_name, city_name, village_name):
-    state, _ = State.objects.get_or_create(name=state_name)
-    city, _ = City.objects.get_or_create(name=city_name, state=state)
-    village, _ = Village.objects.get_or_create(name=village_name, city=city)
+    current_language = translation.get_language()
+    if current_language == 'en':
+        state_name_hi = transliterate_text(state_name, lang_code='hi')
+        city_name_hi = transliterate_text(city_name, lang_code='hi')
+        village_name_hi = transliterate_text(village_name, lang_code='hi')
+
+        state, _ = State.objects.get_or_create(state_name=state_name.strip().lower(), state_name_hi=state_name_hi)
+        city, _ = City.objects.get_or_create(city_name=city_name.strip().lower(), city_name_hi=city_name_hi, state=state)
+        village, _ = Village.objects.get_or_create(village_name=village_name, village_name_hi=village_name_hi, city=city)
+    elif current_language == 'hi':
+        state_name_en = transliterate.hindi2english(state_name)
+        city_name_en = transliterate.hindi2english(city_name)
+        village_name_en = transliterate.hindi2english(village_name)
+
+        # NOTE: django-modeltranslation stores the default language (usually 'en') in the base field (state_name), and other languages like Hindi go into state_name_hi, city_name_hi, etc.
+        state, _ = State.objects.get_or_create(state_name=state_name, state_name_en=state_name_en)
+        city, _ = City.objects.get_or_create(city_name=city_name, city_name_en=city_name_en, state=state)
+        village, _ = Village.objects.get_or_create(village_name=village_name, village_name_en=village_name_en, city=city)
+    else:
+        raise ValueError(f"Unsupported language: {current_language}")   # Handle unexpected languages
     return state, city, village
 
 

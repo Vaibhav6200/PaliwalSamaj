@@ -91,15 +91,15 @@
                     </div>
                     <div class="col-md-4">
                         <div class="detail-label">{% trans "Village" %}</div>
-                        <div class="detail-value">{{ profile.current_address_village }}</div>
+                        <div class="detail-value">{{ profile.current_address_village.village_name }}</div>
                     </div>
                     <div class="col-md-4">
                         <div class="detail-label">{% trans "City" %}</div>
-                        <div class="detail-value">{{ profile.current_address_city }}</div>
+                        <div class="detail-value">{{ profile.current_address_city.city_name }}</div>
                     </div>
                     <div class="col-md-4">
                         <div class="detail-label">{% trans "State" %}</div>
-                        <div class="detail-value">{{ profile.current_address_state }}</div>
+                        <div class="detail-value">{{ profile.current_address_state.state_name }}</div>
                     </div>
                     <div class="col-md-4">
                         <div class="detail-label">{% trans "Pincode" %}</div>
