@@ -223,3 +223,35 @@ class DisplayMemberAdmin(admin.ModelAdmin):
     list_display_links = ('member_name',)
     member_image_thumbnail.short_description = "member photo"
     list_filter = ('group',)
+
+
+@admin.register(State)
+class StateAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'state_name',
+        'created_at',
+    )
+    list_display_links = ('id', 'state_name')
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'city_name',
+        'state',
+        'created_at',
+    )
+    list_display_links = ('id', 'city_name')
+
+
+@admin.register(Village)
+class VillageAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'village_name',
+        'city',
+        'created_at',
+    )
+    list_display_links = ('id', 'village_name')

@@ -11,6 +11,46 @@ from urllib.parse import urlparse, parse_qs
 from django_ckeditor_5.fields import CKEditor5Field
 
 
+class State(models.Model):
+    class Meta:
+        verbose_name_plural = 'States'
+
+    state_name = models.CharField(max_length=100, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.state_name
+
+
+class City(models.Model):
+    class Meta:
+        verbose_name_plural = 'Cities'
+        unique_together = ('city_name', 'state')
+
+    city_name = models.CharField(max_length=100)
+    state = models.ForeignKey(State, on_delete=models.CASCADE, related_name='cities')
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.city_name}, {self.state}"
+
+
+class Village(models.Model):
+    class Meta:
+        verbose_name_plural = 'Villages'
+        unique_together = ('village_name', 'city')
+
+    village_name = models.CharField(max_length=100)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='villages')
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.village_name}, {self.city}"
+
+
 class Family(models.Model):
     class Meta:
         verbose_name_plural = 'Family'
@@ -19,9 +59,9 @@ class Family(models.Model):
     family_code = models.CharField(max_length=30, unique=True, editable=False)
     family_head = models.ForeignKey('Member', on_delete=models.SET_NULL, null=True, blank=True, related_name='head_family')
     paitrik_address = models.CharField(max_length=255, null=True, blank=True)
-    paitrik_address_village = models.CharField(max_length=255, null=True, blank=True)
-    paitrik_address_city = models.CharField(max_length=255, null=True, blank=True)
-    paitrik_address_state = models.CharField(max_length=255, null=True, blank=True)
+    paitrik_address_village = models.ForeignKey(Village, null=True, blank=True, on_delete=models.SET_NULL)
+    paitrik_address_city = models.ForeignKey(City, null=True, blank=True, on_delete=models.SET_NULL)
+    paitrik_address_state = models.ForeignKey(State, null=True, blank=True, on_delete=models.SET_NULL)
     paitrik_address_pincode = models.CharField(max_length=10, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -147,11 +187,14 @@ class Member(models.Model):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True)
     gotra = models.CharField(max_length=100, choices=GOTRA_CHOICES, null=True, blank=True)
+
+    # Member Current Address Details
     current_address = models.CharField(max_length=255, null=True, blank=True)
-    current_address_village = models.CharField(max_length=255, null=True, blank=True)
-    current_address_city = models.CharField(max_length=255, null=True, blank=True)
-    current_address_state = models.CharField(max_length=255, null=True, blank=True)
+    current_address_state = models.ForeignKey(State, null=True, blank=True, on_delete=models.SET_NULL)
+    current_address_city = models.ForeignKey(City, null=True, blank=True, on_delete=models.SET_NULL)
+    current_address_village = models.ForeignKey(Village, null=True, blank=True, on_delete=models.SET_NULL)
     current_address_pincode = models.CharField(max_length=10, null=True, blank=True)
+
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES, null=True, blank=True)
     occupation_type = models.CharField(max_length=20, choices=OCCUPATION_CHOICES, default='none')

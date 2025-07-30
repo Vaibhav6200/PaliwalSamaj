@@ -1,5 +1,6 @@
 from modeltranslation.translator import translator, TranslationOptions
-from .models import Member, QualificationDetail, OccupationDetail, Culture, DisplayMemberGroup, DisplayMember
+from .models import Member, QualificationDetail, OccupationDetail, Culture, DisplayMemberGroup, DisplayMember, State, \
+    City, Village
 
 
 class MemberTranslationOptions(TranslationOptions):
@@ -9,9 +10,6 @@ class MemberTranslationOptions(TranslationOptions):
         'mother_name',
         'birth_place',
         'current_address',
-        'current_address_village',
-        'current_address_city',
-        'current_address_state',
     )
 
 class QualificationTranslationOptions(TranslationOptions):
@@ -45,6 +43,25 @@ class DisplayMemberTranslationOptions(TranslationOptions):
         'member_name',
         'location',
     )
+
+class StateTranslationOptions(TranslationOptions):
+    fields = (
+        'state_name',
+    )
+
+class CityTranslationOptions(TranslationOptions):
+    fields = (
+        'city_name',
+    )
+
+class VillageTranslationOptions(TranslationOptions):
+    fields = (
+        'village_name',
+    )
+
+translator.register(State, StateTranslationOptions)
+translator.register(City, CityTranslationOptions)
+translator.register(Village, VillageTranslationOptions)
 translator.register(Member, MemberTranslationOptions)
 translator.register(QualificationDetail, QualificationTranslationOptions)
 translator.register(OccupationDetail, OccupationTranslationOptions)

@@ -2,8 +2,16 @@ import random
 import string
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from django.conf import settings
 from datetime import date
+from .models import State, City, Village
+
+
+def get_or_create_address(state_name, city_name, village_name):
+    state, _ = State.objects.get_or_create(name=state_name)
+    city, _ = City.objects.get_or_create(name=city_name, state=state)
+    village, _ = Village.objects.get_or_create(name=village_name, city=city)
+    return state, city, village
+
 
 def generate_username(full_name):
     base_username = slugify(full_name, allow_unicode=True)

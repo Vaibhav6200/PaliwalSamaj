@@ -8,7 +8,7 @@ from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, Qual
 from django.contrib import messages
 
 from paliwalsamaj import settings
-from .utils import generate_username, MessageHandler, calculate_age, generate_random_password
+from .utils import generate_username, MessageHandler, calculate_age, generate_random_password, get_or_create_address
 from datetime import date, timedelta
 from django.core.paginator import Paginator
 from .tasks import translate_member_fields
@@ -111,8 +111,16 @@ def handle_bio_data_form(request, family_code):
         member.mother_name = request.POST.get('mother_name')
         member.birth_place = request.POST.get('birth_place')
         member.current_address = request.POST.get('address')
-        member.current_address_city = request.POST.get('city')
-        member.current_address_state = request.POST.get('state')
+
+        state, city, village = get_or_create_address(
+            request.POST.get('city'),
+            request.POST.get('state'),
+            request.POST.get('village')
+        )
+
+        member.current_address_state = state
+        member.current_address_city = city
+        member.current_address_village = village
 
         member.date_of_birth = request.POST.get('date_of_birth')
         if request.POST.get('birth_time'):
