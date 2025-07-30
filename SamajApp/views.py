@@ -4,7 +4,7 @@ from django.db.models import Q, Prefetch
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup
+    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State
 from django.contrib import messages
 from paliwalsamaj import settings
 from .utils import generate_username, MessageHandler, calculate_age, generate_random_password, get_or_create_address
@@ -241,6 +241,11 @@ def community(request):
         'degrees': QualificationDetail.DEGREE_CHOICES,
     }
 
+    # Default: show all
+    villages = Village.objects.all()
+    cities = City.objects.all()
+    states = State.objects.all()
+
     community_members = Member.objects.all()
     if request.method == 'GET':
         name = request.GET.get('full_name')
@@ -249,9 +254,9 @@ def community(request):
         gotra = request.GET.get('gotra')
         gender = request.GET.get('member_gender')
         education = request.GET.get('education')
-        village = request.GET.get('village')
-        city = request.GET.get('city')
         state = request.GET.get('state')
+        city = request.GET.get('city')
+        village = request.GET.get('village')
         phone_number = request.GET.get('phone_number')
         marital_status = request.GET.get('marital_status')
 
@@ -292,18 +297,6 @@ def community(request):
             context['education_filter_value'] = education
             community_members = community_members.filter(qualification_detail__degree_name__icontains=education)
 
-        if village:
-            context['village_filter_value'] = village
-            community_members = community_members.filter(Q(current_address_village__icontains=village)|Q(current_address__icontains=village))
-
-        if city:
-            context['city_filter_value'] = city
-            community_members = community_members.filter(Q(current_address_city__icontains=city)|Q(current_address__icontains=city))
-
-        if state:
-            context['state_filter_value'] = state
-            community_members = community_members.filter(Q(current_address_state__icontains=state)|Q(current_address__icontains=state))
-
         if phone_number:
             context['phone_number_filter_value'] = phone_number.strip()
             community_members = community_members.filter(phone_number__contains=phone_number.strip())
@@ -312,12 +305,32 @@ def community(request):
             context['marital_status_filter_value'] = marital_status
             community_members = community_members.filter(marital_status=marital_status)
 
-    community_members = community_members.order_by('full_name')
-    context['records_count'] = community_members.count()
-    paginator = Paginator(community_members, 12)
+        if state:
+            context['state_filter_value'] = state
+            community_members = community_members.filter(Q(current_address_state__state_name__icontains=state)|Q(current_address__icontains=state))
+            cities = City.objects.filter(state__state_name=state)
+            villages = Village.objects.filter(city__state__state_name=state)
+
+        if city:
+            context['city_filter_value'] = city
+            community_members = community_members.filter(Q(current_address_city__city_name__icontains=city)|Q(current_address__icontains=city))
+            villages = Village.objects.filter(city__city_name=city)
+
+        if village:
+            context['village_filter_value'] = village
+            community_members = community_members.filter(Q(current_address_village__village_name__icontains=village)|Q(current_address__icontains=village))
+
+    context.update({
+        'states': states,
+        'cities': cities,
+        'villages': villages,
+        'records_count': community_members.count(),
+    })
+
+    paginator = Paginator(community_members.order_by('full_name'), 12)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context['community_members'] = page_obj
+    context['community_members'] = paginator.get_page(page_number)
+
     return render(request, 'Samaj/community.html', context)
 
 

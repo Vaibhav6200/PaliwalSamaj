@@ -93,23 +93,36 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="village">{% trans "Village" %}</label>
-                            <input class="form-control form-control-name only_alphabets" name="village" id="village"
-                                   maxlength="50" type="text" value="{{village_filter_value}}">
+                            <label for="state">{% trans "State" %}</label>
+
+                            <select name="state" class="form-control" id="state">
+                                <option value="" disabled {% if not state_filter_value %}selected{% endif %}>Select</option>
+                                {% for state in states %}
+                                    <option value="{{ state.state_name }}" {% if state_filter_value == state %}selected{% endif %}>{{ state.state_name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
                             <label for="city">{% trans "City" %}</label>
-                            <input class="form-control form-control-name only_alphabets" name="city" id="city"
-                                   maxlength="50" type="text" value="{{ city_filter_value }}">
+                            <select name="city" class="form-control" id="city">
+                                <option value="" disabled {% if not city_filter_value %}selected{% endif %}>Select</option>
+                                {% for city in cities %}
+                                    <option value="{{ city.city_name }}" {% if city_filter_value == city %}selected{% endif %}>{{ city.city_name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="form-group">
-                            <label for="state">{% trans "State" %}</label>
-                            <input class="form-control form-control-name only_alphabets" name="state" id="state"
-                                   maxlength="50" type="text" value="{{ state_filter_value }}">
+                            <label for="village">{% trans "Village" %}</label>
+                            <select name="village" class="form-control" id="village">
+                                <option value="" disabled {% if not village_filter_value %}selected{% endif %}>Select</option>
+                                {% for village in villages %}
+                                    <option value="{{ village.village_name }}" {% if village_filter_value == village %}selected{% endif %}>{{ village.village_name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-4">
