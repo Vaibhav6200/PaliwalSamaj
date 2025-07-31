@@ -15,10 +15,10 @@ import django
 django.setup()
 
 
-from SamajApp.models import Member, QualificationDetail, OccupationDetail, User, Family
+from SamajApp.models import Member, QualificationDetail, OccupationDetail, User, Family, State, City
 from SamajApp.utils import generate_username
 from django.db import transaction
-
+from indicate import transliterate
 
 def clean_string(value):
     return str(value).strip().lower() if pd.notna(value) else None
@@ -60,9 +60,7 @@ def parse_date(date_input):
             return datetime.date(year, 1, 1)
     except:
         pass
-
-    # If nothing works
-    raise ValueError(f"Unrecognized date format: '{date_input}'")
+    return None
 
 
 def parse_time(time_input):
@@ -83,7 +81,36 @@ def parse_time(time_input):
     try:
         return datetime.datetime.strptime(time_str, "%H:%M").time()
     except ValueError:
-        raise ValueError(f"Unrecognized time format: '{time_input}'")
+        pass
+    return None
+
+
+def generate_address(state_name, city_name):
+    state = None
+    city = None
+
+    try:
+        state_name = str(state_name).strip() if state_name else ""
+        city_name = str(city_name).strip() if city_name else ""
+
+        if not state_name:
+            print("⚠️ State is missing — returning None, None.")
+            return None, None
+
+        # If state is present, create or get state
+        state_name_en = transliterate.hindi2english(state_name)
+        state, _ = State.objects.get_or_create(state_name=state_name, state_name_en=state_name_en)
+
+        # If city is also present, create or get city
+        if city_name:
+            city_name_en = transliterate.hindi2english(city_name)
+            city, _ = City.objects.get_or_create(city_name=city_name, city_name_en=city_name_en, state=state)
+
+        return state, city
+
+    except Exception as e:
+        print(f"❌ Error in generate_address with state='{state_name}' and city='{city_name}': {e}")
+        return None, None
 
 
 def import_members_from_excel(filepath):
@@ -93,11 +120,12 @@ def import_members_from_excel(filepath):
 
     family_map = {}
     head_candidates = {}
-    allowed_degrees = ['ba', 'bsc', 'bcom', 'bba', 'bca', 'bpharma', 'btech', 'be', 'llb', 'ca', 'cs', 'mbbs', 'bped',
-                       'bstc', 'stc', 'dllb', 'ma', 'msc', 'mcom', 'mba', 'mca', 'mtech', 'me', 'ms', 'med', 'mpharma',
-                       'msw', 'llm', 'dlitt', 'phd', 'mch', 'md', 'pediatrician', 'bed', 'pgdca', 'iti', 'polytechnic',
-                       'stenography', 'nursery', 'uneducated', 'primary', 'secondary', 'ssc', 'puc']
-
+    allowed_degrees = ["ba", "bsc", "bcom", "bba", "bbm", "bca", "bcis", "bpharma", "btech", "be", "bjmc", "bms", "bds",
+                       "bhms", "barch", "bpt", "llb", "bped", "blisc", "bse", "mbbs", "bams", "bvsc", "ca", "cs", "cfa",
+                       "fca", "mfc", "ma", "msc", "mcom", "mba", "mca", "mtech", "mhrm", "mphil", "me", "ms", "med",
+                       "mpharma", "msw", "llm", "dlitt", "phd", "mch", "md", "pediatrician", "dm", "dnb", "bed", "pgdca",
+                       "iti", "polytechnic", "stenography", "pgdc", "pgdll", "dca", "dll", "dllb", "bstc", "stc", "blisc",
+                       "nursery", "uneducated", "primary", "secondary", "ssc", "puc", "bpt"]
     try:
         with transaction.atomic():
             for i, (_, row) in enumerate(df.iterrows()):
@@ -132,12 +160,7 @@ def import_members_from_excel(filepath):
                 school_class = clean_string(row.get("school_class"))
                 raw_degree_string = clean_string(row.get("degree"))
 
-                print(family_id, full_name, gotra, father_name, relation_with_head, phone_number, whatsapp_no, dob,
-                      birth_place,
-                      birth_time, gender, marital_status, height, email, current_address, current_address_city,
-                      current_address_state, current_address_pincode, paitrik_nivas, paitrik_nivas_city,
-                      paitrik_nivas_state,
-                      paitrik_nivas_pincode, qualification_type, school_class, raw_degree_string, occupation_type, occupation)
+                print(family_id, full_name, gotra, father_name, relation_with_head, phone_number, whatsapp_no, dob, birth_place, birth_time, gender, marital_status, height, email, current_address, current_address_city, current_address_state, current_address_pincode, paitrik_nivas, paitrik_nivas_city, paitrik_nivas_state, paitrik_nivas_pincode, qualification_type, school_class, raw_degree_string, occupation_type, occupation)
                 print()
 
                 if pd.isna(family_id):
@@ -147,24 +170,24 @@ def import_members_from_excel(filepath):
                 # Create Family if not already created
                 if family_id not in family_map:
                     family_name = f"Family {int(family_id)}"
+                    paitrik_state_obj, paitrik_city_obj = generate_address(paitrik_nivas_state, paitrik_nivas_city)
                     family = Family.objects.create(
                         name=family_name,
                         paitrik_address=paitrik_nivas,
-                        paitrik_address_city=paitrik_nivas_city,
-                        paitrik_address_state=paitrik_nivas_state,
                         paitrik_address_pincode=paitrik_nivas_pincode,
                     )
+                    if paitrik_city_obj:
+                        family.paitrik_address_city = paitrik_city_obj
+                    if paitrik_state_obj:
+                        family.paitrik_address_state=paitrik_state_obj
+
                     family_map[family_id] = family
                     print(f"🏠 Created new family: {family.name} → {family.family_code}")
                 else:
                     family = family_map[family_id]
 
-                if qualification_type == 'school':
+                if school_class:
                     qualification_type = 'school'
-                elif qualification_type == 'college':
-                    qualification_type = 'undergraduate'
-                elif qualification_type == 'graduate':
-                    qualification_type = 'graduate'
 
                 print(f"👤 Creating member: {full_name}")
                 member = Member(
@@ -183,11 +206,14 @@ def import_members_from_excel(filepath):
                     whatsapp_number=whatsapp_no,
                     gotra=gotra,
                     current_address=current_address,
-                    current_address_city=current_address_city,
-                    current_address_state=current_address_state,
                     current_address_pincode=current_address_pincode,
                     qualification_type=qualification_type,
                 )
+                state_obj, city_obj = generate_address(current_address_state, current_address_city)
+                if city_obj:
+                    member.current_address_city = city_obj
+                if state_obj:
+                    member.current_address_state = state_obj
                 if occupation_type:
                     member.occupation_type = occupation_type
                 member.save()
@@ -202,16 +228,16 @@ def import_members_from_excel(filepath):
                 if qualification_type == 'school':
                     QualificationDetail.objects.create(member=member, school_class=school_class_val)
                     print("🎓 Added school qualification")
-                else:
-                    if raw_degree_string:
-                        for degree in raw_degree_string.split(","):
-                            degree = degree.strip()
-                            if not QualificationDetail.objects.filter(member=member, degree_name=degree).exists():
-                                if degree in allowed_degrees:
-                                    QualificationDetail.objects.create(member=member, degree_name=degree)
-                                else:
-                                    QualificationDetail.objects.create(member=member, degree_name='other', other_degree_text=degree)
-                        print(f"🎓 Added degree qualification")
+
+                if raw_degree_string and isinstance(raw_degree_string, str):
+                    for degree in raw_degree_string.split(","):
+                        degree = degree.strip()
+                        if not QualificationDetail.objects.filter(member=member, degree_name=degree).exists():
+                            if degree in allowed_degrees:
+                                QualificationDetail.objects.create(member=member, degree_name=degree)
+                            else:
+                                QualificationDetail.objects.create(member=member, degree_name='other', other_degree_text=degree)
+                    print(f"🎓 Added degree qualification")
 
                 if occupation_type == 'job':
                     OccupationDetail.objects.create(member=member, job_description=occupation)
@@ -228,15 +254,13 @@ def import_members_from_excel(filepath):
                     family.family_head = head_member
                     family.save()
                     print(f"✔️ Family head assigned: {head_member.full_name} → {family.family_code}")
-
-
     except Exception as e:
         print("An error occured during import")
         print(f"{e}")
         raise
 
 if __name__ == "__main__":
-    data_sheet_path = './paliwal_samaj_data_unicode.xlsx'
+    data_sheet_path = './unicode_samaj_data_19_july.xlsx'
 
     print("🚀 Starting member import script...")
     if not os.path.exists(data_sheet_path):
