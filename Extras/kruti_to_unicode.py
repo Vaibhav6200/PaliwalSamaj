@@ -591,8 +591,8 @@ def convert_kruti_excel(input_file, output_file, skip_columns):
 
     new_columns = ['sr_no', 'family_id', 'name', 'gotra', 'father_name', 'family_head', 'relation_with_head',
                    'phone_number', 'whatsapp_no', 'dob', 'birth_place', 'birth_time', 'gender', 'marital_status',
-                   'height', 'email', 'current_address', 'current_address_city', 'current_address_state',
-                   'current_address_pincode', 'paitrik_nivas', 'paitrik_nivas_city', 'paitrik_nivas_state',
+                   'height', 'email', 'current_address', 'current_address_city', 'current_address_state', 'current_address_village',
+                   'current_address_pincode', 'paitrik_nivas', 'paitrik_nivas_city', 'paitrik_nivas_state', 'paitrik_nivas_village',
                    'paitrik_nivas_pincode', 'education_type', 'school_class', 'degree', 'occupation_type', 'occupation',
                    'location', 'company_name', 'job_description', 'business_description']
     df.columns = new_columns
@@ -1691,6 +1691,7 @@ def convert_kruti_excel(input_file, output_file, skip_columns):
         "बि.स्कूल": "Job",
         "विधिा परा.": "Job",
     }
+
     if 'gotra' in df.columns:
         df['gotra'] = df['gotra'].apply(lambda x: gotra_map.get(str(x).strip(), x))
 
@@ -1715,44 +1716,46 @@ if __name__ == '__main__':
     # Note: column starts from 0
     input_file_path = './samaj_data_19_july.xlsx'
     output_file_path = './unicode_samaj_data_19_july.xlsx'
-    skip_columns = [0, 1, 5, 7, 8, 9, 11, 12, 13, 14, 15, 19, 23, 24, 25, 29, 30, 31, 32]
+    skip_columns = [0, 1, 5, 7, 8, 9, 11, 12, 13, 14, 15, 20, 25, 26, 27, 31, 32, 33, 34]
     convert_kruti_excel(input_file_path, output_file_path, skip_columns)
 
 
 
-# 0    -    sr_no                    -    Sr. No.                                           SKIP
-# 1    -    family_id                -    Family Id                                         SKIP
+# 0    -    sr_no                    -    Sr. No.                                                           SKIP
+# 1    -    family_id                -    Family Id                                                         SKIP
 # 2    -    name                     -    Name
 # 3    -    gotra                    -    Gotra
 # 4    -    father_name              -    Father Name
-# 5    -    family_head              -    Family Head                                       SKIP
+# 5    -    family_head              -    Family Head                                                       SKIP
 # 6    -    relation_with_head       -    Relation with Head
-# 7    -    phone_number             -    Phone Number                                      SKIP
-# 8    -    whatsApp_no              -    WhatsApp No                                       SKIP
-# 9    -    dob                      -    Date of Birth (dd/mm/yyyy)                        SKIP
+# 7    -    phone_number             -    Phone Number                                                      SKIP
+# 8    -    whatsApp_no              -    WhatsApp No                                                       SKIP
+# 9    -    dob                      -    Date of Birth (dd/mm/yyyy)                                        SKIP
 # 10   -    birth_place              -    Birth Place
-# 11   -    birth_time               -    Birth Time (24 Hr Format)                         SKIP
-# 12   -    gender                   -    Gender (Male/Female)                              SKIP
-# 13   -    marital_status           -    Marital Status (married, unmarried, widow, widower, divorced)              SKIP
-# 14   -    height                   -    Height (cm)                                       SKIP
-# 15   -    email                    -    Email                                             SKIP
+# 11   -    birth_time               -    Birth Time (24 Hr Format)                                         SKIP
+# 12   -    gender                   -    Gender (Male/Female)                                              SKIP
+# 13   -    marital_status           -    Marital Status (married, unmarried, widow, widower, divorced)     SKIP
+# 14   -    height                   -    Height (cm)                                                       SKIP
+# 15   -    email                    -    Email                                                             SKIP
 # 16   -    current_address          -    Current Address
 # 17   -    current_address_city     -    Current Address (City)
 # 18   -    current_address_state    -    Current Address (State)
-# 19   -    current_address_pincode  -    Current Address (Pincode)                         SKIP
-# 20   -    paitrik_nivas            -    Paitrik Nivas
-# 21   -    paitrik_nivas_city       -    Paitrik Nivas (City)
-# 22   -    paitrik_nivas_state      -    Paitrik Nivas (State)
-# 23   -    paitrik_nivas_pincode    -    Paitrik Nivas (Pincode)                           SKIP
-# 24   -    education_type           -    Education Type (School/College/Graduated)
-# 25   -    school_class             -    Class (if School)
-# 26   -    degree                   -    Degree (if College or Graduated)
-# 27   -    occupation_type          -    Occupation Type (Student/Job/Business/Retired/Housewife)
-# 28   -    occupation               -    Occupation
-# 29   -    location                 -    Location
-# 30   -    company_name             -    Company Name
-# 31   -    job_description          -    Job Description (if Job)
-# 32   -    business_description     -    Business Description (if Business)
+# 19   -    current_address_village  -    Current Address (Village)
+# 20   -    current_address_pincode  -    Current Address (Pincode)                                         SKIP
+# 21   -    paitrik_nivas            -    Paitrik Nivas
+# 22   -    paitrik_nivas_city       -    Paitrik Nivas (City)
+# 23   -    paitrik_nivas_state      -    Paitrik Nivas (State)
+# 24   -    paitrik_nivas_village    -    Paitrik Nivas (Village)
+# 25   -    paitrik_nivas_pincode    -    Paitrik Nivas (Pincode)                                           SKIP
+# 26   -    education_type           -    Education Type (School/College/Graduated)                         SKIP
+# 27   -    school_class             -    Class (if School)                                                 SKIP
+# 28   -    degree                   -    Degree (if College or Graduated)
+# 29   -    occupation_type          -    Occupation Type (Student/Job/Business/Retired/Housewife)
+# 30   -    occupation               -    Occupation
+# 31   -    location                 -    Location                                                          SKIP
+# 32   -    company_name             -    Company Name                                                      SKIP
+# 33   -    job_description          -    Job Description (if Job)                                          SKIP
+# 34   -    business_description     -    Business Description (if Business)                                SKIP
 
 
 

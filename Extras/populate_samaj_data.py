@@ -15,7 +15,7 @@ import django
 django.setup()
 
 
-from SamajApp.models import Member, QualificationDetail, OccupationDetail, User, Family, State, City
+from SamajApp.models import Member, QualificationDetail, OccupationDetail, User, Family, State, City, Village
 from SamajApp.utils import generate_username
 from django.db import transaction
 from indicate import transliterate
@@ -85,32 +85,56 @@ def parse_time(time_input):
     return None
 
 
-def generate_address(state_name, city_name):
+def generate_address(state_name, city_name, village_name):
     state = None
     city = None
+    village = None
 
     try:
+        # Strip input values
         state_name = str(state_name).strip() if state_name else ""
         city_name = str(city_name).strip() if city_name else ""
+        village_name = str(village_name).strip() if village_name else ""
 
+        # If village is entered, city and state must also be provided
+        if village_name:
+            if not city_name:
+                print("⚠️ City is missing — returning None, None, None.")
+                return None, None, None
+            # City must be linked to a state
+            if not state_name:
+                print("⚠️ State is missing for the given city — returning None, None, None.")
+                return None, None, None
+
+        # If city is entered, state must also be provided
+        if city_name and not state_name:
+            print("⚠️ State is missing for the given city — returning None, None, None.")
+            return None, None, None
+
+        # Handle state (must always be present if anything else is)
         if not state_name:
-            print("⚠️ State is missing — returning None, None.")
-            return None, None
+            print("⚠️ State is missing — returning None, None, None.")
+            return None, None, None
 
-        # If state is present, create or get state
         state_name_en = transliterate.hindi2english(state_name)
         state, _ = State.objects.get_or_create(state_name=state_name, state_name_en=state_name_en)
 
-        # If city is also present, create or get city
+        # Handle city (if entered, it must be linked to a state)
         if city_name:
             city_name_en = transliterate.hindi2english(city_name)
             city, _ = City.objects.get_or_create(city_name=city_name, city_name_en=city_name_en, state=state)
 
-        return state, city
+        # Handle village (if entered, it must be linked to a city)
+        if village_name:
+            village_name_en = transliterate.hindi2english(village_name)
+            village, _ = Village.objects.get_or_create(village_name=village_name, village_name_en=village_name_en, city=city)
+
+        return state, city, village
 
     except Exception as e:
-        print(f"❌ Error in generate_address with state='{state_name}' and city='{city_name}': {e}")
-        return None, None
+        print(
+            f"❌ Error in generate_address with state='{state_name}', city='{city_name}', village='{village_name}': {e}")
+        return None, None, None
 
 
 def import_members_from_excel(filepath):
@@ -136,6 +160,7 @@ def import_members_from_excel(filepath):
                 paitrik_nivas = clean_string(row.get("paitrik_nivas"))
                 paitrik_nivas_city = clean_string(row.get("paitrik_nivas_city"))
                 paitrik_nivas_state = clean_string(row.get("paitrik_nivas_state"))
+                paitrik_nivas_village = clean_string(row.get("paitrik_nivas_village"))
                 paitrik_nivas_pincode = clean_string(row.get("paitrik_nivas_pincode"))
                 full_name = clean_string(row.get("name"))
                 qualification_type = clean_string(row.get("education_type"))
@@ -155,6 +180,7 @@ def import_members_from_excel(filepath):
                 current_address = clean_string(row.get("current_address"))
                 current_address_city = clean_string(row.get("current_address_city"))
                 current_address_state = clean_string(row.get("current_address_state"))
+                current_address_village = clean_string(row.get("current_address_village"))
                 current_address_pincode = clean_string(row.get("current_address_pincode"))
                 relation_with_head = clean_string(row.get("relation_with_head"))
                 school_class = clean_string(row.get("school_class"))
@@ -170,7 +196,7 @@ def import_members_from_excel(filepath):
                 # Create Family if not already created
                 if family_id not in family_map:
                     family_name = f"Family {int(family_id)}"
-                    paitrik_state_obj, paitrik_city_obj = generate_address(paitrik_nivas_state, paitrik_nivas_city)
+                    paitrik_state_obj, paitrik_city_obj, paitrik_village_obj = generate_address(paitrik_nivas_state, paitrik_nivas_city, paitrik_nivas_village)
                     family = Family.objects.create(
                         name=family_name,
                         paitrik_address=paitrik_nivas,
@@ -179,7 +205,9 @@ def import_members_from_excel(filepath):
                     if paitrik_city_obj:
                         family.paitrik_address_city = paitrik_city_obj
                     if paitrik_state_obj:
-                        family.paitrik_address_state=paitrik_state_obj
+                        family.paitrik_address_state = paitrik_state_obj
+                    if paitrik_village_obj:
+                        family.paitrik_address_village = paitrik_village_obj
 
                     family_map[family_id] = family
                     print(f"🏠 Created new family: {family.name} → {family.family_code}")
@@ -209,11 +237,13 @@ def import_members_from_excel(filepath):
                     current_address_pincode=current_address_pincode,
                     qualification_type=qualification_type,
                 )
-                state_obj, city_obj = generate_address(current_address_state, current_address_city)
+                state_obj, city_obj, village_obj = generate_address(current_address_state, current_address_city, current_address_village)
                 if city_obj:
                     member.current_address_city = city_obj
                 if state_obj:
                     member.current_address_state = state_obj
+                if village_obj:
+                    member.current_address_village = village_obj
                 if occupation_type:
                     member.occupation_type = occupation_type
                 member.save()
