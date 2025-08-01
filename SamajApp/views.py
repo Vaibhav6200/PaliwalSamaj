@@ -362,9 +362,9 @@ def community(request):
                 villages = Village.objects.filter(city__city_name=city)
 
     context.update({
-        'states': states,
-        'cities': cities,
-        'villages': villages,
+        'states': states.order_by('state_name'),
+        'cities': cities.order_by('city_name'),
+        'villages': villages.order_by('village_name'),
         'records_count': community_members.count(),
     })
 
