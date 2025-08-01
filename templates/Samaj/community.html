@@ -98,7 +98,7 @@
                             <select name="state" class="form-control" id="state">
                                 <option value="" disabled {% if not state_filter_value %}selected{% endif %}>Select</option>
                                 {% for state in states %}
-                                    <option value="{{ state.state_name }}" {% if state_filter_value == state %}selected{% endif %}>{{ state.state_name }}</option>
+                                    <option value="{{ state.state_name }}" {% if state_filter_value == state.state_name %}selected{% endif %}>{{ state.state_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -109,7 +109,7 @@
                             <select name="city" class="form-control" id="city">
                                 <option value="" disabled {% if not city_filter_value %}selected{% endif %}>Select</option>
                                 {% for city in cities %}
-                                    <option value="{{ city.city_name }}" {% if city_filter_value == city %}selected{% endif %}>{{ city.city_name }}</option>
+                                    <option value="{{ city.city_name }}" {% if city_filter_value == city.city_name %}selected{% endif %}>{{ city.city_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -120,7 +120,7 @@
                             <select name="village" class="form-control" id="village">
                                 <option value="" disabled {% if not village_filter_value %}selected{% endif %}>Select</option>
                                 {% for village in villages %}
-                                    <option value="{{ village.village_name }}" {% if village_filter_value == village %}selected{% endif %}>{{ village.village_name }}</option>
+                                    <option value="{{ village.village_name }}" {% if village_filter_value == village.village_name %}selected{% endif %}>{{ village.village_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
