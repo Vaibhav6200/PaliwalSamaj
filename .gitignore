@@ -7,3 +7,5 @@ db.sqlite3
 paliwalsamaj/.idea/
 staticfiles/
 .DS_Store
+
+.idea/
