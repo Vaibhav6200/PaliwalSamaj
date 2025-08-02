@@ -33,7 +33,7 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG').lower in ['true', '1', 'yes', 'y']
+DEBUG = os.getenv('DEBUG').lower() in ['true', '1', 'yes', 'y']
 
 
 ENABLE_TRANSLITERATION = os.getenv('ENABLE_TRANSLITERATION').lower() in ['true', '1', 'yes', 'y']
@@ -146,19 +146,20 @@ USE_TZ = True
 
 
 # *** CONFIGURATIONS FOR DEVELOPMENT ***
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # *** CONFIGURATIONS FOR PRODUCTION ***
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # collectstatic will copy here
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # collectstatic will copy here
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
+# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
 # FAST2SMS Settings
 FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
