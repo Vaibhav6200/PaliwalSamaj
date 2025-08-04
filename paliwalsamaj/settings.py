@@ -162,6 +162,10 @@ STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
 # FAST2SMS Settings
 FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
+SENDER_ID = os.getenv("SENDER_ID")
+MESSAGE_ID = os.getenv("MESSAGE_ID")
+SMS_ROUTE = os.getenv("SMS_ROUTE")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

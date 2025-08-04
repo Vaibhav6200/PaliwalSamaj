@@ -1,8 +1,13 @@
+import random
+import string
+
+import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q, Prefetch
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State
 from django.contrib import messages
@@ -41,6 +46,49 @@ def site_login(request):
             messages.error(request, 'Invalid password.')
 
     return render(request, 'Samaj/login.html')
+
+
+@csrf_exempt
+def reset_member_password(request):
+    if request.method == 'POST':
+        phone = request.POST.get('contact_input')
+
+        member = Member.objects.filter(phone_number=phone)
+        if not member.exists():
+            messages.error(request, "No member found with this number.")
+            return redirect(request.META.get('HTTP_REFERER', 'samaj:site_login'))
+
+        member = member.first()
+
+        # Generate random 6-digit password
+        new_password = ''.join(random.choices(string.digits, k=6))
+
+        # Reset password
+        user = member.user
+        user.set_password(new_password)
+        user.save()
+
+        # Send via SMS
+        url = "https://www.fast2sms.com/dev/bulkV2"
+        payload = {
+            'sender_id': settings.SENDER_ID,
+            'message': settings.MESSAGE_ID,
+            'variables_values': f"{member.full_name}|{new_password}",
+            'route': settings.SMS_ROUTE,
+            'numbers': phone
+        }
+        headers = {
+            'authorization': settings.FAST2SMS_API_KEY,
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+
+        response = requests.post(url, data=payload, headers=headers)
+
+        if response.status_code == 200:
+            messages.success(request, "New password sent via SMS.")
+        else:
+            messages.error(request, "Failed to send SMS. Please try again.")
+    return redirect('samaj:site_login')
 
 
 def site_logout(request):

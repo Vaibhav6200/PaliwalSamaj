@@ -9,7 +9,7 @@
         <form class="login-form" id="login-form" action="{% url 'samaj:site_login' %}" method="post">
             {% csrf_token %}
             <h3 class="text-center mb-4">{% trans "Login" %}</h3>
-
+            <!-- Phone Number Input -->
             <div class="mb-3">
                 <label for="contact_input" class="form-label">{% trans "Mobile Number" %}</label>
                 <div id="autocomplete_container" class="autocomplete debounced">
@@ -18,21 +18,29 @@
                 </div>
                 <span class="text-secondary">{% trans "Example" %} : 9414110473</span>
             </div>
+            <!-- Password Input -->
             <div class="mb-3">
                 <label for="password" class="form-label">{% trans "Password" %}</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
             </div>
-
+            <!-- Submit Button -->
             <div class="d-grid mb-2">
                 <button type="submit" class="btn btn-primary" id="login_submit_btn">{% trans "Submit" %}</button>
             </div>
-            <p class="note-text">{% trans "If you don't have a password then" %}
-                <button type="submit" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">{% trans "Click here" %}</button>
+            <!-- Reset Password Option -->
+            <p class="note-text">
+                {% trans "If you don't have a password then just write your number and click here" %}
+                <button type="button" id="click_here_btn" class="btn btn-dark w-100 mt-1 text-white">{% trans "Click here" %}</button>
             </p>
-
+            <!-- Child Login Tip -->
             <div class="p-3 rounded border bg-light">
                 {% trans "If you are child then login with your parent's phone number." %}
             </div>
+        </form>
+        <!-- Hidden Reset Password Form -->
+        <form id="reset-form" method="post" action="{% url 'samaj:reset_member_password' %}" style="display: none;">
+            {% csrf_token %}
+            <input type="hidden" name="contact_input" id="reset_contact_input">
         </form>
     </div>
 </div>
@@ -42,4 +50,16 @@
 <script src="{% static 'js/validation.js' %}"></script>
 <script src="{% static 'js/login.js' %}"></script>
 <script src="{% static 'js/autocomplete_search.js' %}"></script>
+<!-- JavaScript to handle password reset -->
+<script>
+    document.getElementById('click_here_btn').addEventListener('click', function () {
+        const phone = document.getElementById('contact_input').value;
+        if (!phone) {
+            alert("Please enter your phone number first.");
+            return;
+        }
+        document.getElementById('reset_contact_input').value = phone;
+        document.getElementById('reset-form').submit();
+    });
+</script>
 {% endblock %}

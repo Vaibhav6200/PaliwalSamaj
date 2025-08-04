@@ -1,5 +1,5 @@
 const login_submit_btn = document.getElementById("login_submit_btn");
-const mobile_number = document.getElementById("mobile_number");
+const mobile_number = document.getElementById("contact_input");
 const click_here_btn = document.getElementById("click_here_btn");
 const password = document.getElementById("password");
 
