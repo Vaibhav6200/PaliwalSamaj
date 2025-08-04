@@ -165,6 +165,7 @@ FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
 SENDER_ID = os.getenv("SENDER_ID")
 MESSAGE_ID = os.getenv("MESSAGE_ID")
 SMS_ROUTE = os.getenv("SMS_ROUTE")
+ENABLE_SMS = os.getenv("ENABLE_SMS").lower() in ['true', '1', 'yes', 'y']
 
 
 # Default primary key field type

@@ -7,8 +7,8 @@ from indicate import transliterate
 @shared_task
 def translate_member_fields(member_id, lang='en'):
     member = Member.objects.get(id=member_id)
-    qualification_instance = QualificationDetail.objects.get(member=member)
-    occupation_instance = OccupationDetail.objects.get(member=member)
+    qualification_instances = QualificationDetail.objects.filter(member=member)
+    occupation_instance = OccupationDetail.objects.filter(member=member).first()
 
     def detect_and_assign(obj, modal_field):
         try:
@@ -39,10 +39,12 @@ def translate_member_fields(member_id, lang='en'):
         detect_and_assign(member, field)
     member.save()
 
-    for field in qualification_modal_translation_fields:
-        detect_and_assign(qualification_instance, field)
-    qualification_instance.save()
+    for qualification_instance in qualification_instances:
+        for field in qualification_modal_translation_fields:
+            detect_and_assign(qualification_instance, field)
+        qualification_instance.save()
 
-    for field in occupation_modal_translation_fields:
-        detect_and_assign(occupation_instance, field)
-    occupation_instance.save()
+    if occupation_instance:
+        for field in occupation_modal_translation_fields:
+            detect_and_assign(occupation_instance, field)
+        occupation_instance.save()

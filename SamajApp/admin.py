@@ -4,6 +4,15 @@ from django.utils.html import format_html
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 
 
+class QualificationDetailInline(admin.StackedInline):
+    model = QualificationDetail
+    extra = 0
+
+class OccupationDetailInline(admin.StackedInline):
+    model = OccupationDetail
+    extra = 0
+
+
 @admin.register(Family)
 class FamilyAdmin(admin.ModelAdmin):
     list_display = (
@@ -29,6 +38,8 @@ class CustomUserAdmin(DefaultUserAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
+    inlines = [QualificationDetailInline, OccupationDetailInline]
+
     list_display = (
         'id',
         'user',

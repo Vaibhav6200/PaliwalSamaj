@@ -58,6 +58,10 @@ def reset_member_password(request):
             messages.error(request, "No member found with this number.")
             return redirect(request.META.get('HTTP_REFERER', 'samaj:site_login'))
 
+        if not settings.ENABLE_SMS:
+            messages.error(request, "Our SMS Service is currently disabled.")
+            return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
         member = member.first()
 
         # Generate random 6-digit password
@@ -236,15 +240,11 @@ def handle_bio_data_form(request, family_code):
         # submit task to celery for translations
         if settings.ENABLE_TRANSLITERATION:
             current_language = translation.get_language()
-            translate_member_fields.delay(member.id, current_language)
-
-        if settings.ENABLE_TRANSLITERATION:
-            current_language = translation.get_language()
             try:
                 translate_member_fields.delay(member.id, current_language)
             except Exception as e:
-                logger.error(f"Celery task failed. Reason: {e}")
-                # translate_member_fields(member.id, current_language)
+                logger.error(f"Celery task failed. Reason: {e}, So Translating Synchronously")
+                translate_member_fields(member.id, current_language)
     return redirect('samaj:my_family')
 
 
