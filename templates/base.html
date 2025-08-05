@@ -93,10 +93,10 @@
         sessionStorage.setItem("ad_shown", "true");
 
         Swal.fire({
-            title: 'Sponsored by {{ request.session.sponsor_name|escapejs }}',
+            title: '{{ request.session.sponsor_name|escapejs }}',
             html: `
                 <img src="{{ request.session.sponsor_image_url|escapejs }}" alt="Sponsor Ad" style="max-width:100%; height:auto;" />
-                <p>{{ request.session.sponsor_message|escapejs }}</p>
+                <p class='mt-3'>{{ request.session.sponsor_message|escapejs }}</p>
             `,
             timer: {{request.session.sponsor_timer|escapejs}},
             timerProgressBar: true,
