@@ -38,6 +38,7 @@ DEBUG = os.getenv('DEBUG').lower() in ['true', '1', 'yes', 'y']
 
 ENABLE_TRANSLITERATION = os.getenv('ENABLE_TRANSLITERATION').lower() in ['true', '1', 'yes', 'y']
 SHOW_GOPAL_BRANDING = os.getenv('SHOW_GOPAL_BRANDING').lower() in ['true', '1', 'yes', 'y']
+SPONSOR_TIMER = os.getenv('SPONSOR_TIMER')
 
 # Added a coment on allowed hosts
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
@@ -161,11 +162,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
 # FAST2SMS Settings
-FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
-SENDER_ID = os.getenv("SENDER_ID")
-MESSAGE_ID = os.getenv("MESSAGE_ID")
-SMS_ROUTE = os.getenv("SMS_ROUTE")
 ENABLE_SMS = os.getenv("ENABLE_SMS").lower() in ['true', '1', 'yes', 'y']
+SMS_URL = os.getenv("SMS_URL")
+SMS_API_KEY = os.getenv("SMS_API_KEY")
+SMS_SENDER_ID = os.getenv("SMS_SENDER_ID")
+SMS_MESSAGE_ID = os.getenv("SMS_MESSAGE_ID")
+SMS_ROUTE = os.getenv("SMS_ROUTE")
 
 
 # Default primary key field type

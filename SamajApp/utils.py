@@ -2,12 +2,33 @@ import random
 import string
 from django.utils.text import slugify
 from django.contrib.auth.models import User
-from datetime import date
-from .models import State, City, Village
+from datetime import date, datetime
+
+from paliwalsamaj import settings
+from .models import State, City, Village, SponsorAd
 from django.utils import translation
 from google.transliteration import transliterate_text
 from indicate import transliterate
 from modeltranslation.utils import build_localized_fieldname
+
+
+def show_ad(request):
+    today = datetime.now().strftime("%Y-%m-%d")
+    last_seen = request.session.get("ad_last_seen")
+    if last_seen != today:
+        request.session["show_ad"] = True
+        request.session["ad_last_seen"] = today
+
+        # Load active sponsor ad
+        active_ad = SponsorAd.objects.filter(is_active=True).first()
+
+        if active_ad:
+            request.session["sponsor_timer"] = f"{int(settings.SPONSOR_TIMER)*1000}"
+            request.session["sponsor_name"] = active_ad.name
+            request.session["sponsor_message"] = active_ad.message
+            request.session["sponsor_image_url"] = active_ad.image.url
+    else:
+        request.session["show_ad"] = False
 
 
 def get_or_create_address(state_name, city_name, village_name):

@@ -84,6 +84,32 @@
 
     {% block javascripts %} {% endblock javascripts %}
 
+
+
+{% if request.session.show_ad %}
+<script>
+    // Only show ad if not already shown in this browser tab (via sessionStorage)
+    if (!sessionStorage.getItem("ad_shown")) {
+        sessionStorage.setItem("ad_shown", "true");
+
+        Swal.fire({
+            title: 'Sponsored by {{ request.session.sponsor_name|escapejs }}',
+            html: `
+                <img src="{{ request.session.sponsor_image_url|escapejs }}" alt="Sponsor Ad" style="max-width:100%; height:auto;" />
+                <p>{{ request.session.sponsor_message|escapejs }}</p>
+            `,
+            timer: {{request.session.sponsor_timer|escapejs}},
+            timerProgressBar: true,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    }
+</script>
+{% endif %}
+
 </div>
 </body>
 

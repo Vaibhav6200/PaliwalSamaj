@@ -527,3 +527,24 @@ class Culture(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+
+class SponsorAd(models.Model):
+    name = models.CharField(max_length=100)
+    message = models.TextField(blank=True)
+    image = models.ImageField(upload_to='ads/')
+    is_active = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.name
+
+    def clean(self, scheduled=False):
+        super().clean()
+        if self.is_active:
+            SponsorAd.objects.filter(is_active=True).exclude(pk=self.pk).update(is_active=False)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)

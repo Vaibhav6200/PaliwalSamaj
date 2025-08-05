@@ -9,11 +9,11 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State
+    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd
 from django.contrib import messages
 from paliwalsamaj import settings
-from .utils import generate_username, MessageHandler, calculate_age, generate_random_password, get_or_create_address
-from datetime import date, timedelta
+from .utils import generate_username, calculate_age, get_or_create_address, show_ad
+from datetime import date, timedelta, datetime
 from django.core.paginator import Paginator
 from .tasks import translate_member_fields
 from django.utils import translation
@@ -73,20 +73,19 @@ def reset_member_password(request):
         user.save()
 
         # Send via SMS
-        url = "https://www.fast2sms.com/dev/bulkV2"
         payload = {
-            'sender_id': settings.SENDER_ID,
-            'message': settings.MESSAGE_ID,
+            'sender_id': settings.SMS_SENDER_ID,
+            'message': settings.SMS_MESSAGE_ID,
             'variables_values': f"{member.full_name}|{new_password}",
             'route': settings.SMS_ROUTE,
             'numbers': phone
         }
         headers = {
-            'authorization': settings.FAST2SMS_API_KEY,
+            'authorization': settings.SMS_API_KEY,
             'Content-Type': 'application/x-www-form-urlencoded'
         }
 
-        response = requests.post(url, data=payload, headers=headers)
+        response = requests.post(settings.SMS_URL, data=payload, headers=headers)
 
         if response.status_code == 200:
             messages.success(request, "New password sent via SMS.")
@@ -102,6 +101,7 @@ def site_logout(request):
 
 
 def index(request):
+    show_ad(request)
     news_events_obj = NewsEvent.objects.all()
 
     # Get all groups and prefetch members ordered by rank
@@ -116,7 +116,6 @@ def index(request):
         'news_and_events': news_events_obj,
         'display_groups': display_groups,
     }
-
     return render(request, 'Samaj/index.html', context)
 
 

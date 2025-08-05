@@ -266,3 +266,10 @@ class VillageAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'village_name')
+
+
+@admin.register(SponsorAd)
+class SponsorAdAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'is_active', 'created_at')
+    list_display_links = ('id', 'name')
+    list_filter = ('is_active',)
