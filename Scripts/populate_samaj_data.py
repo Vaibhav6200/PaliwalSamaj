@@ -318,7 +318,7 @@ def import_members_from_excel(filepath):
         raise
 
 if __name__ == "__main__":
-    data_sheet_path = './testing2.xlsx'
+    data_sheet_path = './unicode_samaj_data_5_aug.xlsx'
 
     print("🚀 Starting member import script...")
     if not os.path.exists(data_sheet_path):
