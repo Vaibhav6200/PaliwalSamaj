@@ -415,7 +415,10 @@ def community(request):
         'records_count': community_members.count(),
     })
 
-    paginator = Paginator(community_members.order_by('full_name'), settings.COMMUNITY_MEMBERS_PER_PAGE)
+    paginator = Paginator(
+        community_members.order_by('full_name', 'father_name'),
+        settings.COMMUNITY_MEMBERS_PER_PAGE
+    )
     page_number = request.GET.get('page')
     context['community_members'] = paginator.get_page(page_number)
 
