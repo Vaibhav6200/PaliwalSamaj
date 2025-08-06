@@ -538,7 +538,13 @@ class SponsorAd(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return self.name
+        print(f"[DEBUG] name: {self.name}, image: {self.image}, image.name: {getattr(self.image, 'name', None)}")
+
+        if self.name:
+            return self.name
+        elif self.image:
+            return self.image.name.split('/')[-1]
+        return 'unnamed ad'
 
     def clean(self, scheduled=False):
         super().clean()

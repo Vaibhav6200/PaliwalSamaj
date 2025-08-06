@@ -270,6 +270,10 @@ class VillageAdmin(admin.ModelAdmin):
 
 @admin.register(SponsorAd)
 class SponsorAdAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'is_active', 'created_at')
-    list_display_links = ('id', 'name')
-    list_filter = ('is_active',)
+    list_display = ('id', 'get_display_name', 'is_active', 'created_at')
+    list_display_links = ('id', 'get_display_name')
+
+    def get_display_name(self, obj):
+        return str(obj)  # This will call your __str__()
+
+    get_display_name.short_description = 'Name'
