@@ -169,6 +169,7 @@ SMS_SENDER_ID = os.getenv("SMS_SENDER_ID")
 SMS_MESSAGE_ID = os.getenv("SMS_MESSAGE_ID")
 SMS_ROUTE = os.getenv("SMS_ROUTE")
 
+COMMUNITY_MEMBERS_PER_PAGE = os.getenv("COMMUNITY_MEMBERS_PER_PAGE")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
