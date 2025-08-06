@@ -530,8 +530,8 @@ class Culture(models.Model):
 
 
 class SponsorAd(models.Model):
-    name = models.CharField(max_length=100)
-    message = models.TextField(blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='ads/')
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
