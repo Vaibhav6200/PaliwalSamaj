@@ -91,22 +91,37 @@
     if (!sessionStorage.getItem("ad_shown")) {
         sessionStorage.setItem("ad_shown", "true");
 
-        Swal.fire({
-            {% if request.session.sponsor_name %}
-            title: '{{ request.session.sponsor_name|escapejs }}',
-            {% endif %}
-            html: `
-                <img src="{{ request.session.sponsor_image_url|escapejs }}" alt="Sponsor Ad" style="max-width:100%; height:auto;" />
-                {% if request.session.sponsor_message %}
-                <p class='mt-3'>{{ request.session.sponsor_message|escapejs }}</p>
+        const imageUrl = "{{ request.session.sponsor_image_url|escapejs }}";
+        const sponsorName = "{{ request.session.sponsor_name|escapejs }}";
+        const sponsorMessage = `{{ request.session.sponsor_message|escapejs }}`;
+        const sponsorTimer = {{ request.session.sponsor_timer|default:5000 }};
+
+        const img = new Image();
+        img.src = imageUrl;
+
+        img.onload = function() {
+            Swal.fire({
+                {% if request.session.sponsor_name %}
+                title: '{{ request.session.sponsor_name|escapejs }}',
                 {% endif %}
-            `,
-            width: '900px',
-            timer: {{ request.session.sponsor_timer|default:5000 }},
-            timerProgressBar: true,
-            showConfirmButton: false,
-            allowOutsideClick: false,
-        });
+                html: `
+                    <img src="{{ request.session.sponsor_image_url|escapejs }}" alt="Sponsor Ad" style="max-width:100%; height:auto;" />
+                    {% if request.session.sponsor_message %}
+                    <p class='mt-3'>{{ request.session.sponsor_message|escapejs }}</p>
+                    {% endif %}
+                `,
+                width: '900px',
+                timer: sponsorTimer,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+        };
+
+        img.onerror = function() {
+            console.error("Failed to load sponsor image.");
+            // Optionally show a fallback alert or skip the ad.
+        };
     }
 </script>
 {% endif %}
