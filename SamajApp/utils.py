@@ -14,11 +14,11 @@ from indicate import transliterate
 def show_ad(request):
     now = datetime.now()
     last_seen_str = request.session.get("ad_last_seen")     # 25-08-09 01:03:14
-    show_interval_hours = settings.SPONSOR_REPEAT_HOURS                 # 7
     show_ad_now = False
+
     if last_seen_str:
         last_seen = datetime.strptime(last_seen_str, "%Y-%m-%d %H:%M:%S")
-        if now - last_seen >= timedelta(hours=show_interval_hours):
+        if now - last_seen >= timedelta(minutes = settings.SPONSOR_REPEAT_MINUTES):
             show_ad_now = True
     else:
         show_ad_now = True
