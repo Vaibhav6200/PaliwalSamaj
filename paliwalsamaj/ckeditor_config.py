@@ -54,7 +54,7 @@ CKEDITOR_5_CONFIGS = {
                     'subscript', 'superscript', 'highlight', '|', 'sourceEditing', 'insertImage',
                     'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable', 'lineHeight'
+                    'insertTable', 'lineHeight', 'alignment'
                     ],
             'shouldNotGroupWhenFull': True
         },
