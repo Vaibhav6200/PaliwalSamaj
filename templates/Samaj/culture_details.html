@@ -10,11 +10,32 @@
   #content_section > li, p{
     font-size: 20px;
   }
-    #content_section img {
-      display: block;
+
+    /* Center-aligned CKEditor image */
+    figure.image.image-style-align-center {
+      display: table;
       margin-left: auto;
       margin-right: auto;
     }
+    /* Left-aligned CKEditor image */
+    figure.image.image-style-align-left {
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 1em;
+    }
+    /* Right-aligned CKEditor image */
+    figure.image.image-style-align-right {
+      float: right;
+      margin-left: 20px;
+      margin-bottom: 1em;
+    }
+    /* Optional: Responsive and clean sizing */
+    figure.image img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
 </style>
 {% endblock %}
 
@@ -58,15 +79,12 @@
                 </form>
             </div>
             {% endif %}
-            <div class="row mt-5">
-                <div class="col-12 mb-5 mb-lg-0">
-                    <section id="content_section" class="pt-0">
-                        {{ culture.content|safe }}
-                    </section>
-                </div>
-            </div>
         </div>
     </section>
+
+    <div class="container">
+        {{ culture.content|safe }}
+    </div>
 
     {% include 'Includes/footer.html' %}
 </main>
