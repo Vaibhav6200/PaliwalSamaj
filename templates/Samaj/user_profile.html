@@ -63,6 +63,12 @@
 
                                 <div class="detail-label">{% trans "Gotra" %}</div>
                                 <div class="detail-value">{{ profile.get_gotra_display }}</div>
+
+                                <div class="detail-label">{% trans "Last Updated" %}</div>
+                                <div class="detail-value">{{ profile.updated_at|date:"d-m-Y" }} </div>
+
+                                <div class="detail-label">{% trans "Record Created" %}</div>
+                                <div class="detail-value">5 Years ago</div>
                             </div>
                         </div>
                     </div>

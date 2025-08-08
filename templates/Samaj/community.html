@@ -248,11 +248,11 @@
                                 {% for member in community_members %}
                                 <tr>
                                     <td>{{ community_members.start_index|add:forloop.counter0 }}</td>
-                                    <td>{{ member.full_name }}</td>
-                                    <td>{{ member.father_name }}</td>
+                                    <td>{{ member.full_name|title }}</td>
+                                    <td>{{ member.father_name|title }}</td>
                                     <td>{{ member.date_of_birth }}</td>
                                     <td>{{ member.get_marital_status_display }}</td>
-                                    <td>{{ member.current_address_city }}, {{ member.current_address_state }}</td>
+                                    <td>{{ member.current_address_city|title }}, {{ member.current_address_state|title }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{% url 'samaj:user_profile' member.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
@@ -326,8 +326,6 @@
                     </nav>
                     {% endwith %}
                 {% endwith %}
-
-
                 {% endif %}
 
             </div>
