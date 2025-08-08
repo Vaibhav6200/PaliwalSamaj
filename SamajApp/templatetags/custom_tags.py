@@ -19,3 +19,7 @@ def get_member_age(dob):
             return today.year - dob.year
     except AttributeError:
         return ''
+
+@register.filter(name='add_class')
+def add_class(field, css_class):
+    return field.as_widget(attrs={"class": css_class})

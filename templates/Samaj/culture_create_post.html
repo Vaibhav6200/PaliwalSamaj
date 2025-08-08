@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block title %}Create Culture{% endblock %}
+
+{% block stylesheets %}
+<style>
+.ck-editor__editable {
+    min-height: 600px !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Navbar -->
+{% include 'Includes/navbar.html' %}
+<div class="p-5 d-flex flex-column align-items-center w-100">
+    {{ form.media }}
+    <form action="{% url 'samaj:culture_create_post' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if culture_obj %}
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="culture_id" value="{{ culture_obj.id }}">
+        {% else %}
+            <input type="hidden" name="action" value="add">
+        {% endif %}
+
+        <div class="mb-3">
+            {{ form.title_en.label_tag }}
+            {{ form.title_en|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            {{ form.title_hi.label_tag }}
+            {{ form.title_hi|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            {{ form.content.label_tag }}
+            {{ form.content }}  <!-- CKEditor already styled -->
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="{% if culture_obj %}Update Post{% else %}Submit Post{% endif %}">
+    </form>
+</div>
+
+<!-- Footer -->
+{% include 'Includes/footer.html' %}
+{% endblock content %}
+
+
+
+
+

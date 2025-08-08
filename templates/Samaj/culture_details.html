@@ -34,13 +34,32 @@
 
     <section id="main-container" class="main-container pt-0">
         <div class="container">
-            <div class="row">
+            {% if request.user.is_authenticated and request.user.is_staff %}
+            <div class="d-flex">
+                <form action="{% url 'samaj:culture_create_post' %}" method="get" class="mt-3 align-self-end">
+                    <input type="hidden" name="action" value="add">
+                    <button type="submit" class="btn btn-primary d-flex align-items-center">
+                        <span class="material-icons me-1">add</span>
+                        <span>Add</span>
+                    </button>
+                </form>
+                <form action="{% url 'samaj:culture_create_post' %}" method="get" class="mt-3 align-self-end ms-2">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="culture_id" value="{{ culture.id }}">
+                    <button type="submit" class="btn btn-primary d-flex align-items-center">
+                        <span class="material-icons me-1">edit</span>
+                        <span>Edit</span>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+            <div class="row mt-5">
                 <div class="col-12 mb-5 mb-lg-0">
                     <div class="post-content post-single">
                         <div class="post-body">
                             <div class="entry-content">
                                 <div class="d-flex flex-column">
-                                    <section id="content_section">
+                                    <section id="content_section" class="pt-0">
                                         {{ culture.content|safe }}
                                     </section>
                                 </div>
@@ -51,7 +70,6 @@
             </div>
         </div>
     </section>
-
 
     {% include 'Includes/footer.html' %}
 </main>

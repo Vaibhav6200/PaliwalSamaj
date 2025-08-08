@@ -6,3 +6,9 @@
 
 ### Test if redis is working: 
 ```redis-cli ping```
+
+### Re-Create Local File
+```django-admin makemessages -l hi```
+
+### Compile Local File
+```python manage.py compilemessages```

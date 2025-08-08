@@ -29,4 +29,5 @@ urlpatterns = [
     path('image_and_video_gallery/', image_and_video_gallery, name='image_and_video_gallery'),
 
     path('culture_detail/<slug:culture_slug>', culture_details, name='culture_detail'),
+    path('culture_create_post/', culture_create_post, name='culture_create_post'),
 ]

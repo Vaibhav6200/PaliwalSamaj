@@ -11,6 +11,7 @@ from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, Qual
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd
 from django.contrib import messages
 from paliwalsamaj import settings
+from .forms import CultureCreatePostForm
 from .utils import generate_username, calculate_age, get_or_create_address, show_ad
 from datetime import date, timedelta, datetime
 from django.core.paginator import Paginator
@@ -622,3 +623,49 @@ def culture_details(request, culture_slug=None):
     show_ad(request)
     culture_obj = Culture.objects.get(slug=culture_slug)
     return render(request, "Samaj/culture_details.html", {'culture': culture_obj})
+
+
+def culture_create_post(request):
+    culture_obj = None
+
+    if request.method == "POST":
+        action = request.POST.get('action')
+
+        if action == 'edit':
+            culture_id = request.POST.get('culture_id')
+            culture_obj = Culture.objects.filter(id = culture_id).first()
+
+            if not culture_obj:
+                messages.error(request, 'Culture Object Not Found')
+                return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+            form = CultureCreatePostForm(request.POST, request.FILES, instance=culture_obj)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Culture Updated Successfully')
+                return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+
+        elif action == 'add':
+            form = CultureCreatePostForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Post Created')
+                return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+        else:
+            form = CultureCreatePostForm()
+    else:
+        action = request.GET.get('action')
+        culture_id = request.GET.get('culture_id')
+        if action == 'edit' and culture_id:
+            culture_obj = Culture.objects.filter(id=culture_id).first()
+            if culture_obj:
+                form = CultureCreatePostForm(instance=culture_obj)
+            else:
+                form = CultureCreatePostForm()
+        else:  # Add mode
+            form = CultureCreatePostForm()
+    context = {
+        "form": form,
+        "culture_obj": culture_obj
+    }
+    return render(request, 'Samaj/culture_create_post.html', context)
