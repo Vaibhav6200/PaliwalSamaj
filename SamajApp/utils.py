@@ -3,7 +3,7 @@ import string
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from datetime import date, datetime, timedelta
-
+import logging
 from paliwalsamaj import settings
 from .models import State, City, Village, SponsorAd
 from django.utils import translation
@@ -11,13 +11,23 @@ from google.transliteration import transliterate_text
 from indicate import transliterate
 
 
+logger = logging.getLogger(__name__)
+
+
 def show_ad(request):
     now = datetime.now()
     last_seen_str = request.session.get("ad_last_seen")     # 25-08-09 01:03:14
     show_ad_now = False
 
+    logger.debug("NOW: %s", now)
+    logger.debug("LAST SEEN STR: %s", last_seen_str)
+    logger.debug("SESSION KEYS: %s", list(request.session.keys()))
+
     if last_seen_str:
         last_seen = datetime.strptime(last_seen_str, "%Y-%m-%d %H:%M:%S")
+        logger.debug("last_seen: %s", last_seen)
+        logger.debug("now - last_seen: %s", now - last_seen)
+
         if now - last_seen >= timedelta(minutes = settings.SPONSOR_REPEAT_MINUTES):
             show_ad_now = True
     else:
@@ -37,6 +47,9 @@ def show_ad(request):
             request.session["sponsor_image_url"] = active_ad.image.url
     else:
         request.session["show_ad"] = False
+
+    logger.debug("show_ad: %s", request.session["show_ad"])
+    logger.debug("ad_last_seen: %s", request.session["ad_last_seen"])
 
 
 def get_or_create_address(state_name, city_name, village_name):

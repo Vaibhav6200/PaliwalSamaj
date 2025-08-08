@@ -1,6 +1,5 @@
 import random
 import string
-
 import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -26,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 def site_login(request):
+    show_ad(request)
     if request.method == 'POST':
         phone = request.POST.get('contact_input')
         password = request.POST.get('password')
@@ -121,6 +121,7 @@ def index(request):
 
 @login_required
 def bio_data(request):
+    show_ad(request)
     context = {
         'family_code': Member.objects.get(user=request.user).family.family_code,
         'gotras': Member.GOTRA_CHOICES,
@@ -281,6 +282,7 @@ def handle_member_delete(request):
 
 
 def community(request):
+    show_ad(request)
     context = {
         'min_age_default_value': 1,
         'max_age_default_value': 80,
@@ -427,6 +429,7 @@ def community(request):
 
 @login_required
 def my_family(request):
+    show_ad(request)
     login_member = Member.objects.filter(user = request.user).first()
     all_family_members = Member.objects.filter(family=login_member.family)
 
@@ -438,6 +441,7 @@ def my_family(request):
 
 
 def member_family_tree(request, member_id):
+    show_ad(request)
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
     context = {
@@ -449,6 +453,7 @@ def member_family_tree(request, member_id):
 
 @login_required
 def sandesh(request):
+    show_ad(request)
     current_member = Member.objects.get(user=request.user)
 
     if request.method == 'POST':
@@ -488,6 +493,7 @@ def sandesh(request):
 
 @login_required
 def user_profile(request, member_id):
+    show_ad(request)
     member = Member.objects.get(id=member_id)
     context = {
         'profile': member,
@@ -497,6 +503,7 @@ def user_profile(request, member_id):
 
 
 def news_and_events(request):
+    show_ad(request)
     query = request.GET.get('q')
     news_events_obj = NewsEvent.objects.all().order_by('-created_at')
 
@@ -523,6 +530,7 @@ def news_and_events(request):
 
 
 def news_events_detail(request, event_slug):
+    show_ad(request)
     post = NewsEvent.objects.get(slug=event_slug)
     comments = Comment.objects.filter(post=post, parent__isnull=True).order_by('-created_at')
 
@@ -601,6 +609,7 @@ def get_member_search_list(request):
 
 
 def image_and_video_gallery(request):
+    show_ad(request)
     context = {
         'years': Gallery.objects.filter(media_type='photo').values_list('year', flat=True).distinct().order_by('-year'),
         'images': Gallery.objects.filter(media_type='photo'),
@@ -610,5 +619,6 @@ def image_and_video_gallery(request):
 
 
 def culture_details(request, culture_slug=None):
+    show_ad(request)
     culture_obj = Culture.objects.get(slug=culture_slug)
     return render(request, "Samaj/culture_details.html", {'culture': culture_obj})
