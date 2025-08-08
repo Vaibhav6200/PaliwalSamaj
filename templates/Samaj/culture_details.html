@@ -10,6 +10,11 @@
   #content_section > li, p{
     font-size: 20px;
   }
+    #content_section img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
 </style>
 {% endblock %}
 
@@ -55,17 +60,9 @@
             {% endif %}
             <div class="row mt-5">
                 <div class="col-12 mb-5 mb-lg-0">
-                    <div class="post-content post-single">
-                        <div class="post-body">
-                            <div class="entry-content">
-                                <div class="d-flex flex-column">
-                                    <section id="content_section" class="pt-0">
-                                        {{ culture.content|safe }}
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <section id="content_section" class="pt-0">
+                        {{ culture.content|safe }}
+                    </section>
                 </div>
             </div>
         </div>

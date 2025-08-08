@@ -35,7 +35,10 @@ CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': {
             'items': ['heading', '|', 'bold', 'italic', 'link',
-                      'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
+                      'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'lineHeight'],
+        },
+        'lineHeight': {
+            'options': [1, 1.15, 1.5, 2, 2.5, 3]
         }
     },
     'extends': {
@@ -44,16 +47,19 @@ CKEDITOR_5_CONFIGS = {
             '|',
             'bulletedList', 'numberedList',
             '|',
-            'blockQuote',
+            'blockQuote', 'lineHeight'
         ],
         'toolbar': {
             'items': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-                      'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
+                    'subscript', 'superscript', 'highlight', '|', 'sourceEditing', 'insertImage',
                     'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable',
+                    'insertTable', 'lineHeight'
                     ],
             'shouldNotGroupWhenFull': True
+        },
+        'lineHeight': {
+            'options': [1, 1.15, 1.5, 2, 2.5, 3]
         },
         'image': {
             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
