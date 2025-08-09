@@ -34,7 +34,7 @@ class City(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.city_name}, {self.state}"
+        return f"{self.city_name}"
 
 
 class Village(models.Model):
@@ -48,7 +48,7 @@ class Village(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.village_name}, {self.city}"
+        return f"{self.village_name}"
 
 
 class Family(models.Model):
