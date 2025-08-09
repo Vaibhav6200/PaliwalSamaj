@@ -315,8 +315,9 @@ def community(request):
         if name:
             context['name_filter_value'] = name
             name_parts = name.strip().split()
+
             for part in name_parts:
-                community_members = (community_members.filter(full_name__icontains=part))
+                community_members = (community_members.filter(full_name_en__icontains=part))
 
         today = date.today()
         if min_age_value and max_age_value:
