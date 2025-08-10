@@ -517,6 +517,8 @@ class Culture(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True, null=True)
+    pdf_flag = models.BooleanField(default=False)
+    pdf = models.FileField(upload_to='culture_pdf', null=True, blank=True)
     content = CKEditor5Field('Text', config_name='extends')
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()

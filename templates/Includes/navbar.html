@@ -89,7 +89,11 @@
 
                                   <ul class="dropdown-menu custom-dropdown" role="menu">
                                       {% for culture in all_cultures %}
-                                        <li><a href="{% url 'samaj:culture_detail' culture.slug %}">{{ culture.title }}</a></li>
+                                          {% if culture.pdf_flag %}
+                                            <li><a target="_blank" href="{{ culture.pdf.url }}">{{ culture.title }}</a></li>
+                                          {% else %}
+                                            <li><a href="{% url 'samaj:culture_detail' culture.slug %}">{{ culture.title }}</a></li>
+                                          {% endif %}
                                       {% endfor %}
                                   </ul>
                                 </li>
