@@ -613,7 +613,7 @@ def get_member_search_list(request):
                     output_field=IntegerField(),
                 )
             )
-            .order_by('priority', 'full_name')  # Priority first, then alphabetically
+            .order_by('priority')
         )
 
         for obj in objs:
