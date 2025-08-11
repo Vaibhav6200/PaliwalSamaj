@@ -3,7 +3,7 @@ import string
 import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.db.models import Q, Prefetch
+from django.db.models import Q, Prefetch, Case, When, Value, IntegerField
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -598,12 +598,30 @@ def get_member_search_list(request):
         for word in words:
             query |= Q(phone_number__icontains=word)
             query |= Q(full_name__icontains=word)
-        objs = Member.objects.filter(query)
+
+        objs = (
+            Member.objects
+            .filter(query)
+            .annotate(
+                priority=Case(
+                    # Exact match → Highest Priority
+                    When(full_name__iexact=search_query, then=Value(0)),
+                    # Starts with → second highest
+                    When(full_name__istartswith=search_query, then=Value(1)),
+                    # Everything else → lower priority
+                    default=Value(2),
+                    output_field=IntegerField(),
+                )
+            )
+            .order_by('priority', 'full_name')  # Priority first, then alphabetically
+        )
+
         for obj in objs:
             payload.append({
                 'member_name': obj.full_name,
                 'member_phone': obj.phone_number,
             })
+
     return JsonResponse({
         "status": True,
         "payload": payload
