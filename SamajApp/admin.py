@@ -197,6 +197,7 @@ class CultureAdmin(admin.ModelAdmin):
         'title',
         'slug',
         'pdf_flag',
+        'rank',
         'created_at',
     )
     list_display_links = ('id', 'title')

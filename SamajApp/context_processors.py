@@ -4,7 +4,7 @@ from paliwalsamaj.settings import SHOW_GOPAL_BRANDING
 
 def culture_menu_items(request):
     return {
-        'all_cultures': Culture.objects.all()
+        'all_cultures': Culture.objects.all().order_by('rank')
     }
 
 def show_gopal_branding(request):
