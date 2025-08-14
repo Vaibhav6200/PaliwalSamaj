@@ -516,11 +516,11 @@ class Culture(models.Model):
         verbose_name_plural = 'Culture'
 
     title = models.CharField(max_length=255)
+    rank = models.PositiveSmallIntegerField()
     slug = models.SlugField(unique=True, blank=True, null=True)
     pdf_flag = models.BooleanField(default=False)
     pdf = models.FileField(upload_to='culture_pdf', null=True, blank=True)
     content = CKEditor5Field('Text', config_name='extends')
-    rank = models.PositiveSmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
