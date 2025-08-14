@@ -516,7 +516,7 @@ class Culture(models.Model):
         verbose_name_plural = 'Culture'
 
     title = models.CharField(max_length=255)
-    rank = models.PositiveSmallIntegerField()
+    rank = models.PositiveSmallIntegerField(null=True, blank=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     pdf_flag = models.BooleanField(default=False)
     pdf = models.FileField(upload_to='culture_pdf', null=True, blank=True)
@@ -528,8 +528,14 @@ class Culture(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        # Update Slug
         self.slug = slugify(self.title)
+        # Update Rank
+        if not self.pk and (self.rank is None or self.rank == 10):  # new object & no custom rank
+            max_rank = Culture.objects.aggregate(models.Max('rank'))['rank__max'] or 0
+            self.rank = max_rank + 10
         super().save(*args, **kwargs)
+
 
 
 class SponsorAd(models.Model):
