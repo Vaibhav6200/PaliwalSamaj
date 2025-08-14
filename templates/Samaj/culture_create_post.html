@@ -16,7 +16,7 @@
 {% include 'Includes/navbar.html' %}
 <div class="p-5 d-flex flex-column align-items-center w-100">
     {{ form.media }}
-    <form action="{% url 'samaj:culture_create_post' %}" method="post" enctype="multipart/form-data">
+    <form action="{% url 'samaj:culture_create_post' %}" method="post" enctype="multipart/form-data" class="w-100">
         {% csrf_token %}
         {% if culture_obj %}
             <input type="hidden" name="action" value="edit">
