@@ -32,7 +32,7 @@
                 <div class="col-6 col-md-4 p-2">
                     {% if family_head %}
                     <div class="my_family_card item border">
-                        <div class="ts-team-wrapper">
+                        <div class="ts-team-wrapper profile_container">
                             <div class="team-img-wrapper">
                                 {% if family_head.profile_image %}
                                 <img loading="lazy" class="w-100" src="{{ family_head.profile_image.url }}"
@@ -44,10 +44,10 @@
                             </div>
                             <div class="ts-team-content d-flex flex-column justify-content-between">
                                 <div>
-                                    <h3 class="ts-name">{{family_head.full_name}}</h3>
+                                    <h3 class="ts-name community_member_name">{{family_head.full_name}}</h3>
                                 </div>
                                 <div>
-                                    <div class="">
+                                    <div class="community_member_card_info">
                                         <div class="ts-designation mb-0 border-bottom pb-1 mb-1">{% trans "Gotra" %} {{family_head.get_gotra_display}}</div>
                                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                                             <div class=""><span class="material-icons fs-5 ">cake</span></div>
@@ -61,21 +61,21 @@
                                             <div class="text-white ms-2">Ahmedabad</div>
                                         </div>
                                     </div>
-                                    <div class="row m-0 p-0 mt-2">
+                                    <div class="row m-0 p-0 mt-2 profile_manage_button">
                                         <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
                                              title="View Profile">
                                             <a href="{% url 'samaj:user_profile' family_head.id %}"
                                                class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                                <span class="material-icons me-2">visibility</span> {% trans "View Profile" %}
+                                                <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
                                             </a>
                                         </div>
 
                                         <div class="col-12 col-md-6 p-0">
-                                            <form action="{% url 'samaj:bio_data' %}" method="post">
+                                            <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0 p-0 w-100">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
                                                 <button type="submit"
-                                                        class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
+                                                        class="btn btn-dark rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center mb-1">
                                                     <span class="material-icons me-2">edit</span> {% trans "Edit" %}
                                                 </button>
                                             </form>
@@ -86,7 +86,7 @@
                                                 {% csrf_token %}
                                                 <input type="hidden" value="{{ family_head.id }}" name="member_id">
                                                 <button type="submit"
-                                                        class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
+                                                        class="btn btn-danger rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center mb-1">
                                                     <span class="material-icons me-2">delete</span> {% trans "Delete" %}
                                                 </button>
                                             </form>
@@ -105,7 +105,7 @@
                 {% if not member == member.family.family_head %}
                 <div class="col-6 col-md-4 p-2">
                     <div class="my_family_card item border">
-                        <div class="ts-team-wrapper">
+                        <div class="ts-team-wrapper profile_container">
                             <div class="team-img-wrapper">
                                 {% if member.profile_image %}
                                 <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
@@ -116,7 +116,7 @@
                             </div>
                             <div class="ts-team-content d-flex flex-column justify-content-between">
                                 <div>
-                                    <h3 class="ts-name">{{ member.full_name }}</h3>
+                                    <h3 class="ts-name community_member_name">{{ member.full_name }}</h3>
                                 </div>
                                 <div>
                                     <div class="">
@@ -136,7 +136,7 @@
                                             <a href="{% url 'samaj:user_profile' member.id %}"
                                                class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
                                                 <span class="material-icons me-2">visibility</span>
-                                                {% trans "View Profile" %}
+                                                {% trans "Profile" %}
                                             </a>
                                         </div>
                                         <div class="col-12 col-md-6 p-0">

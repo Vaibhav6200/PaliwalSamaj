@@ -843,8 +843,8 @@ msgstr ""
 #: templates/Samaj/member_family_tree.html:49
 #: templates/Samaj/member_family_tree.html:88 templates/Samaj/my_family.html:71
 #: templates/Samaj/my_family.html:140
-msgid "View Profile"
-msgstr "प्रोफ़ाइल देखें"
+msgid "Profile"
+msgstr "प्रोफ़ाइल"
 
 #: templates/Samaj/community.html:193 templates/Samaj/user_profile.html:17
 msgid "Show Family"

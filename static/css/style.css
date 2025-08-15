@@ -3556,6 +3556,29 @@ label {
     }
 }
 
+@media screen and (max-width:992px) {
+  .community_member_card_info{
+    display: none !important;
+  }
+}
+
+.profile_manage_button{
+    display: none;
+}
+
+.profile_container:hover .profile_manage_button{
+    display: flex;
+}
+
+
+.community_member_name{
+    display: block;
+}
+
+.profile_container:hover .community_member_name{
+    display: none;
+}
+
 /* a container - decorative, not required
 .container {
     border: 1px solid plum;

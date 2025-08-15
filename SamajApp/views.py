@@ -77,7 +77,7 @@ def reset_member_password(request):
         payload = {
             'sender_id': settings.SMS_SENDER_ID,
             'message': settings.SMS_MESSAGE_ID,
-            'variables_values': f"{member.full_name}|{new_password}",
+            'variables_values': f"{member.full_name_en}|{new_password}",
             'route': settings.SMS_ROUTE,
             'numbers': phone
         }
