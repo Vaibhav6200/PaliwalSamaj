@@ -191,7 +191,7 @@
                                     <div class="ts-team-content">
                                         <h3 class="ts-name community_member_name">{{ member.full_name }} </h3>
                                         <p class="ts-designation community_member_card_info">{% trans "Gotra" %}: {{ member.get_gotra_display }}</p>
-                                        <div class="community_member_card_info">
+                                        <div class="community_member_card_info profile_hover_content">
                                             <div class="d-flex align-items-center py-2 border-bottom border-white">
                                                 <div class=""><span class="material-icons fs-5 ">cake</span></div>
                                                 <div class="text-white ms-2">
@@ -205,7 +205,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row m-0 p-0 mt-3 profile_manage_button">
+                                        <div class="row m-0 p-0 mt-3 profile_hover_content">
                                             <div class="col-12 p-0 mb-2">
                                                  <a href="{% url 'samaj:user_profile' member.id %}" class="border btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
                                                     <span class="material-icons me-2">visibility</span>{% trans "Profile" %}

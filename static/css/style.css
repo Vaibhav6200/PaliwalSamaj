@@ -3560,19 +3560,22 @@ label {
   .community_member_card_info{
     display: none !important;
   }
+  .my_family_action_btn_container{
+    flex-direction: column;
+  }
 }
 
-.profile_manage_button{
+.profile_hover_content{
     display: none;
 }
 
-.profile_container:hover .profile_manage_button{
-    display: flex;
-}
-
-
 .community_member_name{
     display: block;
+}
+
+.profile_container:hover .profile_hover_content{
+    display: flex;
+    flex-direction: column;
 }
 
 .profile_container:hover .community_member_name{

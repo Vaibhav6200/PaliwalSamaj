@@ -46,8 +46,8 @@
                                 <div>
                                     <h3 class="ts-name community_member_name">{{family_head.full_name}}</h3>
                                 </div>
-                                <div>
-                                    <div class="community_member_card_info">
+                                <div class="profile_hover_content">
+                                    <div class="community_member_card_info ">
                                         <div class="ts-designation mb-0 border-bottom pb-1 mb-1">{% trans "Gotra" %} {{family_head.get_gotra_display}}</div>
                                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                                             <div class=""><span class="material-icons fs-5 ">cake</span></div>
@@ -61,33 +61,32 @@
                                             <div class="text-white ms-2">Ahmedabad</div>
                                         </div>
                                     </div>
-                                    <div class="row m-0 p-0 mt-2 profile_manage_button">
-                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                             title="View Profile">
+                                    <div class="d-flex justify-content-between m-0 p-0 mt-2 my_family_action_btn_container">
+                                        <div class="p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                             <a href="{% url 'samaj:user_profile' family_head.id %}"
-                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                                <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
+                                               class="btn btn-light fw-bold rounded-0 py-2 d-flex justify-content-center align-items-center">
+                                                <span class="material-icons">visibility</span>
                                             </a>
                                         </div>
-
-                                        <div class="col-12 col-md-6 p-0">
-                                            <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0 p-0 w-100">
+                                        <div class="p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile">
+                                            <form action="{% url 'samaj:bio_data' %}" method="post"
+                                                  class="">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
                                                 <button type="submit"
-                                                        class="btn btn-dark rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center mb-1">
-                                                    <span class="material-icons me-2">edit</span> {% trans "Edit" %}
+                                                        class="btn btn-light rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center">
+                                                    <span class="material-icons">edit</span>
                                                 </button>
                                             </form>
                                         </div>
-                                        <div class="col-12 col-md-6 p-0">
+                                        <div class="p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Profile">
                                             <form action="{% url 'samaj:handle_member_delete' %}" method="post"
-                                                  class="m-0 p-0 w-100 delete-member-form">
+                                                  class="delete-member-form">
                                                 {% csrf_token %}
                                                 <input type="hidden" value="{{ family_head.id }}" name="member_id">
                                                 <button type="submit"
-                                                        class="btn btn-danger rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center mb-1">
-                                                    <span class="material-icons me-2">delete</span> {% trans "Delete" %}
+                                                        class="btn btn-danger rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center">
+                                                    <span class="material-icons">delete</span>
                                                 </button>
                                             </form>
                                         </div>
@@ -114,12 +113,12 @@
                                      alt="team-img">
                                 {% endif %}
                             </div>
-                            <div class="ts-team-content d-flex flex-column justify-content-between">
+                            <div class="ts-team-content">
                                 <div>
                                     <h3 class="ts-name community_member_name">{{ member.full_name }}</h3>
                                 </div>
-                                <div>
-                                    <div class="">
+                                <div class="profile_hover_content">
+                                    <div class="community_member_card_info">
                                         <div class="ts-designation mb-0 border-bottom pb-2 mb-1">{% trans "Gotra" %}: {{ member.get_gotra_display }}
                                         </div>
                                         <div class="d-flex align-items-center py-2 border-bottom border-white">
@@ -128,35 +127,33 @@
                                                 {% trans "Age" %}: {{ member.date_of_birth|get_member_age }}
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class="row m-0 p-0 mt-3">
-                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    <div class="d-flex justify-content-between m-0 p-0 mt-2 my_family_action_btn_container">
+                                        <div class="p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
                                              title="View Profile">
                                             <a href="{% url 'samaj:user_profile' member.id %}"
-                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                                <span class="material-icons me-2">visibility</span>
-                                                {% trans "Profile" %}
+                                               class="btn btn-light fw-bold rounded-0 d-flex justify-content-center align-items-center">
+                                                <span class="material-icons ">visibility</span>
                                             </a>
                                         </div>
-                                        <div class="col-12 col-md-6 p-0">
+                                        <div class="p-0 mb-1">
                                             <form action="{% url 'samaj:bio_data' %}" method="post">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="user_id" value="{{ member.user.id }}">
                                                 <button type="submit"
-                                                        class="btn btn-dark rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                    <span class="material-icons me-2">edit</span> {% trans "Edit" %}
+                                                        class="btn btn-light rounded-0 w-100 d-flex justify-content-center align-items-center">
+                                                    <span class="material-icons ">edit</span>
                                                 </button>
                                             </form>
                                         </div>
-                                        <div class="col-12 col-md-6 p-0">
+                                        <div class="p-0 mb-1">
                                             <form action="{% url 'samaj:handle_member_delete' %}" method="post"
                                                   class="m-0 p-0 w-100 delete-member-form">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="member_id" value="{{ member.id }}">
                                                 <button type="submit"
-                                                        class="btn btn-danger py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
-                                                    <span class="material-icons me-2">delete</span> {% trans "Delete" %}
+                                                        class="btn btn-danger d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
+                                                    <span class="material-icons ">delete</span>
                                                 </button>
                                             </form>
                                         </div>
