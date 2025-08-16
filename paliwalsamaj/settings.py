@@ -189,13 +189,23 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # where uploads are stored
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 
-# FAST2SMS Settings
 ENABLE_SMS = os.getenv("ENABLE_SMS").lower() in ['true', '1', 'yes', 'y']
-SMS_URL = os.getenv("SMS_URL")
-SMS_API_KEY = os.getenv("SMS_API_KEY")
-SMS_SENDER_ID = os.getenv("SMS_SENDER_ID")
-SMS_MESSAGE_ID = os.getenv("SMS_MESSAGE_ID")
-SMS_ROUTE = os.getenv("SMS_ROUTE")
+
+# FAST2SMS Settings
+# FAST2SMS_URL = os.getenv("FAST2SMS_URL")
+# FAST2SMS_API_KEY = os.getenv("FAST2SMS_API_KEY")
+# FAST2SMS_SENDER_ID = os.getenv("FAST2SMS_SENDER_ID")
+# FAST2SMS_MESSAGE_ID = os.getenv("FAST2SMS_MESSAGE_ID")
+# FAST2SMS_ROUTE = os.getenv("FAST2SMS_ROUTE")
+
+# Market Buzzer SMS Settings
+BUZZER_SMS_URL = os.getenv("BUZZER_SMS_URL")
+BUZZER_SMS_API_KEY = os.getenv("BUZZER_SMS_API_KEY")
+BUZZER_SMS_USERNAME = os.getenv("BUZZER_SMS_USERNAME")
+BUZZER_SMS_SENDER_ID = os.getenv("BUZZER_SMS_SENDER_ID")
+BUZZER_ENTITY_ID = os.getenv("BUZZER_ENTITY_ID")
+BUZZER_TEMPLATE_ID = os.getenv("BUZZER_TEMPLATE_ID")
+
 
 COMMUNITY_MEMBERS_PER_PAGE = os.getenv("COMMUNITY_MEMBERS_PER_PAGE")
 SPONSOR_REPEAT_MINUTES = float(os.getenv("SPONSOR_REPEAT_MINUTES"))

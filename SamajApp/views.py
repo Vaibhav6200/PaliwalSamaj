@@ -7,12 +7,14 @@ from django.db.models import Q, Prefetch, Case, When, Value, IntegerField
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from markdown_it.rules_block import reference
+
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd
+    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog
 from django.contrib import messages
 from paliwalsamaj import settings
 from .forms import CultureCreatePostForm
-from .utils import generate_username, calculate_age, get_or_create_address, show_ad
+from .utils import generate_username, calculate_age, get_or_create_address, show_ad, build_market_buzzer_sms_payload
 from datetime import date, timedelta, datetime
 from django.core.paginator import Paginator
 from .tasks import translate_member_fields
@@ -73,25 +75,43 @@ def reset_member_password(request):
         user.set_password(new_password)
         user.save()
 
-        # Send via SMS
-        payload = {
-            'sender_id': settings.SMS_SENDER_ID,
-            'message': settings.SMS_MESSAGE_ID,
-            'variables_values': f"{member.full_name_en}|{new_password}",
-            'route': settings.SMS_ROUTE,
-            'numbers': phone
-        }
-        headers = {
-            'authorization': settings.SMS_API_KEY,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        reference_id = random.randint(10000, 99999)
+        full_name = 'User'
+        if member.full_name_en:
+            full_name = member.full_name_en
 
-        response = requests.post(settings.SMS_URL, data=payload, headers=headers)
+        market_buzzer_xml_payload = build_market_buzzer_sms_payload(full_name, new_password, phone, reference_id)
+        market_buzzer_sms_header = {"Content-Type": "application/xml"}
+        response = requests.post(settings.BUZZER_SMS_URL, data=market_buzzer_xml_payload.encode("utf-8"), headers=market_buzzer_sms_header)
+
+        # FAST2SMS Send via SMS
+        # fast2sms_payload = {
+        #     'sender_id': settings.FAST2SMS_SENDER_ID,
+        #     'message': settings.FAST2SMS_MESSAGE_ID,
+        #     'variables_values': f"{member.full_name_en}|{new_password}",
+        #     'route': settings.FAST2SMS_ROUTE,
+        #     'numbers': phone
+        # }
+        # fast2sms_headers = {
+        #     'authorization': settings.FAST2SMS_API_KEY,
+        #     'Content-Type': 'application/x-www-form-urlencoded'
+        # }
+        # response = requests.post(settings.FAST2SMS_URL, data=fast2sms_payload, headers=fast2sms_headers)
 
         if response.status_code == 200:
             messages.success(request, "New password sent via SMS.")
         else:
             messages.error(request, "Failed to send SMS. Please try again.")
+
+        # Saving SMS log regardless of success/failure
+        SMSLog.objects.create(
+            member=member,
+            phone_number=phone,
+            message=f"Dear {full_name}, your login password for Shree Bada Paliwal Samaj website is {new_password}.",
+            reference_id=reference_id,
+            status_code=response.status_code,
+            response_text=response.text
+        )
     return redirect('samaj:site_login')
 
 

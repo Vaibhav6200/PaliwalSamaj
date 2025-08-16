@@ -279,3 +279,17 @@ class SponsorAdAdmin(admin.ModelAdmin):
         return str(obj)  # This will call your __str__()
 
     get_display_name.short_description = 'Name'
+
+@admin.register(SMSLog)
+class SMSLogAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'member',
+        'phone_number',
+        'message',
+        'reference_id',
+        'status_code',
+        'response_text',
+        'created_at',
+    )
+    list_display_links = ('id', 'member')

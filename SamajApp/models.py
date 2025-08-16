@@ -537,7 +537,6 @@ class Culture(models.Model):
         super().save(*args, **kwargs)
 
 
-
 class SponsorAd(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     message = models.TextField(null=True, blank=True)
@@ -563,3 +562,17 @@ class SponsorAd(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
+
+
+class SMSLog(models.Model):
+    member = models.ForeignKey("Member", on_delete=models.SET_NULL, null=True, blank=True)
+    phone_number = models.CharField(max_length=15)
+    message = models.TextField()
+    reference_id = models.CharField(max_length=50, null=True, blank=True)
+    status_code = models.IntegerField(null=True, blank=True)
+    response_text = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"SMS to {self.phone_number}"
