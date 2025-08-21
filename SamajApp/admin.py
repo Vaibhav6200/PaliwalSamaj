@@ -272,7 +272,7 @@ class VillageAdmin(admin.ModelAdmin):
 
 @admin.register(SponsorAd)
 class SponsorAdAdmin(admin.ModelAdmin):
-    list_display = ('id', 'get_display_name', 'is_active', 'created_at')
+    list_display = ('id', 'get_display_name', 'is_active', 'image', 'created_at')
     list_display_links = ('id', 'get_display_name')
 
     def get_display_name(self, obj):
