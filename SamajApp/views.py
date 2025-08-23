@@ -177,35 +177,82 @@ def handle_bio_data_form(request, family_code):
             member = Member(user=user, family=family)
             messages.success(request, 'Member Added Successfully')
 
-        member.full_name = full_name
-        member.email = email
-        member.father_name = request.POST.get('father_name')
-        member.mother_name = request.POST.get('mother_name')
-        member.birth_place = request.POST.get('birth_place')
-        member.current_address = request.POST.get('address')
-
-        state, city, village = get_or_create_address(request.POST.get('state'), request.POST.get('city'), request.POST.get('village'))
-
-        member.current_address_state = state
-        member.current_address_city = city
-        member.current_address_village = village
-
-        member.date_of_birth = request.POST.get('date_of_birth')
-        if request.POST.get('birth_time'):
-            member.birth_time = request.POST.get('birth_time')
-        member.gender = request.POST.get('gender')
-        member.marital_status = request.POST.get('marital_status')
-        if request.POST.get('height'):
-            member.height = request.POST.get('height')
-        member.phone_number = request.POST.get('phone_number')
-        member.whatsapp_number = request.POST.get('whatsapp_number')
-        member.gotra = request.POST.get('gotra')
-        member.qualification_type = request.POST.get('qualification')
-        member.occupation_type = request.POST.get('occupation')
-        member.instagram_link = request.POST.get('instagram_link')
-        member.facebook_link = request.POST.get('facebook_link')
-
+        # Extracting Data from Form
+        date_of_birth = request.POST.get('date_of_birth')
+        birth_time = request.POST.get('birth_time')
+        father_name = request.POST.get('father_name')
+        mother_name = request.POST.get('mother_name')
+        birth_place = request.POST.get('birth_place')
+        address = request.POST.get('address')
+        gender = request.POST.get('gender')
+        marital_status = request.POST.get('marital_status')
+        height = request.POST.get('height')
+        phone_number = request.POST.get('phone_number')
+        whatsapp_number = request.POST.get('whatsapp_number')
+        gotra = request.POST.get('gotra')
+        qualification = request.POST.get('qualification')
+        occupation = request.POST.get('occupation')
+        instagram_link = request.POST.get('instagram_link')
+        facebook_link = request.POST.get('facebook_link')
         profile_image = request.FILES.get('profileImage')
+        school_class = request.POST.get('school_class')
+        school_name = request.POST.get('school_name')
+        college_name = request.POST.get('college_name')
+        degree_name = request.POST.get('degree_name')
+        company_name = request.POST.get('company_name')
+        job_location = request.POST.get('job_location')
+        job_description = request.POST.get('job_description')
+        business_name = request.POST.get('business_name')
+        business_location = request.POST.get('business_location')
+        business_description = request.POST.get('business_description')
+        state = request.POST.get('state')
+        city = request.POST.get('city')
+        village = request.POST.get('village')
+
+        state, city, village = get_or_create_address(state, city, village)
+
+        member.full_name = full_name
+        if email:
+            member.email = email
+        if father_name:
+            member.father_name = father_name
+        if mother_name:
+            member.mother_name = mother_name
+        if birth_place:
+            member.birth_place = birth_place
+        if date_of_birth:
+            member.date_of_birth = date_of_birth
+        if birth_time:
+            member.birth_time = birth_time
+        if gender:
+            member.gender = gender
+        if marital_status:
+            member.marital_status = marital_status
+        if height:
+            member.height = height
+        if address:
+            member.current_address = address
+        if phone_number:
+            member.phone_number = phone_number
+        if whatsapp_number:
+            member.whatsapp_number = whatsapp_number
+        if gotra:
+            member.gotra = gotra
+        if qualification:
+            member.qualification_type = qualification
+        if occupation:
+            member.occupation_type = occupation
+        if instagram_link:
+            member.instagram_link = instagram_link
+        if facebook_link:
+            member.facebook_link = facebook_link
+        if state:
+            member.current_address_state = state
+        if city:
+            member.current_address_city = city
+        if village:
+            member.current_address_village = village
+
         if profile_image:
             # Delete previous image file if exists
             if member.profile_image and default_storage.exists(member.profile_image.name):
@@ -216,24 +263,24 @@ def handle_bio_data_form(request, family_code):
         # Qualification Details
         qualification, _ = QualificationDetail.objects.get_or_create(member=member)
         if member.qualification_type == 'school':
-            school_class = request.POST.get('school_class')
+            school_class = school_class
             qualification.school_class = int(school_class) if school_class else None
-            qualification.school_name = request.POST.get('school_name')
+            qualification.school_name = school_name
             qualification.college_name = None
             qualification.degree_name = None
         else:
             qualification.school_class = None
             qualification.school_name = None
-            qualification.college_name = request.POST.get('college_name')
-            qualification.degree_name = request.POST.get('degree_name')
+            qualification.college_name = college_name
+            qualification.degree_name = degree_name
         qualification.save()
 
         # Occupation Details
         occupation, _ = OccupationDetail.objects.get_or_create(member=member)
         if member.occupation_type == 'job':
-            occupation.company_name = request.POST.get('company_name')
-            occupation.company_location = request.POST.get('job_location')
-            occupation.job_description = request.POST.get('job_description')
+            occupation.company_name = company_name
+            occupation.company_location = job_location
+            occupation.job_description = job_description
 
             # Clear business fields
             occupation.business_name = None
@@ -241,9 +288,9 @@ def handle_bio_data_form(request, family_code):
             occupation.business_description = None
 
         elif member.occupation_type == 'business':
-            occupation.business_name = request.POST.get('business_name')
-            occupation.business_location = request.POST.get('business_location')
-            occupation.business_description = request.POST.get('business_description')
+            occupation.business_name = business_name
+            occupation.business_location = business_location
+            occupation.business_description = business_description
 
             # Clear Job fields
             occupation.company_name = None
