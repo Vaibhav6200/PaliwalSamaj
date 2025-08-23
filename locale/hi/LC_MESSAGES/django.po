@@ -697,11 +697,11 @@ msgstr "व्हाट्सएप नंबर (10 अंकों का)"
 #, fuzzy
 #| msgid "Email (optional)"
 msgid "(optional)"
-msgstr "ईमेल (वैकल्पिक)"
+msgstr "(वैकल्पिक)"
 
 #: templates/Samaj/bio_data.html:113
-msgid "Email (optional)"
-msgstr "ईमेल (वैकल्पिक)"
+msgid "Email"
+msgstr "ईमेल"
 
 #: templates/Samaj/bio_data.html:120 templates/Samaj/community.html:40
 #: templates/Samaj/community.html:170
