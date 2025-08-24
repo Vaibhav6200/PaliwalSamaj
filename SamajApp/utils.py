@@ -86,31 +86,49 @@ def get_or_create_address(state_name, city_name, village_name):
         if state_name:
             state_name_clean = state_name.strip().lower()
             state_name_hi = transliterate_text(state_name_clean, lang_code='hi')
-            state, _ = State.objects.get_or_create(state_name=state_name_clean, state_name_hi=state_name_hi)
+            if State.objects.filter(state_name=state_name_clean).exists():
+                state = State.objects.get(state_name=state_name_clean)
+            else:
+                state = State.objects.create(state_name=state_name_clean, state_name_hi=state_name_hi)
 
         if city_name and state:
             city_name_clean = city_name.strip().lower()
             city_name_hi = transliterate_text(city_name_clean, lang_code='hi')
-            city, _ = City.objects.get_or_create(city_name=city_name_clean, city_name_hi=city_name_hi, state=state)
+            if City.objects.filter(city_name=city_name_clean, state=state).exists():
+                city = City.objects.get(city_name=city_name_clean, state=state)
+            else:
+                city = City.objects.create(city_name=city_name_clean, city_name_hi=city_name_hi, state=state)
 
         if village_name and city:
             village_name_clean = village_name.strip().lower()
             village_name_hi = transliterate_text(village_name_clean, lang_code='hi')
-            village, _ = Village.objects.get_or_create(village_name=village_name_clean, village_name_hi=village_name_hi, city=city)
+            if Village.objects.filter(village_name=village_name_clean, city=city).exists():
+                village = Village.objects.get(village_name=village_name_clean, city=city)
+            else:
+                village = Village.objects.create(village_name=village_name_clean, village_name_hi=village_name_hi, city=city)
 
     # NOTE: django-modeltranslation stores the default language (usually 'en') in the base field (state_name), and other languages like Hindi go into state_name_hi, city_name_hi, etc.
     elif current_language == 'hi':
         if state_name:
             state_name_en = transliterate.hindi2english(state_name)
-            state, _ = State.objects.get_or_create(state_name=state_name, state_name_en=state_name_en)
+            if State.objects.filter(state_name=state_name).exists():
+                state = State.objects.get(state_name=state_name)
+            else:
+                state = State.objects.create(state_name=state_name, state_name_en=state_name_en)
 
         if city_name and state:
             city_name_en = transliterate.hindi2english(city_name)
-            city, _ = City.objects.get_or_create(city_name=city_name, city_name_en=city_name_en, state=state)
+            if City.objects.filter(city_name=city_name, state=state).exists():
+                city = City.objects.get(city_name=city_name, state=state)
+            else:
+                city = City.objects.get_or_create(city_name=city_name, city_name_en=city_name_en, state=state)
 
         if village_name and city:
             village_name_en = transliterate.hindi2english(village_name)
-            village, _ = Village.objects.get_or_create(village_name=village_name, village_name_en=village_name_en, city=city)
+            if Village.objects.filter(village_name=village_name, city=city).exists():
+                village = Village.objects.get(village_name=village_name, city=city)
+            else:
+                village = Village.objects.create(village_name=village_name, village_name_en=village_name_en, city=city)
     else:
         raise ValueError(f"Unsupported language: {current_language}")  # Handle unexpected languages
     return state, city, village
