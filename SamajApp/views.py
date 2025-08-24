@@ -663,7 +663,7 @@ def get_member_search_list(request):
         query = Q()
         for word in words:
             query |= Q(phone_number__icontains=word)
-            query |= Q(full_name__icontains=word)
+            query |= Q(full_name_en__icontains=word)
 
         objs = (
             Member.objects
