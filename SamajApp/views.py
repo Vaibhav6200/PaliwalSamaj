@@ -486,7 +486,7 @@ def community(request):
     })
 
     paginator = Paginator(
-        community_members.order_by('full_name', 'father_name'),
+        community_members.order_by('full_name'),
         settings.COMMUNITY_MEMBERS_PER_PAGE
     )
     page_number = request.GET.get('page')
