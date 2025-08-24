@@ -91,116 +91,116 @@ $(document).ready(function () {
   }, "");
 
   $("#contact-form").validate({
-  rules: {
-    full_name: {
-      required: true,
-      noSpace: true
-    },
-    father_name: {
-      noSpace: true
-    },
-    mother_name: {
-      noSpace: true
-    },
-    phone_number: {
-      tenDigits: true
-    },
-    whatsapp_number: {
-      tenDigits: true
-    },
-    gotra: {
-      noSpace: true
-    },
-    profileImage:{
-      filesize200kb:true,
-    },
-    "school_class": {
-      required: function () {
-        return $("#qualification").val() === "school";
+      rules: {
+        full_name: {
+          required: true,
+          noSpace: true
+        },
+        father_name: {
+          noSpace: true
+        },
+        mother_name: {
+          noSpace: true
+        },
+        phone_number: {
+          tenDigits: true
+        },
+        whatsapp_number: {
+          tenDigits: true
+        },
+        gotra: {
+          noSpace: true
+        },
+        profileImage:{
+          filesize200kb:true,
+        },
+        "school_class": {
+          required: function () {
+            return $("#qualification").val() === "school";
+          }
+        },
+        "school_name": {
+          required: function () {
+            return $("#qualification").val() === "school";
+          },
+          noSpace: true
+        },
+        collge_uni_name: {
+          required: function () {
+            return $("#qualification").val() !== "school";
+          },
+          noSpace: true
+        },
+        degree_name: {
+          required: function () {
+            return $("#qualification").val() !== "school";
+          },
+          noSpace: true
+        },
+        company_name: {
+          required: function () {
+            return $("#occupation").val() === "job";
+          },
+          noSpace: true
+        },
+        job_location: {
+          required: function () {
+            return $("#occupation").val() === "job";
+          },
+          noSpace: true
+        },
+        job_description: {
+          required: function () {
+            return $("#occupation").val() === "job";
+          }
+        },
+        business_name: {
+          required: function () {
+            return $("#occupation").val() === "business";
+          },
+          noSpace: true
+        },
+        business_location: {
+          required: function () {
+            return $("#occupation").val() === "business";
+          },
+          noSpace: true
+        },
+        business_description: {
+          required: function () {
+            return $("#occupation").val() === "business";
+          }
+        }
+      },
+      messages: {
+        name: { required: "Please enter your name" },
+        father_name: { required: "Please enter your father's name" },
+        mother_name: { required: "Please enter your mother's name" },
+        date_of_birth: { required: "Please enter your birth date" },
+        birth_place: { required: "Please enter your birth place" },
+        birth_time: { required: "Please enter your birth time" },
+        gender: "Please select your gender",
+        marital_status: "Please select your marital status",
+        height: { required: "Please enter your height" },
+        phone_number: { required: "Please enter your phone number" },
+        whatsapp_number: { required: "Please enter your WhatsApp number" },
+        email: { required: "Please enter your email address" },
+        gotra: { required: "Please enter your gotra" },
+        address: { required: "Please enter your address" },
+        profileImage:{ required: "Please uplaod your profile picture" },
+        qualification: "Please select your qualification",
+        occupation: "Please select your occupation",
+        "school_class": { required: "Please enter your 12th result" },
+        "school_name": { required: "Please enter your 12th school name" },
+        collge_uni_name: { required: "Please enter your college/university name" },
+        degree_name: { required: "Please enter your degree name" },
+        company_name: { required: "Please enter your company name" },
+        job_location: { required: "Please enter your job location" },
+        job_description: { required: "Please enter your job description" },
+        business_name: { required: "Please enter your business name" },
+        business_location: { required: "Please enter your business location" },
+        business_description: { required: "Please enter your business description" }
       }
-    },
-    "school_name": {
-      required: function () {
-        return $("#qualification").val() === "school";
-      },
-      noSpace: true
-    },
-    collge_uni_name: {
-      required: function () {
-        return $("#qualification").val() !== "school";
-      },
-      noSpace: true
-    },
-    degree_name: {
-      required: function () {
-        return $("#qualification").val() !== "school";
-      },
-      noSpace: true
-    },
-    company_name: {
-      required: function () {
-        return $("#occupation").val() === "job";
-      },
-      noSpace: true
-    },
-    job_location: {
-      required: function () {
-        return $("#occupation").val() === "job";
-      },
-      noSpace: true
-    },
-    job_description: {
-      required: function () {
-        return $("#occupation").val() === "job";
-      }
-    },
-    business_name: {
-      required: function () {
-        return $("#occupation").val() === "business";
-      },
-      noSpace: true
-    },
-    business_location: {
-      required: function () {
-        return $("#occupation").val() === "business";
-      },
-      noSpace: true
-    },
-    business_description: {
-      required: function () {
-        return $("#occupation").val() === "business";
-      }
-    }
-  },
-  messages: {
-    name: { required: "Please enter your name" },
-    father_name: { required: "Please enter your father's name" },
-    mother_name: { required: "Please enter your mother's name" },
-    date_of_birth: { required: "Please enter your birth date" },
-    birth_place: { required: "Please enter your birth place" },
-    birth_time: { required: "Please enter your birth time" },
-    gender: "Please select your gender",
-    marital_status: "Please select your marital status",
-    height: { required: "Please enter your height" },
-    phone_number: { required: "Please enter your phone number" },
-    whatsapp_number: { required: "Please enter your WhatsApp number" },
-    email: { required: "Please enter your email address" },
-    gotra: { required: "Please enter your gotra" },
-    address: { required: "Please enter your address" },
-    profileImage:{ required: "Please uplaod your profile picture" },
-    qualification: "Please select your qualification",
-    occupation: "Please select your occupation",
-    "school_class": { required: "Please enter your 12th result" },
-    "school_name": { required: "Please enter your 12th school name" },
-    collge_uni_name: { required: "Please enter your college/university name" },
-    degree_name: { required: "Please enter your degree name" },
-    company_name: { required: "Please enter your company name" },
-    job_location: { required: "Please enter your job location" },
-    job_description: { required: "Please enter your job description" },
-    business_name: { required: "Please enter your business name" },
-    business_location: { required: "Please enter your business location" },
-    business_description: { required: "Please enter your business description" }
-  }
 });
 
 

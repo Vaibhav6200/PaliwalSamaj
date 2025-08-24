@@ -151,6 +151,7 @@
 
 
     <!-- Display Member Section Start -->
+    {% if display_groups %}
     {% for group in display_groups %}
     <section class="container bg-light mb-3">
         <h3 class="column-title mb-5 pb-3 w-100 text-center">{{ group.group_name }}</h3>
@@ -193,6 +194,7 @@
         </div>
     </section>
     {% endfor %}
+    {% endif %}
     <!-- Display Member Section End -->
 
     <!-- Suggestion Form Start -->
