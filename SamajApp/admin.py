@@ -246,6 +246,7 @@ class StateAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'state_name')
+    list_filter = ['state_name',]
 
 
 @admin.register(City)
@@ -257,6 +258,7 @@ class CityAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'city_name')
+    list_filter = ['city_name', 'state']
 
 
 @admin.register(Village)
@@ -268,6 +270,7 @@ class VillageAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'village_name')
+    list_filter = ['village_name', 'city']
 
 
 @admin.register(SponsorAd)
