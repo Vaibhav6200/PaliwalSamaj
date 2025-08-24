@@ -21,6 +21,7 @@ from django.utils import translation
 from django.core.files.storage import default_storage
 from django.contrib.auth import authenticate, login, logout
 import logging
+from django.db.models.functions import Lower
 
 
 logger = logging.getLogger(__name__)
@@ -486,7 +487,7 @@ def community(request):
     })
 
     paginator = Paginator(
-        community_members.order_by('full_name'),
+        community_members.order_by(Lower('full_name')),
         settings.COMMUNITY_MEMBERS_PER_PAGE
     )
     page_number = request.GET.get('page')
