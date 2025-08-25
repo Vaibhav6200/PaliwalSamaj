@@ -320,9 +320,7 @@ class QualificationDetail(models.Model):
     school_class = models.PositiveSmallIntegerField(blank=True, null=True)  # Only if School
     school_name = models.CharField(max_length=255, blank=True, null=True)
     college_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
-    # degree_name = models.CharField(choices=DEGREE_CHOICES, max_length=100, blank=True, null=True)  # For UG/Graduate
     degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, null=True, blank=True)
-
     other_degree_text = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

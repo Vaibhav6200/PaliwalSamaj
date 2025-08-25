@@ -82,13 +82,11 @@ class QualificationDetailAdmin(admin.ModelAdmin):
         'school_class',
         'school_name',
         'college_name',
-        # 'degree_name',
         'degree',
-        'created_at',
-        'updated_at'
+        'other_degree_text',
     )
     list_display_links = ('id', 'member')
-    list_filter = ('member',)
+    list_filter = ('member', 'degree', )
 
 
 @admin.register(OccupationDetail)
