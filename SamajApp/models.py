@@ -437,6 +437,7 @@ class Suggestion(models.Model):
 
     name = models.CharField(max_length=100)
     email = models.EmailField(null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()

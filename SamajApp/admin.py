@@ -153,6 +153,7 @@ class SuggestionAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
+        'phone_number',
         'email',
         'message',
         'created_at',

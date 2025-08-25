@@ -646,10 +646,11 @@ def suggestions(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
         message = request.POST.get('message')
 
-        if name and message and email:
-            Suggestion.objects.create(name = name, email = email, message = message)
+        if name and message and email and phone_number:
+            Suggestion.objects.create(name = name, email = email, phone_number=phone_number, message = message)
             messages.success(request, 'Thank you! Your suggestion has been submitted.')
         else:
             messages.error(request, 'All fields are required. Please complete the form.')
