@@ -53,7 +53,7 @@
                             <select name="education" class="form-control" id="education">
                                 <option value="" disabled {% if not education_filter_value %}selected{% endif %}>Select</option>
                                 {% for degree in degrees %}
-                                    <option value="{{degree.degree_code}}" {% if education_filter_value == degree.degree_name %}selected{% endif %}>{{degree.degree_name}}</option>
+                                    <option value="{{degree.degree_code}}" {% if education_filter_value == degree.degree_code %}selected{% endif %}>{{degree.degree_name}}</option>
                                 {% endfor %}
                             </select>
                         </div>
