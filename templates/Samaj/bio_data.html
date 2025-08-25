@@ -217,9 +217,9 @@
                                 <div class="form-group">
                                     <label for="degree_name">{% trans "Degree" %}</label>
                                     <select name="degree_name" class="form-control" id="degree_name" >
-                                        <option value="" disabled {% if not edit_member.qualification_detail.first.degree.degree_name %}selected{% endif %}>Select</option>
+                                        <option value="" disabled {% if not edit_member.qualification_detail.first.degree.degree_code %}selected{% endif %}>Select</option>
                                         {% for degree in degrees %}
-                                        <option value="{{degree.degree_code}}" {% if value == edit_member.qualification_detail.first.degree.degree_name %}selected{% endif %}>{{degree.degree_name}}</option>
+                                        <option value="{{degree.degree_code}}" {% if value == edit_member.qualification_detail.first.degree.degree_code %}selected{% endif %}>{{degree.degree_name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
