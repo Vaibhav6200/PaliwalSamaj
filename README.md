@@ -12,3 +12,6 @@
 
 ### Compile Local File
 ```python manage.py compilemessages```
+
+### Data Migration Script
+```python manage.py makemigrations --empty SamajApp```

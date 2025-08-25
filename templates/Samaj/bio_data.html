@@ -90,7 +90,7 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans 'Height (In Centimeter)' %}</label>
-                                    <input type="number" class="form-control form-control-subject" name="height" id="height" min="0" placeholder="168"
+                                    <input type="number" class="form-control form-control-subject" name="height" id="height" min="0"
                                     value="{{ edit_member.height|default:'' }}">
                                 </div>
                             </div>
@@ -217,9 +217,9 @@
                                 <div class="form-group">
                                     <label for="degree_name">{% trans "Degree" %}</label>
                                     <select name="degree_name" class="form-control" id="degree_name" >
-                                        <option value="" disabled {% if not edit_member.qualification_detail.first.degree_name %}selected{% endif %}>Select</option>
-                                        {% for value, label in degrees %}
-                                        <option value="{{value}}" {% if value == edit_member.qualification_detail.first.degree_name %}selected{% endif %}>{{label}}</option>
+                                        <option value="" disabled {% if not edit_member.qualification_detail.first.degree.degree_name %}selected{% endif %}>Select</option>
+                                        {% for degree in degrees %}
+                                        <option value="{{degree.degree_code}}" {% if value == edit_member.qualification_detail.first.degree.degree_name %}selected{% endif %}>{{degree.degree_name}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
