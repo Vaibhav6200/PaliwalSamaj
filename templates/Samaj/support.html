@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}Support{% endblock %}
+
+{% block content %}
+<main>
+    {% include 'Includes/navbar.html' %}
+    <section id="suggestion_section" class="main-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="column-title mb-2">{% trans "NEED HELP OR SUPPORT?" %}</h3>
+                    <p>
+                        {% blocktrans %}If you are facing any issues, need assistance, or have questions about using the Paliwal Samaj website, please reach out to us. Our support team is here to help you and make your experience smooth.{% endblocktrans %}
+                    </p>
+
+                    <form id="suggestion-form" class="pt-4" action="{% url 'samaj:support' %}" method="post"
+                          role="form">
+                        {% csrf_token %}
+                        <div class="error-container"></div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">{% trans "Your Name" %}</label>
+                                    <input class="form-control" name="full_name" id="name"
+                                           placeholder="{% trans 'Enter your name' %}"
+                                           type="text" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">{% trans "Your Email" %}</label>
+                                    <input class="form-control" name="email" id="email"
+                                           placeholder="{% trans 'Enter your email' %}"
+                                           type="email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">{% trans "Your Phone Number" %}</label>
+                                    <input class="form-control" name="phone_number" id="phone_number"
+                                           placeholder="{% trans 'Enter your phone number' %}"
+                                           type="number" min="0" minlength="10" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">{% trans "Please describe your issue" %}</label>
+                            <textarea class="form-control" name="message" id="message"
+                                      placeholder="{% trans 'Please describe your support query or issue in detail…' %}"
+                                      rows="6"
+                                      required></textarea>
+                        </div>
+
+                        <div class="text-end mt-3">
+                            <button class="btn btn-primary" type="submit">{% trans "SUBMIT SUPPORT REQUEST" %}</button>
+                        </div>
+                    </form>
+                    <div class="support-call-box mt-4 p-3 bg-light border rounded text-center">
+                        <h4 class="mb-3">📞 {% trans "Need Quick Help?" %}</h4>
+                        <p class="mb-2">{% trans "If you have any urgent queries, you can call us directly at:" %}</p>
+                        <p class="fw-bold fs-5 mb-1">+91 94133 58226</p>
+                        <p class="fw-semibold fs-6">Shree Ramchandra Paliwal</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'Includes/footer.html' %}
+</main>
+{% endblock %}

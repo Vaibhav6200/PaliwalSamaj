@@ -577,3 +577,19 @@ class SMSLog(models.Model):
 
     def __str__(self):
         return f"SMS to {self.phone_number}"
+
+
+class Support(models.Model):
+    class Meta:
+        verbose_name_plural = 'Support'
+    full_name = models.CharField(max_length=255)
+    email = models.TextField()
+    phone_number = models.CharField(max_length=15)
+    message = models.TextField()
+    status = models.BooleanField(default=False, help_text='True: Mark as resolved')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.full_name}"

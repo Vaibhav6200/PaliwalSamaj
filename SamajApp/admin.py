@@ -284,6 +284,7 @@ class SponsorAdAdmin(admin.ModelAdmin):
 
     get_display_name.short_description = 'Name'
 
+
 @admin.register(SMSLog)
 class SMSLogAdmin(admin.ModelAdmin):
     list_display = (
@@ -297,3 +298,17 @@ class SMSLogAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'member')
+
+
+@admin.register(Support)
+class SupportAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'full_name',
+        'email',
+        'phone_number',
+        'message',
+        'status',
+        'created_at',
+    )
+    list_display_links = ('id', 'full_name')

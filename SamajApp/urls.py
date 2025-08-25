@@ -30,4 +30,5 @@ urlpatterns = [
 
     path('culture_detail/<slug:culture_slug>', culture_details, name='culture_detail'),
     path('culture_create_post/', culture_create_post, name='culture_create_post'),
+    path('support/', support, name='support'),
 ]

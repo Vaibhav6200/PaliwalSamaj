@@ -9,7 +9,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
-    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog
+    Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog, \
+    Support
 from django.contrib import messages
 from paliwalsamaj import settings
 from .forms import CultureCreatePostForm
@@ -756,3 +757,21 @@ def culture_create_post(request):
         "culture_obj": culture_obj
     }
     return render(request, 'Samaj/culture_create_post.html', context)
+
+
+def support(request):
+    if request.method == 'POST':
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        message = request.POST.get('message')
+
+        if full_name and message and email and phone_number:
+            Support.objects.create(full_name = full_name, email = email, phone_number=phone_number, message = message)
+            messages.success(request, 'support request submitted successfully!')
+        else:
+            messages.error(request, 'All fields are required. Please complete the form.')
+        return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+    return render(request, 'Samaj/support.html')
+
+
