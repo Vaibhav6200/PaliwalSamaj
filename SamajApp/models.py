@@ -295,6 +295,7 @@ class QualificationDetail(models.Model):
         ("ssc", _("SSC (10th Grade)")),
         ("puc", _("PUC / HSC / 12th Grade")),
         ("bpt", _("Bachelor of Physiotherapy")),
+        ("Yoga", _("Yoga")),
 
         # Other
         ("other", _("Other")),
