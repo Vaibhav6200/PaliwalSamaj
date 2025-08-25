@@ -82,7 +82,7 @@ class QualificationDetailAdmin(admin.ModelAdmin):
         'school_class',
         'school_name',
         'college_name',
-        'degree_name',
+        # 'degree_name',
         'degree',
         'created_at',
         'updated_at'
