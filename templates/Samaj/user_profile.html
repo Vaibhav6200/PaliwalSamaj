@@ -13,10 +13,22 @@
             <div class="profile-card p-4">
                 <div class="d-flex justify-content-between card-title flex-wrap">
                     <h2 class="card-title border-0 mb-0">{% trans "Personal Details" %}</h2>
-                    <a href="{% url 'samaj:member_family_tree' profile.id %}" class="border btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                        <span class="material-icons me-2">diversity_3</span>{% trans "Show Family" %}
-                    </a>
+                    <div class="row">
+                        <div class="col-12 col-md-6 mb-2">
+                            <a href="{% url 'samaj:member_family_tree' profile.id %}" class="border btn btn-primary fw-bold rounded-0 py-2 h-100 d-flex justify-content-center align-items-center">
+                                <span class="material-icons me-2">diversity_3</span>
+                                <span>{% trans "Family" %}</span>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6 mb-2">
+                            <button id="shareBtn" class="btn btn-primary d-flex align-items-center justify-content-center w-100">
+                                <span class="material-icons me-1">share</span>
+                                <span>{% trans "Share" %}</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-4 text-center mb-4 mb-md-0">
                         <div class="square-img-container">
@@ -222,4 +234,22 @@
 
     {% include 'Includes/footer.html' %}
 </main>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  const shareBtn = document.getElementById('shareBtn');
+
+  shareBtn.addEventListener('click', async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: document.title,
+        text: "Check out this profile from Shree Bada Paliwal Samaj!",
+        url: window.location.href
+      });
+    } else {
+      alert("Sharing not supported in this browser. Please copy the link.");
+    }
+  });
+</script>
 {% endblock %}
