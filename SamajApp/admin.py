@@ -82,7 +82,8 @@ class QualificationDetailAdmin(admin.ModelAdmin):
         'school_class',
         'school_name',
         'college_name',
-        'degree_name',
+        # 'degree_name',
+        'degree',
         'created_at',
         'updated_at'
     )
@@ -312,3 +313,13 @@ class SupportAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'full_name')
+
+@admin.register(Degree)
+class DegreeAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'degree_name',
+        'degree_code',
+        'created_at',
+    )
+    list_display_links = ('id', 'degree_name')

@@ -208,6 +208,22 @@ class Member(models.Model):
         return f"{self.user}"
 
 
+class Degree(models.Model):
+    degree_code = models.CharField(max_length=50, unique=True)   # e.g. "bsc", "mba"
+    degree_name = models.CharField(max_length=255)              # e.g. "B.Sc. (Bachelor of Science)"
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Degree"
+        verbose_name_plural = "Degrees"
+        ordering = ["degree_name"]
+
+    def __str__(self):
+        return self.degree_name
+
+
 class QualificationDetail(models.Model):
     class Meta:
         verbose_name_plural = 'Qualification Details'
@@ -295,6 +311,7 @@ class QualificationDetail(models.Model):
         ("ssc", _("SSC (10th Grade)")),
         ("puc", _("PUC / HSC / 12th Grade")),
         ("bpt", _("Bachelor of Physiotherapy")),
+        ("Yoga", _("Yoga")),
 
         # Other
         ("other", _("Other")),
@@ -303,7 +320,9 @@ class QualificationDetail(models.Model):
     school_class = models.PositiveSmallIntegerField(blank=True, null=True)  # Only if School
     school_name = models.CharField(max_length=255, blank=True, null=True)
     college_name = models.CharField(max_length=100, blank=True, null=True)  # For UG/Graduate
-    degree_name = models.CharField(choices=DEGREE_CHOICES, max_length=100, blank=True, null=True)  # For UG/Graduate
+    # degree_name = models.CharField(choices=DEGREE_CHOICES, max_length=100, blank=True, null=True)  # For UG/Graduate
+    degree = models.ForeignKey(Degree, on_delete=models.SET_NULL, null=True, blank=True)
+
     other_degree_text = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

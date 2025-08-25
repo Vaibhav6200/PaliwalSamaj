@@ -52,8 +52,8 @@
                             <label for="education">{% trans "Education" %}</label>
                             <select name="education" class="form-control" id="education">
                                 <option value="" disabled {% if not education_filter_value %}selected{% endif %}>Select</option>
-                                {% for value, label in degrees %}
-                                    <option value="{{ value }}" {% if education_filter_value == value %}selected{% endif %}>{{ label }}</option>
+                                {% for degree in degrees %}
+                                    <option value="{{degree.degree_code}}" {% if education_filter_value == degree.degree_name %}selected{% endif %}>{{degree.degree_name}}</option>
                                 {% endfor %}
                             </select>
                         </div>

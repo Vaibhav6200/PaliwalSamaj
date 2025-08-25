@@ -1,6 +1,6 @@
 from modeltranslation.translator import translator, TranslationOptions
 from .models import Member, QualificationDetail, OccupationDetail, Culture, DisplayMemberGroup, DisplayMember, State, \
-    City, Village
+    City, Village, Degree
 
 
 class MemberTranslationOptions(TranslationOptions):
@@ -59,6 +59,11 @@ class VillageTranslationOptions(TranslationOptions):
         'village_name',
     )
 
+class DegreeTranslationOptions(TranslationOptions):
+    fields = (
+        'degree_name',
+    )
+
 translator.register(State, StateTranslationOptions)
 translator.register(City, CityTranslationOptions)
 translator.register(Village, VillageTranslationOptions)
@@ -68,3 +73,4 @@ translator.register(OccupationDetail, OccupationTranslationOptions)
 translator.register(Culture, CultureTranslationOptions)
 translator.register(DisplayMemberGroup, DisplayMemberGroupTranslationOptions)
 translator.register(DisplayMember, DisplayMemberTranslationOptions)
+translator.register(Degree, DegreeTranslationOptions)

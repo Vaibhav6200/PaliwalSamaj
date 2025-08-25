@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog, \
-    Support
+    Support, Degree
 from django.contrib import messages
 from paliwalsamaj import settings
 from .forms import CultureCreatePostForm
@@ -147,7 +147,7 @@ def bio_data(request):
     context = {
         'family_code': Member.objects.get(user=request.user).family.family_code,
         'gotras': Member.GOTRA_CHOICES,
-        'degrees': QualificationDetail.DEGREE_CHOICES,
+        'degrees': Degree.objects.all().order_by('degree_name'),
         'occupation_type': Member.OCCUPATION_CHOICES,
     }
     if request.method == 'POST':
@@ -199,7 +199,7 @@ def handle_bio_data_form(request, family_code):
         school_class = request.POST.get('school_class')
         school_name = request.POST.get('school_name')
         college_name = request.POST.get('college_name')
-        degree_name = request.POST.get('degree_name')
+        degree_code = request.POST.get('degree_name')
         company_name = request.POST.get('company_name')
         job_location = request.POST.get('job_location')
         job_description = request.POST.get('job_description')
@@ -264,16 +264,14 @@ def handle_bio_data_form(request, family_code):
         # Qualification Details
         qualification, _ = QualificationDetail.objects.get_or_create(member=member)
         if member.qualification_type == 'school':
-            school_class = school_class
             qualification.school_class = int(school_class) if school_class else None
             qualification.school_name = school_name
             qualification.college_name = None
-            qualification.degree_name = None
         else:
             qualification.school_class = None
             qualification.school_name = None
             qualification.college_name = college_name
-            qualification.degree_name = degree_name
+            qualification.degree = Degree.objects.get(degree_code=degree_code)
         qualification.save()
 
         # Occupation Details
@@ -356,7 +354,7 @@ def community(request):
         'min_age_default_value': 1,
         'max_age_default_value': 80,
         'gotras': Member.GOTRA_CHOICES,
-        'degrees': QualificationDetail.DEGREE_CHOICES,
+        'degrees': Degree.objects.all().order_by('degree_name'),
     }
 
     # Default: show all
@@ -414,7 +412,7 @@ def community(request):
 
         if education:
             context['education_filter_value'] = education
-            community_members = community_members.filter(qualification_detail__degree_name__icontains=education)
+            community_members = community_members.filter(qualification_detail__degree__degree_code__icontains=education)
 
         if phone_number:
             context['phone_number_filter_value'] = phone_number.strip()
