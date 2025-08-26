@@ -352,7 +352,7 @@ def community(request):
     show_ad(request)
     context = {
         'min_age_default_value': 1,
-        'max_age_default_value': 80,
+        'max_age_default_value': 100,
         'gotras': Member.GOTRA_CHOICES,
         'degrees': Degree.objects.all().order_by('degree_name'),
     }
