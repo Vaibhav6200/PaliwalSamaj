@@ -62,9 +62,9 @@ $(document).ready(function () {
   }, "Height must be between 24 and 300 cm");
 
   // Add custom validator for image file size (max 200KB)
-  $.validator.addMethod("filesize200kb", function(value, element) {
+  $.validator.addMethod("filesize500kb", function(value, element) {
     if (element.files.length === 0) return true;
-      if (element.files[0].size > 200 * 1024) {
+      if (element.files[0].size > 500 * 1024) {
           Swal.fire({
               icon: 'error',
               title: 'File Too Large',
@@ -112,7 +112,7 @@ $("#contact-form").validate({
         addressClean:true
     },
     profileImage:{
-      filesize200kb:true,
+      filesize500kb:true,
     },
     city:{
       required:true,
