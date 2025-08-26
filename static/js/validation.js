@@ -62,13 +62,13 @@ $(document).ready(function () {
   }, "Height must be between 24 and 300 cm");
 
   // Add custom validator for image file size (max 200KB)
-  $.validator.addMethod("filesize500kb", function(value, element) {
+  $.validator.addMethod("filesize1MB", function(value, element) {
     if (element.files.length === 0) return true;
-      if (element.files[0].size > 500 * 1024) {
+      if (element.files[0].size > 1000 * 1024) {
           Swal.fire({
               icon: 'error',
               title: 'File Too Large',
-              text: 'Image size must be less than 500 KB.',
+              text: 'Image size must be less than 1 MB.',
           });
           return false;
       }
@@ -112,7 +112,7 @@ $("#contact-form").validate({
         addressClean:true
     },
     profileImage:{
-      filesize500kb:true,
+      filesize1MB:true,
     },
     city:{
       required:true,

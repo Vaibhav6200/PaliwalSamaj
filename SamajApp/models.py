@@ -205,7 +205,7 @@ class Member(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.user}"
+        return f"{self.full_name}"
 
 
 class Degree(models.Model):

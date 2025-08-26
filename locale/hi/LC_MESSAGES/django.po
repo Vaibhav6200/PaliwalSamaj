@@ -1205,8 +1205,8 @@ msgid "search by name or their number"
 msgstr "नाम या नंबर से खोजें"
 
 #: templates/Samaj/sandesh.html:29
-msgid "Image (required, < 500KB)"
-msgstr "छवि (अनिवार्य, 500KB से कम)"
+msgid "Image (required, < 1 MB)"
+msgstr "छवि (अनिवार्य, 1 MB से कम)"
 
 #: templates/Samaj/sandesh.html:33
 msgid "Message"
