@@ -68,7 +68,7 @@ $(document).ready(function () {
           Swal.fire({
               icon: 'error',
               title: 'File Too Large',
-              text: 'Image size must be less than 200 KB.',
+              text: 'Image size must be less than 500 KB.',
           });
           return false;
       }
