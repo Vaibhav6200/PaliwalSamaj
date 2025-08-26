@@ -21,7 +21,7 @@
         <div class="container mt-5">
             <div class="d-flex justify-content-center">
                 <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item border">
+                    <div class="my_family_card item border profile_container">
                         <div class="ts-team-wrapper">
                             <div class="team-img-wrapper">
                                 {% if family_head.profile_image %}
@@ -34,15 +34,15 @@
                             </div>
                             <div class="ts-team-content">
                                 <h3 class="ts-name">{{family_head.full_name}}</h3>
-                                <p class="ts-designation">{% trans "Family Head" %}</p>
-                                <div class="">
+                                <p class="ts-designation profile_hover_content">{% trans "Family Head" %}</p>
+                                <div class="profile_hover_content">
                                     <div class="d-flex align-items-center py-2 border-bottom border-white">
                                         <div class=""><span class="material-icons fs-5 ">cake</span></div>
                                         <div class="text-white ms-2">{{ family_head.date_of_birth|get_member_age }}</div>
                                     </div>
                                 </div>
 
-                                <div class="row m-0 p-0 mt-2">
+                                <div class="row m-0 p-0 mt-2 profile_hover_content">
                                     <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                         <a href="{% url 'samaj:user_profile' family_head.id %}"
                                            class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
@@ -61,7 +61,7 @@
                 {% if not member == member.family.family_head %}
                 <div class="col-6 col-md-4 p-2">
                     <div class="my_family_card item h-100 border">
-                        <div class="ts-team-wrapper d-flex flex-column h-100">
+                        <div class="ts-team-wrapper d-flex flex-column h-100 profile_container">
                             <div class="team-img-wrapper">
                                 {% if member.profile_image %}
                                 <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
@@ -73,15 +73,15 @@
                             <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between">
                                 <div>
                                     <h3 class="ts-name">{{ member.full_name }}</h3>
-                                    <p class="ts-designation">{% trans "Gotra" %}: {{ member.gotra }}</p>
-                                    <div class="">
+                                    <p class="ts-designation profile_hover_content">{% trans "Gotra" %}: {{ member.gotra }}</p>
+                                    <div class="profile_hover_content">
                                         <div class="d-flex align-items-center py-2 border-bottom border-white">
                                             <div><span class="material-icons fs-5">cake</span></div>
                                             <div class="text-white ms-2">{{ member.date_of_birth|get_member_age }}</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row m-0 p-0 mt-2">
+                                <div class="row m-0 p-0 mt-2 profile_hover_content">
                                     <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
                                         <a href="{% url 'samaj:user_profile' member.id %}"
                                            class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
