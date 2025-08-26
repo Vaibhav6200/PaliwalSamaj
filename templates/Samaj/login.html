@@ -13,7 +13,7 @@
             <div class="mb-3">
                 <label for="contact_input" class="form-label">{% trans "Mobile Number" %}</label>
                 <div id="autocomplete_container" class="autocomplete debounced">
-                    <input class="autocomplete-input my-2" name="contact_input" id="contact_input" required />
+                    <input class="autocomplete-input my-2" name="contact_input" id="contact_input" required value="{{phone_number}}" />
                     <ul class="autocomplete-result-list"></ul>
                 </div>
                 <span class="text-secondary">{% trans "Example" %} : 9414110473</span>

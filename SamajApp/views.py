@@ -113,6 +113,7 @@ def reset_member_password(request):
             status_code=response.status_code,
             response_text=response.text
         )
+        return render(request, 'Samaj/login.html', {'phone_number': phone})
     return redirect('samaj:site_login')
 
 
