@@ -12,13 +12,14 @@ def get_member_age(dob):
     today = date.today()
     try:
         birthday = dob.replace(year=today.year)
+    except ValueError:
+        # Handles leap year issue (Feb 29 in non-leap years → fallback to Feb 28)
+        birthday = date(today.year, 2, 28)
         # If birthday hasn't occurred yet this year
-        if birthday > today:
-            return today.year - dob.year - 1
-        else:
-            return today.year - dob.year
-    except AttributeError:
-        return ''
+    if birthday > today:
+        return today.year - dob.year - 1
+    return today.year - dob.year
+
 
 @register.filter(name='add_class')
 def add_class(field, css_class):
