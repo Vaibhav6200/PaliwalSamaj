@@ -15,7 +15,7 @@ def get_member_age(dob):
     except ValueError:
         # Handles leap year issue (Feb 29 in non-leap years → fallback to Feb 28)
         birthday = date(today.year, 2, 28)
-        # If birthday hasn't occurred yet this year
+    # If birthday hasn't occurred yet this year
     if birthday > today:
         return today.year - dob.year - 1
     return today.year - dob.year
