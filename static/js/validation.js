@@ -139,13 +139,15 @@ $("#contact-form").validate({
     },
     collge_uni_name: {
       required: function () {
-        return $("#qualification").val() !== "school";
+        let q = $("#qualification").val();
+        return q === "graduate" || q === "undergraduate";
       },
       noSpace: true
     },
     degree_name: {
       required: function () {
-        return $("#qualification").val() !== "school";
+        let q = $("#qualification").val();
+        return q === "graduate" || q === "undergraduate";
       },
       noSpace: true
     },
@@ -205,19 +207,6 @@ $("#contact-form").validate({
     business_description: { required: "Please enter your business description" }
   }
 });
-
-
-  // Show/Hide conditional fields
-  $('#qualification').change(function () {
-    const val = $(this).val();
-    if (val === 'school') {
-      $('.school_field').removeClass('d-none');
-      $('.ugpg_field').addClass('d-none');
-    } else {
-      $('.ugpg_field').removeClass('d-none');
-      $('.school_field').addClass('d-none');
-    }
-  });
 
   $('#occupation').change(function () {
     const val = $(this).val();

@@ -32,6 +32,18 @@ if(document.getElementById("qualification")){
     const school_fields = document.querySelectorAll(".school_field");
     const ugpg_fields = document.querySelectorAll(".ugpg_field");
     qualification.addEventListener("input",function(){
+        if(qualification.value == "none"){
+            ugpg_fields.forEach((field)=>{
+                if(!field.classList.contains("d-none")){
+                    field.classList.add("d-none");
+                }
+            });
+            school_fields.forEach((field)=>{
+                if(!field.classList.contains("d-none")){
+                    field.classList.add("d-none");
+                }
+            });
+        }
 
         if(qualification.value == "school"){
             ugpg_fields.forEach((field)=>{

@@ -198,7 +198,6 @@
                                     <label for="qualification">{% trans "Qualification" %}</label>
                                     <select name="qualification" class="form-control" id="qualification">
                                         <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select</option>
-
                                         {% for label, value in qualification_type %}
                                             <option value="{{ label }}" {% if edit_member.qualification_type == label %}selected{% endif %}>{{ value }}</option>
                                         {% endfor %}
@@ -222,7 +221,7 @@
                             </div>
                             <div class="col-12 col-md-6 ugpg_field {% if edit_member.qualification_type != 'undergraduate' and edit_member.qualification_type != 'graduate' %}d-none{% endif %}">
                                 <div class="form-group">
-                                    <label>{% trans "College / University" %}</label>
+                                    <label for="collge_uni_name">{% trans "College / University" %}</label>
                                     <input type="text" class="form-control form-control-subject" name="college_name" id="collge_uni_name"
                                     value="{{ edit_member.qualification_detail.first.college_name|default:'' }}">
                                 </div>
