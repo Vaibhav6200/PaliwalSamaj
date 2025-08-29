@@ -149,6 +149,7 @@ def bio_data(request):
         'family_code': Member.objects.get(user=request.user).family.family_code,
         'gotras': Member.GOTRA_CHOICES,
         'degrees': Degree.objects.all().order_by('degree_name'),
+        'qualification_type': Member.QUALIFICATION_CHOICES,
         'occupation_type': Member.OCCUPATION_CHOICES,
     }
     if request.method == 'POST':

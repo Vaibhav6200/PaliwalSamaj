@@ -26,7 +26,7 @@
                     <h2 class="card-title border-0 mb-0">{% trans "Personal Details" %}</h2>
 
                     <div class="d-flex flex-column flex-md-row gap-2 flex-wrap align-items-md-center profile-actions">
-                        {% if profile.track_member_views_flag %}
+                        {% if request.user == profile.user and profile.track_member_views_flag %}
                         <span class="me-2">views: {{ profile.profile_views }}</span>
                         {% endif %}
                         <a href="{% url 'samaj:member_family_tree' profile.id %}"

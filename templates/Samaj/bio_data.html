@@ -198,9 +198,10 @@
                                     <label for="qualification">{% trans "Qualification" %}</label>
                                     <select name="qualification" class="form-control" id="qualification">
                                         <option value="" disabled {% if not edit_member.qualification_type %}selected{% endif %}>Select</option>
-                                        <option value="school" {% if edit_member.qualification_type == 'school' %}selected{% endif %}>{% trans "School" %}</option>
-                                        <option value="undergraduate" {% if edit_member.qualification_type == 'undergraduate' %}selected{% endif %}>{% trans "College" %}</option>
-                                        <option value="graduate" {% if edit_member.qualification_type == 'graduate' %}selected{% endif %}>{% trans "Graduate" %}</option>
+
+                                        {% for label, value in qualification_type %}
+                                            <option value="{{ label }}" {% if edit_member.qualification_type == label %}selected{% endif %}>{{ value }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
