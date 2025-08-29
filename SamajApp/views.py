@@ -576,7 +576,7 @@ def user_profile(request, member_id):
     member = Member.objects.get(id=member_id)
 
     # Increment only if tracking is enabled
-    if member.track_member_views_flag:
+    if member.track_member_views_flag and not request.user == member.user:
         member.profile_views += 1
         member.save(update_fields=["profile_views"])
 
