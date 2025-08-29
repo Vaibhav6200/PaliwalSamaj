@@ -97,14 +97,14 @@
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Phone Number (10 digit)" %} <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control form-control-subject" name="phone_number" id="phone_number" placeholder="9988776655"
+                                    <input type="number" class="form-control form-control-subject" name="phone_number" id="phone_number"
                                     value="{{ edit_member.phone_number|floatformat:0|default:'' }}" maxlength="10" minlength="10" min="0" required>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label>{% trans "Whatsapp Number (10 digit)" %}</label>
-                                    <input type="number" class="form-control form-control-subject" name="whatsapp_number" id="whatsapp_number" placeholder="9988776655"
+                                    <input type="number" class="form-control form-control-subject" name="whatsapp_number" id="whatsapp_number"
                                     value="{{ edit_member.whatsapp_number|floatformat:0|default:'' }}" maxlength="10" minlength="10" min="0">
                                 </div>
                             </div>
