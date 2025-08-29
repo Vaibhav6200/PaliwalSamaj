@@ -264,17 +264,19 @@ def handle_bio_data_form(request, family_code):
         member.save()
 
         # Qualification Details
-        qualification, _ = QualificationDetail.objects.get_or_create(member=member)
-        if member.qualification_type == 'school':
-            qualification.school_class = int(school_class) if school_class else None
-            qualification.school_name = school_name
-            qualification.college_name = None
-        else:
-            qualification.school_class = None
-            qualification.school_name = None
-            qualification.college_name = college_name
-            qualification.degree = Degree.objects.get(degree_code=degree_code)
-        qualification.save()
+        if not member.qualification_type == 'none':
+            qualification, _ = QualificationDetail.objects.get_or_create(member=member)
+            if member.qualification_type == 'school':
+                qualification.school_class = int(school_class) if school_class else None
+                qualification.school_name = school_name
+                qualification.college_name = None
+            else:
+                qualification.school_class = None
+                qualification.school_name = None
+                qualification.college_name = college_name
+                if Degree.objects.filter(degree_code=degree_code).exists():
+                    qualification.degree = Degree.objects.get(degree_code=degree_code)
+            qualification.save()
 
         # Occupation Details
         occupation, _ = OccupationDetail.objects.get_or_create(member=member)
