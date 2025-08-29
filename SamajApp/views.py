@@ -519,7 +519,8 @@ def member_family_tree(request, member_id):
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
 
-    if community_member.family.track_family_views_flag:
+    family_users = family_members.values_list("user_id", flat=True)
+    if not request.user.id in family_users and  community_member.family.track_family_views_flag:
         community_member.family.family_views += 1
         community_member.family.save(update_fields=["family_views"])
 
