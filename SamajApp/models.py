@@ -205,7 +205,7 @@ class Member(models.Model):
     instagram_link = models.URLField(null=True, blank=True)
 
     # Views Tracking
-    track_views_flag = models.BooleanField(default=False)  # flag to enable/disable tracking
+    track_member_views_flag = models.BooleanField(default=False)  # flag to enable/disable tracking
     profile_views = models.PositiveIntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)

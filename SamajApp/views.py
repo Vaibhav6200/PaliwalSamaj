@@ -505,6 +505,8 @@ def my_family(request):
     context = {
         'all_family_members': all_family_members,
         'family_head': login_member.family.family_head,
+        'track_family_views_flag': login_member.family.track_family_views_flag,
+        'family_views': login_member.family.family_views,
     }
     return render(request, 'Samaj/my_family.html', context)
 
@@ -571,7 +573,7 @@ def user_profile(request, member_id):
     member = Member.objects.get(id=member_id)
 
     # Increment only if tracking is enabled
-    if member.track_views:
+    if member.track_member_views_flag:
         member.profile_views += 1
         member.save(update_fields=["profile_views"])
 

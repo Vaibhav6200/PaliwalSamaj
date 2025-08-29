@@ -59,7 +59,7 @@ class MemberAdmin(admin.ModelAdmin):
         'phone_number',
         'whatsapp_number',
         'gotra',
-        'track_views_flag',
+        'track_member_views_flag',
         'profile_views',
         'current_address',
         'current_address_village',

@@ -32,22 +32,26 @@
                                      alt="team-img">
                                 {% endif %}
                             </div>
-                            <div class="ts-team-content">
-                                <h3 class="ts-name community_member_name">{{family_head.full_name}}</h3>
-                                <p class="ts-designation profile_hover_content">{% trans "Family Head" %}</p>
-                                <div class="profile_hover_content">
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">cake</span></div>
-                                        <div class="text-white ms-2">{{ family_head.date_of_birth|get_member_age }}</div>
+                            <div class="ts-team-content px-md-3">
+                                <h3 class="ts-name community_member_name text-md-center">{{family_head.full_name}}</h3>
+                                <div class="d-flex flex-column justify-content-between h-100">
+                                    <div class="text-left text-md-center">
+                                        <p class="ts-designation profile_hover_content">{% trans "Family Head" %}</p>
+                                        <div class="profile_hover_content">
+                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                                <div class=""><span class="material-icons fs-5 ">cake</span></div>
+                                                <div class="text-white ms-2">{{ family_head.date_of_birth|get_member_age }}</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row m-0 p-0 mt-2 profile_hover_content">
-                                    <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                        <a href="{% url 'samaj:user_profile' family_head.id %}"
-                                           class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
-                                        </a>
+                                    <div class="row m-0 p-0 mt-2 profile_hover_content">
+                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
+                                            <a href="{% url 'samaj:user_profile' family_head.id %}"
+                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
+                                                <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -70,23 +74,25 @@
                                      alt="team-img">
                                 {% endif %}
                             </div>
-                            <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between">
-                                <div>
-                                    <h3 class="ts-name community_member_name">{{ member.full_name }}</h3>
-                                    <p class="ts-designation profile_hover_content">{% trans "Gotra" %}: {{ member.gotra }}</p>
-                                    <div class="profile_hover_content">
-                                        <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                            <div><span class="material-icons fs-5">cake</span></div>
-                                            <div class="text-white ms-2">{{ member.date_of_birth|get_member_age }}</div>
+                            <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between px-md-3">
+                                <h3 class="ts-name community_member_name text-md-center">{{ member.full_name }}</h3>
+                                <div class="d-flex flex-column justify-content-between h-100">
+                                    <div class="text-left text-md-center">
+                                        <p class="ts-designation profile_hover_content">{% trans "Gotra" %}: {{ member.gotra }}</p>
+                                        <div class="profile_hover_content">
+                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
+                                                <div><span class="material-icons fs-5">cake</span></div>
+                                                <div class="text-white ms-2">{{ member.date_of_birth|get_member_age }}</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row m-0 p-0 mt-2 profile_hover_content">
-                                    <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                        <a href="{% url 'samaj:user_profile' member.id %}"
-                                           class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                            <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
-                                        </a>
+                                    <div class="row m-0 p-0 mt-2 profile_hover_content">
+                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
+                                            <a href="{% url 'samaj:user_profile' member.id %}"
+                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
+                                                <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

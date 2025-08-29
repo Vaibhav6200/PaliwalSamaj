@@ -3,6 +3,17 @@
 {% load i18n %}
 {% block title %}Profile{% endblock %}
 
+{% block stylesheets %}
+<style>
+    @media (max-width: 768px) {
+      .profile-actions {
+        flex-direction: column !important;
+        align-items: stretch; /* optional: make buttons full width */
+      }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
@@ -13,7 +24,11 @@
             <div class="profile-card p-4">
                 <div class="d-flex justify-content-between card-title flex-wrap">
                     <h2 class="card-title border-0 mb-0">{% trans "Personal Details" %}</h2>
-                    <div class="d-flex gap-2 flex-wrap">
+
+                    <div class="d-flex flex-column flex-md-row gap-2 flex-wrap align-items-md-center profile-actions">
+                        {% if profile.track_member_views_flag %}
+                        <span class="me-2">views: {{ profile.profile_views }}</span>
+                        {% endif %}
                         <a href="{% url 'samaj:member_family_tree' profile.id %}"
                            class="btn btn-primary fw-bold rounded-0 py-2 d-inline-flex justify-content-center align-items-center">
                             <span class="material-icons me-2">diversity_3</span>
