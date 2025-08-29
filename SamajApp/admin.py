@@ -25,6 +25,8 @@ class FamilyAdmin(admin.ModelAdmin):
         'paitrik_address_city',
         'paitrik_address_state',
         'paitrik_address_pincode',
+        'track_family_views_flag',
+        'family_views',
         'created_at',
         'updated_at'
     )
@@ -57,6 +59,8 @@ class MemberAdmin(admin.ModelAdmin):
         'phone_number',
         'whatsapp_number',
         'gotra',
+        'track_views_flag',
+        'profile_views',
         'current_address',
         'current_address_village',
         'current_address_city',

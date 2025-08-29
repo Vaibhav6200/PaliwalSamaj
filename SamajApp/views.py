@@ -513,6 +513,11 @@ def member_family_tree(request, member_id):
     show_ad(request)
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
+
+    if community_member.family.track_family_views_flag:
+        community_member.family.family_views += 1
+        community_member.family.save(update_fields=["family_views"])
+
     context = {
         'family_head': community_member.family.family_head,
         'family_members': family_members,
@@ -564,6 +569,12 @@ def sandesh(request):
 def user_profile(request, member_id):
     show_ad(request)
     member = Member.objects.get(id=member_id)
+
+    # Increment only if tracking is enabled
+    if member.track_views:
+        member.profile_views += 1
+        member.save(update_fields=["profile_views"])
+
     context = {
         'profile': member,
         'user_age': calculate_age(member.date_of_birth),
