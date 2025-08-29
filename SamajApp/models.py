@@ -78,7 +78,7 @@ class Family(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.name} Family ({self.family_code})"
+        return f"{self.family_code}"
 
 
 class Member(models.Model):
@@ -94,6 +94,7 @@ class Member(models.Model):
         ('married', _('Married')),
     ]
     QUALIFICATION_CHOICES = [
+        ('none', _('None')),
         ('school', _('School')),
         ('undergraduate', _('Undergraduate')),
         ('graduate', _('Graduate')),
@@ -199,7 +200,7 @@ class Member(models.Model):
     current_address_pincode = models.CharField(max_length=10, null=True, blank=True)
 
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-    qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES, null=True, blank=True)
+    qualification_type = models.CharField(max_length=20, choices=QUALIFICATION_CHOICES, default='none', null=True, blank=True)
     occupation_type = models.CharField(max_length=20, choices=OCCUPATION_CHOICES, default='none')
     facebook_link = models.URLField(null=True, blank=True)
     instagram_link = models.URLField(null=True, blank=True)
