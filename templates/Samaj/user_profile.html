@@ -275,11 +275,11 @@
                                         <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
                                         <td>
                                             <div class="d-flex">
-                                                <a href="{% url 'samaj:user_profile' viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
+                                                <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
                                                     data-bs-toggle="tooltip" title="View Profile">
                                                     <span class="material-icons me-2">visibility</span>
                                                 </a>
-                                                <a href="{% url 'samaj:member_family_tree' viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
+                                                <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
                                                     data-bs-toggle="tooltip" title="View Family">
                                                     <span class="material-icons me-2">diversity_3</span>
                                                 </a>
