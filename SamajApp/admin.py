@@ -73,7 +73,7 @@ class MemberAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'family', 'user')
-    list_filter = ('user', 'full_name', 'family', 'phone_number')
+    list_filter = ('id', 'user', 'full_name', 'family', 'phone_number')
 
 
 @admin.register(QualificationDetail)
