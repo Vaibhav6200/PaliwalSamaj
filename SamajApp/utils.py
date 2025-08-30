@@ -102,21 +102,21 @@ def get_or_create_address(state_name, city_name, village_name):
         if state_name:
             state_name_en = transliterate.hindi2english(state_name)
             if State.objects.filter(state_name=state_name).exists():
-                state = State.objects.get(state_name=state_name)
+                state = State.objects.filter(state_name=state_name).first()
             else:
                 state = State.objects.create(state_name=state_name, state_name_en=state_name_en)
 
         if city_name and state:
             city_name_en = transliterate.hindi2english(city_name)
             if City.objects.filter(city_name=city_name, state=state).exists():
-                city = City.objects.get(city_name=city_name, state=state)
+                city = City.objects.filter(city_name=city_name, state=state).first()
             else:
                 city = City.objects.get_or_create(city_name=city_name, city_name_en=city_name_en, state=state)
 
         if village_name and city:
             village_name_en = transliterate.hindi2english(village_name)
             if Village.objects.filter(village_name=village_name, city=city).exists():
-                village = Village.objects.get(village_name=village_name, city=city)
+                village = Village.objects.filter(village_name=village_name, city=city).first()
             else:
                 village = Village.objects.create(village_name=village_name, village_name_en=village_name_en, city=city)
     else:

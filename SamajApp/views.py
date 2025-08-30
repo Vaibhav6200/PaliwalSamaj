@@ -521,7 +521,6 @@ def member_family_tree(request, member_id):
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
 
-
     if request.user.is_authenticated:
         viewer = Member.objects.get(user=request.user)
         if viewer.family != community_member.family:
