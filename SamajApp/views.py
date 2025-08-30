@@ -520,10 +520,13 @@ def member_family_tree(request, member_id):
     show_ad(request)
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
-    viewer = Member.objects.get(user=request.user)  # logged-in member
 
-    if community_member.family.track_family_views_flag and viewer.family != community_member.family:
-        FamilyView.objects.get_or_create(viewer=viewer, viewed_family=community_member.family)
+
+    if request.user.is_authenticated:
+        viewer = Member.objects.get(user=request.user)  # logged-in member
+
+        if request.user.is_authenticated and viewer.family != community_member.family and community_member.family.track_family_views_flag:
+            FamilyView.objects.get_or_create(viewer=viewer, viewed_family=community_member.family)
 
     context = {
         'family_head': community_member.family.family_head,
