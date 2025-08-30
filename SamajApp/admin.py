@@ -336,3 +336,13 @@ class FamilyViewAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'viewer')
+
+@admin.register(ProfileView)
+class ProfileViewAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'viewer',
+        'viewed_member',
+        'created_at',
+    )
+    list_display_links = ('id', 'viewed_member')
