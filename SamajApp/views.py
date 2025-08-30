@@ -523,9 +523,9 @@ def member_family_tree(request, member_id):
 
 
     if request.user.is_authenticated:
-        viewer = Member.objects.get(user=request.user)  # logged-in member
-
-        if request.user.is_authenticated and viewer.family != community_member.family and community_member.family.track_family_views_flag:
+        viewer = Member.objects.get(user=request.user)
+        if viewer.family != community_member.family:
+        # if viewer.family != community_member.family and community_member.family.track_family_views_flag:
             FamilyView.objects.get_or_create(viewer=viewer, viewed_family=community_member.family)
 
     context = {
@@ -582,7 +582,8 @@ def user_profile(request, member_id):
     viewer = Member.objects.get(user=request.user)
 
     # Increment only if tracking is enabled
-    if member.track_member_views_flag and not member == viewer:
+    # if member.track_member_views_flag and not member == viewer:
+    if not member == viewer:
         ProfileView.objects.get_or_create(viewer=viewer, viewed_member=member)
 
     # Get all viewers for this member
