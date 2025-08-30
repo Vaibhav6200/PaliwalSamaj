@@ -5,19 +5,21 @@
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %}</title>
 
-    <!-- Mobile Specific Metas
-  ================================================== -->
+    <!-- Mobile Specific Metas ================================================== -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Shree Bada Paliwal Samaj Website">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="fast2sms" content="VCtLukItUuNe3dgqRkr2DNn4dF1urYZE">
+    {% block seo_meta_tags %}
+    {% endblock %}
+    <!-- Common SEO meta tags for all pages -->
+    <meta name="author" content="Electrocom Solutions">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="https://shreebadapaliwalsamaj.com/static/images/paliwal-samaj-favicon.png">
 
-    <!-- Favicon
-  ================================================== -->
+    <!-- Favicon ================================================== -->
     <link rel="icon" type="image/png" href="{% static 'images/paliwal-samaj-favicon.png' %}">
 
-    <!-- CSS
-  ================================================== -->
+    <!-- CSS ================================================== -->
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'plugins/bootstrap/bootstrap.min.css' %}">

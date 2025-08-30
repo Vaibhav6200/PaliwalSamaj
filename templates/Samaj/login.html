@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+
 {% block title %}Login{% endblock %}
+
+{% block seo_meta_tags %}
+    <meta name="description" content="Login to access your Paliwal Samaj account.">
+    <meta name="robots" content="noindex, follow">
+{% endblock %}
+
 
 {% block content %}
 <div class="full-container" style="background-image: url({% static 'images/login_bg.jpeg' %});">

@@ -2,7 +2,15 @@
 {% load static %}
 {% load custom_tags %}
 {% load i18n %}
-{% block title %}Profile{% endblock %}
+
+{% block title %}Profile of {{ profile.full_name }} – Paliwal Samaj Member{% endblock %}
+
+{% block seo_meta_tags %}
+    <meta name="description" content="View detailed bio data of {{ profile.full_name }}, a member of Paliwal Samaj. Learn more about their family, background, and connections.">
+    <meta property="og:title" content="{{ profile.full_name }} – Paliwal Samaj Member">
+    <meta property="og:description" content="Bio Data and Family background of {{ profile.full_name }}.">
+    <meta property="og:type" content="profile">
+{% endblock %}
 
 {% block stylesheets %}
 <style>

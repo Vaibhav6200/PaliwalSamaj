@@ -2,7 +2,14 @@
 {% load static %}
 {% load i18n %}
 {% load custom_tags %}
-{% block title %}Family Tree{% endblock %}
+{% block title %}Family Tree of {{ family_tree_of.full_name }} – Paliwal Samaj{% endblock %}
+
+{% block seo_meta_tags %}
+<meta name="description" content="Explore the family tree and lineage of {{ family_tree_of.full_name }} from Paliwal Samaj. Discover relatives and connections.">
+<meta property="og:title" content="Paliwal Samaj Family Tree of {{ family_tree_of.full_name }}">
+<meta property="og:description" content="Explore {{ family_tree_of.full_name }}'s family members.">
+<meta property="og:type" content="profile">
+{% endblock %}
 
 {% block stylesheets %}
 

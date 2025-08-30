@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
-{% block title %}Home{% endblock %}
+{% block title %}Shree Bada Paliwal Samaj - Homepage{% endblock %}
+
+{% block seo_meta_tags %}
+    <meta name="description" content="Official website of Shree Bada Paliwal Samaj. Connect with 6,000+ members, explore family trees, samaj news & events, and celebrate Paliwal culture and heritage.">
+    <meta name="keywords" content="Paliwal Samaj, Paliwal, Samaj, Bada Paliwal, Community, Brahmin community, Pali, Rajasthan, family tree, members, culture, heritage">
+    <meta property="og:title" content="Shree Bada Paliwal Samaj">
+    <meta property="og:description" content="Find and connect with 6,000+ members of the Paliwal Samaj.">
+    <meta property="og:type" content="website">
+{% endblock %}
+
 
 {% block stylesheets %}
 <style>
@@ -129,9 +138,9 @@
                 </div>
 
                 <!-- Image Column -->
-                <div class="col-lg-6 d-flex align-items-center ">
-                    <img src="{% static 'images/about_us.jpeg' %}" class="img-fluid w-100 d-none d-md-block"
-                         style="object-fit: fill; max-height: 80%;" alt="Shreenathji">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <img src="{% static 'images/about_us_2.jpeg' %}" class="img-fluid w-100 d-none d-md-block border"
+                         style="object-fit: fill; max-height: 80%; max-width: 90%;" alt="Shreenathji">
                 </div>
             </div>
         </div>

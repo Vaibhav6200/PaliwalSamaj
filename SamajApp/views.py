@@ -542,6 +542,7 @@ def member_family_tree(request, member_id):
     context = {
         'family_head': community_member.family.family_head,
         'family_members': family_members,
+        'family_tree_of': community_member      # Used in title for SEO
     }
     return render(request, 'Samaj/member_family_tree.html', context)
 

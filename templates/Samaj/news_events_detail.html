@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
-{% block title %}News-Events Detail{% endblock %}
+
+{% block title %}{{ post.title }} – Paliwal Samaj Event{% endblock %}
+
+{% block seo_meta_tags %}
+    <meta name="description" content="{{ post.short_description|default:post.subtitle|default:post.content|truncatechars:160 }}">
+    <meta name="keywords" content="Paliwal Samaj, Paliwal News, Paliwal Events, Samaj News, Samaj Events, {{ post.title }}, Rajasthan, Brahmin Community">
+    <meta property="og:title" content="{{ post.title }}">
+    <meta property="og:description" content="{{ post.short_description|default:post.subtitle|truncatechars:160 }}">
+    <meta property="og:type" content="article">
+{% endblock %}
+
 
 {% block stylesheets %}
 <style>

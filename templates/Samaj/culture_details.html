@@ -2,7 +2,19 @@
 {% load static %}
 {% load i18n %}
 {% load custom_tags %}
-{% block title %}Culture{% endblock %}
+
+{% block title %}{{ culture.title }} – Paliwal Samaj Culture & Heritage{% endblock %}
+
+{% block seo_meta_tags %}
+    <meta name="description" content="{{ culture.content|striptags|truncatechars:160 }}">
+    <meta name="keywords" content="{{ culture.title }}, culture, traditions, history, gotra, riti rivaz">
+    <meta property="og:title" content="{{ culture.title }}">
+    <meta property="og:description" content="{{ culture.content|striptags|truncatechars:200 }}">
+    <meta property="og:type" content="article">
+    {% if culture.pdf %}
+    <meta property="og:see_also" content="{{ culture.pdf.url }}">
+    {% endif %}
+{% endblock %}
 
 
 {% block stylesheets %}
