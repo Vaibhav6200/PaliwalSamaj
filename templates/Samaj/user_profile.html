@@ -241,12 +241,12 @@
             </div>
             {% if request.user == profile.user and profile.track_member_views_flag %}
             <div class="profile-card p-4">
-                    <h2 class="card-title">
-                        <span class="d-flex w-100 align-items-center justify-content-md-between">
-                            <span class="">{% trans "Viewers" %}</span>
-                            <span class="me-2">(views: {{ profile.profile_views }})</span>
-                        </span>
-                    </h2>
+                <h2 class="card-title">
+                    <span class="d-flex w-100 align-items-center justify-content-md-between">
+                        <span class="">{% trans "Viewers" %}</span>
+                        <span class="">(views: {{ profile.profile_views }})</span>
+                    </span>
+                </h2>
 
                 <div class="row m-0">
                     <div class="tab-pane fade show active" id="table" role="tabpanel">

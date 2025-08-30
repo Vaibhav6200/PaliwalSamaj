@@ -325,3 +325,4 @@ class DegreeAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('id', 'degree_name')
+

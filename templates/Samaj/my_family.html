@@ -25,9 +25,6 @@
             <div class="col-12 col-sm-6 align-self-center">
                 <div class="d-flex flex-column flex-md-row gap-2 flex-wrap align-items-md-center">
                     <h3 class="mb-0">{% trans "My Family" %}</h3>
-                    {% if track_family_views_flag %}
-                    <h6 class="me-2 mb-md-0">(Family views: {{ family_views }})</h6>
-                    {% endif %}
                 </div>
             </div>
             <div class="col-12 col-sm-6">
@@ -188,6 +185,66 @@
                 {% endfor %}
             </div>
 
+            {% if track_family_views_flag %}
+            <div class="profile-card p-4 mt-5">
+                    <h2 class="card-title">
+                        <span class="d-flex w-100 align-items-center justify-content-md-between">
+                            <span class="">{% trans "Family Tree Viewers" %}</span>
+                            <span class="">(Family views: {{ family_views }})</span>
+                        </span>
+                    </h2>
+
+                <div class="row m-0">
+                    <div class="tab-pane fade show active" id="table" role="tabpanel">
+                        <div class="table-responsive">
+                            {% if family_viewers %}
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Sr. No.</th>
+                                        <th>Full Name</th>
+                                        <th>Father Name</th>
+                                        <th>DOB</th>
+                                        <th>Marital Status</th>
+                                        <th>Location (City, State)</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for viewer in family_viewers %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ viewer.viewer.full_name|title }}</td>
+                                        <td>{{ viewer.viewer.father_name|title }}</td>
+                                        <td>{{ viewer.viewer.date_of_birth }}</td>
+                                        <td>{{ viewer.viewer.get_marital_status_display }}</td>
+                                        <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="{% url 'samaj:user_profile' viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
+                                                    data-bs-toggle="tooltip" title="View Profile">
+                                                    <span class="material-icons me-2">visibility</span>
+                                                </a>
+                                                <a href="{% url 'samaj:member_family_tree' viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
+                                                    data-bs-toggle="tooltip" title="View Family">
+                                                    <span class="material-icons me-2">diversity_3</span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            {% else %}
+                                <div class="py-3">{% trans "No Viewer Found" %} 🥲</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
 
         </div>
     </section>

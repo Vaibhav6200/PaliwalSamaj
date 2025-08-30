@@ -223,7 +223,17 @@ class ProfileView(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
     def __str__(self):
-        return f"{self.viewer.full_name} viewed {self.viewed_member.full_name}"
+        return f"{self.viewer} viewed {self.viewed_member}"
+
+
+class FamilyView(models.Model):
+    viewer = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="family_viewer_made")
+    viewed_family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name="family_views_received")
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f"{self.viewer} viewed {self.viewed_family}"
 
 
 class Degree(models.Model):

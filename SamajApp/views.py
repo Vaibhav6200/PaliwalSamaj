@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog, \
-    Support, Degree, ProfileView
+    Support, Degree, ProfileView, FamilyView
 from django.contrib import messages
 from paliwalsamaj import settings
 from .forms import CultureCreatePostForm
@@ -504,12 +504,15 @@ def my_family(request):
     show_ad(request)
     login_member = Member.objects.filter(user = request.user).first()
     all_family_members = Member.objects.filter(family=login_member.family)
+    # Get all viewers for this family
+    family_viewers = login_member.family.family_views_received.select_related('viewer').order_by('-created_at')
 
     context = {
         'all_family_members': all_family_members,
         'family_head': login_member.family.family_head,
         'track_family_views_flag': login_member.family.track_family_views_flag,
         'family_views': login_member.family.family_views,
+        'family_viewers': family_viewers,  # send viewers to template
     }
     return render(request, 'Samaj/my_family.html', context)
 
@@ -518,11 +521,15 @@ def member_family_tree(request, member_id):
     show_ad(request)
     community_member = Member.objects.get(id = member_id)
     family_members = Member.objects.filter(family=community_member.family)
+    viewer = Member.objects.get(user=request.user)  # logged-in member
 
-    family_users = family_members.values_list("user_id", flat=True)
-    if not request.user.id in family_users and  community_member.family.track_family_views_flag:
-        community_member.family.family_views += 1
-        community_member.family.save(update_fields=["family_views"])
+    if community_member.family.track_family_views_flag and viewer.family != community_member.family:
+        # Track the view
+        obj, created = FamilyView.objects.get_or_create(viewer=viewer, viewed_family=community_member.family)
+        if created:  # increment counter only for first view
+            community_member.family.family_views += 1
+            community_member.family.save(update_fields=["family_views"])
+
 
     context = {
         'family_head': community_member.family.family_head,
