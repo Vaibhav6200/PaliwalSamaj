@@ -426,7 +426,6 @@ def community(request):
             context['marital_status_filter_value'] = marital_status
             community_members = community_members.filter(marital_status=marital_status)
 
-
         if state:
             context['state_filter_value'] = state
             community_members = community_members.filter(Q(current_address_state__state_name__icontains=state) | Q(current_address__icontains=state))
@@ -489,13 +488,26 @@ def community(request):
         'records_count': community_members.count(),
     })
 
-    paginator = Paginator(
-        community_members.order_by(Lower('full_name')),
-        settings.COMMUNITY_MEMBERS_PER_PAGE
-    )
-    page_number = request.GET.get('page')
-    context['community_members'] = paginator.get_page(page_number)
+    # Table view: strictly alphabetical
+    table_members = community_members.order_by(Lower("full_name"))
 
+    # Grid view: prioritize members with profile image, then alphabetical
+    grid_members = community_members.annotate(
+        has_picture=Case(
+            When(profile_image__isnull=True, then=Value(0)),  # No image
+            When(profile_image__exact="", then=Value(0)),  # Empty string
+            default=Value(1),  # Has image
+            output_field=IntegerField(),
+        )
+    ).order_by("-has_picture", Lower("full_name"))
+
+    # Paginate each separately
+    table_paginator = Paginator(table_members, settings.COMMUNITY_MEMBERS_PER_PAGE)
+    grid_paginator = Paginator(grid_members, settings.COMMUNITY_MEMBERS_PER_PAGE)
+    page_number = request.GET.get('page')
+
+    context['community_members_table'] = table_paginator.get_page(page_number)
+    context['community_members_grid'] = grid_paginator.get_page(page_number)
     return render(request, 'Samaj/community.html', context)
 
 

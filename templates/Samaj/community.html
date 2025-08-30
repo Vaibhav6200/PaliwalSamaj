@@ -4,6 +4,16 @@
 {% load custom_tags %}
 {% block title %}Community{% endblock %}
 
+{% block stylesheets %}
+<style>
+    @media only screen and (max-width: 600px) {
+      .ts-name {
+        font-size: 13px !important;
+      }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
@@ -175,8 +185,8 @@
                 <!-- Grid View -->
                 <div class="tab-pane fade" id="grid" role="tabpanel">
                     <div class="row m-0">
-                        {% if community_members %}
-                        {% for member in community_members %}
+                        {% if community_members_grid %}
+                        {% for member in community_members_grid %}
                         <div class="col-6 col-md-4 p-2">
                             <div class="my_family_card item">
                                 <div class="ts-team-wrapper profile_container">
@@ -189,7 +199,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="ts-team-content">
-                                        <h3 class="ts-name community_member_name">{{ member.full_name }} </h3>
+                                        <h3 class="ts-name community_member_name text-center">{{ member.full_name }} </h3>
                                         <p class="ts-designation community_member_card_info profile_hover_content">{% trans "Gotra" %}: {{ member.get_gotra_display }}</p>
                                         <div class="community_member_card_info profile_hover_content">
                                             <div class="d-flex align-items-center py-2 border-bottom border-white">
@@ -231,7 +241,7 @@
                 <!-- Table View -->
                 <div class="tab-pane fade show active" id="table" role="tabpanel">
                     <div class="table-responsive">
-                        {% if community_members %}
+                        {% if community_members_table %}
                         <table class="table table-bordered table-hover">
                             <thead class="table-light">
                                 <tr>
@@ -245,9 +255,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for member in community_members %}
+                                {% for member in community_members_table %}
                                 <tr>
-                                    <td>{{ community_members.start_index|add:forloop.counter0 }}</td>
+                                    <td>{{ community_members_table.start_index|add:forloop.counter0 }}</td>
                                     <td>{{ member.full_name|title }}</td>
                                     <td>{{ member.father_name|title }}</td>
                                     <td>{{ member.date_of_birth }}</td>
@@ -277,20 +287,20 @@
                 </div>
                 <!-- Table View End -->
 
-                {% if community_members.has_other_pages %}
+                {% if community_members_table.has_other_pages %}
                 {% with query_params=request.GET.urlencode %}
                     {% comment %} Remove "page=..." from the query string {% endcomment %}
                     {% with query_string=query_params|cut:"page="|cut:"&page=" %}
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center mt-4">
-                            {% if community_members.has_previous %}
+                            {% if community_members_table.has_previous %}
                             <li class="page-item">
                                 <a class="page-link" href="?page=1&{{ query_string }}" aria-label="First">
                                     &laquo;&laquo;
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ community_members.previous_page_number }}&{{ query_string }}" aria-label="Previous">
+                                <a class="page-link" href="?page={{ community_members_table.previous_page_number }}&{{ query_string }}" aria-label="Previous">
                                     &laquo;
                                 </a>
                             </li>
@@ -299,22 +309,22 @@
                             <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                             {% endif %}
 
-                            {% for num in community_members.paginator.page_range %}
-                                {% if community_members.number == num %}
+                            {% for num in community_members_table.paginator.page_range %}
+                                {% if community_members_table.number == num %}
                                 <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                                {% elif num > community_members.number|add:'-3' and num < community_members.number|add:'3' %}
+                                {% elif num > community_members_table.number|add:'-3' and num < community_members_table.number|add:'3' %}
                                 <li class="page-item"><a class="page-link" href="?page={{ num }}&{{ query_string }}">{{ num }}</a></li>
                                 {% endif %}
                             {% endfor %}
 
-                            {% if community_members.has_next %}
+                            {% if community_members_table.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ community_members.next_page_number }}&{{ query_string }}" aria-label="Next">
+                                <a class="page-link" href="?page={{ community_members_table.next_page_number }}&{{ query_string }}" aria-label="Next">
                                     &raquo;
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ community_members.paginator.num_pages }}&{{ query_string }}" aria-label="Last">
+                                <a class="page-link" href="?page={{ community_members_table.paginator.num_pages }}&{{ query_string }}" aria-label="Last">
                                     &raquo;&raquo;
                                 </a>
                             </li>
