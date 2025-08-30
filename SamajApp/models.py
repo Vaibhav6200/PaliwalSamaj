@@ -64,7 +64,6 @@ class Family(models.Model):
     paitrik_address_state = models.ForeignKey(State, null=True, blank=True, on_delete=models.SET_NULL)
     paitrik_address_pincode = models.CharField(max_length=10, null=True, blank=True)
     track_family_views_flag = models.BooleanField(default=False)  # flag to enable/disable tracking
-    family_views = models.PositiveIntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -207,7 +206,6 @@ class Member(models.Model):
 
     # Views Tracking
     track_member_views_flag = models.BooleanField(default=False)  # flag to enable/disable tracking
-    profile_views = models.PositiveIntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -511,7 +511,6 @@ def my_family(request):
         'all_family_members': all_family_members,
         'family_head': login_member.family.family_head,
         'track_family_views_flag': login_member.family.track_family_views_flag,
-        'family_views': login_member.family.family_views,
         'family_viewers': family_viewers,  # send viewers to template
     }
     return render(request, 'Samaj/my_family.html', context)
@@ -524,12 +523,7 @@ def member_family_tree(request, member_id):
     viewer = Member.objects.get(user=request.user)  # logged-in member
 
     if community_member.family.track_family_views_flag and viewer.family != community_member.family:
-        # Track the view
-        obj, created = FamilyView.objects.get_or_create(viewer=viewer, viewed_family=community_member.family)
-        if created:  # increment counter only for first view
-            community_member.family.family_views += 1
-            community_member.family.save(update_fields=["family_views"])
-
+        FamilyView.objects.get_or_create(viewer=viewer, viewed_family=community_member.family)
 
     context = {
         'family_head': community_member.family.family_head,
@@ -586,11 +580,7 @@ def user_profile(request, member_id):
 
     # Increment only if tracking is enabled
     if member.track_member_views_flag and not member == viewer:
-        obj, created = ProfileView.objects.get_or_create(viewer=viewer, viewed_member=member)
-        # Only increment counter if this is the first time viewer is visiting
-        if created:
-            member.profile_views += 1
-            member.save(update_fields=["profile_views"])
+        ProfileView.objects.get_or_create(viewer=viewer, viewed_member=member)
 
     # Get all viewers for this member
     viewers_list = member.profile_views_received.select_related('viewer').order_by('-created_at')
