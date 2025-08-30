@@ -326,3 +326,13 @@ class DegreeAdmin(admin.ModelAdmin):
     )
     list_display_links = ('id', 'degree_name')
 
+
+@admin.register(FamilyView)
+class FamilyViewAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'viewer',
+        'viewed_family',
+        'created_at',
+    )
+    list_display_links = ('id', 'viewer')
