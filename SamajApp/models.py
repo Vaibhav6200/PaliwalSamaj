@@ -217,6 +217,15 @@ class Member(models.Model):
         return f"{self.full_name}"
 
 
+class ProfileView(models.Model):
+    viewer = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="profile_views_made")
+    viewed_member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name="profile_views_received")
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = models.Manager()
+    def __str__(self):
+        return f"{self.viewer.full_name} viewed {self.viewed_member.full_name}"
+
+
 class Degree(models.Model):
     degree_code = models.CharField(max_length=50, unique=True)   # e.g. "bsc", "mba"
     degree_name = models.CharField(max_length=255)              # e.g. "B.Sc. (Bachelor of Science)"

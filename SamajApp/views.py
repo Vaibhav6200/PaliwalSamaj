@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog, \
-    Support, Degree
+    Support, Degree, ProfileView
 from django.contrib import messages
 from paliwalsamaj import settings
 from .forms import CultureCreatePostForm
@@ -575,15 +575,23 @@ def sandesh(request):
 def user_profile(request, member_id):
     show_ad(request)
     member = Member.objects.get(id=member_id)
+    viewer = Member.objects.get(user=request.user)
 
     # Increment only if tracking is enabled
-    if member.track_member_views_flag and not request.user == member.user:
-        member.profile_views += 1
-        member.save(update_fields=["profile_views"])
+    if member.track_member_views_flag and not member == viewer:
+        obj, created = ProfileView.objects.get_or_create(viewer=viewer, viewed_member=member)
+        # Only increment counter if this is the first time viewer is visiting
+        if created:
+            member.profile_views += 1
+            member.save(update_fields=["profile_views"])
+
+    # Get all viewers for this member
+    viewers_list = member.profile_views_received.select_related('viewer').order_by('-created_at')
 
     context = {
         'profile': member,
         'user_age': calculate_age(member.date_of_birth),
+        'viewers': viewers_list,
     }
     return render(request, "Samaj/user_profile.html", context)
 
