@@ -7,7 +7,6 @@ from django.db.models import Q, Prefetch, Case, When, Value, IntegerField
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-
 from SamajApp.models import NewsEvent, Comment, Member, Family, Newsletter, QualificationDetail, OccupationDetail, \
     Suggestion, DisplayMember, Sandesh, Gallery, Culture, DisplayMemberGroup, Village, City, State, SponsorAd, SMSLog, \
     Support, Degree, ProfileView, FamilyView
@@ -23,6 +22,7 @@ from django.core.files.storage import default_storage
 from django.contrib.auth import authenticate, login, logout
 import logging
 from django.db.models.functions import Lower
+from django.db.models import F
 
 
 logger = logging.getLogger(__name__)
@@ -546,8 +546,7 @@ def my_family(request):
     # Ensure that the Logged in member is linked to a family
     family = login_member.family
     family_head = family.family_head
-    other_family_members = Member.objects.filter(family=family).exclude(id=family_head.id)
-    # other_family_members = Member.objects.filter(family=family).exclude(id=family_head.id).order_by('date_of_birth')
+    other_family_members = Member.objects.filter(family=family).exclude(id=family_head.id).order_by(F('date_of_birth').asc(nulls_last=True))
 
     if not family:
         messages.error(request, "You are not associated with any family.")
