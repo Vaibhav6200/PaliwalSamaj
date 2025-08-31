@@ -221,7 +221,7 @@ class ProfileView(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
     def __str__(self):
-        return f"{self.viewer} viewed {self.viewed_member}"
+        return f"{self.viewer.full_name} viewed {self.viewed_member.full_name}"
 
 
 class FamilyView(models.Model):
@@ -231,7 +231,7 @@ class FamilyView(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.viewer} viewed {self.viewed_family}"
+        return f"{self.viewer.full_name} viewed {self.viewed_family}"
 
 
 class Degree(models.Model):
