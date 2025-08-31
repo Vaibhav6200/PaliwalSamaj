@@ -343,11 +343,14 @@ def handle_member_delete(request):
         is_family_head = (family.family_head == delete_member)
         delete_member_name = f"{delete_member.full_name}"
 
+        # Case: Logged in member is deleting himself
+        login_member_deleting_himself_flag = login_member == delete_member
+
+        # Delete Member
         delete_member.delete()
 
         # Get remaining members of this family
         remaining_members = Member.objects.filter(family=family)
-
         if remaining_members.exists():
             # If the deleted member was the family head, reassign head to any other member
             if is_family_head:
@@ -358,14 +361,20 @@ def handle_member_delete(request):
                     new_head = remaining_members.first()
                 family.family_head = new_head
                 family.save()
-
             messages.success(request, f'Member {delete_member_name} removed from family')
-            return redirect('samaj:my_family')
+
+            # Case: Logged in member is deleting himself
+            if login_member_deleting_himself_flag:
+                # Log out and redirect
+                logout(request)
+                return redirect('samaj:index')
+            else:
+                return redirect('samaj:my_family')
         else:
             # If no members remain, delete the family itself
-            family_name = family.name
+            messages.success(request, f'Family "{family.name}" deleted as it had no members left.')
             family.delete()
-            messages.success(request, f'Family "{family_name}" deleted as it had no members left.')
+            logout(request)
             return redirect('samaj:index')
     raise Http404("Page not found")
 
