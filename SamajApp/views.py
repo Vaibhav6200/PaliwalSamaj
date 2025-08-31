@@ -379,6 +379,21 @@ def handle_member_delete(request):
     raise Http404("Page not found")
 
 
+@login_required
+def handle_member_mark_as_head(request):
+    if request.method == "POST":
+        new_head_member = Member.objects.get(id=request.POST.get('new_head_member_id'))
+        current_family_head = Member.objects.get(user=request.user)
+
+        family = Family.objects.get(family_code=current_family_head.family.family_code)
+        family.family_head = new_head_member
+        family.save()
+
+        messages.success(request, f'{new_head_member.full_name} is now New Family Head')
+        return redirect('samaj:my_family')
+    raise Http404("Page not found")
+
+
 def community(request):
     show_ad(request)
     context = {
@@ -633,6 +648,10 @@ def user_profile(request, member_id):
     if member.family == viewer.family:
         allow_edit_delete_flag = True
 
+    mark_as_head_flag = False
+    if member.family == viewer.family and member.family.family_head == viewer:
+        mark_as_head_flag = True
+
     # Increment only if tracking is enabled
     # if member.track_member_views_flag and not member == viewer:
     if not member == viewer:
@@ -646,6 +665,7 @@ def user_profile(request, member_id):
         'user_age': calculate_age(member.date_of_birth),
         'viewers': viewers_list,
         'allow_edit_delete_flag': allow_edit_delete_flag,
+        'mark_as_head_flag': mark_as_head_flag,
     }
     return render(request, "Samaj/user_profile.html", context)
 

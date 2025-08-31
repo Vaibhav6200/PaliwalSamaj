@@ -89,6 +89,20 @@
                                 </form>
                             </li>
                             {% endif %}
+
+                            <!-- Mark as Head -->
+                            {% if mark_as_head_flag %}
+                            <li>
+                                <form action="{% url 'samaj:handle_member_mark_as_head' %}" method="post" class="m-0" id="mark_as_head_form">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ profile.id }}" name="new_head_member_id">
+                                    <a role="button" id="mark_as_head_btn" class="dropdown-item d-flex align-items-center px-3">
+                                      <span class="material-icons me-2">check</span>
+                                      {% trans "Mark as Head" %}
+                                    </a>
+                                </form>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -403,6 +417,27 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 delete_member_form.submit();
+            }
+        });
+    });
+</script>
+
+<script>
+    const mark_as_head_btn = document.getElementById('mark_as_head_btn')
+    const mark_as_head_form = document.getElementById('mark_as_head_form')
+
+    mark_as_head_btn.addEventListener('click', function(e) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mark_as_head_form.submit();
             }
         });
     });

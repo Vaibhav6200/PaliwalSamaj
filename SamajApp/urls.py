@@ -16,6 +16,7 @@ urlpatterns = [
     path('bio_data/', bio_data, name='bio_data'),
     path('handle_bio_data_form/<slug:family_code>/', handle_bio_data_form, name='handle_bio_data_form'),
     path('handle_member_delete/', handle_member_delete, name='handle_member_delete'),
+    path('handle_member_mark_as_head/', handle_member_mark_as_head, name='handle_member_mark_as_head'),
 
     path('my_family/', my_family, name='my_family'),
     path('family_tree/<int:member_id>/', member_family_tree, name='member_family_tree'),
