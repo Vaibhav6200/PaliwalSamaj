@@ -567,7 +567,7 @@ def my_family(request):
 def member_family_tree(request, member_id):
     show_ad(request)
     community_member = Member.objects.get(id = member_id)
-    family_members = Member.objects.filter(family=community_member.family)
+    family_members = Member.objects.filter(family=community_member.family).order_by(F('date_of_birth').asc(nulls_last=True))
 
     if request.user.is_authenticated:
         viewer = Member.objects.get(user=request.user)
