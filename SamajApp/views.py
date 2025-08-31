@@ -630,6 +630,10 @@ def user_profile(request, member_id):
     member = Member.objects.get(id=member_id)
     viewer = Member.objects.get(user=request.user)
 
+    allow_edit_delete_flag = False
+    if member.family == viewer.family:
+        allow_edit_delete_flag = True
+
     # Increment only if tracking is enabled
     # if member.track_member_views_flag and not member == viewer:
     if not member == viewer:
@@ -642,6 +646,7 @@ def user_profile(request, member_id):
         'profile': member,
         'user_age': calculate_age(member.date_of_birth),
         'viewers': viewers_list,
+        'allow_edit_delete_flag': allow_edit_delete_flag,
     }
     return render(request, "Samaj/user_profile.html", context)
 

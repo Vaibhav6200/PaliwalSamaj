@@ -63,6 +63,7 @@
                             </li>
 
                             <!-- Edit -->
+                            {% if allow_edit_delete_flag %}
                             <li>
                                 <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0" id="edit_member_bio_form">
                                     {% csrf_token %}
@@ -73,8 +74,10 @@
                                     </a>
                                 </form>
                             </li>
+                            {% endif %}
 
                             <!-- Delete -->
+                            {% if allow_edit_delete_flag %}
                             <li>
                                 <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="delete-member-form m-0" id="delete_member_form">
                                     {% csrf_token %}
@@ -85,6 +88,7 @@
                                     </a>
                                 </form>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
