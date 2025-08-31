@@ -123,7 +123,6 @@ $("#contact-form").validate({
       noSpace:true
     },
     village:{
-      required:true,
       noSpace:true
     },
     "school_class": {
@@ -194,7 +193,6 @@ $("#contact-form").validate({
     address: { required: "Please enter your address" },
     city:{ required: "Please enter your city" },
     state:{ required: "Please enter your state" },
-    village:{ required: "Please enter your village name" },
     "school_class": { required: "Please enter your 12th result" },
     "school_name": { required: "Please enter your 12th school name" },
     collge_uni_name: { required: "Please enter your college/university name" },
