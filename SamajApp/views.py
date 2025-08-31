@@ -4,7 +4,7 @@ import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q, Prefetch, Case, When, Value, IntegerField
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -338,18 +338,36 @@ def handle_member_delete(request):
             messages.error(request, 'You can delete members of your own family only.')
             return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
 
-        # Check if the member to delete is the head of the family
-        is_family_head = (login_user_family.family_head == delete_member)
-
+        # Save family reference before deletion
+        family = delete_member.family
+        is_family_head = (family.family_head == delete_member)
         delete_member_name = f"{delete_member.full_name}"
+
         delete_member.delete()
 
-        # If the deleted member was the family head, assign the logged-in user as the new family head
-        if is_family_head:
-            login_user_family.family_head = login_member
-            login_user_family.save()
-        messages.success(request, f'member {delete_member_name} removed from family')
-    return redirect(request.META.get('HTTP_REFERER', 'fallback_url'))
+        # Get remaining members of this family
+        remaining_members = Member.objects.filter(family=family)
+
+        if remaining_members.exists():
+            # If the deleted member was the family head, reassign head to any other member
+            if is_family_head:
+                # Choose the eldest member (smallest date_of_birth)
+                new_head = remaining_members.filter(date_of_birth__isnull=False).order_by("date_of_birth").first()
+                if not new_head:
+                    # If no DOB available, just pick any member
+                    new_head = remaining_members.first()
+                family.family_head = new_head
+                family.save()
+
+            messages.success(request, f'Member {delete_member_name} removed from family')
+            return redirect('samaj:my_family')
+        else:
+            # If no members remain, delete the family itself
+            family_name = family.name
+            family.delete()
+            messages.success(request, f'Family "{family_name}" deleted as it had no members left.')
+            return redirect('samaj:index')
+    raise Http404("Page not found")
 
 
 def community(request):
@@ -515,13 +533,23 @@ def community(request):
 def my_family(request):
     show_ad(request)
     login_member = Member.objects.filter(user = request.user).first()
-    all_family_members = Member.objects.filter(family=login_member.family)
+
+    # Ensure that the Logged in member is linked to a family
+    family = login_member.family
+    family_head = family.family_head
+    other_family_members = Member.objects.filter(family=family).exclude(id=family_head.id)
+    # other_family_members = Member.objects.filter(family=family).exclude(id=family_head.id).order_by('date_of_birth')
+
+    if not family:
+        messages.error(request, "You are not associated with any family.")
+        raise Http404("Family not found")
+
     # Get all viewers for this family
     family_viewers = login_member.family.family_views_received.select_related('viewer').order_by('-created_at')
 
     context = {
-        'all_family_members': all_family_members,
-        'family_head': login_member.family.family_head,
+        'other_family_members': other_family_members,
+        'family_head': family_head,
         'track_family_views_flag': login_member.family.track_family_views_flag,
         'family_viewers': family_viewers,  # send viewers to template
     }

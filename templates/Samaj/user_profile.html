@@ -31,19 +31,61 @@
         <div class="container py-5">
             <!-- Personal Details Card -->
             <div class="profile-card p-4">
-                <div class="d-flex justify-content-between card-title flex-wrap">
+                <div class="d-flex justify-content-between align-items-center card-title flex-wrap">
+                    <!-- Heading -->
                     <h2 class="card-title border-0 mb-0">{% trans "Personal Details" %}</h2>
 
-                    <div class="d-flex flex-column flex-md-row gap-2 flex-wrap align-items-md-center profile-actions">
-                        <a href="{% url 'samaj:member_family_tree' profile.id %}"
-                           class="btn btn-primary fw-bold rounded-0 py-2 d-inline-flex justify-content-center align-items-center">
-                            <span class="material-icons me-2">diversity_3</span>
-                            <span class="text-nowrap">{% trans "Show Family" %}</span>
-                        </a>
-                        <button id="shareBtn" class="btn btn-primary fw-bold rounded-0 py-2 d-inline-flex align-items-center justify-content-center">
-                            <span class="material-icons me-2">share</span>
-                            <span class="text-nowrap">{% trans "Share Profile" %}</span>
+                    <div class="dropdown">
+                        <button class="btn btn-warning fw-bold rounded-0 py-2 d-flex align-items-center dropdown-toggle"
+                              type="button"
+                              id="actionDropdown"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false">
+                            <span class="material-icons me-2">menu</span>
+                            <span class="text-nowrap">{% trans "Actions" %}</span>
                         </button>
+                        <ul class="dropdown-menu p-0" aria-labelledby="actionDropdown">
+
+                            <!-- Show Family -->
+                            <li class="w-100">
+                                <a class="dropdown-item d-flex align-items-center px-3" href="{% url 'samaj:member_family_tree' profile.id %}">
+                                    <span class="material-icons me-2">diversity_3</span>
+                                    {% trans "Show Family" %}
+                                </a>
+                            </li>
+
+                            <!-- Share Profile -->
+                            <li>
+                                <a role="button" id="shareBtn" class="dropdown-item d-flex align-items-center px-3 pointer-cursor">
+                                    <span class="material-icons me-2">share</span>
+                                    {% trans "Share Profile" %}
+                                </a>
+                            </li>
+
+                            <!-- Edit -->
+                            <li>
+                                <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0" id="edit_member_bio_form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ profile.user.id }}">
+                                    <a role="button" id="edit_member_bio_btn" class="dropdown-item d-flex align-items-center px-3">
+                                        <span class="material-icons me-2">edit</span>
+                                        {% trans "Edit" %}
+                                    </a>
+                                </form>
+                            </li>
+
+                            <!-- Delete -->
+                            <li>
+                                <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="delete-member-form m-0" id="delete_member_form">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ profile.id }}" name="member_id">
+                                    <a role="button" id="delete_member_btn" class="dropdown-item d-flex align-items-center px-3 text-danger">
+                                      <span class="material-icons me-2 text-danger">delete</span>
+                                      {% trans "Delete" %}
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -314,20 +356,52 @@
 </main>
 {% endblock %}
 
-{% block javascripts %}
-<script>
-  const shareBtn = document.getElementById('shareBtn');
 
-  shareBtn.addEventListener('click', async () => {
-    if (navigator.share) {
-      await navigator.share({
-        title: document.title,
-        text: "Check out this profile from Shree Bada Paliwal Samaj!",
-        url: window.location.href
-      });
-    } else {
-      alert("Sharing not supported in this browser. Please copy the link.");
-    }
-  });
+{% block javascripts %}
+
+<script>
+    const edit_member_bio_btn = document.getElementById('edit_member_bio_btn');
+    const edit_member_bio_form = document.getElementById('edit_member_bio_form');
+
+    edit_member_bio_btn.addEventListener('click', function () {
+        edit_member_bio_form.submit();
+    });
 </script>
+
+<script>
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.addEventListener('click', async () => {
+        if (navigator.share) {
+            await navigator.share({
+                title: document.title,
+                text: "Check out this profile from Shree Bada Paliwal Samaj!",
+                url: window.location.href
+            });
+        } else {
+            alert("Sharing not supported in this browser. Please copy the link.");
+        }
+    });
+</script>
+
+<script>
+    const delete_member_btn = document.getElementById('delete_member_btn')
+    const delete_member_form = document.getElementById('delete_member_form')
+
+    delete_member_btn.addEventListener('click', function(e) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                delete_member_form.submit();
+            }
+        });
+    });
+</script>
+
 {% endblock %}

@@ -6,8 +6,8 @@
 {% block title %}My Family Tree – Paliwal Samaj{% endblock %}
 
 {% block seo_meta_tags %}
-<meta name="robots" content="noindex, nofollow">
-<meta name="description" content="View and manage your family tree in the Paliwal Samaj community. Add, edit, or connect family members.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="View and manage your family tree in the Paliwal Samaj community. Add, edit, or connect family members.">
 {% endblock %}
 
 
@@ -121,8 +121,7 @@
             </div>
 
             <div class="row m-0 mt-4">
-                {% for member in all_family_members %}
-                {% if not member == member.family.family_head %}
+                {% for member in other_family_members %}
                 <div class="col-6 col-md-4 p-2">
                     <div class="my_family_card item border">
                         <div class="ts-team-wrapper profile_container">
@@ -187,7 +186,6 @@
                         </div><!--/ Team wrapper end -->
                     </div>
                 </div>
-                {% endif %}
                 {% endfor %}
             </div>
 
