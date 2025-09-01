@@ -47,7 +47,7 @@ ENABLE_TRANSLITERATION = os.getenv('ENABLE_TRANSLITERATION').lower() in ['true',
 SHOW_GOPAL_BRANDING = os.getenv('SHOW_GOPAL_BRANDING').lower() in ['true', '1', 'yes', 'y']
 SPONSOR_TIMER = os.getenv('SPONSOR_TIMER')
 
-# Added a coment on allowed hosts
+# Added a comment on allowed hosts
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 # Logging Settings

@@ -2,11 +2,22 @@ from celery import shared_task
 from .models import Member, QualificationDetail, OccupationDetail
 from google.transliteration import transliterate_text
 from indicate import transliterate
+import logging
+
+
+logger = logging.getLogger("celery_logger")
 
 
 @shared_task
 def translate_member_fields(member_id, lang='en'):
-    member = Member.objects.get(id=member_id)
+    logger.info(f"Starting translation for member_id={member_id}, lang={lang}")
+
+    try:
+        member = Member.objects.get(id=member_id)
+    except Member.DoesNotExist:
+        logger.error(f"Member with id={member_id} does not exist, lang={lang}")
+        return
+
     qualification_instances = QualificationDetail.objects.filter(member=member)
     occupation_instance = OccupationDetail.objects.filter(member=member).first()
 
@@ -27,9 +38,9 @@ def translate_member_fields(member_id, lang='en'):
                 # transliterated = transliterate_text(value, lang_code='en')
                 transliterated = transliterate.hindi2english(value)
                 setattr(obj, f"{modal_field}_en", transliterated)
-
         except Exception as e:
-            print(f"Translation failed for field '{modal_field}': {e}")
+            logger.exception(f"Translation failed for field '{modal_field}' "
+                             f"(member_id={member_id}, lang={lang})")
 
     member_modal_translation_fields = ['full_name', 'father_name', 'mother_name', 'birth_place', 'current_address']
     qualification_modal_translation_fields = ['school_name', 'college_name']
@@ -48,3 +59,4 @@ def translate_member_fields(member_id, lang='en'):
         for field in occupation_modal_translation_fields:
             detect_and_assign(occupation_instance, field)
         occupation_instance.save()
+    logger.info(f"Finished translation for member_id={member_id}, lang={lang}")
