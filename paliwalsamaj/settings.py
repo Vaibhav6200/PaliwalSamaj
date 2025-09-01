@@ -50,18 +50,32 @@ SPONSOR_TIMER = os.getenv('SPONSOR_TIMER')
 # Added a coment on allowed hosts
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
+# Logging Settings
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "celery_worker": {
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": os.path.join(LOG_DIR, "celery_worker.log"),
+            "when": "midnight",       # Rotate at midnight
+            "backupCount": 7,         # Keep last 7 days of logs
+            "formatter": "verbose",
         },
     },
-    'loggers': {
-        '': {  # root logger
-            'handlers': ['console'],
-            'level': 'DEBUG',
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name}:{lineno} - {message}",
+            "style": "{",
+        },
+    },
+    "loggers": {
+        "celery_logger": {
+            "handlers": ["celery_worker"],
+            "level": "INFO",
+            "propagate": True,
         },
     },
 }
