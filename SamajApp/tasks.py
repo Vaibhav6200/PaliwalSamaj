@@ -5,7 +5,7 @@ from indicate import transliterate
 import logging
 
 
-logger = logging.getLogger("celery_logger")
+logger = logging.getLogger("celery")
 
 
 @shared_task

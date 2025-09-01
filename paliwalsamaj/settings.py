@@ -72,7 +72,7 @@ LOGGING = {
         },
     },
     "loggers": {
-        "celery_logger": {
+        "celery": {
             "handlers": ["celery_worker"],
             "level": "INFO",
             "propagate": True,
