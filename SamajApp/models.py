@@ -56,7 +56,7 @@ class Family(models.Model):
         verbose_name_plural = 'Family'
 
     name = models.CharField(max_length=100)  # e.g., Sharma
-    family_code = models.CharField(max_length=30, unique=True, editable=False)
+    family_code = models.CharField(max_length=100, unique=True, editable=False)
     family_head = models.ForeignKey('Member', on_delete=models.SET_NULL, null=True, blank=True, related_name='head_family')
     paitrik_address = models.CharField(max_length=255, null=True, blank=True)
     paitrik_address_village = models.ForeignKey(Village, null=True, blank=True, on_delete=models.SET_NULL)
