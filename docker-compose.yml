@@ -1,8 +1,17 @@
 services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - .:/app
+    depends_on:
+      - web
+    restart: unless-stopped
+
   web:
-    build:
-      context: .
-    command: gunicorn paliwalsamaj.wsgi:application --bind 0.0.0.0:8000 --workers 5 --threads 2
+    build: .
     env_file:
       - .env
     volumes:
@@ -10,10 +19,10 @@ services:
     depends_on:
       - db
       - redis
+    restart: unless-stopped
 
   worker:
-    build:
-      context: .
+    build: .
     entrypoint: []
     command: celery -A paliwalsamaj worker --loglevel=info
     env_file:
@@ -23,6 +32,7 @@ services:
     depends_on:
       - db
       - redis
+    restart: unless-stopped
 
   db:
     image: postgres:16
@@ -36,9 +46,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
+    restart: unless-stopped
     ports:
       - "6379:6379"
 
