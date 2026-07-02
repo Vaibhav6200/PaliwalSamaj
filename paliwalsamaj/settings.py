@@ -49,6 +49,7 @@ SPONSOR_TIMER = os.getenv('SPONSOR_TIMER')
 
 # Added a comment on allowed hosts
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Logging Settings
 LOG_DIR = os.path.join(BASE_DIR, "logs")
