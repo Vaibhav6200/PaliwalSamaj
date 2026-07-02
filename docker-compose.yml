@@ -16,6 +16,7 @@ services:
   worker:
     build:
       context: .
+    entrypoint: []
     command: celery -A paliwalsamaj worker --loglevel=info
     env_file:
       - .env
