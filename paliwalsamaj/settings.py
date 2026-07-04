@@ -232,6 +232,11 @@ BUZZER_TEMPLATE_ID = os.getenv("BUZZER_TEMPLATE_ID")
 COMMUNITY_MEMBERS_PER_PAGE = os.getenv("COMMUNITY_MEMBERS_PER_PAGE")
 SPONSOR_REPEAT_MINUTES = float(os.getenv("SPONSOR_REPEAT_MINUTES"))
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://shreebadapaliwalsamaj.com",
+    "https://www.shreebadapaliwalsamaj.com",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
