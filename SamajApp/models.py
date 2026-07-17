@@ -13,9 +13,12 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 
 def _normalize_location_name(name):
-    """Strip whitespace and trailing 6-digit pin codes (e.g. 'Rajasthan 311001' → 'Rajasthan')."""
+    """Normalize a location name: strip whitespace, remove trailing pin codes, title-case.
+    e.g. 'rajasthan 311001' → 'Rajasthan', 'madhyapradesh' → 'Madhyapradesh'
+    """
     name = name.strip()
     name = re.sub(r'\s+\d{6}$', '', name).strip()
+    name = name.title()
     return name
 
 

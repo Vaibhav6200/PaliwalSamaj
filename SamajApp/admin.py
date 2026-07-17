@@ -242,37 +242,42 @@ class DisplayMemberAdmin(admin.ModelAdmin):
 
 @admin.register(State)
 class StateAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'state_name',
-        'created_at',
-    )
+    list_display = ('id', 'state_name', 'created_at')
     list_display_links = ('id', 'state_name')
-    list_filter = ['state_name',]
+    list_filter = ['state_name']
+
+    def save_model(self, request, obj, form, change):
+        # Normalize before saving — same rule as the model's save() override
+        from .models import _normalize_location_name
+        obj.state_name = _normalize_location_name(obj.state_name)
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'city_name',
-        'state',
-        'created_at',
-    )
+    list_display = ('id', 'city_name', 'state', 'created_at')
     list_display_links = ('id', 'city_name')
-    list_filter = ['city_name', 'state']
+    list_filter = ['state']
+    search_fields = ['city_name']
+    autocomplete_fields = ['state'] if False else []  # enable when StateAdmin has search_fields
+
+    def save_model(self, request, obj, form, change):
+        from .models import _normalize_location_name
+        obj.city_name = _normalize_location_name(obj.city_name)
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Village)
 class VillageAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'village_name',
-        'city',
-        'created_at',
-    )
+    list_display = ('id', 'village_name', 'city', 'created_at')
     list_display_links = ('id', 'village_name')
-    list_filter = ['village_name', 'city']
+    list_filter = ['city']
+    search_fields = ['village_name']
+
+    def save_model(self, request, obj, form, change):
+        from .models import _normalize_location_name
+        obj.village_name = _normalize_location_name(obj.village_name)
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(SponsorAd)
