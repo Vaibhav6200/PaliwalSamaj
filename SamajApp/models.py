@@ -230,6 +230,9 @@ class Member(models.Model):
     # Views Tracking
     track_member_views_flag = models.BooleanField(default=False)  # flag to enable/disable tracking
 
+    # True when the member has passed away — shown under Devlok
+    is_deceased = models.BooleanField(default=False, verbose_name=_('Passed Away'))
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = models.Manager()

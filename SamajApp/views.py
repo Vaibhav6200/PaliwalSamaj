@@ -247,6 +247,7 @@ def handle_bio_data_form(request, family_code):
             member.gender = gender
         if marital_status:
             member.marital_status = marital_status
+        member.is_deceased = request.POST.get('is_deceased') == 'on'
         if height:
             member.height = height
         if address:
@@ -567,6 +568,50 @@ def community(request):
     context['community_members_table'] = table_paginator.get_page(page_number)
     context['community_members_grid'] = grid_paginator.get_page(page_number)
     return render(request, 'Samaj/community.html', context)
+
+
+@login_required
+def devlok(request):
+    """List members who have passed away (Devlok). Visible only to logged-in users."""
+    show_ad(request)
+    context = {}
+    members = Member.objects.filter(is_deceased=True)
+
+    if request.method == 'GET':
+        name = request.GET.get('full_name')
+        gotra = request.GET.get('gotra')
+
+        if name:
+            context['name_filter_value'] = name
+            for part in name.strip().split():
+                members = members.filter(full_name_en__icontains=part)
+
+        if gotra:
+            context['gotra_filter_value'] = gotra
+            members = members.filter(gotra__icontains=gotra)
+
+    context.update({
+        'gotras': Member.GOTRA_CHOICES,
+        'records_count': members.count(),
+    })
+
+    table_members = members.order_by(Lower("full_name"))
+    grid_members = members.annotate(
+        has_picture=Case(
+            When(profile_image__isnull=True, then=Value(0)),
+            When(profile_image__exact="", then=Value(0)),
+            default=Value(1),
+            output_field=IntegerField(),
+        )
+    ).order_by("-has_picture", Lower("full_name"))
+
+    table_paginator = Paginator(table_members, settings.COMMUNITY_MEMBERS_PER_PAGE)
+    grid_paginator = Paginator(grid_members, settings.COMMUNITY_MEMBERS_PER_PAGE)
+    page_number = request.GET.get('page')
+
+    context['devlok_members_table'] = table_paginator.get_page(page_number)
+    context['devlok_members_grid'] = grid_paginator.get_page(page_number)
+    return render(request, 'Samaj/devlok.html', context)
 
 
 @login_required

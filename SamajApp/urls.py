@@ -10,6 +10,7 @@ urlpatterns = [
     path('reset_member_password/', reset_member_password, name='reset_member_password'),
 
     path('community/', community, name='community'),
+    path('devlok/', devlok, name='devlok'),
     path('news_and_events/', news_and_events, name='news_and_events'),
     path('news_events_detail/<slug:event_slug>/', news_events_detail, name='news_events_detail'),
 

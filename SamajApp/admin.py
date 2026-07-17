@@ -46,6 +46,7 @@ class MemberAdmin(admin.ModelAdmin):
         'user',
         'family',
         'full_name',
+        'is_deceased',
         'email',
         'father_name',
         'mother_name',
@@ -73,8 +74,10 @@ class MemberAdmin(admin.ModelAdmin):
         'updated_at'
     )
     list_display_links = ('id', 'family', 'user')
-    list_filter = ('id', 'user', 'full_name', 'family', 'phone_number')
-
+    list_editable = ('is_deceased',)
+    list_filter = ('is_deceased', 'id', 'user', 'full_name', 'family', 'phone_number')
+    search_fields = ('full_name', 'phone_number', 'email')
+    list_per_page = 50
 
 @admin.register(QualificationDetail)
 class QualificationDetailAdmin(admin.ModelAdmin):

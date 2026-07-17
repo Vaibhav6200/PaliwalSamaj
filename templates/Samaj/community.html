@@ -209,7 +209,12 @@
                                         {% endif %}
                                     </div>
                                     <div class="ts-team-content">
-                                        <h3 class="ts-name community_member_name text-center">{{ member.full_name }} </h3>
+                                        <h3 class="ts-name community_member_name text-center">
+                                            {{ member.full_name }}
+                                            {% if member.is_deceased %}
+                                            <span class="badge bg-secondary ms-1 align-middle" style="font-size: 0.65em;">{% trans "Devlok" %}</span>
+                                            {% endif %}
+                                        </h3>
                                         <p class="ts-designation community_member_card_info profile_hover_content">{% trans "Gotra" %}: {{ member.get_gotra_display }}</p>
                                         <div class="community_member_card_info profile_hover_content">
                                             <div class="d-flex align-items-center py-2 border-bottom border-white">
@@ -268,7 +273,12 @@
                                 {% for member in community_members_table %}
                                 <tr>
                                     <td>{{ community_members_table.start_index|add:forloop.counter0 }}</td>
-                                    <td>{{ member.full_name|title }}</td>
+                                    <td>
+                                        {{ member.full_name|title }}
+                                        {% if member.is_deceased %}
+                                        <span class="badge bg-secondary ms-1">{% trans "Devlok" %}</span>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ member.father_name|title }}</td>
                                     <td>{{ member.date_of_birth }}</td>
                                     <td>{{ member.get_marital_status_display }}</td>

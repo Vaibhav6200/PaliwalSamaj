@@ -94,6 +94,18 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
+                                    <label class="d-block">{% trans "Passed Away" %}</label>
+                                    <div class="form-check mt-2">
+                                        <input class="form-check-input" type="checkbox" name="is_deceased" id="is_deceased"
+                                               {% if edit_member.is_deceased %}checked{% endif %}>
+                                        <label class="form-check-label" for="is_deceased">
+                                            {% trans "Mark this member as passed away (shown in Devlok)" %}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group">
                                     <label>{% trans 'Height (In Centimeter)' %}</label>
                                     <input type="number" class="form-control form-control-subject" name="height" id="height" min="0" step="1"
                                     value="{{ edit_member.height|default:'' }}">
