@@ -7,250 +7,461 @@
 
 {% block seo_meta_tags %}
     <meta name="robots" content="noindex, nofollow">
-    <meta name="description" content="View and manage your family tree in the Paliwal Samaj community. Add, edit, or connect family members.">
+    <meta name="description" content="View and manage your family tree in the Paliwal Samaj community.">
 {% endblock %}
-
-
 
 {% block stylesheets %}
 <style>
-    .my_family_action_btn_container > div {
-      flex: 1; /* each child takes equal width */
-      text-align: center; /* center align */
-    }
+/* ── Header ───────────────────────────────────────────── */
+.mf-header {
+    background: linear-gradient(135deg, #003049 0%, #0a4f7a 100%);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.mf-header-left { display: flex; align-items: center; gap: 14px; }
+.mf-header-title {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.mf-header-title .material-icons { color: #f0a500; font-size: 1.2rem; }
+.mf-count-badge {
+    background: rgba(240,165,0,0.18);
+    border: 1px solid rgba(240,165,0,0.4);
+    color: #f0a500;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+}
+.mf-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0a500;
+    color: #003049;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 18px;
+    text-decoration: none;
+    transition: background 0.18s;
+}
+.mf-add-btn:hover { background: #ffd166; color: #003049; }
+.mf-add-btn .material-icons { font-size: 1rem; }
+
+/* ── Tree canvas ───────────────────────────────────────── */
+.ftree-section {
+    background: #eef0f3;
+    background-image: radial-gradient(circle, rgba(0,48,73,0.07) 1px, transparent 1px);
+    background-size: 22px 22px;
+    padding: 36px 20px 60px;
+    min-height: 440px;
+}
+.ftree-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+#tree-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 0;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Generation labels ────────────────────────────────── */
+.ftree-gen-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,48,73,0.4);
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* ── Rows ─────────────────────────────────────────────── */
+.ftree-root-row  { display: flex; justify-content: center; }
+.ftree-children-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 64px;
+}
+
+/* ── Portrait card ────────────────────────────────────── */
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.ftree-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    width: 220px;
+    height: 295px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.16);
+    flex-shrink: 0;
+    z-index: 1;
+    animation: cardIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+}
+.ftree-card:hover {
+    box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+    transform: translateY(-7px) scale(1.03);
+    transition: box-shadow 0.25s, transform 0.25s;
+    z-index: 10;
+}
+
+/* Head card: gold ring + slightly larger */
+.ftree-card.is-head {
+    width: 248px;
+    height: 332px;
+    box-shadow: 0 0 0 3px #f0a500, 0 8px 30px rgba(240,165,0,0.28);
+}
+.ftree-card.is-head:hover {
+    box-shadow: 0 0 0 3px #f0a500, 0 16px 44px rgba(240,165,0,0.35);
+}
+
+/* Photo fills entire card */
+.ftree-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+}
+
+/* Dark gradient overlay at bottom */
+.ftree-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,10,28,0.97)  0%,
+        rgba(0,10,28,0.82)  42%,
+        rgba(0,10,28,0.15)  75%,
+        transparent         100%
+    );
+    padding: 48px 12px 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Head badge floats at top of card */
+.ftree-head-badge {
+    position: absolute;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    background: #f0a500;
+    color: #003049;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.ftree-name {
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 3px;
+}
+.ftree-meta {
+    color: rgba(255,255,255,0.58);
+    font-size: 0.66rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Glass action buttons */
+.ftree-actions { display: flex; gap: 5px; }
+.ftree-btn {
+    width: 27px; height: 27px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgba(255,255,255,0.85);
+    transition: background 0.15s, color 0.15s;
+    padding: 0;
+}
+.ftree-btn:hover         { background: rgba(255,255,255,0.28); color: #fff; }
+.ftree-btn.del:hover     { background: rgba(220,53,69,0.65); border-color: transparent; }
+.ftree-btn .material-icons { font-size: 12px; line-height: 1; }
+
+/* ── Empty state ───────────────────────────────────────── */
+.ftree-empty {
+    text-align: center;
+    color: #6c757d;
+    padding: 80px 20px;
+}
+.ftree-empty .material-icons { font-size: 3.2rem; color: #b0b8c4; display: block; margin-bottom: 14px; }
+
+/* ── Mobile ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    #tree-svg { display: none; }
+    .ftree-children-row { margin-top: 20px; }
+    .ftree-card  { width: 165px; height: 220px; }
+    .ftree-card.is-head { width: 190px; height: 254px; }
+}
+
+/* ── Viewers table ─────────────────────────────────────── */
+.viewers-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+    margin-top: 48px;
+}
+.viewers-head {
+    background: linear-gradient(90deg, #003049, #0a4f7a);
+    color: #f0a500;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 13px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.viewers-count-badge {
+    background: rgba(240,165,0,0.18);
+    border: 1px solid rgba(240,165,0,0.4);
+    color: #f0a500;
+    font-size: 0.72rem;
+    padding: 2px 12px;
+    border-radius: 20px;
+}
+.viewers-table-wrap { background: #fff; padding: 12px; }
+.viewers-table thead th {
+    background: #f0f2f5;
+    color: #003049;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: none;
+    padding: 10px 14px;
+}
+.viewers-table tbody td {
+    font-size: 0.82rem;
+    vertical-align: middle;
+    padding: 9px 14px;
+    border-color: #f0f2f5;
+}
+.viewers-table tbody tr:hover { background: #f8f9fa; }
+.vbtn {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    border: 1.5px solid #e9ecef;
+    background: #f8f9fa;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #003049;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+}
+.vbtn:hover { background: #003049; color: #fff; border-color: #003049; }
+.vbtn .material-icons { font-size: 13px; }
 </style>
 {% endblock %}
-
 
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
 
-    <section id="main-container" class="main-container pt-0">
-        <div class="bg-info container-fluid p-4 row m-0">
-            <div class="col-12 col-sm-6 align-self-center">
-                <div class="d-flex flex-column flex-md-row gap-2 flex-wrap align-items-md-center">
-                    <h3 class="mb-0">{% trans "My Family" %}</h3>
-                </div>
+    <section id="main-container" class="main-container pt-0 pb-0">
+
+        <!-- Header bar -->
+        <div class="mf-header">
+            <div class="mf-header-left">
+                <h3 class="mf-header-title">
+                    <span class="material-icons">account_tree</span>
+                    {% trans "My Family" %}
+                </h3>
+                {% if family_head %}
+                <span class="mf-count-badge">
+                    {% if other_family_members %}{{ other_family_members|length|add:1 }}{% else %}1{% endif %}
+                    {% trans "Members" %}
+                </span>
+                {% endif %}
             </div>
-            <div class="col-12 col-sm-6">
-                <div class="d-flex flex-wrap">
-                    <a href="{% url 'samaj:bio_data' %}" class="btn btn-dark ms-md-auto">
-                        <div class="d-flex align-items-center">
-                            <span class="material-icons me-2">add</span>
-                            <div>
-                                {% trans "Add New Member" %}
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            <a href="{% url 'samaj:bio_data' %}" class="mf-add-btn">
+                <span class="material-icons">add</span>
+                {% trans "Add New Member" %}
+            </a>
         </div>
-        <div class="container mt-5">
-            <div class="d-flex justify-content-center">
-                <div class="col-6 col-md-4 p-2">
-                    {% if family_head %}
-                    <div class="my_family_card item border">
-                        <div class="ts-team-wrapper profile_container">
-                            <div class="team-img-wrapper">
-                                {% if family_head.profile_image %}
-                                <img loading="lazy" class="w-100" src="{{ family_head.profile_image.url }}"
-                                     alt="team-img">
-                                {% else %}
-                                <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}"
-                                     alt="team-img">
-                                {% endif %}
-                            </div>
-                            <div class="ts-team-content d-flex flex-column justify-content-between px-md-2">
-                                <div>
-                                    <h3 class="ts-name community_member_name text-md-center">{{family_head.full_name}}</h3>
-                                </div>
-                                <div class="profile_hover_content h-100">
-                                    <div class="h-100 d-flex flex-column justify-content-between">
-                                        <div class="community_member_card_info ">
-                                            <div class="ts-designation mb-0 border-bottom pb-1 mb-1">{% trans "Gotra" %} {{family_head.get_gotra_display}}</div>
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div class=""><span class="material-icons fs-5 ">cake</span></div>
-                                                <div class="text-white ms-2">
-                                                    {% trans "Age" %}: {{ family_head.date_of_birth|get_member_age }}
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div class=""><span class="material-icons fs-5 ">location_on</span>
-                                                </div>
-                                                <div class="text-white ms-2">Ahmedabad</div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-evenly m-0 p-0 mt-2 my_family_action_btn_container">
-                                            <div class="p-0 mx-1 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                                <a href="{% url 'samaj:user_profile' family_head.id %}"
-                                                   class="btn btn-light fw-bold rounded-0 py-2 d-flex justify-content-center align-items-center">
-                                                    <span class="material-icons">visibility</span>
-                                                </a>
-                                            </div>
-                                            <div class="p-0 mx-1 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile">
-                                                <form action="{% url 'samaj:bio_data' %}" method="post"
-                                                      class="">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
-                                                    <button type="submit"
-                                                            class="btn btn-light rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center">
-                                                        <span class="material-icons">edit</span>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                            <div class="p-0 mx-1 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Profile">
-                                                <form action="{% url 'samaj:handle_member_delete' %}" method="post"
-                                                      class="delete-member-form">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" value="{{ family_head.id }}" name="member_id">
-                                                    <button type="submit"
-                                                            class="btn btn-danger rounded-0 d-flex py-2 w-100 h-100 justify-content-center align-items-center">
-                                                        <span class="material-icons">delete</span>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!--/ Team wrapper end -->
-                    </div>
-                    {% endif %}
+
+        <!-- Tree canvas -->
+        <div class="ftree-section">
+          {% if family_head %}
+          <div class="ftree-wrap" id="ftree-wrap">
+            <svg id="tree-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+            <!-- Root node -->
+            <div class="ftree-root-row">
+              <div class="ftree-card is-head" id="ftree-head" style="animation-delay:0s">
+                <span class="ftree-head-badge">★ {% trans "Head" %}</span>
+                {% if family_head.profile_image %}
+                <img class="ftree-photo" loading="lazy" src="{{ family_head.profile_image.url }}" alt="{{ family_head.full_name }}">
+                {% else %}
+                <img class="ftree-photo" loading="lazy" src="{% static 'images/user-icon.png' %}" alt="avatar">
+                {% endif %}
+                <div class="ftree-overlay">
+                  <div class="ftree-name">{{ family_head.full_name }}</div>
+                  <div class="ftree-meta">
+                    {{ family_head.get_gotra_display }}
+                    {% if family_head.date_of_birth %} · {{ family_head.date_of_birth|get_member_age }} {% trans "yrs" %}{% endif %}
+                  </div>
+                  <div class="ftree-actions">
+                    <a href="{% url 'samaj:user_profile' family_head.id %}" class="ftree-btn" title="{% trans 'View' %}">
+                      <span class="material-icons">visibility</span>
+                    </a>
+                    <form action="{% url 'samaj:bio_data' %}" method="post" style="margin:0">
+                      {% csrf_token %}
+                      <input type="hidden" name="user_id" value="{{ family_head.user.id }}">
+                      <button type="submit" class="ftree-btn" title="{% trans 'Edit' %}"><span class="material-icons">edit</span></button>
+                    </form>
+                    <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="delete-member-form" style="margin:0">
+                      {% csrf_token %}
+                      <input type="hidden" value="{{ family_head.id }}" name="member_id">
+                      <button type="submit" class="ftree-btn del" title="{% trans 'Delete' %}"><span class="material-icons">delete</span></button>
+                    </form>
+                  </div>
                 </div>
+              </div>
             </div>
 
-            <div class="row m-0 mt-4">
-                {% for member in other_family_members %}
-                <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item border">
-                        <div class="ts-team-wrapper profile_container">
-                            <div class="team-img-wrapper">
-                                {% if member.profile_image %}
-                                <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
-                                {% else %}
-                                <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}"
-                                     alt="team-img">
-                                {% endif %}
-                            </div>
-                            <div class="ts-team-content d-flex flex-column justify-content-between px-md-2">
-                                <div>
-                                    <h3 class="ts-name community_member_name text-md-center">{{ member.full_name }}</h3>
-                                </div>
-                                <div class="profile_hover_content h-100">
-                                    <div class="h-100 d-flex flex-column justify-content-between">
-
-                                        <div class="community_member_card_info">
-                                            <div class="ts-designation mb-0 border-bottom pb-2 mb-1">{% trans "Gotra" %}: {{ member.get_gotra_display }}
-                                            </div>
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div class=""><span class="material-icons fs-5 ">cake</span></div>
-                                                <div class="text-white ms-2">
-                                                    {% trans "Age" %}: {{ member.date_of_birth|get_member_age }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-evenly m-0 p-0 mt-2 my_family_action_btn_container">
-                                            <div class="p-0 mx-1 mb-1" data-bs-toggle="tooltip" data-bs-placement="top"
-                                                 title="View Profile">
-                                                <a href="{% url 'samaj:user_profile' member.id %}"
-                                                   class="btn btn-light fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                                    <span class="material-icons ">visibility</span>
-                                                </a>
-                                            </div>
-                                            <div class="p-0 mx-1 mb-1">
-                                                <form action="{% url 'samaj:bio_data' %}" method="post">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="user_id" value="{{ member.user.id }}">
-                                                    <button type="submit"
-                                                            class="btn btn-light rounded-0 w-100 d-flex justify-content-center align-items-center">
-                                                        <span class="material-icons ">edit</span>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                            <div class="p-0 mx-1 mb-1">
-                                                <form action="{% url 'samaj:handle_member_delete' %}" method="post"
-                                                      class="m-0 p-0 w-100 delete-member-form">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="member_id" value="{{ member.id }}">
-                                                    <button type="submit"
-                                                            class="btn btn-danger d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold">
-                                                        <span class="material-icons ">delete</span>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!--/ Team wrapper end -->
-                    </div>
+            {% if other_family_members %}
+            <!-- Member nodes -->
+            <div class="ftree-children-row" id="ftree-children">
+              {% for member in other_family_members %}
+              <div class="ftree-card ftree-child-node" style="animation-delay:{{ forloop.counter0 }}00ms">
+                {% if member.profile_image %}
+                <img class="ftree-photo" loading="lazy" src="{{ member.profile_image.url }}" alt="{{ member.full_name }}">
+                {% else %}
+                <img class="ftree-photo" loading="lazy" src="{% static 'images/user-icon.png' %}" alt="avatar">
+                {% endif %}
+                <div class="ftree-overlay">
+                  <div class="ftree-name">{{ member.full_name }}</div>
+                  <div class="ftree-meta">
+                    {{ member.get_gotra_display }}
+                    {% if member.date_of_birth %} · {{ member.date_of_birth|get_member_age }} {% trans "yrs" %}{% endif %}
+                  </div>
+                  <div class="ftree-actions">
+                    <a href="{% url 'samaj:user_profile' member.id %}" class="ftree-btn" title="{% trans 'View' %}">
+                      <span class="material-icons">visibility</span>
+                    </a>
+                    <form action="{% url 'samaj:bio_data' %}" method="post" style="margin:0">
+                      {% csrf_token %}
+                      <input type="hidden" name="user_id" value="{{ member.user.id }}">
+                      <button type="submit" class="ftree-btn" title="{% trans 'Edit' %}"><span class="material-icons">edit</span></button>
+                    </form>
+                    <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="delete-member-form" style="margin:0">
+                      {% csrf_token %}
+                      <input type="hidden" name="member_id" value="{{ member.id }}">
+                      <button type="submit" class="ftree-btn del" title="{% trans 'Delete' %}"><span class="material-icons">delete</span></button>
+                    </form>
+                  </div>
                 </div>
-                {% endfor %}
-            </div>
-
-            {% if track_family_views_flag %}
-            <div class="profile-card p-4 mt-5">
-                    <h2 class="card-title">
-                        <span class="d-flex w-100 align-items-md-center justify-content-md-between flex-column flex-md-row">
-                            <span class="">{% trans "Family Tree Viewers" %}</span>
-                            <span class="">(Family views: {{ family_viewers.count }})</span>
-                        </span>
-                    </h2>
-
-                <div class="row m-0">
-                    <div class="tab-pane fade show active" id="table" role="tabpanel">
-                        <div class="table-responsive">
-                            {% if family_viewers %}
-                            <table class="table table-bordered table-hover">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Sr. No.</th>
-                                        <th>Full Name</th>
-                                        <th>Father Name</th>
-                                        <th>DOB</th>
-                                        <th>Marital Status</th>
-                                        <th>Location (City, State)</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for viewer in family_viewers %}
-                                    <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ viewer.viewer.full_name|title }}</td>
-                                        <td>{{ viewer.viewer.father_name|title }}</td>
-                                        <td>{{ viewer.viewer.date_of_birth }}</td>
-                                        <td>{{ viewer.viewer.get_marital_status_display }}</td>
-                                        <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
-                                                    data-bs-toggle="tooltip" title="View Profile">
-                                                    <span class="material-icons me-2">visibility</span>
-                                                </a>
-                                                <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
-                                                    data-bs-toggle="tooltip" title="View Family">
-                                                    <span class="material-icons me-2">diversity_3</span>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-
-                            {% else %}
-                                <div class="py-3">{% trans "No Viewer Found" %} 🥲</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+              </div>
+              {% endfor %}
             </div>
             {% endif %}
 
+          </div>
+          {% else %}
+          <div class="ftree-empty">
+            <span class="material-icons">family_restroom</span>
+            <p class="mb-2 fw-semibold">{% trans "No family members yet" %}</p>
+            <p class="text-muted small mb-3">{% trans "Start building your family tree by adding the first member." %}</p>
+            <a href="{% url 'samaj:bio_data' %}" class="mf-add-btn d-inline-flex">
+              <span class="material-icons">add</span> {% trans "Add First Member" %}
+            </a>
+          </div>
+          {% endif %}
         </div>
+
+        <!-- Family Tree Viewers -->
+        {% if track_family_views_flag %}
+        <div class="container">
+          <div class="viewers-wrap">
+            <div class="viewers-head">
+              <span>{% trans "Family Tree Viewers" %}</span>
+              <span class="viewers-count-badge">{% trans "Views" %}: {{ family_viewers.count }}</span>
+            </div>
+            <div class="viewers-table-wrap">
+              {% if family_viewers %}
+              <div class="table-responsive">
+                <table class="table table-hover mb-0 viewers-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>{% trans "Full Name" %}</th>
+                      <th>{% trans "Father Name" %}</th>
+                      <th>{% trans "DOB" %}</th>
+                      <th>{% trans "Marital Status" %}</th>
+                      <th>{% trans "Location" %}</th>
+                      <th>{% trans "Actions" %}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for viewer in family_viewers %}
+                    <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ viewer.viewer.full_name|title }}</td>
+                      <td>{{ viewer.viewer.father_name|title }}</td>
+                      <td>{{ viewer.viewer.date_of_birth }}</td>
+                      <td>{{ viewer.viewer.get_marital_status_display }}</td>
+                      <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
+                      <td>
+                        <div class="d-flex gap-1">
+                          <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="vbtn" title="{% trans 'View Profile' %}">
+                            <span class="material-icons">visibility</span>
+                          </a>
+                          <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="vbtn" title="{% trans 'View Family' %}">
+                            <span class="material-icons">diversity_3</span>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% else %}
+              <div class="py-4 text-center text-muted">{% trans "No Viewer Found" %} 🥲</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
     </section>
 
     {% include 'Includes/footer.html' %}
@@ -259,24 +470,63 @@
 
 {% block javascripts %}
 <script>
-    document.querySelectorAll('.delete-member-form').forEach(function(form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent default submission
+/* ── Bezier SVG tree connector lines ───────────────────── */
+function drawFamilyTree() {
+    const wrap = document.getElementById('ftree-wrap');
+    const svg  = document.getElementById('tree-svg');
+    const head = document.getElementById('ftree-head');
+    if (!wrap || !svg || !head) return;
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "This action cannot be undone.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Submit the form if confirmed
-                }
-            });
+    svg.innerHTML = '';
+
+    const wRect  = wrap.getBoundingClientRect();
+    const hRect  = head.getBoundingClientRect();
+    const headCx = hRect.left + hRect.width  / 2 - wRect.left;
+    const headBy = hRect.bottom - wRect.top;
+
+    const children = document.querySelectorAll('.ftree-child-node');
+    if (!children.length) return;
+
+    children.forEach(node => {
+        const r  = node.getBoundingClientRect();
+        const cx = r.left + r.width / 2 - wRect.left;
+        const ty = r.top  - wRect.top;
+        // Smooth bezier S-curve from head to each child
+        bezier(svg, headCx, headBy, cx, ty);
+    });
+}
+
+function bezier(svg, x1, y1, x2, y2) {
+    const midY = y1 + (y2 - y1) * 0.5;
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`);
+    path.setAttribute('stroke', '#f0a500');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('opacity', '0.7');
+    svg.appendChild(path);
+}
+
+window.addEventListener('load',   drawFamilyTree);
+window.addEventListener('resize', () => { clearTimeout(window._ftResize); window._ftResize = setTimeout(drawFamilyTree, 60); });
+
+/* ── Delete confirmation ────────────────────────────────── */
+document.querySelectorAll('.delete-member-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) form.submit();
         });
     });
+});
 </script>
 {% endblock %}
