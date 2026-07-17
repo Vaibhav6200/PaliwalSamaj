@@ -127,7 +127,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 62px;
+    height: 56px;
 }
 
 /* Logo */
@@ -391,7 +391,7 @@
     .ps-topbar-left { display: none; }
 }
 @media (max-width: 575px) {
-    .ps-logo-text { display: none; }
+    .ps-logo img { height: 36px; }
 }
 </style>
 
@@ -448,10 +448,6 @@
             <div class="ps-navbar-inner">
                 <a href="{% url 'samaj:index' %}" class="ps-logo">
                     <img loading="lazy" src="{% static 'images/ps-logo.png' %}" alt="Paliwal Samaj">
-                    <div class="ps-logo-text">
-                        <strong><span>Paliwal</span> Samaj</strong>
-                        <small>Chittorgarh · Est. 1947</small>
-                    </div>
                 </a>
 
                 <ul class="ps-nav">
@@ -498,11 +494,7 @@
 
         <div class="ps-drawer-head">
             <a href="{% url 'samaj:index' %}" class="ps-logo">
-                <img loading="lazy" src="{% static 'images/ps-logo.png' %}" alt="Paliwal Samaj" style="height:34px;filter:brightness(10);">
-                <div class="ps-logo-text">
-                    <strong><span>Paliwal</span> Samaj</strong>
-                    <small>Chittorgarh · Est. 1947</small>
-                </div>
+                <img loading="lazy" src="{% static 'images/ps-logo.png' %}" alt="Paliwal Samaj" style="height:36px;filter:brightness(0) invert(1);">
             </a>
             <button class="ps-drawer-close" id="psDrawerClose" aria-label="Close menu">
                 <span class="material-icons" style="font-size:1rem;">close</span>

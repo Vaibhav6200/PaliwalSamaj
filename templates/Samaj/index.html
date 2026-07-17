@@ -21,7 +21,9 @@
         overflow: hidden;
     }
     .banner-carousel .banner-carousel-item {
-        height: 620px !important;
+        height: calc(100vh - 100px) !important;
+        min-height: 480px !important;
+        max-height: 700px !important;
         position: relative;
         background-position: center center !important;
         background-size: cover !important;
@@ -170,7 +172,7 @@
     }
 
     @media (max-width: 991px) {
-        .banner-carousel .banner-carousel-item { height: 520px !important; }
+        .banner-carousel .banner-carousel-item { height: calc(100vh - 90px) !important; min-height: 420px !important; }
         .hero-title { font-size: 2.2rem !important; }
     }
     /* Suppress legacy theme slide text styles */
@@ -178,7 +180,7 @@
     .banner-carousel .slide-sub-title { display: none !important; }
 
     @media (max-width: 575px) {
-        .banner-carousel .banner-carousel-item { height: 520px !important; }
+        .banner-carousel .banner-carousel-item { height: calc(100svh - 86px) !important; min-height: 380px !important; }
         .hero-title { font-size: 1.65rem !important; }
         .hero-subtitle { font-size: 0.88rem !important; }
         .hero-eyebrow { font-size: 0.65rem; }
