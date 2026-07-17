@@ -470,7 +470,7 @@ def community(request):
 
         if state:
             context['state_filter_value'] = state
-            community_members = community_members.filter(Q(current_address_state__state_name__iexact=state) | Q(current_address__icontains=state))
+            community_members = community_members.filter(current_address_state__state_name__iexact=state)
             states = State.objects.all()
             cities = City.objects.filter(state__state_name__iexact=state)
             villages = Village.objects.filter(city__state__state_name__iexact=state)
@@ -478,13 +478,13 @@ def community(request):
             # Check if the selected city still belongs to the selected state
             if city and City.objects.filter(city_name__iexact=city, state__state_name__iexact=state).exists():
                 context['city_filter_value'] = city
-                community_members = community_members.filter(Q(current_address_city__city_name__iexact=city) | Q(current_address__icontains=city))
+                community_members = community_members.filter(current_address_city__city_name__iexact=city)
                 villages = Village.objects.filter(city__city_name__iexact=city)
 
                 # Check if village belongs to city
                 if village and Village.objects.filter(village_name__iexact=village, city__city_name__iexact=city).exists():
                     context['village_filter_value'] = village
-                    community_members = community_members.filter(Q(current_address_village__village_name__iexact=village) | Q(current_address__icontains=village))
+                    community_members = community_members.filter(current_address_village__village_name__iexact=village)
                 else:
                     context.pop('village_filter_value', None)
             else:
@@ -493,7 +493,7 @@ def community(request):
 
         elif city:
             context['city_filter_value'] = city
-            community_members = community_members.filter(Q(current_address_city__city_name__iexact=city) | Q(current_address__icontains=city))
+            community_members = community_members.filter(current_address_city__city_name__iexact=city)
             cities = City.objects.all()
             villages = Village.objects.filter(city__city_name__iexact=city)
 
@@ -507,13 +507,13 @@ def community(request):
 
             if village and Village.objects.filter(village_name__iexact=village, city__city_name__iexact=city).exists():
                 context['village_filter_value'] = village
-                community_members = community_members.filter(Q(current_address_village__village_name__iexact=village) | Q(current_address__icontains=village))
+                community_members = community_members.filter(current_address_village__village_name__iexact=village)
             else:
                 context.pop('village_filter_value', None)
 
         elif village:
             context['village_filter_value'] = village
-            community_members = community_members.filter(Q(current_address_village__village_name__iexact=village) | Q(current_address__icontains=village))
+            community_members = community_members.filter(current_address_village__village_name__iexact=village)
             village_obj = Village.objects.filter(village_name__iexact=village).first()
             if village_obj:
                 city = village_obj.city.city_name
