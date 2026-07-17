@@ -486,6 +486,14 @@ class DisplayMember(models.Model):
         ('karyakari_sadasya', _('Karyakari Sadasya')),
     ]
     group = models.ForeignKey(DisplayMemberGroup, on_delete=models.CASCADE)
+    member = models.ForeignKey(
+        'Member',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='display_cards',
+        help_text='Link to the actual community member profile (optional).',
+    )
     member_name = models.CharField(max_length=255)
     role = models.CharField(max_length=50, choices=ROLE_CHOICES)
     member_image = models.FileField(upload_to='samaj_display_members', null=True, blank=True)

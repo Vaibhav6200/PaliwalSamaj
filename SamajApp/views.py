@@ -131,7 +131,7 @@ def index(request):
     display_groups = DisplayMemberGroup.objects.order_by('group_rank').prefetch_related(
         Prefetch(
             'displaymember_set',
-            queryset=DisplayMember.objects.order_by('rank')
+            queryset=DisplayMember.objects.select_related('member').order_by('rank')
         )
     )
 

@@ -231,6 +231,7 @@ class DisplayMemberAdmin(admin.ModelAdmin):
     list_display = (
         'member_image_thumbnail',
         'member_name',
+        'member',
         'group',
         'rank',
         'role',
@@ -239,6 +240,8 @@ class DisplayMemberAdmin(admin.ModelAdmin):
         'created_at',
     )
     list_display_links = ('member_name',)
+    autocomplete_fields = ('member',)
+    search_fields = ('member_name', 'phone_number', 'location')
     member_image_thumbnail.short_description = "member photo"
     list_filter = ('group',)
 
