@@ -24,7 +24,11 @@
         color: #fff;
         padding: 12px 8px;
         border-right: 1px solid rgba(255,255,255,0.15);
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
     }
+    .stat-item.in-view { opacity: 1; transform: translateY(0); }
     .stat-item:last-child { border-right: none; }
     .stat-number {
         font-size: 2.4rem;
@@ -43,9 +47,11 @@
     }
     .stat-icon {
         font-size: 1.8rem;
-        color: rgba(255,255,255,0.35);
+        color: rgba(255,255,255,0.45);
         margin-bottom: 8px;
+        transition: color 0.4s;
     }
+    .stat-item.in-view .stat-icon { color: #f0a500; }
 
     /* ── Section title ─────────────────────────────────────────── */
     .section-heading {
@@ -523,28 +529,28 @@
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <span class="material-icons stat-icon">groups</span>
-                        <span class="stat-number">{{ total_members }}+</span>
+                        <span class="stat-number" data-target="{{ total_members }}">0</span>
                         <span class="stat-label">{% trans "Members" %}</span>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <span class="material-icons stat-icon">home</span>
-                        <span class="stat-number">{{ total_families }}+</span>
+                        <span class="stat-number" data-target="{{ total_families }}">0</span>
                         <span class="stat-label">{% trans "Families" %}</span>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <span class="material-icons stat-icon">location_city</span>
-                        <span class="stat-number">{{ total_cities }}+</span>
+                        <span class="stat-number" data-target="{{ total_cities }}">0</span>
                         <span class="stat-label">{% trans "Cities" %}</span>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-item">
                         <span class="material-icons stat-icon">map</span>
-                        <span class="stat-number">{{ total_states }}+</span>
+                        <span class="stat-number" data-target="{{ total_states }}">0</span>
                         <span class="stat-label">{% trans "States" %}</span>
                     </div>
                 </div>
@@ -879,5 +885,47 @@
             if (e.key === 'Escape') closeModal();
         });
     })();
+</script>
+<script>
+(function() {
+    // Count-up animation triggered by IntersectionObserver
+    function animateCount(el, target, duration) {
+        const start = performance.now();
+        function step(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * target) + '+';
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target + '+';
+        }
+        requestAnimationFrame(step);
+    }
+
+    const statItems = document.querySelectorAll('.stat-item');
+    let animated = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animated) {
+                animated = true;
+                // Stagger entrance
+                statItems.forEach((item, i) => {
+                    setTimeout(() => {
+                        item.classList.add('in-view');
+                        const numEl = item.querySelector('.stat-number');
+                        const target = parseInt(numEl.getAttribute('data-target'), 10);
+                        // start count-up slightly after the card appears
+                        setTimeout(() => animateCount(numEl, target, 1400), 150);
+                    }, i * 120);
+                });
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.3 });
+
+    if (statItems.length) observer.observe(statItems[0]);
+})();
 </script>
 {% endblock javascripts %}
