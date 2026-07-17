@@ -15,6 +15,178 @@
 {% block stylesheets %}
 <style>
     /* ── Stats Bar ─────────────────────────────────────────────── */
+    /* ══ Hero Carousel Override ══════════════════════════════════ */
+    .hero-wrap {
+        position: relative;
+        overflow: hidden;
+    }
+    .banner-carousel .banner-carousel-item {
+        height: 620px !important;
+        position: relative;
+        background-position: center center !important;
+        background-size: cover !important;
+        animation: heroKenBurns 8s ease-in-out infinite alternate;
+    }
+    @keyframes heroKenBurns {
+        from { background-size: 105% auto; }
+        to   { background-size: 115% auto; }
+    }
+    /* Dark overlay on every slide */
+    .banner-carousel .banner-carousel-item::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: linear-gradient(
+            110deg,
+            rgba(8,20,40,0.82) 0%,
+            rgba(13,33,55,0.65) 55%,
+            rgba(13,33,55,0.28) 100%
+        );
+        z-index: 1;
+    }
+    .slider-content {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+    }
+    /* Left-align the slide text */
+    .hero-slide-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        height: 100%;
+        padding: 0 12px;
+        max-width: 680px;
+    }
+    .hero-eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(240,165,0,0.18);
+        border: 1px solid rgba(240,165,0,0.45);
+        color: #f0c040;
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 30px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(6px);
+        animation: fadeSlideUp 0.7s 0.1s both;
+    }
+    .hero-eyebrow .material-icons { font-size: 0.9rem; }
+    .hero-title {
+        font-size: 3rem !important;
+        font-weight: 900 !important;
+        color: #fff !important;
+        line-height: 1.12 !important;
+        margin: 0 0 14px !important;
+        text-transform: none !important;
+        letter-spacing: -0.5px !important;
+        text-shadow: 0 2px 16px rgba(0,0,0,0.4);
+        animation: fadeSlideUp 0.7s 0.25s both;
+    }
+    .hero-title span { color: #f0c040; }
+    .hero-subtitle {
+        font-size: 1.05rem !important;
+        font-weight: 400 !important;
+        color: rgba(255,255,255,0.82) !important;
+        line-height: 1.65 !important;
+        margin: 0 0 32px !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+        animation: fadeSlideUp 0.7s 0.4s both;
+        max-width: 520px;
+    }
+    .hero-cta-row {
+        display: flex; gap: 12px; flex-wrap: wrap;
+        animation: fadeSlideUp 0.7s 0.55s both;
+    }
+    .hero-btn-primary {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: linear-gradient(135deg, #f0a500, #d4890a);
+        color: #fff !important;
+        font-size: 0.88rem; font-weight: 800; letter-spacing: 0.04em;
+        padding: 13px 28px; border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 6px 22px rgba(240,165,0,0.42);
+        transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .hero-btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 32px rgba(240,165,0,0.52);
+        color: #fff !important;
+    }
+    .hero-btn-secondary {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: rgba(255,255,255,0.12);
+        border: 1.5px solid rgba(255,255,255,0.45);
+        color: #fff !important;
+        font-size: 0.88rem; font-weight: 700;
+        padding: 13px 24px; border-radius: 50px;
+        text-decoration: none;
+        backdrop-filter: blur(6px);
+        transition: background 0.22s, border-color 0.22s, transform 0.22s;
+    }
+    .hero-btn-secondary:hover {
+        background: rgba(255,255,255,0.22);
+        border-color: rgba(255,255,255,0.7);
+        transform: translateY(-3px);
+        color: #fff !important;
+    }
+    .hero-btn-primary .material-icons,
+    .hero-btn-secondary .material-icons { font-size: 16px; }
+
+    @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(22px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Slick dots restyling */
+    .banner-carousel .slick-dots {
+        bottom: 24px !important;
+    }
+    .banner-carousel .slick-dots li button:before {
+        color: rgba(255,255,255,0.5) !important;
+        font-size: 8px !important;
+        opacity: 1 !important;
+    }
+    .banner-carousel .slick-dots li.slick-active button:before {
+        color: #f0a500 !important;
+        font-size: 10px !important;
+    }
+
+    /* Scroll-down nudge */
+    .hero-scroll-hint {
+        position: absolute; bottom: 32px; right: 48px;
+        z-index: 10;
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+        color: rgba(255,255,255,0.55);
+        font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+        animation: scrollBounce 2s ease-in-out infinite;
+    }
+    .hero-scroll-hint .material-icons { font-size: 1.4rem; }
+    @keyframes scrollBounce {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(6px); }
+    }
+
+    @media (max-width: 991px) {
+        .banner-carousel .banner-carousel-item { height: 520px !important; }
+        .hero-title { font-size: 2.2rem !important; }
+    }
+    /* Suppress legacy theme slide text styles */
+    .banner-carousel .slide-title,
+    .banner-carousel .slide-sub-title { display: none !important; }
+
+    @media (max-width: 575px) {
+        .banner-carousel .banner-carousel-item { height: 520px !important; }
+        .hero-title { font-size: 1.65rem !important; }
+        .hero-subtitle { font-size: 0.88rem !important; }
+        .hero-eyebrow { font-size: 0.65rem; }
+        .hero-scroll-hint { display: none; }
+        .hero-cta-row .hero-btn-primary,
+        .hero-cta-row .hero-btn-secondary { font-size: 0.8rem; padding: 11px 18px; }
+    }
+
     .stats-bar {
         background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 100%);
         padding: 36px 0;
@@ -446,74 +618,154 @@
 
     {% include 'Includes/navbar.html' %}
 
-    <!-- Carousel Start -->
-    <div class="banner-carousel banner-carousel-1 mb-0">
-        <div class="banner-carousel-item"
-             style="background-image:url({% static 'images/banner/carousel-image-1.jpg' %})">
-            <div class="slider-content">
-                <div class="container h-100">
-                    <div class="row align-items-center h-100">
-                        <div class="col-md-12 text-center">
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Welcome to Shree Bada Paliwal Samaj Chittorgarh" %}</h3>
+    <!-- Hero Carousel Start -->
+    <div class="hero-wrap">
+        <div class="banner-carousel banner-carousel-1 mb-0">
+
+            <!-- Slide 1 -->
+            <div class="banner-carousel-item"
+                 style="background-image:url({% static 'images/banner/carousel-image-1.jpg' %})">
+                <div class="slider-content">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-lg-8 col-xl-7">
+                                <div class="hero-slide-inner">
+                                    <div class="hero-eyebrow">
+                                        <span class="material-icons">auto_awesome</span>
+                                        {% trans "Established 1947 · Chittorgarh" %}
+                                    </div>
+                                    <h1 class="hero-title">{% trans "Welcome to" %} <span>{% trans "Shree Bada Paliwal Samaj" %}</span></h1>
+                                    <p class="hero-subtitle">{% trans "A proud community rooted in heritage, united in values, and committed to the welfare of every Paliwal family." %}</p>
+                                    <div class="hero-cta-row">
+                                        <a href="{% url 'samaj:community' %}" class="hero-btn-primary">
+                                            <span class="material-icons">diversity_3</span>{% trans "Meet the Community" %}
+                                        </a>
+                                        <a href="{% url 'samaj:devlok' %}" class="hero-btn-secondary">
+                                            <span class="material-icons">temple_hindu</span>{% trans "Explore Devlok" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Slide 2 -->
+            <div class="banner-carousel-item"
+                 style="background-image:url({% static 'images/banner/carousel-image-2.jpg' %})">
+                <div class="slider-content">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-lg-8 col-xl-7">
+                                <div class="hero-slide-inner">
+                                    <div class="hero-eyebrow">
+                                        <span class="material-icons">self_improvement</span>
+                                        {% trans "Faith · Dharma · Values" %}
+                                    </div>
+                                    <h1 class="hero-title">{% trans "Rooted in" %} <span>{% trans "Dharma" %}</span><br>{% trans "Driven by Values" %}</h1>
+                                    <p class="hero-subtitle">{% trans "Carrying centuries of Vedic wisdom into a modern world — preserving what matters most." %}</p>
+                                    <div class="hero-cta-row">
+                                        <a href="{% url 'samaj:devlok' %}" class="hero-btn-primary">
+                                            <span class="material-icons">explore</span>{% trans "Our Heritage" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="banner-carousel-item"
+                 style="background-image:url({% static 'images/banner/carousel-image-3.jpg' %})">
+                <div class="slider-content">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-lg-8 col-xl-7">
+                                <div class="hero-slide-inner">
+                                    <div class="hero-eyebrow">
+                                        <span class="material-icons">public</span>
+                                        {% trans "One Community, Many Families" %}
+                                    </div>
+                                    <h1 class="hero-title">{% trans "United by" %} <span>{% trans "Culture" %}</span></h1>
+                                    <p class="hero-subtitle">{% trans "Strengthening Paliwal identity across generations and geographies — wherever we are, we are one." %}</p>
+                                    <div class="hero-cta-row">
+                                        <a href="{% url 'samaj:community' %}" class="hero-btn-primary">
+                                            <span class="material-icons">group</span>{% trans "Find Your Family" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="banner-carousel-item"
+                 style="background-image:url({% static 'images/banner/carousel-image-4.jpg' %})">
+                <div class="slider-content">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-lg-8 col-xl-7">
+                                <div class="hero-slide-inner">
+                                    <div class="hero-eyebrow">
+                                        <span class="material-icons">history_edu</span>
+                                        {% trans "Legacy · Wisdom · Service" %}
+                                    </div>
+                                    <h1 class="hero-title">{% trans "A Legacy of" %} <span>{% trans "Wisdom &amp; Service" %}</span></h1>
+                                    <p class="hero-subtitle">{% trans "The timeless contribution of Paliwal Samaj — a community that serves with knowledge and leads with integrity." %}</p>
+                                    <div class="hero-cta-row">
+                                        <a href="{% url 'samaj:community' %}" class="hero-btn-primary">
+                                            <span class="material-icons">volunteer_activism</span>{% trans "Our Story" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="banner-carousel-item"
+                 style="background-image:url({% static 'images/banner/carousel-image-5.png' %})">
+                <div class="slider-content">
+                    <div class="container h-100">
+                        <div class="row h-100">
+                            <div class="col-lg-8 col-xl-7">
+                                <div class="hero-slide-inner">
+                                    <div class="hero-eyebrow">
+                                        <span class="material-icons">rocket_launch</span>
+                                        {% trans "Progress · Innovation · Pride" %}
+                                    </div>
+                                    <h1 class="hero-title">{% trans "Tradition Meets" %} <span>{% trans "Modernity" %}</span></h1>
+                                    <p class="hero-subtitle">{% trans "The Paliwal spirit lives on — bridging our ancient roots with a bold, connected future for every family." %}</p>
+                                    <div class="hero-cta-row">
+                                        <a href="{% url 'samaj:community' %}" class="hero-btn-primary">
+                                            <span class="material-icons">diversity_3</span>{% trans "Join Us" %}
+                                        </a>
+                                        <a href="#suggestion_section" class="hero-btn-secondary">
+                                            <span class="material-icons">lightbulb</span>{% trans "Share Ideas" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="banner-carousel-item"
-             style="background-image:url({% static 'images/banner/carousel-image-2.jpg' %})">
-            <div class="slider-content">
-                <div class="container h-100">
-                    <div class="row align-items-center h-100">
-                        <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Rooted in Dharma, Driven by Values" %}</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "A Journey of Faith and Progress" %}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner-carousel-item"
-             style="background-image:url({% static 'images/banner/carousel-image-3.jpg' %})">
-            <div class="slider-content">
-                <div class="container h-100">
-                    <div class="row align-items-center h-100">
-                        <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "United by Culture" %}</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Strengthening Paliwal Identity Worldwide" %}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner-carousel-item"
-             style="background-image:url({% static 'images/banner/carousel-image-4.jpg' %})">
-            <div class="slider-content">
-                <div class="container h-100">
-                    <div class="row align-items-center h-100">
-                        <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Legacy of Wisdom and Service" %}</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Paliwal Samaj’s Timeless Contribution" %}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="banner-carousel-item"
-             style="background-image:url({% static 'images/banner/carousel-image-5.png' %})">
-            <div class="slider-content">
-                <div class="container h-100">
-                    <div class="row align-items-center h-100">
-                        <div class="col-md-12 text-center">
-                            <h2 class="slide-title" data-animation-in="slideInLeft">{% trans "Tradition Meets Modernity" %}</h2>
-                            <h3 class="slide-sub-title" data-animation-in="slideInRight">{% trans "Carrying Forward the Paliwal Spirit" %}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Scroll-down nudge -->
+        <div class="hero-scroll-hint">
+            <span class="material-icons">expand_more</span>
+            <span>Scroll</span>
         </div>
     </div>
-    <!-- Carousel End -->
+    <!-- Hero Carousel End -->
 
 
     <!-- Stats Bar Start -->
@@ -577,37 +829,6 @@
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <img src="{% static 'images/about_us_2.jpeg' %}" class="img-fluid w-100 d-none d-md-block border"
                          style="object-fit: fill; max-height: 80%; max-width: 90%; border-radius: 8px;" alt="Shreenathji">
-                </div>
-            </div>
-        </div>
-        <!-- Highlight cards -->
-        <div class="row g-3 mt-4">
-            <div class="col-6 col-md-3">
-                <div class="about-highlight-card">
-                    <div class="hi-icon"><span class="material-icons">diversity_3</span></div>
-                    <h5>{% trans "Unity" %}</h5>
-                    <p>{% trans "A community bound by shared values, culture, and heritage." %}</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="about-highlight-card">
-                    <div class="hi-icon"><span class="material-icons">temple_hindu</span></div>
-                    <h5>{% trans "Heritage" %}</h5>
-                    <p>{% trans "Preserving centuries of Vedic tradition and Dharma." %}</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="about-highlight-card">
-                    <div class="hi-icon"><span class="material-icons">school</span></div>
-                    <h5>{% trans "Education" %}</h5>
-                    <p>{% trans "Empowering families through knowledge and opportunity." %}</p>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="about-highlight-card">
-                    <div class="hi-icon"><span class="material-icons">volunteer_activism</span></div>
-                    <h5>{% trans "Service" %}</h5>
-                    <p>{% trans "Dedicated to the welfare of every Paliwal family." %}</p>
                 </div>
             </div>
         </div>
@@ -739,66 +960,121 @@
     <!-- Display Member Section End -->
 
     <!-- Suggestion Form Start -->
-    <section id="suggestion_section" style="background:linear-gradient(135deg,#f4f7fb 0%,#eef2f9 100%); padding:64px 0;">
-        <div class="container">
-            <div class="section-heading">
-                <h3>{% trans "Share Your Suggestions" %}</h3>
-            </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-lg-8 col-md-10">
-                    <div style="background:#fff; border-radius:20px; box-shadow:0 6px 32px rgba(13,33,55,0.09); padding:36px 36px 28px; border-top:4px solid #f0a500;">
-                        <p style="color:#6c7a8d; margin-bottom:24px; font-size:0.93rem; line-height:1.7;">
-                            {% blocktrans %}If you have any ideas, suggestions, or features you'd like to see added to the Paliwal Samaj website, please let us know. Your input helps us make the platform better for everyone in the community.{% endblocktrans %}
+    <section id="suggestion_section" style="background:linear-gradient(160deg,#0d2137 0%,#1a3a5c 100%); padding:72px 0 80px; position:relative; overflow:hidden;">
+        <!-- Background decoration -->
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+        <div style="position:absolute;top:-80px;right:-80px;width:340px;height:340px;border-radius:50%;background:rgba(240,165,0,0.06);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:-60px;left:-60px;width:260px;height:260px;border-radius:50%;background:rgba(240,165,0,0.04);pointer-events:none;"></div>
+
+        <div class="container" style="position:relative;z-index:2;">
+            <div class="row align-items-center g-5">
+
+                <!-- Left: info panel -->
+                <div class="col-lg-4">
+                    <div style="color:#fff;">
+                        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(240,165,0,0.15);border:1px solid rgba(240,165,0,0.35);color:#f0c040;font-size:0.7rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:30px;margin-bottom:20px;">
+                            <span class="material-icons" style="font-size:0.9rem;">lightbulb</span>
+                            {% trans "Your Voice Matters" %}
+                        </div>
+                        <h2 style="font-size:2rem;font-weight:900;line-height:1.2;margin-bottom:16px;">
+                            {% trans "Share Your" %} <span style="color:#f0c040;">{% trans "Ideas &amp; Suggestions" %}</span>
+                        </h2>
+                        <p style="color:rgba(255,255,255,0.7);font-size:0.93rem;line-height:1.75;margin-bottom:32px;">
+                            {% blocktrans %}Help us build a better platform for the Paliwal community. Your ideas, feedback, and feature suggestions directly shape what we build next.{% endblocktrans %}
                         </p>
+                        <!-- Trust points -->
+                        <div style="display:flex;flex-direction:column;gap:14px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:38px;height:38px;border-radius:10px;background:rgba(240,165,0,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                    <span class="material-icons" style="color:#f0c040;font-size:1.1rem;">verified</span>
+                                </div>
+                                <span style="color:rgba(255,255,255,0.8);font-size:0.87rem;">{% trans "Every suggestion is read by our team" %}</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:38px;height:38px;border-radius:10px;background:rgba(240,165,0,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                    <span class="material-icons" style="color:#f0c040;font-size:1.1rem;">speed</span>
+                                </div>
+                                <span style="color:rgba(255,255,255,0.8);font-size:0.87rem;">{% trans "Quick response within 3–5 days" %}</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:38px;height:38px;border-radius:10px;background:rgba(240,165,0,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                    <span class="material-icons" style="color:#f0c040;font-size:1.1rem;">lock</span>
+                                </div>
+                                <span style="color:rgba(255,255,255,0.8);font-size:0.87rem;">{% trans "Your information stays private" %}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: form card -->
+                <div class="col-lg-8">
+                    <div style="background:#fff;border-radius:24px;box-shadow:0 24px 64px rgba(0,0,0,0.28);padding:40px 40px 32px;position:relative;">
+                        <!-- Gold top accent -->
+                        <div style="position:absolute;top:0;left:32px;right:32px;height:4px;background:linear-gradient(90deg,#f0a500,#ffd060,#f0a500);border-radius:0 0 4px 4px;"></div>
+
+                        <h4 style="font-size:1.1rem;font-weight:800;color:#0d2137;margin-bottom:6px;">{% trans "Send us a message" %}</h4>
+                        <p style="color:#8a96a8;font-size:0.84rem;margin-bottom:24px;">{% trans "Fill out the form below and we'll get back to you." %}</p>
+
                         <form id="suggestion-form" action="{% url 'samaj:suggestions' %}" method="post" role="form">
                             {% csrf_token %}
                             <div class="error-container"></div>
                             <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label fw-semibold" for="name">{% trans "Your Name" %}</label>
-                                        <input class="form-control" name="name" id="name"
-                                               placeholder="{% trans 'Enter your name' %}"
-                                               type="text" required style="border-radius:10px;border:1.5px solid #e2e8f0;padding:10px 14px;">
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:6px;" for="name">{% trans "Full Name" %} <span style="color:#e53e3e;">*</span></label>
+                                    <div style="position:relative;">
+                                        <span class="material-icons" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:1rem;color:#9ca3af;">person</span>
+                                        <input class="form-control" name="name" id="name" type="text" required
+                                               placeholder="{% trans 'Your full name' %}"
+                                               style="border-radius:10px;border:1.5px solid #e5e7eb;padding:10px 14px 10px 38px;font-size:0.9rem;transition:border-color 0.2s,box-shadow 0.2s;"
+                                               onfocus="this.style.borderColor='#f0a500';this.style.boxShadow='0 0 0 3px rgba(240,165,0,0.12)'"
+                                               onblur="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label fw-semibold" for="email">{% trans "Your Email" %}</label>
-                                        <input class="form-control" name="email" id="email"
-                                               placeholder="{% trans 'Enter your email' %}"
-                                               type="email" required style="border-radius:10px;border:1.5px solid #e2e8f0;padding:10px 14px;">
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:6px;" for="email">{% trans "Email Address" %} <span style="color:#e53e3e;">*</span></label>
+                                    <div style="position:relative;">
+                                        <span class="material-icons" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:1rem;color:#9ca3af;">email</span>
+                                        <input class="form-control" name="email" id="email" type="email" required
+                                               placeholder="{% trans 'your@email.com' %}"
+                                               style="border-radius:10px;border:1.5px solid #e5e7eb;padding:10px 14px 10px 38px;font-size:0.9rem;transition:border-color 0.2s,box-shadow 0.2s;"
+                                               onfocus="this.style.borderColor='#f0a500';this.style.boxShadow='0 0 0 3px rgba(240,165,0,0.12)'"
+                                               onblur="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label fw-semibold" for="phone_number">{% trans "Phone Number" %}</label>
-                                        <input class="form-control" name="phone_number" id="phone_number"
-                                               placeholder="{% trans 'Enter your phone number' %}"
-                                               type="number" min="0" minlength="10" required style="border-radius:10px;border:1.5px solid #e2e8f0;padding:10px 14px;">
+                                <div class="col-sm-6">
+                                    <label class="form-label" style="font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:6px;" for="phone_number">{% trans "Phone Number" %} <span style="color:#e53e3e;">*</span></label>
+                                    <div style="position:relative;">
+                                        <span class="material-icons" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:1rem;color:#9ca3af;">call</span>
+                                        <input class="form-control" name="phone_number" id="phone_number" type="number" min="0" minlength="10" required
+                                               placeholder="{% trans '10-digit number' %}"
+                                               style="border-radius:10px;border:1.5px solid #e5e7eb;padding:10px 14px 10px 38px;font-size:0.9rem;transition:border-color 0.2s,box-shadow 0.2s;"
+                                               onfocus="this.style.borderColor='#f0a500';this.style.boxShadow='0 0 0 3px rgba(240,165,0,0.12)'"
+                                               onblur="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'">
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="form-group">
-                                        <label class="form-label fw-semibold" for="message">{% trans "Detailed Suggestion or Idea" %}</label>
-                                        <textarea class="form-control" name="message" id="message"
-                                                  placeholder="{% trans 'Please describe your suggestion or idea in detail...' %}"
-                                                  rows="5" required
-                                                  style="border-radius:10px;border:1.5px solid #e2e8f0;padding:12px 14px;resize:vertical;"></textarea>
-                                    </div>
+                                    <label class="form-label" style="font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:6px;" for="message">{% trans "Your Suggestion or Idea" %} <span style="color:#e53e3e;">*</span></label>
+                                    <textarea class="form-control" name="message" id="message" rows="4" required
+                                              placeholder="{% trans 'Describe your idea in detail — what would make Paliwal Samaj better?' %}"
+                                              style="border-radius:10px;border:1.5px solid #e5e7eb;padding:12px 14px;font-size:0.9rem;resize:vertical;transition:border-color 0.2s,box-shadow 0.2s;"
+                                              onfocus="this.style.borderColor='#f0a500';this.style.boxShadow='0 0 0 3px rgba(240,165,0,0.12)'"
+                                              onblur="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'"></textarea>
                                 </div>
                             </div>
-                            <div class="text-end mt-4">
-                                <button class="btn btn-primary" type="submit"
-                                        style="padding:11px 32px;border-radius:12px;font-weight:700;font-size:0.95rem;background:linear-gradient(135deg,#1a5fb4,#2e74d0);border:none;box-shadow:0 4px 14px rgba(26,95,180,0.28);transition:transform 0.18s,box-shadow 0.18s;"
-                                        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px rgba(26,95,180,0.36)'"
-                                        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px rgba(26,95,180,0.28)'">
-                                    <span class="material-icons" style="font-size:16px;vertical-align:middle;margin-right:6px;">send</span>{% trans "Submit Suggestion" %}
+                            <div class="d-flex align-items-center justify-content-between mt-4 flex-wrap gap-3">
+                                <span style="font-size:0.78rem;color:#9ca3af;"><span style="color:#e53e3e;">*</span> {% trans "Required fields" %}</span>
+                                <button type="submit"
+                                        style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f0a500,#d4890a);color:#fff;border:none;border-radius:12px;padding:12px 32px;font-size:0.9rem;font-weight:800;letter-spacing:0.03em;box-shadow:0 6px 20px rgba(240,165,0,0.38);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;"
+                                        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 28px rgba(240,165,0,0.48)'"
+                                        onmouseout="this.style.transform='';this.style.boxShadow='0 6px 20px rgba(240,165,0,0.38)'">
+                                    <span class="material-icons" style="font-size:17px;">send</span>
+                                    {% trans "Send Suggestion" %}
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
