@@ -2,109 +2,606 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 
-<header id="header" class="header-one">
-    <div class="bg-white">
+<style>
+/* ══ Navbar ════════════════════════════════════════════════════ */
+#ps-header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    transition: box-shadow 0.3s;
+}
+#ps-header.scrolled {
+    box-shadow: 0 4px 28px rgba(13,33,55,0.18);
+}
+
+/* ── Top strip ─────────────────────────────────────────── */
+.ps-topbar {
+    background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 100%);
+    padding: 5px 0;
+}
+.ps-topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.ps-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.75rem;
+}
+.ps-topbar-left span {
+    display: flex; align-items: center; gap: 5px;
+}
+.ps-topbar-left .material-icons { font-size: 0.82rem; color: #f0a500; }
+.ps-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Language pill */
+.ps-lang-form { margin: 0; }
+.ps-lang-toggle {
+    display: flex;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 30px;
+    padding: 3px;
+    gap: 2px;
+}
+.ps-lang-toggle input[type=radio] { display: none; }
+.ps-lang-toggle label {
+    padding: 4px 13px;
+    border-radius: 20px;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.73rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin: 0;
+    white-space: nowrap;
+    user-select: none;
+}
+.ps-lang-toggle input:checked + label {
+    background: #f0a500;
+    color: #fff;
+    font-weight: 800;
+}
+
+/* Action buttons */
+.ps-topbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 13px;
+    border-radius: 20px;
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
+    white-space: nowrap;
+    border: none;
+}
+.ps-topbar-btn .material-icons { font-size: 0.82rem; }
+.ps-topbar-btn-sandesh {
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.38);
+    color: #f0c040;
+}
+.ps-topbar-btn-sandesh:hover {
+    background: #f0a500; color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(240,165,0,0.35);
+}
+.ps-topbar-btn-logout {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.7);
+}
+.ps-topbar-btn-logout:hover {
+    background: rgba(255,255,255,0.14); color: #fff;
+    transform: translateY(-1px);
+}
+.ps-topbar-btn-login {
+    background: linear-gradient(135deg, #f0a500, #d4890a);
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(240,165,0,0.32);
+}
+.ps-topbar-btn-login:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(240,165,0,0.44);
+}
+
+/* ── Main navbar ────────────────────────────────────────── */
+.ps-navbar {
+    background: #fff;
+    border-top: 1px solid #f0f2f5;
+    box-shadow: 0 2px 12px rgba(13,33,55,0.07);
+}
+.ps-navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 62px;
+}
+
+/* Logo */
+.ps-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.ps-logo img { height: 44px; width: auto; }
+
+/* Nav links */
+.ps-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0; padding: 0;
+    height: 100%;
+    gap: 0;
+}
+.ps-nav > li {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.ps-nav > li > a {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0 14px;
+    height: 100%;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #4a5568;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: color 0.18s;
+    position: relative;
+}
+.ps-nav > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 14px; right: 14px;
+    height: 3px;
+    background: linear-gradient(90deg, #f0a500, #ffd060);
+    border-radius: 3px 3px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.22s cubic-bezier(.34,1.2,.64,1);
+}
+.ps-nav > li > a:hover,
+.ps-nav > li.ps-active > a { color: #0d2137; }
+.ps-nav > li > a:hover::after,
+.ps-nav > li.ps-active > a::after { transform: scaleX(1); }
+
+/* Dropdown */
+.ps-dropdown { position: relative; }
+.ps-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    min-width: 210px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 16px 44px rgba(13,33,55,0.15);
+    border: 1px solid #eef0f5;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.22s cubic-bezier(.34,1.2,.64,1), visibility 0.2s;
+    z-index: 200;
+    list-style: none;
+    margin: 0;
+}
+.ps-dropdown:hover .ps-dropdown-menu,
+.ps-dropdown:focus-within .ps-dropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+}
+.ps-dropdown-menu li a {
+    display: block;
+    padding: 9px 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #4a5568;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s, padding-left 0.15s;
+}
+.ps-dropdown-menu li a:hover {
+    background: #fdf8ee;
+    color: #d4890a;
+    padding-left: 24px;
+}
+.ps-chevron {
+    font-size: 0.85rem !important;
+    color: #9ca3af;
+    transition: transform 0.2s;
+}
+.ps-dropdown:hover .ps-chevron { transform: rotate(180deg); }
+
+/* Hamburger */
+.ps-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 1.5px solid #e5e7eb;
+    cursor: pointer;
+    padding: 8px 9px;
+    border-radius: 10px;
+    transition: background 0.2s, border-color 0.2s;
+}
+.ps-hamburger:hover { background: #f4f7fb; border-color: #d1d5db; }
+.ps-hamburger span {
+    display: block;
+    width: 20px; height: 2px;
+    background: #0d2137;
+    border-radius: 2px;
+    transition: transform 0.28s, opacity 0.2s;
+}
+.ps-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ps-hamburger.open span:nth-child(2) { opacity: 0; }
+.ps-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile drawer ──────────────────────────────────────── */
+.ps-mobile-drawer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+}
+.ps-mobile-drawer.open { display: block; }
+.ps-drawer-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(13,33,55,0.45);
+    backdrop-filter: blur(3px);
+}
+.ps-drawer-panel {
+    position: absolute;
+    top: 0; right: 0;
+    width: min(300px, 86vw);
+    height: 100%;
+    background: #fff;
+    box-shadow: -8px 0 40px rgba(13,33,55,0.2);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(110%);
+    transition: transform 0.32s cubic-bezier(.34,1,.64,1);
+}
+.ps-mobile-drawer.open .ps-drawer-panel { transform: translateX(0); }
+
+.ps-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px 14px;
+    border-bottom: 1px solid #f0f2f5;
+    background: linear-gradient(135deg,#0d2137,#1a3a5c);
+}
+.ps-drawer-close {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: background 0.18s;
+}
+.ps-drawer-close:hover { background: rgba(255,255,255,0.2); }
+.ps-drawer-head .ps-logo-text strong { color: #fff; }
+.ps-drawer-head .ps-logo-text small { color: rgba(255,255,255,0.5); }
+
+.ps-drawer-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+    list-style: none;
+    margin: 0;
+}
+.ps-drawer-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 22px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #374151;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.ps-drawer-nav li a:hover,
+.ps-drawer-nav li.ps-active a {
+    background: #fdf8ee;
+    border-left-color: #f0a500;
+    color: #d4890a;
+}
+.ps-drawer-nav li a .material-icons { font-size: 1rem; color: #9ca3af; flex-shrink: 0; }
+.ps-drawer-nav li.ps-active a .material-icons,
+.ps-drawer-nav li a:hover .material-icons { color: #f0a500; }
+.ps-drawer-divider { height: 1px; background: #f0f2f5; margin: 6px 0; }
+
+.ps-drawer-foot {
+    padding: 14px 18px;
+    border-top: 1px solid #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.ps-drawer-lang-toggle {
+    display: flex;
+    background: #f4f7fb;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 30px;
+    padding: 3px;
+    gap: 2px;
+}
+.ps-drawer-lang-toggle input[type=radio] { display: none; }
+.ps-drawer-lang-toggle label {
+    flex: 1;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    margin: 0;
+    transition: background 0.2s, color 0.2s;
+    user-select: none;
+}
+.ps-drawer-lang-toggle input:checked + label {
+    background: #f0a500;
+    color: #fff;
+    font-weight: 800;
+}
+.ps-drawer-foot-btn {
+    display: flex; align-items: center; justify-content: center;
+    gap: 7px;
+    padding: 11px;
+    border-radius: 12px;
+    font-size: 0.86rem; font-weight: 700;
+    text-decoration: none;
+    transition: filter 0.18s, transform 0.18s;
+}
+.ps-drawer-foot-btn:hover { filter: brightness(1.07); transform: translateY(-1px); }
+.ps-drawer-foot-btn .material-icons { font-size: 1rem; }
+.ps-drawer-btn-sandesh { background: linear-gradient(135deg,#f0a500,#d4890a); color:#fff; }
+.ps-drawer-btn-logout  { background:#f4f7fb; color:#5a6a7e; border:1.5px solid #e5e7eb; }
+.ps-drawer-btn-login   { background: linear-gradient(135deg,#f0a500,#d4890a); color:#fff; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 991px) {
+    .ps-nav { display: none; }
+    .ps-hamburger { display: flex; }
+    .ps-topbar-left { display: none; }
+}
+@media (max-width: 575px) {
+    .ps-logo-text { display: none; }
+}
+</style>
+
+<header id="ps-header">
+    <!-- Top strip -->
+    <div class="ps-topbar">
         <div class="container">
-            <div class="logo-area">
-                <div class="row align-items-center">
-                    <div class="logo col-lg-3 text-center text-lg-left mb-3 mb-md-5 mb-lg-0">
-                        <a class="d-block" href="{% url 'samaj:index' %}">
-                            <img loading="lazy" src="{% static 'images/ps-logo.png' %}" alt="paliwal samaj logo">
-                        </a>
-                    </div>
+            <div class="ps-topbar-inner">
+                <div class="ps-topbar-left">
+                    <span>
+                        <span class="material-icons">location_on</span>
+                        Chittorgarh, Rajasthan
+                    </span>
+                    <span>
+                        <span class="material-icons">temple_hindu</span>
+                        Shree Bada Paliwal Samaj
+                    </span>
+                </div>
+                <div class="ps-topbar-right">
+                    <form class="ps-lang-form" action="{% url 'set_language' %}" method="post" id="language-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}" />
+                        <div class="ps-lang-toggle">
+                            <input type="radio" id="psLangEn" name="language" value="en" {% if LANGUAGE_CODE == 'en' %}checked{% endif %} onchange="document.getElementById('language-form').submit();">
+                            <label for="psLangEn">English</label>
+                            <input type="radio" id="psLangHi" name="language" value="hi" {% if LANGUAGE_CODE == 'hi' %}checked{% endif %} onchange="document.getElementById('language-form').submit();">
+                            <label for="psLangHi">हिन्दी</label>
+                        </div>
+                    </form>
 
-                    <div class="col-lg-9 ">
-                        <ul class="top-info-box w-100 d-flex align-items-center justify-content-center justify-content-lg-end">
-<!--                            <li class="language-dropdown">-->
-<!--                                <form action="{% url 'set_language' %}" method="post" id="language-form">-->
-<!--                                    {% csrf_token %}-->
-<!--                                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />-->
-
-<!--                                    <select name="language" onchange="this.form.submit()" class="form-select">-->
-<!--                                        <option value="en" {% if LANGUAGE_CODE == 'en' %}selected{% endif %}>English</option>-->
-<!--                                        <option value="hi" {% if LANGUAGE_CODE == 'hi' %}selected{% endif %}>हिन्दी</option>-->
-<!--                                    </select>-->
-<!--                                </form>-->
-<!--                            </li>-->
-
-                            <li class="switch-box">
-                                <form action="{% url 'set_language' %}" method="post" id="language-form">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="next" value="{{ request.path }}" />
-                                    <div class="switches-container">
-                                        <input type="radio" id="switchEnglish" name="language" value="en" {% if LANGUAGE_CODE == 'en' %}checked{% endif %} onchange="document.getElementById('language-form').submit();"/>
-                                        <input type="radio" id="switchHindi" name="language" value="hi" {% if LANGUAGE_CODE == 'hi' %}checked{% endif %} onchange="document.getElementById('language-form').submit();"/>
-
-                                        <label for="switchEnglish">English</label>
-                                        <label for="switchHindi">हिन्दी</label>
-
-                                        <div class="switch-wrapper">
-                                            <div class="switch">
-                                                <div>English</div>
-                                                <div>हिन्दी</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </li>
-                            {% if not request.user.is_authenticated %}
-                            <li class=" pe-0">
-                                <a class="btn btn-primary" href="{% url 'samaj:site_login' %}">{% trans "Login" %}</a>
-                            </li>
-                            {% endif %}
-                            {% if request.user.is_authenticated %}
-                            <li class="d-flex justify-content-center">
-                                <a class="btn btn-primary me-2" href="{% url 'samaj:sandesh' %}">{% trans "SANDESH" %}</a>
-                                <a class="btn btn-primary" href="{% url 'samaj:site_logout' %}">{% trans "Logout" %}</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'samaj:sandesh' %}" class="ps-topbar-btn ps-topbar-btn-sandesh">
+                        <span class="material-icons">chat</span>
+                        <span>{% trans "Sandesh" %}</span>
+                    </a>
+                    <a href="{% url 'samaj:site_logout' %}" class="ps-topbar-btn ps-topbar-btn-logout">
+                        <span class="material-icons">logout</span>
+                        <span>{% trans "Logout" %}</span>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'samaj:site_login' %}" class="ps-topbar-btn ps-topbar-btn-login">
+                        <span class="material-icons">login</span>
+                        <span>{% trans "Login" %}</span>
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="site-navigation">
+    <!-- Main nav -->
+    <div class="ps-navbar">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg navbar-dark p-0">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target=".navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div id="navbar-collapse" class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav mr-auto">
-                                <li class="nav-item active"><a class="nav-link" href="{% url 'samaj:index' %}">{% trans "Home" %}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:news_and_events' %}">{% trans "News" %}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:community' %}">{% trans "Community" %}</a></li>
-                                {% if request.user.is_authenticated %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:devlok' %}">{% trans "Devlok" %}</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:my_family' %}">{% trans "My Family" %}</a></li>
+            <div class="ps-navbar-inner">
+                <a href="{% url 'samaj:index' %}" class="ps-logo">
+                    <img loading="lazy" src="{% static 'images/ps-logo.png' %}" alt="Paliwal Samaj">
+                    <div class="ps-logo-text">
+                        <strong><span>Paliwal</span> Samaj</strong>
+                        <small>Chittorgarh · Est. 1947</small>
+                    </div>
+                </a>
+
+                <ul class="ps-nav">
+                    <li><a href="{% url 'samaj:index' %}">{% trans "Home" %}</a></li>
+                    <li><a href="{% url 'samaj:news_and_events' %}">{% trans "News" %}</a></li>
+                    <li><a href="{% url 'samaj:community' %}">{% trans "Community" %}</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'samaj:devlok' %}">{% trans "Devlok" %}</a></li>
+                    <li><a href="{% url 'samaj:my_family' %}">{% trans "My Family" %}</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'samaj:image_and_video_gallery' %}">{% trans "Gallery" %}</a></li>
+                    <li class="ps-dropdown">
+                        <a href="#">
+                            {% trans "Culture" %}
+                            <span class="material-icons ps-chevron">expand_more</span>
+                        </a>
+                        <ul class="ps-dropdown-menu">
+                            {% for culture in all_cultures %}
+                            <li>
+                                {% if culture.pdf_flag %}
+                                <a href="{{ culture.pdf.url }}" target="_blank">{{ culture.title }}</a>
+                                {% else %}
+                                <a href="{% url 'samaj:culture_detail' culture.slug %}">{{ culture.title }}</a>
                                 {% endif %}
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:image_and_video_gallery' %}">{% trans "Gallery" %}</a></li>
-                                <li class="nav-item dropdown">
-                                  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{% trans "Culture" %} <i class="fa fa-angle-down"></i></a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'samaj:support' %}">{% trans "Support" %}</a></li>
+                </ul>
 
-                                  <ul class="dropdown-menu custom-dropdown" role="menu">
-                                      {% for culture in all_cultures %}
-                                          {% if culture.pdf_flag %}
-                                            <li><a target="_blank" href="{{ culture.pdf.url }}">{{ culture.title }}</a></li>
-                                          {% else %}
-                                            <li><a href="{% url 'samaj:culture_detail' culture.slug %}">{{ culture.title }}</a></li>
-                                          {% endif %}
-                                      {% endfor %}
-                                  </ul>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{% url 'samaj:support' %}">{% trans "Support" %}</a></li>
-
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
+                <button class="ps-hamburger" id="psHamburger" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </div>
 </header>
+
+<!-- Mobile slide-in drawer -->
+<div class="ps-mobile-drawer" id="psMobileDrawer">
+    <div class="ps-drawer-backdrop" id="psDrawerBackdrop"></div>
+    <div class="ps-drawer-panel">
+
+        <div class="ps-drawer-head">
+            <a href="{% url 'samaj:index' %}" class="ps-logo">
+                <img loading="lazy" src="{% static 'images/ps-logo.png' %}" alt="Paliwal Samaj" style="height:34px;filter:brightness(10);">
+                <div class="ps-logo-text">
+                    <strong><span>Paliwal</span> Samaj</strong>
+                    <small>Chittorgarh · Est. 1947</small>
+                </div>
+            </a>
+            <button class="ps-drawer-close" id="psDrawerClose" aria-label="Close menu">
+                <span class="material-icons" style="font-size:1rem;">close</span>
+            </button>
+        </div>
+
+        <ul class="ps-drawer-nav">
+            <li><a href="{% url 'samaj:index' %}"><span class="material-icons">home</span>{% trans "Home" %}</a></li>
+            <li><a href="{% url 'samaj:news_and_events' %}"><span class="material-icons">newspaper</span>{% trans "News & Events" %}</a></li>
+            <li><a href="{% url 'samaj:community' %}"><span class="material-icons">diversity_3</span>{% trans "Community" %}</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'samaj:devlok' %}"><span class="material-icons">temple_hindu</span>{% trans "Devlok" %}</a></li>
+            <li><a href="{% url 'samaj:my_family' %}"><span class="material-icons">family_restroom</span>{% trans "My Family" %}</a></li>
+            {% endif %}
+            <li><a href="{% url 'samaj:image_and_video_gallery' %}"><span class="material-icons">photo_library</span>{% trans "Gallery" %}</a></li>
+            <li><div class="ps-drawer-divider"></div></li>
+            {% for culture in all_cultures %}
+            <li>
+                {% if culture.pdf_flag %}
+                <a href="{{ culture.pdf.url }}" target="_blank"><span class="material-icons">menu_book</span>{{ culture.title }}</a>
+                {% else %}
+                <a href="{% url 'samaj:culture_detail' culture.slug %}"><span class="material-icons">menu_book</span>{{ culture.title }}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+            <li><div class="ps-drawer-divider"></div></li>
+            <li><a href="{% url 'samaj:support' %}"><span class="material-icons">support_agent</span>{% trans "Support" %}</a></li>
+        </ul>
+
+        <div class="ps-drawer-foot">
+            <!-- Language -->
+            <form action="{% url 'set_language' %}" method="post" id="lang-form-mobile">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}" />
+                <div class="ps-drawer-lang-toggle">
+                    <input type="radio" id="psLangEnM" name="language" value="en" {% if LANGUAGE_CODE == 'en' %}checked{% endif %} onchange="document.getElementById('lang-form-mobile').submit();">
+                    <label for="psLangEnM">English</label>
+                    <input type="radio" id="psLangHiM" name="language" value="hi" {% if LANGUAGE_CODE == 'hi' %}checked{% endif %} onchange="document.getElementById('lang-form-mobile').submit();">
+                    <label for="psLangHiM">हिन्दी</label>
+                </div>
+            </form>
+
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'samaj:sandesh' %}" class="ps-drawer-foot-btn ps-drawer-btn-sandesh">
+                <span class="material-icons">chat</span>{% trans "Sandesh" %}
+            </a>
+            <a href="{% url 'samaj:site_logout' %}" class="ps-drawer-foot-btn ps-drawer-btn-logout">
+                <span class="material-icons">logout</span>{% trans "Logout" %}
+            </a>
+            {% else %}
+            <a href="{% url 'samaj:site_login' %}" class="ps-drawer-foot-btn ps-drawer-btn-login">
+                <span class="material-icons">login</span>{% trans "Login" %}
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function () {
+    const header    = document.getElementById('ps-header');
+    const hamburger = document.getElementById('psHamburger');
+    const drawer    = document.getElementById('psMobileDrawer');
+    const backdrop  = document.getElementById('psDrawerBackdrop');
+    const closeBtn  = document.getElementById('psDrawerClose');
+
+    // Deepen shadow on scroll
+    window.addEventListener('scroll', function () {
+        header.classList.toggle('scrolled', window.scrollY > 8);
+    }, { passive: true });
+
+    function openDrawer() {
+        drawer.classList.add('open');
+        hamburger.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+        drawer.classList.remove('open');
+        hamburger.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', function () {
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+    backdrop.addEventListener('click', closeDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDrawer();
+    });
+
+    // Highlight active nav link
+    var path = window.location.pathname;
+    document.querySelectorAll('.ps-nav > li, .ps-drawer-nav > li').forEach(function (li) {
+        var a = li.querySelector('a');
+        if (a && a.getAttribute('href') === path) {
+            li.classList.add('ps-active');
+        }
+    });
+})();
+</script>
