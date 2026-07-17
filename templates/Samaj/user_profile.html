@@ -14,12 +14,140 @@
 
 {% block stylesheets %}
 <style>
-    @media (max-width: 768px) {
-      .profile-actions {
-        flex-direction: column !important;
-        align-items: stretch; /* optional: make buttons full width */
-      }
-    }
+/* ── Profile Hero ── */
+.prof-hero {
+    background: linear-gradient(135deg, #0d2137 0%, #1e4d80 60%, #0d2137 100%);
+    padding: 48px 20px 80px;
+    text-align: center;
+    position: relative;
+}
+.prof-avatar-wrap {
+    position: relative;
+    display: inline-block;
+}
+.prof-avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    object-fit: cover; object-position: top center;
+    border: 4px solid #f0a500;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+.prof-deceased-badge {
+    position: absolute; bottom: 4px; right: 4px;
+    background: #6c757d; color: #fff;
+    font-size: 0.65rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px;
+    letter-spacing: 0.05em;
+}
+.prof-hero-name {
+    color: #fff; font-size: 1.6rem; font-weight: 800;
+    margin: 14px 0 4px; line-height: 1.2;
+}
+.prof-hero-sub {
+    color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0 0 20px;
+}
+.prof-hero-pills {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    margin-bottom: 22px;
+}
+.prof-pill {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.88);
+    font-size: 0.78rem; font-weight: 600;
+    padding: 5px 14px; border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+}
+.prof-pill .material-icons { font-size: 14px; color: #f0a500; }
+.prof-actions-hero {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+}
+.prof-action-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 20px; border-radius: 10px;
+    font-size: 0.82rem; font-weight: 700;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.18s;
+}
+.prof-action-btn.primary   { background: #f0a500; color: #003049; }
+.prof-action-btn.secondary { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; }
+.prof-action-btn.danger    { background: rgba(220,53,69,0.18); border: 1px solid rgba(220,53,69,0.4); color: #ff6b7a; }
+.prof-action-btn:hover.primary   { background: #d4920a; color: #003049; }
+.prof-action-btn:hover.secondary { background: rgba(255,255,255,0.22); color: #fff; }
+.prof-action-btn:hover.danger    { background: rgba(220,53,69,0.32); color: #ff6b7a; }
+
+/* ── Content area ── */
+.prof-body {
+    background: #f4f7fb;
+    padding: 0 0 48px;
+    margin-top: -40px;
+}
+.prof-body .container { max-width: 900px; }
+
+/* ── Section card ── */
+.prof-section {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(13,33,55,0.07);
+    padding: 28px 28px 20px;
+    margin-top: 24px;
+}
+.prof-section-title {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #1e4d80;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+}
+.prof-section-title .material-icons { font-size: 16px; color: #f0a500; }
+.prof-section-title::after {
+    content: ''; flex: 1; height: 1.5px;
+    background: linear-gradient(90deg, #dde3ec 0%, transparent 100%);
+}
+
+/* ── Field grid ── */
+.prof-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+@media (max-width: 576px) { .prof-fields { grid-template-columns: 1fr; } }
+.prof-field {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f3f8;
+}
+.prof-field:nth-last-child(-n+2) { border-bottom: none; }
+@media (max-width: 576px) { .prof-field:last-child { border-bottom: none; } }
+.prof-field-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; color: #8fa0b5; margin-bottom: 3px;
+}
+.prof-field-value {
+    font-size: 0.95rem; font-weight: 600; color: #1a2b3c;
+}
+.prof-field-value.empty { color: #c0cad6; font-weight: 400; font-style: italic; }
+.prof-field-value a { color: #1e4d80; text-decoration: none; }
+.prof-field-value a:hover { text-decoration: underline; }
+
+/* ── Social icons ── */
+.prof-social-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 8px;
+    background: #f4f7fb; color: #1e4d80;
+    font-size: 0.82rem; font-weight: 600;
+    text-decoration: none; transition: background 0.18s;
+}
+.prof-social-link:hover { background: #dde9f7; color: #1e4d80; }
+
+/* ── Viewers table ── */
+.viewers-table { width: 100%; border-collapse: collapse; }
+.viewers-table th {
+    background: #f4f7fb; font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #6c7a8d; padding: 10px 14px; text-align: left;
+    border-bottom: 2px solid #e8edf4;
+}
+.viewers-table td {
+    padding: 12px 14px; font-size: 0.88rem; color: #2d3e50;
+    border-bottom: 1px solid #f0f3f8; vertical-align: middle;
+}
+.viewers-table tr:last-child td { border-bottom: none; }
+.viewers-table tr:hover td { background: #f8fafd; }
 </style>
 {% endblock %}
 
@@ -27,346 +155,330 @@
 <main>
     {% include 'Includes/navbar.html' %}
 
-    <div class="container-fluid bg-light m-0">
-        <div class="container py-5">
-            <!-- Personal Details Card -->
-            <div class="profile-card p-4">
-                <div class="d-flex justify-content-between align-items-center card-title flex-wrap">
-                    <!-- Heading -->
-                    <h2 class="card-title border-0 mb-0">{% trans "Personal Details" %}</h2>
+    <!-- ── Hero ── -->
+    <div class="prof-hero">
+        <div class="prof-avatar-wrap">
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="prof-avatar">
+            {% else %}
+            <img src="{% static 'images/user-icon.png' %}" alt="{{ profile.full_name }}" class="prof-avatar">
+            {% endif %}
+            {% if profile.is_deceased %}
+            <span class="prof-deceased-badge">{% trans "Devlok" %}</span>
+            {% endif %}
+        </div>
+        <h1 class="prof-hero-name">{{ profile.full_name }}</h1>
+        <p class="prof-hero-sub">{{ profile.get_gotra_display }} &bull; {{ profile.get_gender_display }}</p>
 
-                    <div class="dropdown">
-                        <button class="btn btn-warning fw-bold rounded-0 py-2 d-flex align-items-center dropdown-toggle"
-                              type="button"
-                              id="actionDropdown"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false">
-                            <span class="material-icons me-2">menu</span>
-                            <span class="text-nowrap">{% trans "Actions" %}</span>
-                        </button>
-                        <ul class="dropdown-menu p-0" aria-labelledby="actionDropdown">
+        <div class="prof-hero-pills">
+            {% if profile.current_address_city %}
+            <span class="prof-pill"><span class="material-icons">location_on</span>{{ profile.current_address_city }}, {{ profile.current_address_state }}</span>
+            {% endif %}
+            {% if user_age %}
+            <span class="prof-pill"><span class="material-icons">cake</span>{{ user_age }}</span>
+            {% endif %}
+            {% if profile.get_marital_status_display %}
+            <span class="prof-pill"><span class="material-icons">favorite</span>{{ profile.get_marital_status_display }}</span>
+            {% endif %}
+            {% if profile.get_occupation_type_display %}
+            <span class="prof-pill"><span class="material-icons">work</span>{{ profile.get_occupation_type_display }}</span>
+            {% endif %}
+        </div>
 
-                            <!-- Show Family -->
-                            <li class="w-100">
-                                <a class="dropdown-item d-flex align-items-center px-3" href="{% url 'samaj:member_family_tree' profile.id %}">
-                                    <span class="material-icons me-2">diversity_3</span>
-                                    {% trans "Show Family" %}
-                                </a>
-                            </li>
+        <div class="prof-actions-hero">
+            <a href="{% url 'samaj:member_family_tree' profile.id %}" class="prof-action-btn primary">
+                <span class="material-icons" style="font-size:16px;">diversity_3</span>{% trans "Family Tree" %}
+            </a>
+            <a role="button" id="shareBtn" class="prof-action-btn secondary">
+                <span class="material-icons" style="font-size:16px;">share</span>{% trans "Share" %}
+            </a>
+            {% if allow_edit_delete_flag %}
+            <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0" id="edit_member_bio_form">
+                {% csrf_token %}
+                <input type="hidden" name="user_id" value="{{ profile.user.id }}">
+                <a role="button" id="edit_member_bio_btn" class="prof-action-btn secondary">
+                    <span class="material-icons" style="font-size:16px;">edit</span>{% trans "Edit" %}
+                </a>
+            </form>
+            {% endif %}
+            {% if mark_as_head_flag %}
+            <form action="{% url 'samaj:handle_member_mark_as_head' %}" method="post" class="m-0" id="mark_as_head_form">
+                {% csrf_token %}
+                <input type="hidden" value="{{ profile.id }}" name="new_head_member_id">
+                <a role="button" id="mark_as_head_btn" class="prof-action-btn secondary">
+                    <span class="material-icons" style="font-size:16px;">check</span>{% trans "Mark as Head" %}
+                </a>
+            </form>
+            {% endif %}
+            {% if allow_edit_delete_flag %}
+            <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0" id="delete_member_form">
+                {% csrf_token %}
+                <input type="hidden" value="{{ profile.id }}" name="member_id">
+                <a role="button" id="delete_member_btn" class="prof-action-btn danger">
+                    <span class="material-icons" style="font-size:16px;">delete</span>{% trans "Delete" %}
+                </a>
+            </form>
+            {% endif %}
+        </div>
+    </div>
 
-                            <!-- Share Profile -->
-                            <li>
-                                <a role="button" id="shareBtn" class="dropdown-item d-flex align-items-center px-3 pointer-cursor">
-                                    <span class="material-icons me-2">share</span>
-                                    {% trans "Share Profile" %}
-                                </a>
-                            </li>
+    <!-- ── Body ── -->
+    <div class="prof-body">
+        <div class="container">
 
-                            <!-- Edit -->
-                            {% if allow_edit_delete_flag %}
-                            <li>
-                                <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0" id="edit_member_bio_form">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="user_id" value="{{ profile.user.id }}">
-                                    <a role="button" id="edit_member_bio_btn" class="dropdown-item d-flex align-items-center px-3">
-                                        <span class="material-icons me-2">edit</span>
-                                        {% trans "Edit" %}
-                                    </a>
-                                </form>
-                            </li>
-                            {% endif %}
-
-                            <!-- Delete -->
-                            {% if allow_edit_delete_flag %}
-                            <li>
-                                <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="delete-member-form m-0" id="delete_member_form">
-                                    {% csrf_token %}
-                                    <input type="hidden" value="{{ profile.id }}" name="member_id">
-                                    <a role="button" id="delete_member_btn" class="dropdown-item d-flex align-items-center px-3 text-danger">
-                                      <span class="material-icons me-2 text-danger">delete</span>
-                                      {% trans "Delete" %}
-                                    </a>
-                                </form>
-                            </li>
-                            {% endif %}
-
-                            <!-- Mark as Head -->
-                            {% if mark_as_head_flag %}
-                            <li>
-                                <form action="{% url 'samaj:handle_member_mark_as_head' %}" method="post" class="m-0" id="mark_as_head_form">
-                                    {% csrf_token %}
-                                    <input type="hidden" value="{{ profile.id }}" name="new_head_member_id">
-                                    <a role="button" id="mark_as_head_btn" class="dropdown-item d-flex align-items-center px-3">
-                                      <span class="material-icons me-2">check</span>
-                                      {% trans "Mark as Head" %}
-                                    </a>
-                                </form>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
+            <!-- Personal Details -->
+            <div class="prof-section">
+                <div class="prof-section-title">
+                    <span class="material-icons">person</span>{% trans "Personal Details" %}
                 </div>
-
-                <div class="row">
-                    <div class="col-md-4 text-center mb-4 mb-md-0">
-                        <div class="square-img-container">
-                            {% if profile.profile_image %}
-                            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="square-img">
-                            {% else %}
-                            <img src="{% static 'images/user-icon.png' %}" alt="Profile Image" class="square-img">
-                            {% endif %}
-                        </div>
+                <div class="prof-fields">
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Full Name" %}</div>
+                        <div class="prof-field-value">{{ profile.full_name|default:"—" }}</div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="detail-label">{% trans "Name" %}</div>
-                                <div class="detail-value">{{ profile.full_name }}</div>
-
-                                <div class="detail-label">{% trans "Father Name" %}</div>
-                                <div class="detail-value">{{ profile.father_name }}</div>
-
-                                <div class="detail-label">{% trans "Mother Name" %}</div>
-                                <div class="detail-value">{{ profile.mother_name }}</div>
-
-                                <div class="detail-label">{% trans "Date Of Birth" %}</div>
-                                <div class="detail-value">{{ profile.date_of_birth|date:"j F Y" }}</div>
-
-                                <div class="detail-label">{% trans "Age" %}</div>
-                                <div class="detail-value">{{ user_age }}</div>
-
-                                <div class="detail-label">{% trans "Birth Place" %}</div>
-                                <div class="detail-value">{{ profile.birth_place }}</div>
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class="detail-label">{% trans "Birth Time" %}</div>
-                                <div class="detail-value">{{ profile.birth_time|time:"g:i A" }}</div>
-
-                                <div class="detail-label">{% trans "Gender" %}</div>
-                                <div class="detail-value">{{ profile.get_gender_display }}</div>
-
-                                <div class="detail-label">{% trans "Marital Status" %}</div>
-                                <div class="detail-value">{{ profile.get_marital_status_display }}</div>
-
-                                <div class="detail-label">{% trans "Height (In Centimeter)" %}</div>
-                                <div class="detail-value">{{ profile.height }}</div>
-
-                                <div class="detail-label">{% trans "Gotra" %}</div>
-                                <div class="detail-value">{{ profile.get_gotra_display }}</div>
-
-                                <div class="detail-label">{% trans "Last Updated" %}</div>
-                                <div class="detail-value">{{ profile.updated_at|date:"d-m-Y" }} </div>
-
-                                <div class="detail-label">{% trans "Record Created" %}</div>
-                                <div class="detail-value">5 Years ago</div>
-                            </div>
-                        </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Father Name" %}</div>
+                        <div class="prof-field-value">{{ profile.father_name|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Mother Name" %}</div>
+                        <div class="prof-field-value">{{ profile.mother_name|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Date of Birth" %}</div>
+                        <div class="prof-field-value">{{ profile.date_of_birth|date:"j F Y"|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Birth Time" %}</div>
+                        <div class="prof-field-value">{{ profile.birth_time|time:"g:i A"|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Birth Place" %}</div>
+                        <div class="prof-field-value">{{ profile.birth_place|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Gender" %}</div>
+                        <div class="prof-field-value">{{ profile.get_gender_display|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Marital Status" %}</div>
+                        <div class="prof-field-value">{{ profile.get_marital_status_display|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Height" %}</div>
+                        <div class="prof-field-value">{% if profile.height %}{{ profile.height }} cm{% else %}—{% endif %}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Gotra" %}</div>
+                        <div class="prof-field-value">{{ profile.get_gotra_display|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Last Updated" %}</div>
+                        <div class="prof-field-value">{{ profile.updated_at|date:"d M Y"|default:"—" }}</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact Details Card -->
-            <div class="profile-card p-4">
-                <h2 class="card-title">{% trans "Contact Details" %}</h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "Phone Number" %}</div>
-                        <div class="detail-value">{{ profile.phone_number|floatformat:0 }}</div>
+            <!-- Contact Details -->
+            <div class="prof-section">
+                <div class="prof-section-title">
+                    <span class="material-icons">contacts</span>{% trans "Contact Details" %}
+                </div>
+                <div class="prof-fields">
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Phone" %}</div>
+                        <div class="prof-field-value">
+                            {% if profile.phone_number %}
+                            <a href="tel:{{ profile.phone_number }}">{{ profile.phone_number|floatformat:0 }}</a>
+                            {% else %}—{% endif %}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "Whatsapp Number" %}</div>
-                        <div class="detail-value">{{ profile.whatsapp_number|floatformat:0 }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "WhatsApp" %}</div>
+                        <div class="prof-field-value">
+                            {% if profile.whatsapp_number %}
+                            <a href="https://wa.me/{{ profile.whatsapp_number }}" target="_blank">{{ profile.whatsapp_number|floatformat:0 }}</a>
+                            {% else %}—{% endif %}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "Email" %}</div>
-                        <div class="detail-value">{{ profile.email }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Email" %}</div>
+                        <div class="prof-field-value">
+                            {% if profile.email %}<a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% else %}—{% endif %}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "Address" %}</div>
-                        <div class="detail-value">{{ profile.current_address }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Address" %}</div>
+                        <div class="prof-field-value">{{ profile.current_address|default:"—" }}</div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "Village" %}</div>
-                        <div class="detail-value">{{ profile.current_address_village.village_name }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Village" %}</div>
+                        <div class="prof-field-value">{{ profile.current_address_village.village_name|default:"—" }}</div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "City" %}</div>
-                        <div class="detail-value">{{ profile.current_address_city.city_name }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "City" %}</div>
+                        <div class="prof-field-value">{{ profile.current_address_city.city_name|default:"—" }}</div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "State" %}</div>
-                        <div class="detail-value">{{ profile.current_address_state.state_name }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "State" %}</div>
+                        <div class="prof-field-value">{{ profile.current_address_state.state_name|default:"—" }}</div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="detail-label">{% trans "Pincode" %}</div>
-                        <div class="detail-value">{{ profile.current_address_pincode }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Pincode" %}</div>
+                        <div class="prof-field-value">{{ profile.current_address_pincode|default:"—" }}</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Educational Details Card -->
-            <div class="profile-card p-4">
-                <h2 class="card-title">{% trans "Educational Details" %}</h2>
-                <div class="row">
+            <!-- Educational Details -->
+            <div class="prof-section">
+                <div class="prof-section-title">
+                    <span class="material-icons">school</span>{% trans "Educational Details" %}
+                </div>
+                <div class="prof-fields">
                     {% if profile.qualification_type == 'school' %}
-                    <div class="col-md-6">
-                        <div class="detail-label">{% trans "School Name" %}</div>
-                        <div class="detail-value">{{ profile.qualification_detail.first.school_name }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "School Name" %}</div>
+                        <div class="prof-field-value">{{ profile.qualification_detail.first.school_name|default:"—" }}</div>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="detail-label">{% trans "Class" %}</div>
-                        <div class="detail-value">{{ profile.qualification_detail.first.school_class }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Class" %}</div>
+                        <div class="prof-field-value">{{ profile.qualification_detail.first.school_class|default:"—" }}</div>
                     </div>
                     {% else %}
-                    <div class="col-md-6">
-                        <div class="detail-label">
-                            <span>{% trans "College / University" %}</span>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "College / University" %}</div>
+                        <div class="prof-field-value">
+                            {{ profile.qualification_detail.first.college_name|default:"—" }}
                             {% if profile.qualification_type == 'graduate' %}
-                                <span class="badge bg-success badge-qualification">{% trans "Graduate" %}</span>
+                            <span class="badge bg-success ms-1" style="font-size:0.65rem;">{% trans "Graduate" %}</span>
                             {% else %}
-                                <span class="badge bg-danger badge-qualification">{% trans "Under Graduate" %}</span>
+                            <span class="badge bg-warning text-dark ms-1" style="font-size:0.65rem;">{% trans "Under Graduate" %}</span>
                             {% endif %}
                         </div>
-                        <div class="detail-value">{{ profile.qualification_detail.first.college_name }}</div>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="detail-label">{% trans "Degree" %}</div>
-                        <div class="detail-value">{{ profile.qualification_detail.first.degree.degree_name }}</div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Degree" %}</div>
+                        <div class="prof-field-value">{{ profile.qualification_detail.first.degree.degree_name|default:"—" }}</div>
                     </div>
                     {% endif %}
                 </div>
             </div>
 
-            <!-- Professional Details Card -->
-            <div class="profile-card p-4">
-                <h2 class="card-title">{% trans "Professional Details" %}</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="detail-label">{% trans "Occupation Type" %}</div>
-                        <div class="detail-value">{{ profile.get_occupation_type_display }}</div>
-
-                        {% if profile.occupation_type == 'business' %}
-                            <div class="detail-label">{% trans "Business Name" %}</div>
-                            <div class="detail-value">{{ profile.occupation_detail.first.business_name }}</div>
-                        {% elif profile.occupation_type == 'job' %}
-                            <div class="detail-label">{% trans "Company Name" %}</div>
-                            <div class="detail-value">{{ profile.occupation_detail.first.company_name }}</div>
-                        {% endif %}
+            <!-- Professional Details -->
+            <div class="prof-section">
+                <div class="prof-section-title">
+                    <span class="material-icons">work</span>{% trans "Professional Details" %}
+                </div>
+                <div class="prof-fields">
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Occupation Type" %}</div>
+                        <div class="prof-field-value">{{ profile.get_occupation_type_display|default:"—" }}</div>
                     </div>
-                    <div class="col-md-6">
-                        {% if profile.occupation_type == 'business' %}
-                        <div>
-                            <div class="detail-label">{% trans "Business Location" %}</div>
-                            <div class="detail-value">{{ profile.occupation_detail.first.business_location }}</div>
-                        </div>
-                        <div>
-                            <div class="detail-label">{% trans "Business Description" %}</div>
-                            <div class="detail-value">{{ profile.occupation_detail.first.business_description }}</div>
-                        </div>
-                        {% elif profile.occupation_type == 'job' %}
-                        <div>
-                            <div class="detail-label">{% trans "Job Location" %}</div>
-                            <div class="detail-value">{{ profile.occupation_detail.first.company_location }}</div>
-                        </div>
-
-                        <div>
-                            <div class="detail-label">{% trans "Job Description" %}</div>
-                            <div class="detail-value">{{ profile.occupation_detail.first.job_description }}</div>
-                        </div>
-                        {% endif %}
+                    {% if profile.occupation_type == 'business' %}
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Business Name" %}</div>
+                        <div class="prof-field-value">{{ profile.occupation_detail.first.business_name|default:"—" }}</div>
                     </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Business Location" %}</div>
+                        <div class="prof-field-value">{{ profile.occupation_detail.first.business_location|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Business Description" %}</div>
+                        <div class="prof-field-value">{{ profile.occupation_detail.first.business_description|default:"—" }}</div>
+                    </div>
+                    {% elif profile.occupation_type == 'job' %}
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Company Name" %}</div>
+                        <div class="prof-field-value">{{ profile.occupation_detail.first.company_name|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Job Location" %}</div>
+                        <div class="prof-field-value">{{ profile.occupation_detail.first.company_location|default:"—" }}</div>
+                    </div>
+                    <div class="prof-field">
+                        <div class="prof-field-label">{% trans "Job Description" %}</div>
+                        <div class="prof-field-value">{{ profile.occupation_detail.first.job_description|default:"—" }}</div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
-            <!-- Social Media Details Card -->
-            <div class="profile-card p-4">
-                <h2 class="card-title">{% trans "Social Media Links" %}</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="detail-label">{% trans "Facebook" %}</div>
-                        {% if profile.facebook_link %}
-                        <div class="detail-value">
-                            <a class="text-primary text-decoration-underline" target="_blank" href="{{ profile.facebook_link }}">{{ profile.facebook_link }}</a>
-                        </div>
-
-                        {% else %}
-                        <div class="detail-value">-</div>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <div class="detail-label">{% trans "Instagram" %}</div>
-                        {% if profile.instagram_link %}
-                        <div class="detail-value">
-                            <a class="text-primary text-decoration-underline" target="_blank" href="{{ profile.instagram_link }}">{{ profile.instagram_link }}</a>
-                        </div>
-                        {% else %}
-                        <div class="detail-value">-</div>
-                        {% endif %}
-                    </div>
+            <!-- Social Media -->
+            <div class="prof-section">
+                <div class="prof-section-title">
+                    <span class="material-icons">link</span>{% trans "Social Media" %}
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:4px;">
+                    {% if profile.facebook_link %}
+                    <a class="prof-social-link" href="{{ profile.facebook_link }}" target="_blank">
+                        <span class="material-icons" style="font-size:16px;">facebook</span> Facebook
+                    </a>
+                    {% endif %}
+                    {% if profile.instagram_link %}
+                    <a class="prof-social-link" href="{{ profile.instagram_link }}" target="_blank">
+                        <span class="material-icons" style="font-size:16px;">photo_camera</span> Instagram
+                    </a>
+                    {% endif %}
+                    {% if not profile.facebook_link and not profile.instagram_link %}
+                    <span class="prof-field-value empty">{% trans "No social links added" %}</span>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Viewers -->
             {% if request.user == profile.user and profile.track_member_views_flag %}
-            <div class="profile-card p-4">
-                <h2 class="card-title">
-                    <span class="d-flex w-100 align-items-md-center justify-content-md-between flex-column flex-md-row">
-                        <span class="">{% trans "Viewers" %}</span>
-                        <span class="" style="font-size: 15px;">( views : {{ viewers.count }} )</span>
-                    </span>
-                </h2>
-
-                <div class="row m-0">
-                    <div class="tab-pane fade show active" id="table" role="tabpanel">
-                        <div class="table-responsive">
-                            {% if viewers %}
-                            <table class="table table-bordered table-hover">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Sr. No.</th>
-                                        <th>Full Name</th>
-                                        <th>Father Name</th>
-                                        <th>DOB</th>
-                                        <th>Marital Status</th>
-                                        <th>Location (City, State)</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for viewer in viewers %}
-                                    <tr>
-                                        <td>{{ forloop.counter }}</td>
-                                        <td>{{ viewer.viewer.full_name|title }}</td>
-                                        <td>{{ viewer.viewer.father_name|title }}</td>
-                                        <td>{{ viewer.viewer.date_of_birth }}</td>
-                                        <td>{{ viewer.viewer.get_marital_status_display }}</td>
-                                        <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
-                                                    data-bs-toggle="tooltip" title="View Profile">
-                                                    <span class="material-icons me-2">visibility</span>
-                                                </a>
-                                                <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
-                                                    data-bs-toggle="tooltip" title="View Family">
-                                                    <span class="material-icons me-2">diversity_3</span>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-
-                            {% else %}
-                                <div class="py-3">{% trans "No Viewer Found" %} 🥲</div>
-                            {% endif %}
-                        </div>
-                    </div>
+            <div class="prof-section">
+                <div class="prof-section-title">
+                    <span class="material-icons">visibility</span>
+                    {% trans "Viewers" %}
+                    <span style="font-size:0.8rem;font-weight:500;color:#8fa0b5;letter-spacing:0;">&nbsp;({{ viewers.count }} views)</span>
                 </div>
+                {% if viewers %}
+                <div class="table-responsive">
+                    <table class="viewers-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Name" %}</th>
+                                <th>{% trans "Father" %}</th>
+                                <th>{% trans "DOB" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Location" %}</th>
+                                <th>{% trans "Actions" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for viewer in viewers %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ viewer.viewer.full_name|title }}</td>
+                                <td>{{ viewer.viewer.father_name|title }}</td>
+                                <td>{{ viewer.viewer.date_of_birth }}</td>
+                                <td>{{ viewer.viewer.get_marital_status_display }}</td>
+                                <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="btn btn-sm btn-light border" title="{% trans 'View Profile' %}">
+                                            <span class="material-icons" style="font-size:16px;">visibility</span>
+                                        </a>
+                                        <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="btn btn-sm btn-light border" title="{% trans 'View Family' %}">
+                                            <span class="material-icons" style="font-size:16px;">diversity_3</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="prof-field-value empty mb-0">{% trans "No Viewer Found" %}</p>
+                {% endif %}
             </div>
             {% endif %}
+
         </div>
     </div>
 
@@ -376,14 +488,14 @@
 
 
 {% block javascripts %}
-
 <script>
     const edit_member_bio_btn = document.getElementById('edit_member_bio_btn');
     const edit_member_bio_form = document.getElementById('edit_member_bio_form');
-
-    edit_member_bio_btn.addEventListener('click', function () {
-        edit_member_bio_form.submit();
-    });
+    if (edit_member_bio_btn) {
+        edit_member_bio_btn.addEventListener('click', function () {
+            edit_member_bio_form.submit();
+        });
+    }
 </script>
 
 <script>
@@ -396,16 +508,21 @@
                 url: window.location.href
             });
         } else {
-            alert("Sharing not supported in this browser. Please copy the link.");
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                shareBtn.innerHTML = '<span class="material-icons" style="font-size:16px;">check</span> Copied!';
+                setTimeout(() => {
+                    shareBtn.innerHTML = '<span class="material-icons" style="font-size:16px;">share</span>{% trans "Share" %}';
+                }, 2000);
+            });
         }
     });
 </script>
 
+{% if allow_edit_delete_flag %}
 <script>
-    const delete_member_btn = document.getElementById('delete_member_btn')
-    const delete_member_form = document.getElementById('delete_member_form')
-
-    delete_member_btn.addEventListener('click', function(e) {
+    const delete_member_btn = document.getElementById('delete_member_btn');
+    const delete_member_form = document.getElementById('delete_member_form');
+    delete_member_btn.addEventListener('click', function() {
         Swal.fire({
             title: 'Are you sure?',
             text: "This action cannot be undone.",
@@ -415,18 +532,17 @@
             cancelButtonColor: '#6c757d',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-            if (result.isConfirmed) {
-                delete_member_form.submit();
-            }
+            if (result.isConfirmed) { delete_member_form.submit(); }
         });
     });
 </script>
+{% endif %}
 
+{% if mark_as_head_flag %}
 <script>
-    const mark_as_head_btn = document.getElementById('mark_as_head_btn')
-    const mark_as_head_form = document.getElementById('mark_as_head_form')
-
-    mark_as_head_btn.addEventListener('click', function(e) {
+    const mark_as_head_btn = document.getElementById('mark_as_head_btn');
+    const mark_as_head_form = document.getElementById('mark_as_head_form');
+    mark_as_head_btn.addEventListener('click', function() {
         Swal.fire({
             title: 'Are you sure?',
             text: "This action cannot be undone.",
@@ -436,11 +552,9 @@
             cancelButtonColor: '#6c757d',
             confirmButtonText: 'Yes'
         }).then((result) => {
-            if (result.isConfirmed) {
-                mark_as_head_form.submit();
-            }
+            if (result.isConfirmed) { mark_as_head_form.submit(); }
         });
     });
 </script>
-
+{% endif %}
 {% endblock %}

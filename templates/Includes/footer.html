@@ -1,60 +1,206 @@
 {% load static %}
 {% load i18n %}
-<footer id="footer" class="footer bg-overlay">
-    <div class="footer-main">
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-12 col-md-7 footer-widget footer-about">
-                    <!-- <h3 class="widget-title">About Us</h3> -->
-                    <img loading="lazy" class="footer-logo" src="{% static 'images/ps-light-logo.png' %}" alt="Paliwal Samaj Logo">
-                    <p>
-                        {% blocktrans %}Working towards unity, culture, and community welfare. Our mission is to connect every Paliwal family, preserve our heritage, and support social growth through education, service, and cultural events.{% endblocktrans %}
-                    </p>
-                </div><!-- Col end -->
 
-                <div class="col-12 col-md-4 footer-widget mt-5 mt-md-0">
-                    <h3 class="widget-title">{% trans "News Letter" %}</h3>
-                    <form method="post" action="{% url 'samaj:newsletter_subscribe' %}" class="">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <div class="d-flex">
-                                <input class="form-control form-control-name" name="email" id="newsletter"
-                                       placeholder="example@gmail.com" type="email" required>
-                                <button type="submit" class="btn btn-primary rounded-0">
-                                    {% trans "Submit" %}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div><!-- Col end -->
-            </div><!-- Row end -->
-        </div><!-- Container end -->
-    </div><!-- Footer main end -->
+<footer id="footer">
 
-    <div class="copyright">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-12">
-                    <div class="copyright-info text-center">
-                        <span>Copyright &copy;
-                            <script>document.write(new Date().getFullYear())</script>,
-                            Designed &amp; Developed by
-                            {% if show_gopal_branding %}
-                            <b>Electrocom Solutions</b>
-                            {% else %}
-                            <b>SolvifyHub</b>
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-            </div><!-- Row end -->
+  <!-- ── Main footer ── -->
+  <div class="nf-main">
+    <div class="container">
+      <div class="row g-5">
 
-            <div id="back-to-top" data-spy="affix" data-offset-top="10" class="back-to-top position-fixed">
-                <button class="btn btn-primary" title="Back to Top">
-                    <i class="fa fa-angle-double-up"></i>
-                </button>
-            </div>
+        <!-- About -->
+        <div class="col-12 col-md-4">
+          <img loading="lazy" src="{% static 'images/ps-light-logo.png' %}" alt="Paliwal Samaj" class="nf-logo">
+          <p class="nf-about">
+            {% blocktrans %}Working towards unity, culture, and community welfare. Our mission is to connect every Paliwal family, preserve our heritage, and support social growth through education, service, and cultural events.{% endblocktrans %}
+          </p>
+        </div>
 
-        </div><!-- Container end -->
-    </div><!-- Copyright end -->
-</footer><!-- Footer end -->
+        <!-- Quick links -->
+        <div class="col-6 col-md-2">
+          <h3 class="nf-heading">{% trans "Quick Links" %}</h3>
+          <ul class="nf-links">
+            <li><a href="{% url 'samaj:index' %}">{% trans "Home" %}</a></li>
+            <li><a href="{% url 'samaj:news_and_events' %}">{% trans "News" %}</a></li>
+            <li><a href="{% url 'samaj:community' %}">{% trans "Community" %}</a></li>
+            <li><a href="{% url 'samaj:devlok' %}">{% trans "Devlok" %}</a></li>
+            <li><a href="{% url 'samaj:image_and_video_gallery' %}">{% trans "Gallery" %}</a></li>
+            <li><a href="{% url 'samaj:support' %}">{% trans "Support" %}</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="col-12 col-md-6">
+          <h3 class="nf-heading">{% trans "Newsletter" %}</h3>
+          <p class="nf-newsletter-sub">{% trans "Stay connected with the latest news and events from Paliwal Samaj." %}</p>
+          <form method="post" action="{% url 'samaj:newsletter_subscribe' %}" class="nf-newsletter-form">
+            {% csrf_token %}
+            <input class="nf-newsletter-input" name="email" placeholder="{% trans 'Your email address' %}" type="email" required>
+            <button type="submit" class="nf-newsletter-btn">
+              <span class="material-icons" style="font-size:18px;">send</span>
+            </button>
+          </form>
+          <p class="nf-newsletter-note">{% trans "No spam, ever. Unsubscribe anytime." %}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Copyright bar ── -->
+  <div class="nf-copyright">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-center">
+        <span>
+          &copy; <script>document.write(new Date().getFullYear())</script>
+          {% trans "Paliwal Samaj" %} &mdash; {% trans "Designed & Developed by" %}
+          {% if show_gopal_branding %}
+          <strong>Electrocom Solutions</strong>
+          {% else %}
+          <strong>SolvifyHub</strong>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<!-- Back to top -->
+<button id="back-to-top-btn" title="{% trans 'Back to top' %}" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span class="material-icons">keyboard_arrow_up</span>
+</button>
+
+<style>
+/* ── New footer ── */
+.nf-main {
+  background: #0b1929;
+  padding: 64px 0 48px;
+  border-top: 3px solid #f0a500;
+}
+.nf-logo {
+  max-height: 38px;
+  margin-bottom: 18px;
+  display: block;
+}
+.nf-about {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.88rem;
+  line-height: 1.75;
+  margin: 0;
+}
+.nf-heading {
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-left: 12px;
+  border-left: 3px solid #f0a500;
+}
+.nf-links {
+  list-style: none;
+  padding: 0; margin: 0;
+}
+.nf-links li { margin-bottom: 10px; }
+.nf-links li a {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.88rem;
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: color 0.18s, gap 0.18s;
+}
+.nf-links li a::before {
+  content: '›';
+  color: #f0a500;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: transform 0.18s;
+}
+.nf-links li a:hover { color: #f0a500; }
+.nf-newsletter-sub {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.84rem;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.nf-newsletter-form {
+  display: flex;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.14);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  transition: border-color 0.18s;
+}
+.nf-newsletter-form:focus-within {
+  border-color: #f0a500;
+}
+.nf-newsletter-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.88rem;
+  padding: 12px 16px;
+}
+.nf-newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
+.nf-newsletter-btn {
+  background: #f0a500;
+  border: none;
+  color: #003049;
+  padding: 0 18px;
+  cursor: pointer;
+  display: flex; align-items: center;
+  transition: background 0.18s;
+  font-weight: 700;
+}
+.nf-newsletter-btn:hover { background: #d4920a; }
+.nf-newsletter-note {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+/* Copyright */
+.nf-copyright {
+  background: #060f1a;
+  padding: 16px 0;
+  color: rgba(255,255,255,0.45);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.nf-copyright strong { color: rgba(255,255,255,0.7); }
+
+/* Back to top */
+#back-to-top-btn {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: #f0a500;
+  color: #003049;
+  border: none;
+  cursor: pointer;
+  display: none;
+  align-items: center; justify-content: center;
+  box-shadow: 0 4px 18px rgba(240,165,0,0.4);
+  transition: background 0.18s, transform 0.18s;
+  z-index: 999;
+}
+#back-to-top-btn:hover { background: #d4920a; transform: translateY(-3px); }
+#back-to-top-btn .material-icons { font-size: 22px; }
+
+/* Override old footer styles */
+#footer .footer-main,
+#footer .copyright { display: none !important; }
+</style>
+
+<script>
+  const bttBtn = document.getElementById('back-to-top-btn');
+  window.addEventListener('scroll', function() {
+    bttBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+</script>

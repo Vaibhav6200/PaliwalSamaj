@@ -12,11 +12,165 @@
 
 {% block stylesheets %}
 <style>
-    @media only screen and (max-width: 600px) {
-      .ts-name {
-        font-size: 13px !important;
-      }
-    }
+/* ── Page background ── */
+#main-container { background: #f4f7fb; }
+
+/* ── Filter card ── */
+.dk-filter-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(13,33,55,0.10);
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+.dk-filter-header {
+    background: linear-gradient(135deg, #0d2137 0%, #1e4d80 100%);
+    padding: 18px 28px;
+    display: flex; align-items: center; gap: 12px;
+}
+.dk-filter-header .material-icons { color: #f0a500; font-size: 1.5rem; }
+.dk-filter-header h2 { color: #fff; font-size: 1rem; font-weight: 700; margin: 0; letter-spacing: 0.04em; }
+.dk-filter-body { padding: 24px 28px 20px; }
+.dk-filter-body label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #6c7a8d; margin-bottom: 6px; }
+.dk-filter-body .form-control {
+    border-radius: 10px; border: 1.5px solid #dde3ec;
+    padding: 9px 14px; font-size: 0.9rem;
+    transition: border-color 0.18s, box-shadow 0.18s;
+}
+.dk-filter-body .form-control:focus { border-color: #1e4d80; box-shadow: 0 0 0 3px rgba(30,77,128,0.12); }
+.dk-filter-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; flex-wrap: wrap; }
+.dk-btn-search {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #1e4d80, #0d2137);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 9px 22px; font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: opacity 0.18s;
+}
+.dk-btn-search:hover { opacity: 0.88; }
+.dk-btn-clear {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #f4f7fb; color: #4a5a6b;
+    border: 1.5px solid #dde3ec; border-radius: 10px;
+    padding: 9px 22px; font-size: 0.85rem; font-weight: 700;
+    text-decoration: none; transition: background 0.18s;
+}
+.dk-btn-clear:hover { background: #e8edf4; color: #1a2b3c; }
+
+/* ── Results bar ── */
+.dk-results-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    margin-bottom: 16px;
+}
+.dk-count-badge {
+    background: #fff; border: 1.5px solid #dde3ec;
+    border-radius: 20px; padding: 5px 16px;
+    font-size: 0.82rem; font-weight: 600; color: #4a5a6b;
+    display: flex; align-items: center; gap: 6px;
+}
+.dk-count-badge strong { color: #1e4d80; }
+
+/* ── View toggle ── */
+.dk-view-toggle {
+    display: inline-flex;
+    background: #fff; border: 1.5px solid #dde3ec;
+    border-radius: 12px; padding: 4px; gap: 2px;
+}
+.dk-toggle-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 16px; border-radius: 9px;
+    font-size: 0.8rem; font-weight: 600; border: none;
+    background: transparent; color: #6c7a8d;
+    cursor: pointer; transition: all 0.18s;
+}
+.dk-toggle-btn.active {
+    background: linear-gradient(135deg, #1e4d80, #0d2137);
+    color: #fff; box-shadow: 0 2px 8px rgba(13,33,55,0.2);
+}
+.dk-toggle-btn .material-icons { font-size: 16px; }
+
+/* ── Tab content wrapper ── */
+.dk-tab-content {
+    background: #fff; border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(13,33,55,0.07);
+    padding: 24px;
+    min-height: 200px;
+}
+
+/* ── Portrait cards ── */
+.dk-card {
+    position: relative; border-radius: 16px; overflow: hidden;
+    aspect-ratio: 3/4;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.16);
+    animation: dkCardIn 0.4s ease-out both;
+    cursor: pointer; transition: transform 0.22s, box-shadow 0.22s;
+}
+.dk-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 14px 36px rgba(0,0,0,0.22); }
+@keyframes dkCardIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.dk-photo { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.dk-overlay {
+    position: absolute; bottom:0; left:0; right:0;
+    background: linear-gradient(to top, rgba(0,10,28,.97) 0%, rgba(0,10,28,.82) 42%, rgba(0,10,28,.12) 74%, transparent 100%);
+    padding: 54px 13px 14px;
+}
+.dk-name  { color:#fff; font-size:1rem; font-weight:700; margin:0 0 2px; line-height:1.25; }
+.dk-gotra { color:rgba(255,255,255,.65); font-size:.78rem; margin-bottom:6px; }
+.dk-meta  { display:flex; align-items:center; gap:4px; color:rgba(255,255,255,.6); font-size:.75rem; margin-bottom:3px; }
+.dk-meta .material-icons { font-size:14px; }
+.dk-actions { display:flex; gap:6px; margin-top:10px; }
+.dk-btn {
+    flex:1; text-align:center; padding:6px 4px; border-radius:8px;
+    font-size:.75rem; font-weight:600; text-decoration:none; transition:all .18s;
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); color:rgba(255,255,255,.9);
+}
+.dk-btn-profile:hover { background:#f0a500; border-color:#f0a500; color:#003049; }
+.dk-btn-family:hover  { background:rgba(255,255,255,.25); }
+
+/* ── Custom table ── */
+.dk-table { width:100%; border-collapse:collapse; }
+.dk-table thead tr { background: linear-gradient(135deg, #0d2137 0%, #1e4d80 100%); }
+.dk-table thead th {
+    color:#fff; font-size:.72rem; font-weight:700; letter-spacing:.07em;
+    text-transform:uppercase; padding:13px 16px; white-space:nowrap;
+}
+.dk-table tbody tr { transition: background 0.15s; }
+.dk-table tbody tr:hover td { background:#f0f5fc; }
+.dk-table tbody td {
+    padding:12px 16px; font-size:.88rem; color:#2d3e50;
+    border-bottom:1px solid #f0f3f8; vertical-align:middle;
+}
+.dk-table tbody tr:last-child td { border-bottom:none; }
+.dk-table-action {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:34px; height:34px; border-radius:8px;
+    background:#f4f7fb; border:1.5px solid #dde3ec;
+    color:#4a5a6b; transition:all .18s; text-decoration:none;
+}
+.dk-table-action:hover { background:#1e4d80; border-color:#1e4d80; color:#fff; }
+.dk-table-action .material-icons { font-size:16px; }
+
+/* ── Pagination ── */
+.dk-pagination { display:flex; justify-content:center; gap:6px; margin-top:20px; flex-wrap:wrap; }
+.dk-page-link {
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:36px; height:36px; padding:0 10px;
+    border-radius:9px; font-size:.82rem; font-weight:600;
+    text-decoration:none; border:1.5px solid #dde3ec;
+    background:#fff; color:#4a5a6b; transition:all .18s;
+}
+.dk-page-link:hover  { background:#1e4d80; border-color:#1e4d80; color:#fff; }
+.dk-page-link.active { background:linear-gradient(135deg,#1e4d80,#0d2137); border-color:#0d2137; color:#fff; }
+.dk-page-link.disabled { opacity:.4; pointer-events:none; }
+
+/* ── Empty state ── */
+.dk-empty {
+    text-align:center; padding:48px 20px;
+    color:#8fa0b5;
+}
+.dk-empty .material-icons { font-size:3rem; margin-bottom:12px; display:block; }
 </style>
 {% endblock %}
 
@@ -32,201 +186,184 @@
             <p class="page-hero-sub">{% trans "Remembering members who have left us" %}</p>
         </div>
     </div>
+
     <section id="main-container" class="main-container">
         <div class="container">
-            <form id="search_family_form">
-                <div class="text-center w-100 mb-5">
-                    <h2 class="fs-4">{% trans "Remembering Our Ancestors" %}</h2>
-                    <p class="text-muted mb-0">{% trans "Members who have passed away" %}</p>
-                </div>
-                <div class="row m-0 border border-dark px-1 py-3 px-md-2 py-md-2 py-lg-4 px-lg-3">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <label for="full_name">{% trans "Name" %}</label>
-                            <input class="form-control form-control-name only_alphabets" name="full_name" id="full_name"
-                                   maxlength="50" placeholder="Name" type="text" value="{{ name_filter_value }}">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="form-group">
-                            <label for="gotra">{% trans "Gotra" %}</label>
-                            <select name="gotra" class="form-control" id="gotra">
-                                <option value="" disabled {% if not gotra_filter_value %}selected{% endif %}>Select Gotra</option>
-                                {% for value, label in gotras %}
-                                    <option value="{{ value }}" {% if gotra_filter_value == value %}selected{% endif %}>{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-12 my-3 text-end">
-                        <button class="btn btn-primary" type="submit">{% trans "Search" %}</button>
-                        <a href="{% url 'samaj:devlok' %}" class="btn btn-primary">{% trans "Clear" %}</a>
-                    </div>
-                </div>
-            </form>
 
-            <div class="d-flex justify-content-between align-items-center mt-4 mb-2">
-                <p class="mb-0">{% trans "Total Records" %}: <strong>{{ records_count }}</strong></p>
+            <!-- Filter card -->
+            <div class="dk-filter-card">
+                <div class="dk-filter-header">
+                    <span class="material-icons">search</span>
+                    <h2>{% trans "Search Members" %}</h2>
+                </div>
+                <div class="dk-filter-body">
+                    <form id="search_family_form">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-5">
+                                <label for="full_name">{% trans "Name" %}</label>
+                                <input class="form-control only_alphabets" name="full_name" id="full_name"
+                                       maxlength="50" placeholder="{% trans 'Search by name…' %}" type="text" value="{{ name_filter_value }}">
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <label for="gotra">{% trans "Gotra" %}</label>
+                                <select name="gotra" class="form-control" id="gotra">
+                                    <option value="" disabled {% if not gotra_filter_value %}selected{% endif %}>{% trans "Select Gotra" %}</option>
+                                    {% for value, label in gotras %}
+                                        <option value="{{ value }}" {% if gotra_filter_value == value %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-2 d-flex align-items-end">
+                                <div class="dk-filter-actions w-100" style="justify-content:flex-start;">
+                                    <button class="dk-btn-search" type="submit">
+                                        <span class="material-icons" style="font-size:16px;">search</span>{% trans "Search" %}
+                                    </button>
+                                    <a href="{% url 'samaj:devlok' %}" class="dk-btn-clear">
+                                        <span class="material-icons" style="font-size:16px;">close</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <ul class="nav nav-tabs" id="viewTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link results-tab active d-flex align-items-center" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button" role="tab">
-                        <span class="material-icons me-2">view_list</span> Table View
+            <!-- Results bar -->
+            <div class="dk-results-bar">
+                <div class="dk-count-badge">
+                    <span class="material-icons" style="font-size:14px;color:#f0a500;">groups</span>
+                    {% trans "Total" %}: <strong>{{ records_count }}</strong>
+                </div>
+                <div class="dk-view-toggle" id="viewToggle">
+                    <button class="dk-toggle-btn active" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button">
+                        <span class="material-icons">view_list</span>{% trans "Table" %}
                     </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link results-tab d-flex align-items-center" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab">
-                        <span class="material-icons me-2">grid_view</span> Grid View
+                    <button class="dk-toggle-btn" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button">
+                        <span class="material-icons">grid_view</span>{% trans "Grid" %}
                     </button>
-                </li>
-            </ul>
+                </div>
+            </div>
 
-            <div class="tab-content border border-top-0 p-3">
+            <!-- Tab content -->
+            <div class="tab-content">
+
+                <!-- Grid -->
                 <div class="tab-pane fade" id="grid" role="tabpanel">
-                    <div class="row m-0">
+                    <div class="dk-tab-content">
                         {% if devlok_members_grid %}
-                        {% for member in devlok_members_grid %}
-                        <div class="col-6 col-md-4 p-2">
-                            <div class="my_family_card item">
-                                <div class="ts-team-wrapper profile_container">
-                                    <div class="team-img-wrapper">
-                                        {% if member.profile_image %}
-                                        <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
-                                        {% else %}
-                                        <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}"
-                                             alt="team-img">
-                                        {% endif %}
-                                    </div>
-                                    <div class="ts-team-content">
-                                        <h3 class="ts-name community_member_name text-center">{{ member.full_name }} </h3>
-                                        <p class="ts-designation community_member_card_info profile_hover_content">{% trans "Gotra" %}: {{ member.get_gotra_display }}</p>
-                                        <div class="community_member_card_info profile_hover_content">
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                                <div class="text-white ms-2">
-                                                        {{ member.current_address_city }}, {{ member.current_address_state }}
-                                                </div>
-                                            </div>
+                        <div class="row m-0">
+                            {% for member in devlok_members_grid %}
+                            <div class="col-6 col-md-4 col-lg-3 p-2">
+                                <div class="dk-card">
+                                    {% if member.profile_image %}
+                                    <img loading="lazy" class="dk-photo" src="{{ member.profile_image.url }}" alt="{{ member.full_name }}">
+                                    {% else %}
+                                    <img loading="lazy" class="dk-photo" src="{% static 'images/user-icon.png' %}" alt="{{ member.full_name }}">
+                                    {% endif %}
+                                    <div class="dk-overlay">
+                                        <h3 class="dk-name">{{ member.full_name }}</h3>
+                                        <div class="dk-gotra">{{ member.get_gotra_display }}</div>
+                                        <div class="dk-meta">
+                                            <span class="material-icons">location_on</span>
+                                            {{ member.current_address_city }}, {{ member.current_address_state }}
                                         </div>
-                                        <div class="row m-0 p-0 mt-3 profile_hover_content">
-                                            <div class="col-12 p-0 mb-2">
-                                                 <a href="{% url 'samaj:user_profile' member.id %}" class="border btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                    <span class="material-icons me-2">visibility</span>{% trans "Profile" %}
-                                                 </a>
-                                            </div>
-                                            <div class="col-12 p-0">
-                                                 <a href="{% url 'samaj:member_family_tree' member.id %}" class="border btn btn-light fw-bold rounded-0 d-flex py-2 h-100 justify-content-center align-items-center">
-                                                    <span class="material-icons me-2">diversity_3</span>{% trans "Family" %}
-                                                 </a>
-                                            </div>
+                                        <div class="dk-actions">
+                                            <a href="{% url 'samaj:user_profile' member.id %}" class="dk-btn dk-btn-profile">{% trans "Profile" %}</a>
+                                            <a href="{% url 'samaj:member_family_tree' member.id %}" class="dk-btn dk-btn-family">{% trans "Family" %}</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {% endfor %}
-                        {% else %}
-                            <div class="py-3">{% trans "No members found in Devlok" %}</div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="tab-pane fade show active" id="table" role="tabpanel">
-                    <div class="table-responsive">
-                        {% if devlok_members_table %}
-                        <table class="table table-bordered table-hover">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Sr. No.</th>
-                                    <th>Full Name</th>
-                                    <th>Father Name</th>
-                                    <th>DOB</th>
-                                    <th>Gotra</th>
-                                    <th>Location (City, State)</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for member in devlok_members_table %}
-                                <tr>
-                                    <td>{{ devlok_members_table.start_index|add:forloop.counter0 }}</td>
-                                    <td>{{ member.full_name|title }}</td>
-                                    <td>{{ member.father_name|title }}</td>
-                                    <td>{{ member.date_of_birth }}</td>
-                                    <td>{{ member.get_gotra_display }}</td>
-                                    <td>{{ member.current_address_city|title }}, {{ member.current_address_state|title }}</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="{% url 'samaj:user_profile' member.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
-                                                data-bs-toggle="tooltip" title="View Profile">
-                                                <span class="material-icons me-2">visibility</span>
-                                            </a>
-                                            <a href="{% url 'samaj:member_family_tree' member.id %}" class="btn btn-light border py-2 d-flex w-100 justify-content-center m-0 rounded-0 text-uppercase fw-bold"
-                                                data-bs-toggle="tooltip" title="View Family">
-                                                <span class="material-icons me-2">diversity_3</span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        {% else %}
-                            <div class="py-3">{% trans "No members found in Devlok" %}</div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if devlok_members_table.has_other_pages %}
-                {% with query_params=request.GET.urlencode %}
-                    {% with query_string=query_params|cut:"page="|cut:"&page=" %}
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center mt-4">
-                            {% if devlok_members_table.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page=1&{{ query_string }}" aria-label="First">
-                                    &laquo;&laquo;
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ devlok_members_table.previous_page_number }}&{{ query_string }}" aria-label="Previous">
-                                    &laquo;
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
-                            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-                            {% endif %}
-
-                            {% for num in devlok_members_table.paginator.page_range %}
-                                {% if devlok_members_table.number == num %}
-                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                                {% elif num > devlok_members_table.number|add:'-3' and num < devlok_members_table.number|add:'3' %}
-                                <li class="page-item"><a class="page-link" href="?page={{ num }}&{{ query_string }}">{{ num }}</a></li>
-                                {% endif %}
                             {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="dk-empty">
+                            <span class="material-icons">sentiment_dissatisfied</span>
+                            {% trans "No members found in Devlok" %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
 
-                            {% if devlok_members_table.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ devlok_members_table.next_page_number }}&{{ query_string }}" aria-label="Next">
-                                    &raquo;
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ devlok_members_table.paginator.num_pages }}&{{ query_string }}" aria-label="Last">
-                                    &raquo;&raquo;
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-                            <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+                <!-- Table -->
+                <div class="tab-pane fade show active" id="table" role="tabpanel">
+                    <div class="dk-tab-content" style="padding:0;overflow:hidden;">
+                        {% if devlok_members_table %}
+                        <div class="table-responsive">
+                            <table class="dk-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{% trans "Full Name" %}</th>
+                                        <th>{% trans "Father Name" %}</th>
+                                        <th>{% trans "DOB" %}</th>
+                                        <th>{% trans "Gotra" %}</th>
+                                        <th>{% trans "Location" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for member in devlok_members_table %}
+                                    <tr>
+                                        <td>{{ devlok_members_table.start_index|add:forloop.counter0 }}</td>
+                                        <td><strong>{{ member.full_name|title }}</strong></td>
+                                        <td>{{ member.father_name|title }}</td>
+                                        <td>{{ member.date_of_birth }}</td>
+                                        <td>{{ member.get_gotra_display }}</td>
+                                        <td>{{ member.current_address_city|title }}, {{ member.current_address_state|title }}</td>
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <a href="{% url 'samaj:user_profile' member.id %}" class="dk-table-action" title="{% trans 'View Profile' %}">
+                                                    <span class="material-icons">visibility</span>
+                                                </a>
+                                                <a href="{% url 'samaj:member_family_tree' member.id %}" class="dk-table-action" title="{% trans 'View Family' %}">
+                                                    <span class="material-icons">diversity_3</span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="dk-empty">
+                            <span class="material-icons">sentiment_dissatisfied</span>
+                            {% trans "No members found in Devlok" %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Pagination -->
+                    {% if devlok_members_table.has_other_pages %}
+                    {% with query_params=request.GET.urlencode %}
+                    {% with query_string=query_params|cut:"page="|cut:"&page=" %}
+                    <div class="dk-pagination mt-3">
+                        {% if devlok_members_table.has_previous %}
+                        <a class="dk-page-link" href="?page=1&{{ query_string }}">&laquo;&laquo;</a>
+                        <a class="dk-page-link" href="?page={{ devlok_members_table.previous_page_number }}&{{ query_string }}">&laquo;</a>
+                        {% else %}
+                        <span class="dk-page-link disabled">&laquo;&laquo;</span>
+                        <span class="dk-page-link disabled">&laquo;</span>
+                        {% endif %}
+                        {% for num in devlok_members_table.paginator.page_range %}
+                            {% if devlok_members_table.number == num %}
+                            <span class="dk-page-link active">{{ num }}</span>
+                            {% elif num > devlok_members_table.number|add:'-3' and num < devlok_members_table.number|add:'3' %}
+                            <a class="dk-page-link" href="?page={{ num }}&{{ query_string }}">{{ num }}</a>
                             {% endif %}
-                        </ul>
-                    </nav>
-                    {% endwith %}
-                {% endwith %}
-                {% endif %}
+                        {% endfor %}
+                        {% if devlok_members_table.has_next %}
+                        <a class="dk-page-link" href="?page={{ devlok_members_table.next_page_number }}&{{ query_string }}">&raquo;</a>
+                        <a class="dk-page-link" href="?page={{ devlok_members_table.paginator.num_pages }}&{{ query_string }}">&raquo;&raquo;</a>
+                        {% else %}
+                        <span class="dk-page-link disabled">&raquo;</span>
+                        <span class="dk-page-link disabled">&raquo;&raquo;</span>
+                        {% endif %}
+                    </div>
+                    {% endwith %}{% endwith %}
+                    {% endif %}
+                </div>
 
             </div>
         </div>
@@ -238,15 +375,34 @@
 
 {% block javascripts %}
 <script>
-  document.getElementById("search_family_form").addEventListener("submit", function (e) {
-    const form = this;
-    const elements = form.querySelectorAll("input, select");
+  document.getElementById("search_family_form").addEventListener("submit", function () {
+    this.querySelectorAll("input, select").forEach(el => { if (!el.value.trim()) el.removeAttribute("name"); });
+  });
 
-    elements.forEach(function (el) {
-      if (!el.value.trim()) {
-        el.removeAttribute("name");
-      }
+  // ── Tab toggle active state sync ──
+  const DK_TAB_KEY = 'devlok_view_tab';
+  const toggleBtns = document.querySelectorAll('.dk-toggle-btn');
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('shown.bs.tab', function(e) {
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      localStorage.setItem(DK_TAB_KEY, this.getAttribute('data-bs-target').replace('#',''));
     });
   });
+
+  // ── Restore saved tab ──
+  (function () {
+    const saved = localStorage.getItem(DK_TAB_KEY);
+    if (saved && saved !== 'table') {
+      const btn  = document.getElementById(saved + '-tab');
+      const pane = document.getElementById(saved);
+      if (btn && pane) {
+        document.getElementById('table-tab').classList.remove('active');
+        document.getElementById('table').classList.remove('show', 'active');
+        btn.classList.add('active');
+        pane.classList.add('show', 'active');
+      }
+    }
+  })();
 </script>
 {% endblock %}

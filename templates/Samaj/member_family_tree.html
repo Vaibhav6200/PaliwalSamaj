@@ -12,103 +12,157 @@
 {% endblock %}
 
 {% block stylesheets %}
+<style>
+    /* ── Portrait cards ── */
+    .ft-card {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.16);
+        animation: ftCardIn 0.45s cubic-bezier(0.22,1,0.36,1) both;
+        cursor: pointer;
+    }
+    .ft-card.is-head {
+        box-shadow: 0 0 0 3px #f0a500, 0 8px 30px rgba(240,165,0,0.28);
+    }
+    @keyframes ftCardIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .ft-photo {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: top center;
+        display: block;
+    }
+    .ft-overlay {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        background: linear-gradient(to top,
+            rgba(0,10,28,0.97) 0%,
+            rgba(0,10,28,0.82) 42%,
+            rgba(0,10,28,0.12) 74%,
+            transparent 100%);
+        padding: 54px 13px 14px;
+    }
+    .ft-badge {
+        position: absolute; top: 10px; right: 10px;
+        background: #f0a500; color: #003049;
+        font-size: 0.7rem; font-weight: 700;
+        padding: 3px 8px; border-radius: 20px;
+        letter-spacing: 0.04em;
+    }
+    .ft-name {
+        color: #fff; font-size: 1rem; font-weight: 700;
+        margin: 0 0 2px; line-height: 1.25;
+    }
+    .ft-sub {
+        color: rgba(255,255,255,0.65); font-size: 0.78rem; margin-bottom: 8px;
+    }
+    .ft-btn {
+        display: block; text-align: center; padding: 7px 4px;
+        border-radius: 8px; font-size: 0.75rem; font-weight: 600;
+        text-decoration: none; transition: all 0.18s;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.22);
+        color: rgba(255,255,255,0.9);
+        margin-top: 10px;
+    }
+    .ft-btn:hover { background: #f0a500; border-color: #f0a500; color: #003049; }
 
+    /* ── Hero ── */
+    .ft-hero {
+        background: linear-gradient(135deg, #0d2137 0%, #1e4d80 60%, #0d2137 100%);
+        padding: 36px 20px 32px;
+        text-align: center;
+    }
+    .ft-hero-title { color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 4px; }
+    .ft-hero-sub   { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0; }
+    .ft-hero-tag   {
+        display: inline-block; background: #f0a500; color: #003049;
+        font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+        padding: 3px 14px; border-radius: 20px; margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    /* ── Section label ── */
+    .ft-section-label {
+        font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+        text-transform: uppercase; color: #6c7a8d;
+        margin: 32px 0 14px;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .ft-section-label::after {
+        content: ''; flex: 1; height: 1px; background: #dde3ec;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
 
-    <section id="main-container" class="main-container pt-0">
-        <div class="bg-info container-fluid p-4 row m-0">
-            <div class="col-12 align-self-center">
-                <h3 class="mb-0 text-center w-100">{% trans "Family Tree" %}</h3>
-            </div>
-        </div>
-        <div class="container mt-5">
-            <div class="d-flex justify-content-center">
-                <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item border profile_container">
-                        <div class="ts-team-wrapper">
-                            <div class="team-img-wrapper">
-                                {% if family_head.profile_image %}
-                                <img loading="lazy" class="w-100" src="{{ family_head.profile_image.url }}"
-                                     alt="team-img">
-                                {% else %}
-                                <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}"
-                                     alt="team-img">
-                                {% endif %}
-                            </div>
-                            <div class="ts-team-content px-md-3">
-                                <h3 class="ts-name community_member_name text-md-center">{{family_head.full_name}}</h3>
-                                <div class="d-flex flex-column justify-content-between h-100">
-                                    <div class="text-left text-md-center">
-                                        <p class="ts-designation profile_hover_content">{% trans "Family Head" %}</p>
-                                        <div class="profile_hover_content">
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div class=""><span class="material-icons fs-5 ">cake</span></div>
-                                                <div class="text-white ms-2">{{ family_head.date_of_birth|get_member_age }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="ft-hero">
+        <span class="ft-hero-tag">{% trans "Paliwal Samaj" %}</span>
+        <h1 class="ft-hero-title">{{ family_tree_of.full_name }}</h1>
+        <p class="ft-hero-sub">{% trans "Family Tree" %}</p>
+    </div>
 
-                                    <div class="row m-0 p-0 mt-2 profile_hover_content">
-                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                            <a href="{% url 'samaj:user_profile' family_head.id %}"
-                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                                <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!--/ Team wrapper end -->
+    <section id="main-container" class="main-container">
+        <div class="container">
+
+            <!-- Head -->
+            <p class="ft-section-label">{% trans "Family Head" %}</p>
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3 col-lg-2 p-2">
+                    <div class="ft-card is-head">
+                        {% if family_head.profile_image %}
+                        <img loading="lazy" class="ft-photo" src="{{ family_head.profile_image.url }}" alt="{{ family_head.full_name }}">
+                        {% else %}
+                        <img loading="lazy" class="ft-photo" src="{% static 'images/user-icon.png' %}" alt="{{ family_head.full_name }}">
+                        {% endif %}
+                        <span class="ft-badge">{% trans "Head" %}</span>
+                        <div class="ft-overlay">
+                            <h3 class="ft-name">{{ family_head.full_name }}</h3>
+                            <div class="ft-sub">{{ family_head.date_of_birth|get_member_age }} {% trans "yrs" %}</div>
+                            <a href="{% url 'samaj:user_profile' family_head.id %}" class="ft-btn">
+                                <span class="material-icons" style="font-size:14px;vertical-align:middle;">visibility</span>
+                                {% trans "Profile" %}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row m-0 mt-4">
+            <!-- Members -->
+            {% with members_count=family_members|length %}
+            {% if members_count > 1 %}
+            <p class="ft-section-label">{% trans "Family Members" %}</p>
+            <div class="row m-0">
                 {% for member in family_members %}
                 {% if not member == member.family.family_head %}
-                <div class="col-6 col-md-4 p-2">
-                    <div class="my_family_card item h-100 border">
-                        <div class="ts-team-wrapper d-flex flex-column h-100 profile_container">
-                            <div class="team-img-wrapper">
-                                {% if member.profile_image %}
-                                <img loading="lazy" class="w-100" src="{{ member.profile_image.url }}" alt="team-img">
-                                {% else %}
-                                <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}"
-                                     alt="team-img">
-                                {% endif %}
-                            </div>
-                            <div class="ts-team-content flex-grow-1 d-flex flex-column justify-content-between px-md-3">
-                                <h3 class="ts-name community_member_name text-md-center">{{ member.full_name }}</h3>
-                                <div class="d-flex flex-column justify-content-between h-100">
-                                    <div class="text-left text-md-center">
-                                        <p class="ts-designation profile_hover_content">{% trans "Gotra" %}: {{ member.gotra }}</p>
-                                        <div class="profile_hover_content">
-                                            <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                                <div><span class="material-icons fs-5">cake</span></div>
-                                                <div class="text-white ms-2">{{ member.date_of_birth|get_member_age }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row m-0 p-0 mt-2 profile_hover_content">
-                                        <div class="col-12 p-0 mb-1" data-bs-toggle="tooltip" data-bs-placement="top" title="View Profile">
-                                            <a href="{% url 'samaj:user_profile' member.id %}"
-                                               class="btn btn-dark fw-bold rounded-0 d-flex justify-content-center align-items-center">
-                                                <span class="material-icons me-2">visibility</span> {% trans "Profile" %}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-6 col-md-4 col-lg-3 p-2" style="animation-delay:{{ forloop.counter0 }}00ms">
+                    <div class="ft-card">
+                        {% if member.profile_image %}
+                        <img loading="lazy" class="ft-photo" src="{{ member.profile_image.url }}" alt="{{ member.full_name }}">
+                        {% else %}
+                        <img loading="lazy" class="ft-photo" src="{% static 'images/user-icon.png' %}" alt="{{ member.full_name }}">
+                        {% endif %}
+                        <div class="ft-overlay">
+                            <h3 class="ft-name">{{ member.full_name }}</h3>
+                            <div class="ft-sub">{{ member.date_of_birth|get_member_age }} {% trans "yrs" %}</div>
+                            <a href="{% url 'samaj:user_profile' member.id %}" class="ft-btn">
+                                <span class="material-icons" style="font-size:14px;vertical-align:middle;">visibility</span>
+                                {% trans "Profile" %}
+                            </a>
                         </div>
                     </div>
                 </div>
                 {% endif %}
                 {% endfor %}
             </div>
+            {% endif %}
+            {% endwith %}
+
         </div>
     </section>
 
