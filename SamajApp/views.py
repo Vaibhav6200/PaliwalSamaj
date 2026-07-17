@@ -151,11 +151,27 @@ def bio_data(request):
         'degrees': Degree.objects.all().order_by('degree_name'),
         'qualification_type': Member.QUALIFICATION_CHOICES,
         'occupation_type': Member.OCCUPATION_CHOICES,
+        'states': State.objects.all().order_by('state_name'),
     }
     if request.method == 'POST':
         edit_member_user_id = request.POST.get('user_id')
-        context['edit_member'] = Member.objects.get(user__id = edit_member_user_id)
+        member = Member.objects.get(user__id=edit_member_user_id)
+        context['edit_member'] = member
+        # Pre-load cities for the member's current state so the city dropdown is populated on edit
+        if member.current_address_state:
+            context['cities'] = City.objects.filter(
+                state=member.current_address_state
+            ).order_by('city_name')
     return render(request, 'Samaj/bio_data.html', context)
+
+
+def get_cities_by_state(request):
+    """API endpoint: returns JSON list of cities for a given state name."""
+    state_name = request.GET.get('state', '')
+    cities = City.objects.filter(
+        state__state_name__iexact=state_name
+    ).order_by('city_name').values('id', 'city_name')
+    return JsonResponse({'cities': list(cities)})
 
 
 @login_required

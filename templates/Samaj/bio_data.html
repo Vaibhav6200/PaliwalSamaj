@@ -148,16 +148,30 @@
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>{% trans "City" %} <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-object" name="city" id="city"
-                                    value="{{ edit_member.current_address_city|default:'' }}" required>
+                                    <label>{% trans "State" %} <span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-object" name="state" id="state" required>
+                                        <option value="" disabled {% if not edit_member.current_address_state %}selected{% endif %}>{% trans "Select State" %}</option>
+                                        {% for s in states %}
+                                            <option value="{{ s.state_name }}"
+                                                {% if edit_member.current_address_state.state_name == s.state_name %}selected{% endif %}>
+                                                {{ s.state_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="form-group">
-                                    <label>{% trans "State" %} <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-object" name="state" id="state"
-                                    value="{{ edit_member.current_address_state|default:'' }}" required>
+                                    <label>{% trans "City" %} <span class="text-danger">*</span></label>
+                                    <select class="form-control form-control-object" name="city" id="city" required>
+                                        <option value="" disabled {% if not edit_member.current_address_city %}selected{% endif %}>{% trans "Select City" %}</option>
+                                        {% for c in cities %}
+                                            <option value="{{ c.city_name }}"
+                                                {% if edit_member.current_address_city.city_name == c.city_name %}selected{% endif %}>
+                                                {{ c.city_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
                             <!-- Profile Image -->
@@ -341,4 +355,54 @@
 {% block javascripts %}
   <script src="{% static 'js/bio_data_form.js' %}"></script>
   <script src="{% static 'js/validation.js' %}"></script>
+  <script>
+    (function () {
+      const stateSelect = document.getElementById('state');
+      const citySelect = document.getElementById('city');
+      const CITIES_URL = "{% url 'samaj:get_cities_by_state' %}";
+
+      // Pre-selected city name (when editing an existing member)
+      const preselectedCity = "{{ edit_member.current_address_city.city_name|default:'' }}";
+
+      function loadCities(stateName, selectedCity) {
+        citySelect.innerHTML = '<option value="" disabled selected>Loading...</option>';
+        if (!stateName) {
+          citySelect.innerHTML = '<option value="" disabled selected>{% trans "Select City" %}</option>';
+          return;
+        }
+        fetch(`${CITIES_URL}?state=${encodeURIComponent(stateName)}`)
+          .then(r => r.json())
+          .then(data => {
+            citySelect.innerHTML = '<option value="" disabled>{% trans "Select City" %}</option>';
+            if (data.cities.length === 0) {
+              citySelect.innerHTML += '<option value="" disabled>No cities found</option>';
+              return;
+            }
+            data.cities.forEach(c => {
+              const opt = document.createElement('option');
+              opt.value = c.city_name;
+              opt.textContent = c.city_name;
+              if (selectedCity && c.city_name.toLowerCase() === selectedCity.toLowerCase()) {
+                opt.selected = true;
+              }
+              citySelect.appendChild(opt);
+            });
+            // If nothing matched, mark first option as prompt
+            if (!citySelect.value) {
+              citySelect.options[0].selected = true;
+            }
+          });
+      }
+
+      // On state change: reload cities, no preselection
+      stateSelect.addEventListener('change', function () {
+        loadCities(this.value, '');
+      });
+
+      // On page load: if a state is already selected, load its cities and preselect the city
+      if (stateSelect.value) {
+        loadCities(stateSelect.value, preselectedCity);
+      }
+    })();
+  </script>
 {% endblock %}
