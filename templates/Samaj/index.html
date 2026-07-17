@@ -266,183 +266,177 @@
 
     /* ── About highlights ──────────────────────────────────────── */
     .about-highlight-card {
-        background: #f8f9fa;
-        border-radius: 10px;
-        padding: 24px 20px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 26px 18px 22px;
         text-align: center;
         border-top: 3px solid #f0a500;
         height: 100%;
-        transition: box-shadow 0.2s;
+        box-shadow: 0 4px 16px rgba(13,33,55,0.07);
+        transition: transform 0.25s cubic-bezier(.34,1.2,.64,1), box-shadow 0.25s;
     }
-    .about-highlight-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.10); }
+    .about-highlight-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 36px rgba(13,33,55,0.13);
+    }
     .about-highlight-card .hi-icon {
-        font-size: 2.2rem;
-        color: #f0a500;
-        margin-bottom: 12px;
+        width: 54px; height: 54px;
+        background: linear-gradient(135deg, #fff7e0, #ffeab0);
+        border-radius: 14px;
+        display: inline-flex; align-items: center; justify-content: center;
+        margin-bottom: 14px;
     }
-    .about-highlight-card h5 { font-weight: 700; color: #1a3a5c; margin-bottom: 8px; }
-    .about-highlight-card p  { font-size: 0.88rem; color: #555; margin: 0; }
+    .about-highlight-card .hi-icon .material-icons {
+        font-size: 1.7rem; color: #f0a500;
+    }
+    .about-highlight-card h5 { font-weight: 800; color: #1a3a5c; font-size: 0.95rem; margin-bottom: 6px; }
+    .about-highlight-card p  { font-size: 0.82rem; color: #6c7a8d; margin: 0; line-height: 1.6; }
 
     /* ── Member cards ──────────────────────────────────────────── */
     .member-group-section {
-        padding: 56px 0 64px;
+        padding: 64px 0 72px;
         background: #f4f7fb;
     }
-    .member-group-section:nth-child(even) {
-        background: #fff;
+    .member-group-section:nth-child(even) { background: #fff; }
+
+    /* Card entrance animation */
+    /* ══ Member Cards ══════════════════════════════════════════════ */
+    .mcard-wrap {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.48s ease, transform 0.48s ease;
     }
+    .mcard-wrap.in-view { opacity: 1; transform: translateY(0); }
 
     .mcard {
-        background: #fff;
         border-radius: 18px;
-        overflow: visible;
-        box-shadow: 0 4px 24px rgba(13,33,55,0.10);
-        transition: transform 0.28s cubic-bezier(.34,1.3,.64,1), box-shadow 0.28s;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+        overflow: hidden;
         position: relative;
+        aspect-ratio: 3 / 4;
+        background: #1a3a5c;
+        cursor: pointer;
+        box-shadow: 0 6px 24px rgba(13,33,55,0.18);
+        transition: transform 0.32s cubic-bezier(.34,1.2,.64,1), box-shadow 0.32s;
+        display: block;
+        height: 100%;
     }
     .mcard:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 16px 48px rgba(13,33,55,0.17);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 22px 52px rgba(13,33,55,0.26);
     }
 
-    /* Navy gradient header band */
-    .mcard-header {
-        background: linear-gradient(135deg, #0d2137 0%, #1e4d80 100%);
-        height: 88px;
-        border-radius: 18px 18px 0 0;
-        position: relative;
-        flex-shrink: 0;
-        overflow: hidden;
-    }
-    /* subtle dot pattern */
-    .mcard-header::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-        background-size: 16px 16px;
-    }
-    /* gold accent line at bottom of header */
-    .mcard-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, transparent 0%, #f0a500 50%, transparent 100%);
-    }
-
-    /* Circular avatar centred, overlapping header */
-    .mcard-avatar-wrap {
-        display: flex;
-        justify-content: center;
-        margin-top: -48px;
-        position: relative;
-        z-index: 2;
-    }
-    .mcard-avatar {
-        width: 96px;
-        height: 96px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center top;
-        border: 4px solid #fff;
-        box-shadow: 0 0 0 3px #f0a500, 0 6px 20px rgba(0,0,0,0.18);
-        background: #e9ecef;
+    /* Full-bleed photo */
+    .mcard-photo {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center top;
         display: block;
-        transition: transform 0.3s;
+        transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
     }
-    .mcard:hover .mcard-avatar {
-        transform: scale(1.06);
+    .mcard:hover .mcard-photo { transform: scale(1.06); }
+
+    /* Fallback gradient when no photo */
+    .mcard-photo-placeholder {
+        position: absolute; inset: 0;
+        background: linear-gradient(160deg, #1a3a5c 0%, #0d2137 100%);
+        display: flex; align-items: center; justify-content: center;
+    }
+    .mcard-photo-placeholder .material-icons {
+        font-size: 5rem; color: rgba(255,255,255,0.18);
     }
 
-    /* Card body */
-    .mcard-body {
-        padding: 14px 18px 22px;
-        text-align: center;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
+    /* Bottom gradient overlay */
+    .mcard-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(13,33,55,0)   0%,
+            rgba(13,33,55,0.1) 40%,
+            rgba(13,33,55,0.7) 72%,
+            rgba(13,33,55,0.96) 100%
+        );
+        transition: background 0.3s;
     }
-    .mcard-name {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #0d2137;
-        margin: 10px 0 8px;
-        line-height: 1.3;
+    .mcard:hover .mcard-overlay {
+        background: linear-gradient(
+            to bottom,
+            rgba(13,33,55,0)    0%,
+            rgba(13,33,55,0.15) 35%,
+            rgba(13,33,55,0.78) 70%,
+            rgba(13,33,55,0.98) 100%
+        );
     }
-    .mcard-role {
-        display: inline-block;
-        background: linear-gradient(135deg, #f0a500 0%, #d4890a 100%);
+
+    /* Role badge top-right */
+    .mcard-badge {
+        position: absolute; top: 14px; right: 14px;
+        background: rgba(240,165,0,0.92);
+        backdrop-filter: blur(6px);
         color: #fff;
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.07em;
+        font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em;
         text-transform: uppercase;
-        padding: 4px 14px;
-        border-radius: 30px;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 8px rgba(240,165,0,0.35);
-    }
-    /* thin divider */
-    .mcard-divider {
-        width: 36px;
-        height: 2px;
-        background: #e8edf3;
-        border-radius: 1px;
-        margin: 0 auto 12px;
-    }
-    .mcard-meta {
-        font-size: 0.8rem;
-        color: #5a6a7e;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 5px;
-        width: 100%;
-    }
-    .mcard-meta .material-icons {
-        font-size: 0.95rem;
-        color: #f0a500;
-        flex-shrink: 0;
+        padding: 4px 10px; border-radius: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.25);
     }
 
-    /* ── Avatar zoom hint ─────────────────────────────────────── */
-    .mcard-avatar-wrap a {
-        position: relative;
-        display: inline-block;
-        border-radius: 50%;
-    }
-    .mcard-zoom-hint {
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: rgba(13,33,55,0.45);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.22s;
-        cursor: zoom-in;
-    }
-    .mcard-zoom-hint .material-icons {
+    /* Info block pinned to bottom */
+    .mcard-info {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        padding: 18px 16px 0;
         color: #fff;
-        font-size: 1.6rem;
-        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+        transform: translateY(0);
+        transition: transform 0.3s cubic-bezier(.34,1,.64,1);
     }
-    .mcard-avatar-wrap a:hover .mcard-zoom-hint { opacity: 1; }
+    .mcard:hover .mcard-info { transform: translateY(-4px); }
+
+    .mcard-name {
+        font-size: 1rem; font-weight: 800;
+        color: #fff; line-height: 1.25;
+        margin: 0 0 3px;
+        text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .mcard-sub {
+        font-size: 0.75rem; color: rgba(255,255,255,0.72);
+        display: flex; align-items: center; gap: 4px;
+        margin-bottom: 0;
+    }
+    .mcard-sub .material-icons { font-size: 0.85rem; color: #f0a500; }
+
+    /* Action footer */
+    .mcard-foot {
+        display: flex;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        margin-top: 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        transition: max-height 0.3s ease, opacity 0.26s ease, margin-top 0.26s ease;
+    }
+    .mcard:hover .mcard-foot {
+        max-height: 48px; opacity: 1; margin-top: 12px;
+    }
+    .mcard-foot-btn {
+        flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;
+        padding: 11px 6px;
+        font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+        text-decoration: none; border: none; background: transparent;
+        color: rgba(255,255,255,0.85);
+        transition: color 0.18s, background 0.18s;
+        cursor: pointer;
+    }
+    .mcard-foot-btn .material-icons { font-size: 14px; }
+    .mcard-foot-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .mcard-foot-btn.call-btn:hover { color: #4dd08b; }
+    .mcard-foot-btn.profile-btn:hover { color: #f0c040; }
+    .mcard-foot-sep { width: 1px; background: rgba(255,255,255,0.12); flex-shrink: 0; align-self: stretch; margin: 8px 0; }
+
+    /* Closing padder so info block has breathing room at bottom */
+    .mcard-pad { height: 16px; }
 
     @media (max-width: 576px) {
-        .stat-number { font-size: 1.8rem; }
-        .stat-label  { font-size: 0.75rem; }
-        .mcard-avatar { width: 80px; height: 80px; }
-        .mcard-header { height: 72px; }
-        .mcard-avatar-wrap { margin-top: -40px; }
+        .mcard { aspect-ratio: 3 / 4.2; }
+        .mcard-name { font-size: 0.88rem; }
     }
 </style>
 {% endblock %}
@@ -586,6 +580,37 @@
                 </div>
             </div>
         </div>
+        <!-- Highlight cards -->
+        <div class="row g-3 mt-4">
+            <div class="col-6 col-md-3">
+                <div class="about-highlight-card">
+                    <div class="hi-icon"><span class="material-icons">diversity_3</span></div>
+                    <h5>{% trans "Unity" %}</h5>
+                    <p>{% trans "A community bound by shared values, culture, and heritage." %}</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="about-highlight-card">
+                    <div class="hi-icon"><span class="material-icons">temple_hindu</span></div>
+                    <h5>{% trans "Heritage" %}</h5>
+                    <p>{% trans "Preserving centuries of Vedic tradition and Dharma." %}</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="about-highlight-card">
+                    <div class="hi-icon"><span class="material-icons">school</span></div>
+                    <h5>{% trans "Education" %}</h5>
+                    <p>{% trans "Empowering families through knowledge and opportunity." %}</p>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="about-highlight-card">
+                    <div class="hi-icon"><span class="material-icons">volunteer_activism</span></div>
+                    <h5>{% trans "Service" %}</h5>
+                    <p>{% trans "Dedicated to the welfare of every Paliwal family." %}</p>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- About Us section End -->
 
@@ -649,40 +674,59 @@
             </div>
             <div class="row g-4 justify-content-center">
                 {% for member in group.displaymember_set.all %}
-                <div class="col-6 col-md-4 col-lg-3">
+                <div class="col-6 col-md-4 col-lg-3 mcard-wrap">
                     <div class="mcard">
-                        <!-- Navy header band -->
-                        <div class="mcard-header"></div>
-
-                        <!-- Circular avatar overlapping header -->
-                        <div class="mcard-avatar-wrap">
-                            {% if member.member_image %}
-                            <a href="{{ member.member_image.url }}" class="member-photo-preview" title="{{ member.member_name }}">
-                                <img loading="lazy" class="mcard-avatar" src="{{ member.member_image.url }}" alt="{{ member.member_name }}">
-                                <span class="mcard-zoom-hint"><span class="material-icons">zoom_in</span></span>
-                            </a>
-                            {% else %}
-                            <img loading="lazy" class="mcard-avatar" src="{% static 'images/user-icon.png' %}" alt="{{ member.member_name }}">
-                            {% endif %}
+                        <!-- Full-bleed photo -->
+                        {% if member.member_image %}
+                        <img loading="lazy" class="mcard-photo" src="{{ member.member_image.url }}" alt="{{ member.member_name }}">
+                        {% else %}
+                        <div class="mcard-photo-placeholder">
+                            <span class="material-icons">person</span>
                         </div>
+                        {% endif %}
 
-                        <!-- Card body -->
-                        <div class="mcard-body">
+                        <!-- Gradient overlay -->
+                        <div class="mcard-overlay"></div>
+
+                        <!-- Role badge -->
+                        <div class="mcard-badge">{{ member.get_role_display }}</div>
+
+                        <!-- Info + actions at bottom -->
+                        <div class="mcard-info">
                             <h3 class="mcard-name">{{ member.member_name }}</h3>
-                            <span class="mcard-role">{{ member.get_role_display }}</span>
-                            <div class="mcard-divider"></div>
-                            {% if member.phone_number %}
-                            <div class="mcard-meta">
-                                <span class="material-icons">call</span>
-                                <span>{{ member.phone_number }}</span>
-                            </div>
-                            {% endif %}
                             {% if member.location %}
-                            <div class="mcard-meta">
+                            <p class="mcard-sub">
                                 <span class="material-icons">location_on</span>
                                 <span>{{ member.location }}</span>
-                            </div>
+                            </p>
+                            {% elif member.phone_number %}
+                            <p class="mcard-sub">
+                                <span class="material-icons">call</span>
+                                <span>{{ member.phone_number }}</span>
+                            </p>
+                            {% else %}
+                            <p class="mcard-sub" style="opacity:0; user-select:none;">—</p>
                             {% endif %}
+
+                            <!-- Hover action footer -->
+                            <div class="mcard-foot">
+                                {% if member.phone_number %}
+                                <a href="tel:{{ member.phone_number }}" class="mcard-foot-btn call-btn">
+                                    <span class="material-icons">call</span>Call
+                                </a>
+                                <div class="mcard-foot-sep"></div>
+                                {% endif %}
+                                {% if member.member %}
+                                <a href="{% url 'samaj:user_profile' member.member.id %}" class="mcard-foot-btn profile-btn">
+                                    <span class="material-icons">person</span>Profile
+                                </a>
+                                {% else %}
+                                <span class="mcard-foot-btn" style="cursor:default; opacity:0.5;">
+                                    <span class="material-icons">person_off</span>No Profile
+                                </span>
+                                {% endif %}
+                            </div>
+                            <div class="mcard-pad"></div>
                         </div>
                     </div>
                 </div>
@@ -695,59 +739,65 @@
     <!-- Display Member Section End -->
 
     <!-- Suggestion Form Start -->
-    <section id="suggestion_section" class="main-container">
+    <section id="suggestion_section" style="background:linear-gradient(135deg,#f4f7fb 0%,#eef2f9 100%); padding:64px 0;">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="column-title mb-2">{% trans "Share Your Suggestions or Ideas" %}</h3>
-                    <p>
-                        {% blocktrans %}If you have any ideas, suggestions, or features you’d like to see added to the Paliwal Samaj website, please let us know. Your input helps us make the platform better for everyone in the community.{% endblocktrans %}
-                    </p>
-
-                    <form id="suggestion-form" class="pt-4" action="{% url 'samaj:suggestions' %}" method="post"
-                          role="form">
-                        {% csrf_token %}
-                        <div class="error-container"></div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">{% trans "Your Name" %}</label>
-                                    <input class="form-control" name="name" id="name"
-                                           placeholder="{% trans 'Enter your name' %}"
-                                           type="text" required>
+            <div class="section-heading">
+                <h3>{% trans "Share Your Suggestions" %}</h3>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 col-md-10">
+                    <div style="background:#fff; border-radius:20px; box-shadow:0 6px 32px rgba(13,33,55,0.09); padding:36px 36px 28px; border-top:4px solid #f0a500;">
+                        <p style="color:#6c7a8d; margin-bottom:24px; font-size:0.93rem; line-height:1.7;">
+                            {% blocktrans %}If you have any ideas, suggestions, or features you'd like to see added to the Paliwal Samaj website, please let us know. Your input helps us make the platform better for everyone in the community.{% endblocktrans %}
+                        </p>
+                        <form id="suggestion-form" action="{% url 'samaj:suggestions' %}" method="post" role="form">
+                            {% csrf_token %}
+                            <div class="error-container"></div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label fw-semibold" for="name">{% trans "Your Name" %}</label>
+                                        <input class="form-control" name="name" id="name"
+                                               placeholder="{% trans 'Enter your name' %}"
+                                               type="text" required style="border-radius:10px;border:1.5px solid #e2e8f0;padding:10px 14px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label fw-semibold" for="email">{% trans "Your Email" %}</label>
+                                        <input class="form-control" name="email" id="email"
+                                               placeholder="{% trans 'Enter your email' %}"
+                                               type="email" required style="border-radius:10px;border:1.5px solid #e2e8f0;padding:10px 14px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label fw-semibold" for="phone_number">{% trans "Phone Number" %}</label>
+                                        <input class="form-control" name="phone_number" id="phone_number"
+                                               placeholder="{% trans 'Enter your phone number' %}"
+                                               type="number" min="0" minlength="10" required style="border-radius:10px;border:1.5px solid #e2e8f0;padding:10px 14px;">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="form-label fw-semibold" for="message">{% trans "Detailed Suggestion or Idea" %}</label>
+                                        <textarea class="form-control" name="message" id="message"
+                                                  placeholder="{% trans 'Please describe your suggestion or idea in detail...' %}"
+                                                  rows="5" required
+                                                  style="border-radius:10px;border:1.5px solid #e2e8f0;padding:12px 14px;resize:vertical;"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">{% trans "Your Email" %}</label>
-                                    <input class="form-control" name="email" id="email"
-                                           placeholder="{% trans 'Enter your email' %}"
-                                           type="email" required>
-                                </div>
+                            <div class="text-end mt-4">
+                                <button class="btn btn-primary" type="submit"
+                                        style="padding:11px 32px;border-radius:12px;font-weight:700;font-size:0.95rem;background:linear-gradient(135deg,#1a5fb4,#2e74d0);border:none;box-shadow:0 4px 14px rgba(26,95,180,0.28);transition:transform 0.18s,box-shadow 0.18s;"
+                                        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 22px rgba(26,95,180,0.36)'"
+                                        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 14px rgba(26,95,180,0.28)'">
+                                    <span class="material-icons" style="font-size:16px;vertical-align:middle;margin-right:6px;">send</span>{% trans "Submit Suggestion" %}
+                                </button>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">{% trans "Your Phone Number" %}</label>
-                                    <input class="form-control" name="phone_number" id="phone_number"
-                                           placeholder="{% trans 'Enter your phone number' %}"
-                                           type="number" min="0" minlength="10" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">{% trans "Detailed Suggestion or Idea" %}</label>
-                            <textarea class="form-control" name="message" id="message"
-                                      placeholder="{% trans 'Please describe your suggestion or idea in detail...' %}"
-                                      rows="6"
-                                      required></textarea>
-                        </div>
-
-                        <div class="text-end mt-3">
-                            <button class="btn btn-primary" type="submit">{% trans "Submit Suggestion" %}</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -886,6 +936,31 @@
         });
     })();
 </script>
+<script>
+// ── Member card scroll-in animation ──
+(function() {
+    const wraps = document.querySelectorAll('.mcard-wrap');
+    if (!wraps.length) return;
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // stagger siblings
+                const siblings = entry.target.parentElement.querySelectorAll('.mcard-wrap');
+                siblings.forEach((el, i) => {
+                    setTimeout(() => el.classList.add('in-view'), i * 80);
+                });
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    // observe first card of each group
+    document.querySelectorAll('.member-group-section').forEach(section => {
+        const first = section.querySelector('.mcard-wrap');
+        if (first) obs.observe(first);
+    });
+})();
+</script>
+
 <script>
 (function() {
     // Count-up animation triggered by IntersectionObserver
