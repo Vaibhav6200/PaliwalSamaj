@@ -14,16 +14,21 @@
 
 {% block stylesheets %}
 <style>
-    /* ── Stats Bar ─────────────────────────────────────────────── */
-    /* ══ Hero Carousel Override ══════════════════════════════════ */
+    /* ══ Hero Carousel — fill remaining viewport below header ══ */
     .hero-wrap {
         position: relative;
         overflow: hidden;
+        height: calc(100dvh - var(--ps-header-h, 120px));
+    }
+    .hero-wrap .banner-carousel,
+    .hero-wrap .banner-carousel .slick-list,
+    .hero-wrap .banner-carousel .slick-track {
+        height: 100% !important;
     }
     .banner-carousel .banner-carousel-item {
-        height: calc(100vh - 100px) !important;
-        min-height: 480px !important;
-        max-height: 700px !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
         position: relative;
         background-position: center center !important;
         background-size: cover !important;
@@ -172,7 +177,6 @@
     }
 
     @media (max-width: 991px) {
-        .banner-carousel .banner-carousel-item { height: calc(100vh - 90px) !important; min-height: 420px !important; }
         .hero-title { font-size: 2.2rem !important; }
     }
     /* Suppress legacy theme slide text styles */
@@ -180,7 +184,6 @@
     .banner-carousel .slide-sub-title { display: none !important; }
 
     @media (max-width: 575px) {
-        .banner-carousel .banner-carousel-item { height: calc(100svh - 86px) !important; min-height: 380px !important; }
         .hero-title { font-size: 1.65rem !important; }
         .hero-subtitle { font-size: 0.88rem !important; }
         .hero-eyebrow { font-size: 0.65rem; }
@@ -619,6 +622,23 @@
 <main>
 
     {% include 'Includes/navbar.html' %}
+    <script>
+    (function () {
+        function syncHeroHeight() {
+            var header = document.getElementById('ps-header');
+            if (!header) return;
+            document.documentElement.style.setProperty('--ps-header-h', header.offsetHeight + 'px');
+        }
+        syncHeroHeight();
+        window.addEventListener('resize', syncHeroHeight);
+        window.addEventListener('load', syncHeroHeight);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(syncHeroHeight);
+        }
+        // Re-measure after slick carousel initializes
+        setTimeout(syncHeroHeight, 300);
+    })();
+    </script>
 
     <!-- Hero Carousel Start -->
     <div class="hero-wrap">

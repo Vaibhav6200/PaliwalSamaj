@@ -12,10 +12,254 @@
     <meta property="og:type" content="website">
 {% endblock %}
 
+{% block stylesheets %}
+<style>
+/* ══ Gallery Page ══════════════════════════════════════════════ */
+
+/* ── Photo grid ─────────────────────────────────────────────── */
+.gl-section {
+    background: #f4f7fb;
+    padding: 64px 0 72px;
+}
+
+/* Filter pills */
+.gl-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+.gl-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    color: #4a5568;
+    transition: all 0.2s;
+    user-select: none;
+}
+.gl-filter-btn:hover {
+    border-color: #f0a500;
+    color: #d4890a;
+    background: #fdf8ee;
+}
+.gl-filter-btn.active {
+    background: linear-gradient(135deg, #f0a500, #d4890a);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(240,165,0,0.35);
+}
+.gl-filter-btn .material-icons { font-size: 0.9rem; }
+
+/* Masonry-style grid */
+.gl-grid {
+    columns: 4;
+    column-gap: 14px;
+}
+@media (max-width: 1199px) { .gl-grid { columns: 3; } }
+@media (max-width: 767px)  { .gl-grid { columns: 2; } }
+@media (max-width: 479px)  { .gl-grid { columns: 1; } }
+
+.gl-item {
+    break-inside: avoid;
+    margin-bottom: 14px;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    display: block;
+    cursor: zoom-in;
+    background: #e2e8f0;
+}
+.gl-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.45s cubic-bezier(.25,.8,.25,1);
+    border-radius: 14px;
+}
+.gl-item:hover img { transform: scale(1.05); }
+
+/* Hover overlay */
+.gl-item-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background: linear-gradient(to top, rgba(13,33,55,0.82) 0%, rgba(13,33,55,0) 55%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px 14px 14px;
+}
+.gl-item:hover .gl-item-overlay { opacity: 1; }
+
+.gl-item-title {
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 8px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.gl-item-zoom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(240,165,0,0.9);
+    color: #fff;
+    align-self: flex-end;
+    transition: transform 0.2s, background 0.2s;
+}
+.gl-item-zoom .material-icons { font-size: 1rem; }
+.gl-item:hover .gl-item-zoom { transform: scale(1.12); background: #f0a500; }
+
+/* Hidden items (filtered out) */
+.gl-item.gl-hidden {
+    display: none;
+}
+
+/* Empty state */
+.gl-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #8a96a8;
+}
+.gl-empty .material-icons { font-size: 3rem; color: #d1d5db; display: block; margin-bottom: 12px; }
+
+/* ── Lightbox ───────────────────────────────────────────────── */
+#gl-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(7,15,28,0.96);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#gl-lightbox.open { display: flex; }
+
+#gl-lb-img {
+    max-width: min(90vw, 1100px);
+    max-height: 78vh;
+    border-radius: 12px;
+    object-fit: contain;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    transition: opacity 0.22s;
+}
+#gl-lb-caption {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem;
+    margin-top: 14px;
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.5;
+}
+.gl-lb-close {
+    position: absolute;
+    top: 20px; right: 24px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    transition: background 0.18s;
+}
+.gl-lb-close:hover { background: rgba(255,255,255,0.22); }
+.gl-lb-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.18s, transform 0.18s;
+}
+.gl-lb-nav:hover { background: rgba(255,255,255,0.24); transform: translateY(-50%) scale(1.08); }
+#gl-lb-prev { left: 20px; }
+#gl-lb-next { right: 20px; }
+.gl-lb-counter {
+    position: absolute;
+    top: 24px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+}
+
+/* ── Video section ──────────────────────────────────────────── */
+.gl-video-section {
+    background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 100%);
+    padding: 64px 0 72px;
+    position: relative;
+    overflow: hidden;
+}
+.gl-video-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+}
+.gl-video-section .section-heading h3 { color: #fff; }
+.gl-video-section .section-heading h3::after { background: #f0a500; }
+
+.gl-video-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.28s cubic-bezier(.34,1.2,.64,1), box-shadow 0.28s;
+}
+.gl-video-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+}
+.gl-video-card .ratio { border-radius: 16px 16px 0 0; overflow: hidden; }
+.gl-video-card-title {
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+.gl-video-card-title .material-icons { font-size: 1rem; color: #f0a500; flex-shrink: 0; margin-top: 2px; }
+
+.gl-no-videos {
+    text-align: center;
+    color: rgba(255,255,255,0.45);
+    padding: 48px 20px;
+}
+.gl-no-videos .material-icons { font-size: 3rem; display: block; margin-bottom: 12px; }
+</style>
+{% endblock %}
+
 {% block content %}
 <main>
     {% include 'Includes/navbar.html' %}
 
+    <!-- Page Hero -->
     <div class="page-hero-banner" style="background-image:url({% static 'images/banner/culture-1.jpg' %})">
         <div class="page-hero-inner">
             <span class="page-hero-tag">{% trans "Shree Bada Paliwal Samaj" %}</span>
@@ -25,85 +269,218 @@
         </div>
     </div>
 
-
-    <section id="project-area" class="project-area solid-bg">
+    <!-- Photo Gallery -->
+    <section class="gl-section">
         <div class="container">
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <h2 class="section-title">{% trans "Cultural Memory" %}</h2>
-                    <h3 class="section-sub-title">{% trans "Event Gallery" %}</h3>
-                </div>
+            <div class="section-heading">
+                <h3>{% trans "Photo Gallery" %}</h3>
             </div>
-            <!--/ Title row end -->
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="shuffle-btn-group">
-                        <label class="active" for="all">
-                            <input type="radio" name="shuffle-filter" id="all" value="all" checked="checked">{% trans "Show All" %}
-                        </label>
-                        {% for year in years %}
-                        <label for="{{year}}">
-                            <input type="radio" name="shuffle-filter" id="{{year}}" value="{{year}}">{{year}}
-                        </label>
-                        {% endfor %}
-                    </div><!-- project filter end -->
+            <!-- Year filter pills -->
+            <div class="gl-filter-bar">
+                <button class="gl-filter-btn active" data-filter="all">
+                    <span class="material-icons">photo_library</span>{% trans "All Photos" %}
+                </button>
+                {% for year in years %}
+                <button class="gl-filter-btn" data-filter="{{ year }}">
+                    <span class="material-icons">calendar_today</span>{{ year }}
+                </button>
+                {% endfor %}
+            </div>
 
-
-                    <div class="row shuffle-wrapper">
-                        <div class="col-1 shuffle-sizer"></div>
-
-                        {% for obj in images %}
-                        <div class="col-lg-4 col-md-6 shuffle-item" data-groups="[&quot;{{obj.year}}&quot;]">
-                            <div class="project-img-container">
-                                <a class="gallery-popup" href="{{ obj.image.url }}" aria-label="project-img">
-                                    <img class="img-fluid" src="{{ obj.image.url }}" alt="project-img">
-                                    <span class="gallery-icon"><i class="fa fa-plus"></i></span>
-                                </a>
-                                <div class="project-item-info">
-                                    <div class="project-item-info-content">
-                                        <h3 class="project-item-title mb-0">
-                                            <a href="#">{{ obj.title|truncatewords:10 }}</a>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
+            <!-- Masonry grid -->
+            {% if images %}
+            <div class="gl-grid" id="glGrid">
+                {% for obj in images %}
+                <div class="gl-item" data-year="{{ obj.year }}" data-src="{{ obj.image.url }}" data-title="{{ obj.title }}">
+                    <img loading="lazy" src="{{ obj.image.url }}" alt="{{ obj.title }}">
+                    <div class="gl-item-overlay">
+                        <p class="gl-item-title">{{ obj.title|truncatewords:8 }}</p>
+                        <div class="gl-item-zoom">
+                            <span class="material-icons">zoom_in</span>
                         </div>
-                        {% endfor %}
-
                     </div>
                 </div>
+                {% endfor %}
             </div>
+            {% else %}
+            <div class="gl-empty">
+                <span class="material-icons">photo_camera_off</span>
+                {% trans "No photos available yet." %}
+            </div>
+            {% endif %}
         </div>
+    </section>
 
-        <!-- Video Gallary Start -->
-        <div class="container py-4 mt-5">
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <h3 class="section-sub-title">{% trans "Video Gallery" %}</h3>
-                </div>
+    <!-- Video Gallery -->
+    <section class="gl-video-section">
+        <div class="container" style="position:relative;z-index:2;">
+            <div class="section-heading">
+                <h3>{% trans "Video Gallery" %}</h3>
             </div>
-            <div class="row g-4">
+
+            <div class="row g-4 mt-2">
                 {% if videos %}
                 {% for video in videos %}
-                <div class="col-md-4 col-sm-6">
-                    <div class="card video-card">
+                <div class="col-lg-4 col-md-6">
+                    <div class="gl-video-card">
                         <div class="ratio ratio-16x9">
-                            <iframe src="{{ video.get_youtube_embed_url }}" title="YouTube video"
-                                    allowfullscreen></iframe>
+                            <iframe src="{{ video.get_youtube_embed_url }}"
+                                    title="{{ video.title }}"
+                                    allowfullscreen
+                                    loading="lazy"></iframe>
                         </div>
-                        <div class="video-title">{{ video.title }}</div>
+                        <div class="gl-video-card-title">
+                            <span class="material-icons">play_circle</span>
+                            {{ video.title }}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}
                 {% else %}
-                <div>{% trans "No Videos Available" %}!</div>
+                <div class="col-12">
+                    <div class="gl-no-videos">
+                        <span class="material-icons">videocam_off</span>
+                        {% trans "No videos available yet." %}
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>
     </section>
 
+    <!-- Lightbox -->
+    <div id="gl-lightbox">
+        <button class="gl-lb-close" id="glLbClose"><span class="material-icons" style="font-size:1.1rem;">close</span></button>
+        <div class="gl-lb-counter" id="glLbCounter"></div>
+        <button class="gl-lb-nav" id="gl-lb-prev"><span class="material-icons">chevron_left</span></button>
+        <img id="gl-lb-img" src="" alt="">
+        <button class="gl-lb-nav" id="gl-lb-next"><span class="material-icons">chevron_right</span></button>
+        <p id="gl-lb-caption"></p>
+    </div>
+
     {% include 'Includes/footer.html' %}
 </main>
 {% endblock %}
 
+{% block javascripts %}
+<script>
+(function () {
+    /* ── Filter ─────────────────────────────────────────────── */
+    const filterBtns = document.querySelectorAll('.gl-filter-btn');
+    const items      = document.querySelectorAll('.gl-item');
+
+    filterBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+            items.forEach(function (item) {
+                if (filter === 'all' || item.dataset.year === filter) {
+                    item.classList.remove('gl-hidden');
+                } else {
+                    item.classList.add('gl-hidden');
+                }
+            });
+
+            // Rebuild visible list for lightbox
+            buildVisibleList();
+        });
+    });
+
+    /* ── Lightbox ───────────────────────────────────────────── */
+    const lightbox  = document.getElementById('gl-lightbox');
+    const lbImg     = document.getElementById('gl-lb-img');
+    const lbCaption = document.getElementById('gl-lb-caption');
+    const lbCounter = document.getElementById('glLbCounter');
+    const lbClose   = document.getElementById('glLbClose');
+    const lbPrev    = document.getElementById('gl-lb-prev');
+    const lbNext    = document.getElementById('gl-lb-next');
+
+    let visibleItems = [];
+    let currentIdx   = 0;
+
+    function buildVisibleList() {
+        visibleItems = Array.from(items).filter(i => !i.classList.contains('gl-hidden'));
+    }
+    buildVisibleList();
+
+    function openLightbox(idx) {
+        currentIdx = idx;
+        const item = visibleItems[currentIdx];
+        lbImg.src        = item.dataset.src;
+        lbCaption.textContent = item.dataset.title || '';
+        lbCounter.textContent = (currentIdx + 1) + ' / ' + visibleItems.length;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+    }
+    function showPrev() {
+        currentIdx = (currentIdx - 1 + visibleItems.length) % visibleItems.length;
+        openLightbox(currentIdx);
+    }
+    function showNext() {
+        currentIdx = (currentIdx + 1) % visibleItems.length;
+        openLightbox(currentIdx);
+    }
+
+    items.forEach(function (item, i) {
+        item.addEventListener('click', function () {
+            buildVisibleList();
+            const visIdx = visibleItems.indexOf(item);
+            if (visIdx !== -1) openLightbox(visIdx);
+        });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', showPrev);
+    lbNext.addEventListener('click', showNext);
+
+    lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape')      closeLightbox();
+        if (e.key === 'ArrowLeft')   showPrev();
+        if (e.key === 'ArrowRight')  showNext();
+    });
+
+    /* ── Touch swipe in lightbox ────────────────────────────── */
+    let touchStartX = 0;
+    lightbox.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', function (e) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) dx < 0 ? showNext() : showPrev();
+    });
+
+    /* ── Entrance animation ─────────────────────────────────── */
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+            if (entry.isIntersecting) {
+                setTimeout(function () {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, i * 40);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    items.forEach(function (item) {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        observer.observe(item);
+    });
+})();
+</script>
+{% endblock %}
