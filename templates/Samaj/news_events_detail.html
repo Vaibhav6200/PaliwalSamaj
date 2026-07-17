@@ -2,32 +2,396 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{{ post.title }} – Paliwal Samaj Event{% endblock %}
+{% block title %}{{ post.title }} – Paliwal Samaj{% endblock %}
 
 {% block seo_meta_tags %}
     <meta name="description" content="{{ post.short_description|default:post.subtitle|default:post.content|truncatechars:160 }}">
-    <meta name="keywords" content="Paliwal Samaj, Paliwal News, Paliwal Events, Samaj News, Samaj Events, {{ post.title }}, Rajasthan, Brahmin Community">
+    <meta name="keywords" content="Paliwal Samaj, Paliwal News, Paliwal Events, {{ post.title }}, Rajasthan, Brahmin Community">
     <meta property="og:title" content="{{ post.title }}">
     <meta property="og:description" content="{{ post.short_description|default:post.subtitle|truncatechars:160 }}">
     <meta property="og:type" content="article">
+    {% if post.image %}<meta property="og:image" content="{{ post.image.url }}">{% endif %}
 {% endblock %}
-
 
 {% block stylesheets %}
 <style>
-    .image-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3; /* Automatically adjusts height */
-      overflow: hidden;
-      border-radius: 8px;
-    }
+/* ══ News Detail Page ══════════════════════════════════════════ */
 
-    .event-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+/* ── Article hero ───────────────────────────────────────────── */
+.nd-hero {
+    position: relative;
+    background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 100%);
+    padding: 56px 0 52px;
+    overflow: hidden;
+}
+.nd-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+}
+.nd-hero-inner { position: relative; z-index: 1; }
+.nd-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.nd-breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.18s; }
+.nd-breadcrumb a:hover { color: #f0a500; }
+.nd-breadcrumb .material-icons { font-size: 0.8rem; }
+.nd-hero-cat {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.35);
+    color: #f0c040;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+.nd-hero-cat .material-icons { font-size: 0.78rem; }
+.nd-hero h1 {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    max-width: 780px;
+}
+.nd-hero-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    margin: 0 0 20px;
+    max-width: 680px;
+    line-height: 1.6;
+}
+.nd-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.nd-hero-meta span { display: flex; align-items: center; gap: 5px; }
+.nd-hero-meta .material-icons { font-size: 0.88rem; color: #f0a500; }
+
+/* ── Body layout ────────────────────────────────────────────── */
+.nd-body {
+    background: #f4f7fb;
+    padding: 52px 0 72px;
+}
+
+/* ── Article card ───────────────────────────────────────────── */
+.nd-article {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(13,33,55,0.08);
+    margin-bottom: 32px;
+}
+.nd-article-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7;
+    overflow: hidden;
+}
+.nd-article-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.nd-article-content {
+    padding: 36px 40px 40px;
+}
+.nd-article-content p {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.85;
+    margin-bottom: 1.2em;
+    white-space: pre-line;
+}
+@media (max-width: 575px) { .nd-article-content { padding: 24px 20px; } }
+
+/* ── Comments section ───────────────────────────────────────── */
+.nd-comments {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 36px;
+    box-shadow: 0 4px 24px rgba(13,33,55,0.07);
+    margin-bottom: 24px;
+}
+.nd-comments-heading {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1a3a5c;
+    margin: 0 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f2f5;
+}
+.nd-comments-heading .nd-count {
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.nd-comment-item {
+    display: flex;
+    gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid #f4f7fb;
+}
+.nd-comment-item:last-child { border-bottom: none; }
+.nd-comment-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #f0f2f5;
+}
+.nd-comment-body { flex: 1; }
+.nd-comment-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+.nd-comment-author {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #1a3a5c;
+}
+.nd-comment-date {
+    font-size: 0.72rem;
+    color: #9ca3af;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 3px;
+}
+.nd-comment-date .material-icons { font-size: 0.78rem; color: #f0a500; }
+.nd-comment-text {
+    color: #4a5568;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin: 0 0 10px;
+}
+.nd-reply-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #d4890a;
+    font-size: 0.75rem;
+    font-weight: 800;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: gap 0.18s;
+}
+.nd-reply-toggle:hover { gap: 7px; }
+.nd-reply-toggle .material-icons { font-size: 0.85rem; }
+
+/* Reply form */
+.nd-reply-form {
+    display: none;
+    margin-top: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+}
+.nd-reply-form textarea {
+    width: 100%;
+    border-radius: 10px;
+    border: 1.5px solid #e2e8f0;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    resize: vertical;
+    min-height: 80px;
+    outline: none;
+    transition: border-color 0.18s;
+    color: #374151;
+}
+.nd-reply-form textarea:focus { border-color: #f0a500; }
+.nd-reply-submit {
+    margin-top: 10px;
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    border: none;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: filter 0.18s;
+}
+.nd-reply-submit:hover { filter: brightness(1.1); }
+.nd-reply-submit .material-icons { font-size: 0.85rem; }
+
+/* Replies list */
+.nd-replies { margin-top: 12px; padding-left: 16px; border-left: 3px solid #f0a500; }
+.nd-reply-item { display: flex; gap: 12px; padding: 12px 0; }
+.nd-reply-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid #f0f2f5; }
+
+/* Empty comments */
+.nd-no-comments {
+    text-align: center;
+    padding: 40px 20px;
+    color: #9ca3af;
+}
+.nd-no-comments .material-icons { font-size: 2.5rem; display: block; margin-bottom: 10px; color: #d1d5db; }
+
+/* ── Comment form ───────────────────────────────────────────── */
+.nd-comment-form-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 36px;
+    box-shadow: 0 4px 24px rgba(13,33,55,0.07);
+}
+.nd-form-heading {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1a3a5c;
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.nd-form-heading .material-icons { color: #f0a500; font-size: 1.1rem; }
+.nd-form-textarea {
+    width: 100%;
+    border-radius: 14px;
+    border: 2px solid #e2e8f0;
+    padding: 14px 18px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    min-height: 130px;
+    resize: vertical;
+    outline: none;
+    color: #374151;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nd-form-textarea:focus {
+    border-color: #f0a500;
+    box-shadow: 0 0 0 3px rgba(240,165,0,0.12);
+}
+.nd-form-submit {
+    margin-top: 14px;
+    background: linear-gradient(135deg,#0d2137,#1a3a5c);
+    border: none;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 12px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: filter 0.18s, transform 0.18s;
+}
+.nd-form-submit:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.nd-form-submit .material-icons { font-size: 0.95rem; }
+
+/* ── Sidebar ────────────────────────────────────────────────── */
+.nd-sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+.nd-sidebar-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(13,33,55,0.07);
+}
+.nd-sidebar-heading {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #1a3a5c;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f0f2f5;
+    display: flex; align-items: center; gap: 7px;
+}
+.nd-sidebar-heading .material-icons { font-size: 0.95rem; color: #f0a500; }
+
+/* Recent posts */
+.nd-recent-list { display: flex; flex-direction: column; gap: 14px; }
+.nd-recent-item {
+    display: flex;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    align-items: flex-start;
+    transition: opacity 0.18s;
+}
+.nd-recent-item:hover { opacity: 0.8; }
+.nd-recent-thumb {
+    width: 66px; height: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.nd-recent-info { flex: 1; }
+.nd-recent-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1a3a5c;
+    line-height: 1.35;
+    margin: 0 0 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.nd-recent-date {
+    font-size: 0.7rem;
+    color: #9ca3af;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 3px;
+}
+.nd-recent-date .material-icons { font-size: 0.75rem; color: #f0a500; }
+
+/* Back button */
+.nd-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: filter 0.18s, transform 0.18s;
+    width: 100%;
+    justify-content: center;
+}
+.nd-back-btn:hover { filter: brightness(1.1); transform: translateY(-1px); color: #fff; }
+.nd-back-btn .material-icons { font-size: 0.9rem; }
+
+@media (max-width: 575px) {
+    .nd-comments, .nd-comment-form-card { padding: 20px 16px; }
+}
 </style>
 {% endblock %}
 
@@ -35,209 +399,204 @@
 <main>
     {% include 'Includes/navbar.html' %}
 
-    <div class="body-inner">
-
-        <div class="page-hero-banner" style="background-image:url({% static 'images/news.jpeg' %})">
-            <div class="page-hero-inner">
-                <span class="page-hero-tag">{{ post.category|default:"News & Events" }}</span>
-                <h1 class="page-hero-title">{{ post.title }}</h1>
-                <div class="page-hero-divider"></div>
-                {% if post.subtitle %}<p class="page-hero-sub">{{ post.subtitle }}</p>{% endif %}
+    <!-- Article Hero -->
+    <div class="nd-hero">
+        <div class="container nd-hero-inner">
+            <div class="nd-breadcrumb">
+                <a href="{% url 'samaj:index' %}">{% trans "Home" %}</a>
+                <span class="material-icons">chevron_right</span>
+                <a href="{% url 'samaj:news_and_events' %}">{% trans "News & Events" %}</a>
+                <span class="material-icons">chevron_right</span>
+                <span>{{ post.title|truncatewords:6 }}</span>
+            </div>
+            <div class="nd-hero-cat">
+                <span class="material-icons">label</span>
+                {{ post.get_category_display }}
+            </div>
+            <h1>{{ post.title }}</h1>
+            {% if post.subtitle %}
+            <p class="nd-hero-sub">{{ post.subtitle }}</p>
+            {% endif %}
+            <div class="nd-hero-meta">
+                <span><span class="material-icons">calendar_today</span>{{ post.created_at|date:"F j, Y" }}</span>
+                <span><span class="material-icons">comment</span>{{ comments.count }} {% trans "Comments" %}</span>
             </div>
         </div>
+    </div>
 
-        <section id="main-container" class="main-container">
-            <div class="container">
-                <div class="row">
+    <!-- Body -->
+    <div class="nd-body">
+        <div class="container">
+            <div class="row">
 
-                    <div class="col-lg-8 mb-5 mb-lg-0">
+                <!-- Main column -->
+                <div class="col-lg-8 mb-4 mb-lg-0">
 
-                        <div class="post-content post-single">
-                            <div class="post-media post-image">
-                                <div class="image-wrapper">
-                                    <img loading="lazy" src="{{ post.image.url }}" class="img-fluid rounded event-image"
-                                         alt="post-image">
-                                </div>
-                            </div>
-
-                            <div class="post-body">
-                                <div class="entry-header">
-                                    <div class="post-meta">
-                                        <span class="post-cat">
-                                          <i class="far fa-folder-open"></i><a href="#"> {{ post.get_category_display }}</a>
-                                        </span>
-                                        <span class="post-meta-date"><i class="far fa-calendar"></i> {{ post.created_at|date:"F j, Y" }}</span>
-                                        <!-- <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#" class="comments-link">Comments</a></span>-->
-                                    </div>
-                                    <h2 class="entry-title d-flex flex-column">
-                                        <a href="news-single.html">{{ post.title }}</a>
-                                        {% if post.subtitle %}
-                                        <p class="text-muted fw-normal">{{ post.subtitle }}</p>
-                                        {% endif %}
-                                    </h2>
-                                </div>
-                                <div class="entry-content">
-                                    <p>{{ post.content }}</p>
-                                </div>
-                            </div>
+                    <!-- Article content card -->
+                    <div class="nd-article">
+                        <div class="nd-article-img">
+                            <img loading="lazy" src="{{ post.image.url }}" alt="{{ post.title }}">
                         </div>
-
-
-                        <!-- Post comment start -->
-                        <div id="comments" class="comments-area">
-                            <h3 class="comments-heading">{{ comments.count }} {% trans "Comments" %}</h3>
-
-                            {% if comments %}
-                            <ul class="comments-list">
-                                {% for comment in comments %}
-                                <li>
-                                    <div class="comment d-flex">
-                                        {% if comment.sender.profile_image %}
-                                        <img loading="lazy" class="comment-avatar" alt="author"
-                                             src="{{ comment.sender.profile_image.url }}">
-                                        {% else %}
-                                        <img loading="lazy" class="comment-avatar" alt="author"
-                                             src="{% static 'images/profile.png' %}">
-                                        {% endif %}
-                                        <div class="comment-body">
-                                            <div class="meta-data">
-                                                <span class="comment-author mr-3">{{ comment.sender }}</span>
-                                                <span class="comment-date float-right">{{ comment.created_at|date:"F j, Y" }} at {{ comment.created_at|date:"g:i a" }}</span>
-                                            </div>
-                                            <div class="comment-content">
-                                                <p>{{ comment.content }}</p>
-                                            </div>
-                                            <div class="text-left">
-                                                <a class="comment-reply font-weight-bold" href="#"
-                                                   onclick="toggleReplyForm({{ comment.id }}); return false;">{% trans "Reply" %}</a>
-
-                                                <!-- Reply form (hidden initially) -->
-                                                <div id="reply-form-{{ comment.id }}" class="reply-form mt-2"
-                                                     style="display: none;">
-                                                    <form method="post">
-                                                        {% csrf_token %}
-                                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                                                        <textarea name="content" class="form-control mb-2"
-                                                                  placeholder="Write your reply..." required></textarea>
-                                                        <button type="submit" class="btn btn-sm btn-primary">{% trans "Reply" %}
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- Comments end -->
-
-                                    <ul class="comments-reply">
-                                        {% for reply in comment.replies.all %}
-                                        <li>
-                                            <div class="comment d-flex">
-                                                {% if reply.sender.profile_image %}
-                                                <img loading="lazy" class="comment-avatar" alt="author"
-                                                     src="{{ reply.sender.profile_image.url }}">
-                                                {% else %}
-                                                <img loading="lazy" class="comment-avatar" alt="author"
-                                                     src="{% static 'images/profile.png' %}">
-                                                {% endif %}
-                                                <div class="comment-body">
-                                                    <div class="meta-data">
-                                                        <span class="comment-author mr-3">{{ reply.sender }}</span>
-                                                        <span class="comment-date float-right">{{ reply.created_at|date:"F j, Y" }} at {{ reply.created_at|date:"g:i a" }}</span>
-                                                    </div>
-                                                    <div class="comment-content">
-                                                        <p>{{ reply.content }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% else %}
-                            <div class="text-muted">{% trans "No Comments Yet!" %}</div>
-                            {% endif %}
-                        </div>
-                        <!-- Post comment end -->
-
-                        <div class="comments-form border-box">
-                            <h3 class="title-normal">{% trans "Add a comment" %}</h3>
-                            <form method="post">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="message" class="w-100">
-                                                <textarea name="content" class="form-control required-field"
-                                                          id="message" placeholder="{% trans 'Your Comment' %}" rows="10"
-                                                          required></textarea>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clearfix">
-                                    <button class="btn btn-primary" type="submit" aria-label="post-comment">
-                                        {% trans "Post Comment" %}
-                                    </button>
-                                </div>
-                            </form>
+                        <div class="nd-article-content">
+                            <p>{{ post.content }}</p>
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <!-- Comments -->
+                    <div class="nd-comments">
+                        <h3 class="nd-comments-heading">
+                            <span class="material-icons" style="color:#f0a500;font-size:1.1rem;">comment</span>
+                            {% trans "Comments" %}
+                            <span class="nd-count">{{ comments.count }}</span>
+                        </h3>
 
-                        <div class="sidebar sidebar-right">
-                            <div class="widget recent-posts">
-                                <h3 class="widget-title">{% trans "Recent Posts" %}</h3>
-                                <ul class="list-unstyled">
+                        {% if comments %}
+                        {% for comment in comments %}
+                        <div class="nd-comment-item">
+                            {% if comment.sender.profile_image %}
+                            <img loading="lazy" class="nd-comment-avatar" alt="{{ comment.sender }}" src="{{ comment.sender.profile_image.url }}">
+                            {% else %}
+                            <img loading="lazy" class="nd-comment-avatar" alt="{{ comment.sender }}" src="{% static 'images/profile.png' %}">
+                            {% endif %}
+                            <div class="nd-comment-body">
+                                <div class="nd-comment-meta">
+                                    <span class="nd-comment-author">{{ comment.sender }}</span>
+                                    <span class="nd-comment-date">
+                                        <span class="material-icons">schedule</span>
+                                        {{ comment.created_at|date:"M j, Y" }} &middot; {{ comment.created_at|date:"g:i a" }}
+                                    </span>
+                                </div>
+                                <p class="nd-comment-text">{{ comment.content }}</p>
+                                <button class="nd-reply-toggle" onclick="toggleReplyForm({{ comment.id }}); return false;">
+                                    <span class="material-icons">reply</span>
+                                    {% trans "Reply" %}
+                                </button>
 
-                                    {% for recent_post_obj in recent_posts %}
-                                    <li class="d-flex align-items-center">
-                                        <div class="posts-thumb">
-                                            <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}"><img
-                                                    loading="lazy" alt="img" src="{{ recent_post_obj.image.url }}"
-                                                    style="object-fit: cover;"></a>
+                                <!-- Reply form -->
+                                <div id="reply-form-{{ comment.id }}" class="nd-reply-form">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                        <textarea name="content" placeholder="{% trans 'Write your reply…' %}" required></textarea>
+                                        <button type="submit" class="nd-reply-submit">
+                                            <span class="material-icons">send</span>{% trans "Post Reply" %}
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Replies -->
+                                {% if comment.replies.all %}
+                                <div class="nd-replies">
+                                    {% for reply in comment.replies.all %}
+                                    <div class="nd-reply-item">
+                                        {% if reply.sender.profile_image %}
+                                        <img loading="lazy" class="nd-reply-avatar" alt="{{ reply.sender }}" src="{{ reply.sender.profile_image.url }}">
+                                        {% else %}
+                                        <img loading="lazy" class="nd-reply-avatar" alt="{{ reply.sender }}" src="{% static 'images/profile.png' %}">
+                                        {% endif %}
+                                        <div class="nd-comment-body">
+                                            <div class="nd-comment-meta">
+                                                <span class="nd-comment-author">{{ reply.sender }}</span>
+                                                <span class="nd-comment-date">
+                                                    <span class="material-icons">schedule</span>
+                                                    {{ reply.created_at|date:"M j, Y" }}
+                                                </span>
+                                            </div>
+                                            <p class="nd-comment-text">{{ reply.content }}</p>
                                         </div>
-                                        <div class="post-info">
-                                            <h4 class="entry-title">
-                                                <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}">{{ recent_post_obj.title|truncatewords:15 }}</a>
-                                            </h4>
-                                        </div>
-                                    </li>
+                                    </div>
                                     {% endfor %}
-                                </ul>
+                                </div>
+                                {% endif %}
+
                             </div>
                         </div>
+                        {% endfor %}
+                        {% else %}
+                        <div class="nd-no-comments">
+                            <span class="material-icons">chat_bubble_outline</span>
+                            <p>{% trans "No Comments Yet! Be the first to share your thoughts." %}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Add comment -->
+                    <div class="nd-comment-form-card">
+                        <h3 class="nd-form-heading">
+                            <span class="material-icons">edit_note</span>
+                            {% trans "Add a Comment" %}
+                        </h3>
+                        <form method="post">
+                            {% csrf_token %}
+                            <textarea name="content" class="nd-form-textarea"
+                                      placeholder="{% trans 'Share your thoughts…' %}" required></textarea>
+                            <div>
+                                <button type="submit" class="nd-form-submit">
+                                    <span class="material-icons">send</span>
+                                    {% trans "Post Comment" %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="nd-sidebar">
+
+                        <!-- Back button -->
+                        <a href="{% url 'samaj:news_and_events' %}" class="nd-back-btn">
+                            <span class="material-icons">arrow_back</span>
+                            {% trans "Back to News & Events" %}
+                        </a>
+
+                        <!-- Recent posts -->
+                        {% if recent_posts %}
+                        <div class="nd-sidebar-card">
+                            <h4 class="nd-sidebar-heading">
+                                <span class="material-icons">newspaper</span>
+                                {% trans "Recent Posts" %}
+                            </h4>
+                            <div class="nd-recent-list">
+                                {% for recent_post_obj in recent_posts %}
+                                <a href="{% url 'samaj:news_events_detail' recent_post_obj.slug %}" class="nd-recent-item">
+                                    <img loading="lazy" class="nd-recent-thumb"
+                                         src="{{ recent_post_obj.image.url }}"
+                                         alt="{{ recent_post_obj.title }}">
+                                    <div class="nd-recent-info">
+                                        <p class="nd-recent-title">{{ recent_post_obj.title }}</p>
+                                        <span class="nd-recent-date">
+                                            <span class="material-icons">calendar_today</span>
+                                            {{ recent_post_obj.created_at|date:"M j, Y" }}
+                                        </span>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
                     </div>
                 </div>
-            </div>
-        </section>
 
+            </div>
+        </div>
     </div>
+
     {% include 'Includes/footer.html' %}
 </main>
 {% endblock %}
 
-
 {% block javascripts %}
 <script>
     function toggleReplyForm(commentId) {
-      const formId = `reply-form-${commentId}`;
-      const formElement = document.getElementById(formId);
-
-      // Hide all other reply forms
-      document.querySelectorAll('.reply-form').forEach(form => {
-        if (form.id !== formId) {
-          form.style.display = 'none';
-        }
-      });
-
-      // Toggle this form
-      if (formElement.style.display === 'none') {
-        formElement.style.display = 'block';
-      } else {
-        formElement.style.display = 'none';
-      }
+        var formId = 'reply-form-' + commentId;
+        var formEl = document.getElementById(formId);
+        document.querySelectorAll('.nd-reply-form').forEach(function(f) {
+            if (f.id !== formId) f.style.display = 'none';
+        });
+        formEl.style.display = (formEl.style.display === 'none' || !formEl.style.display) ? 'block' : 'none';
     }
 </script>
 {% endblock %}

@@ -6,28 +6,445 @@
 
 {% block seo_meta_tags %}
     <meta name="description" content="Stay updated with the latest news, cultural programs, and events from Shree Bada Paliwal Samaj.">
-    <meta name="keywords" content="Paliwal Samaj News, Paliwal Samaj Events, community events, community news, community updates, samaj updates">
+    <meta name="keywords" content="Paliwal Samaj News, Paliwal Samaj Events, community events, community news">
     <meta property="og:title" content="Paliwal Samaj News & Events">
     <meta property="og:description" content="Latest updates, cultural programs, and community events.">
     <meta property="og:type" content="article">
 {% endblock %}
 
-
 {% block stylesheets %}
 <style>
-    .image-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3; /* Automatically adjusts height */
-      overflow: hidden;
-      border-radius: 8px;
-    }
+/* ══ News & Events Page ════════════════════════════════════════ */
 
-    .event-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+/* ── Page Hero ─────────────────────────────────────────────── */
+.ne-hero {
+    position: relative;
+    background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 100%);
+    padding: 64px 0 56px;
+    overflow: hidden;
+    text-align: center;
+}
+.ne-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+}
+.ne-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.35);
+    color: #f0c040;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 30px;
+    margin-bottom: 18px;
+}
+.ne-hero-eyebrow .material-icons { font-size: 0.82rem; }
+.ne-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 12px;
+    line-height: 1.15;
+}
+.ne-hero h1 span { color: #f0a500; }
+.ne-hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    margin: 0 auto 32px;
+    max-width: 480px;
+}
+.ne-hero-divider {
+    width: 48px; height: 3px;
+    background: linear-gradient(90deg,#f0a500,#ffd060);
+    border-radius: 2px;
+    margin: 0 auto 28px;
+}
+
+/* ── Search bar ─────────────────────────────────────────────── */
+.ne-search-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+}
+.ne-search-wrap .ne-search-icon {
+    position: absolute;
+    left: 18px; top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+.ne-search-input {
+    width: 100%;
+    padding: 14px 130px 14px 48px;
+    border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 0.92rem;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    backdrop-filter: blur(6px);
+}
+.ne-search-input::placeholder { color: rgba(255,255,255,0.45); }
+.ne-search-input:focus {
+    border-color: #f0a500;
+    background: rgba(255,255,255,0.14);
+}
+.ne-search-btn {
+    position: absolute;
+    right: 5px; top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    border: none;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 9px 20px;
+    border-radius: 40px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 5px;
+    transition: filter 0.18s, transform 0.18s;
+    white-space: nowrap;
+}
+.ne-search-btn .material-icons { font-size: 0.9rem; }
+.ne-search-btn:hover { filter: brightness(1.1); transform: translateY(-50%) scale(1.02); }
+
+/* ── Category pills ─────────────────────────────────────────── */
+.ne-section {
+    background: #f4f7fb;
+    padding: 64px 0 80px;
+}
+.ne-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+.ne-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    color: #4a5568;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+.ne-filter-btn:hover, .ne-filter-btn.active {
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(240,165,0,0.3);
+}
+.ne-filter-btn .material-icons { font-size: 0.88rem; }
+
+/* ── Section heading ────────────────────────────────────────── */
+.ne-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.ne-heading h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a3a5c;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 12px;
+}
+.ne-heading h2::after {
+    content: '';
+    display: block;
+    width: 52px; height: 3px;
+    background: #f0a500;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* ── Featured card (first post) ────────────────────────────── */
+.ne-featured {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(13,33,55,0.1);
+    display: flex;
+    margin-bottom: 40px;
+    transition: transform 0.3s cubic-bezier(.34,1.2,.64,1), box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+}
+.ne-featured:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(13,33,55,0.15);
+}
+.ne-featured-img {
+    flex: 0 0 52%;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+}
+.ne-featured-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
+}
+.ne-featured:hover .ne-featured-img img { transform: scale(1.05); }
+.ne-featured-badge {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 5px 13px;
+    border-radius: 20px;
+    display: flex; align-items: center; gap: 4px;
+    box-shadow: 0 3px 10px rgba(240,165,0,0.4);
+}
+.ne-featured-badge .material-icons { font-size: 0.75rem; }
+.ne-featured-body {
+    flex: 1;
+    padding: 36px 36px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.ne-cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #fdf8ee;
+    color: #d4890a;
+    border: 1px solid #fde9aa;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    width: fit-content;
+}
+.ne-cat-pill .material-icons { font-size: 0.78rem; }
+.ne-featured-title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #1a3a5c;
+    line-height: 1.3;
+    margin: 0 0 10px;
+}
+.ne-featured-sub {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+.ne-featured-excerpt {
+    color: #4a5568;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin: 0 0 24px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ne-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #9ca3af;
+    font-size: 0.76rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.ne-meta span { display: flex; align-items: center; gap: 4px; }
+.ne-meta .material-icons { font-size: 0.85rem; color: #f0a500; }
+.ne-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg,#0d2137,#1a3a5c);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: filter 0.18s, transform 0.18s;
+    width: fit-content;
+}
+.ne-read-more:hover { filter: brightness(1.15); transform: translateY(-1px); color: #fff; }
+.ne-read-more .material-icons { font-size: 0.9rem; }
+
+/* ── Card grid ──────────────────────────────────────────────── */
+.ne-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 52px;
+}
+@media (max-width: 991px) { .ne-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575px)  { .ne-grid { grid-template-columns: 1fr; } }
+
+.ne-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(13,33,55,0.07);
+    transition: transform 0.3s cubic-bezier(.34,1.2,.64,1), box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+}
+.ne-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(13,33,55,0.14);
+    color: inherit;
+}
+.ne-card-img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+}
+.ne-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s cubic-bezier(.25,.8,.25,1);
+}
+.ne-card:hover .ne-card-img img { transform: scale(1.07); }
+.ne-card-body {
+    padding: 20px 20px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.ne-card-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1a3a5c;
+    line-height: 1.35;
+    margin: 0 0 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ne-card-sub {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ne-card-excerpt {
+    color: #4a5568;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    flex: 1;
+    margin: 0 0 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.ne-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #f0f2f5;
+    padding-top: 14px;
+    margin-top: auto;
+}
+.ne-card-date {
+    color: #9ca3af;
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: flex; align-items: center; gap: 4px;
+}
+.ne-card-date .material-icons { font-size: 0.8rem; color: #f0a500; }
+.ne-card-link {
+    color: #d4890a;
+    font-size: 0.76rem;
+    font-weight: 800;
+    display: flex; align-items: center; gap: 3px;
+    transition: gap 0.18s;
+}
+.ne-card:hover .ne-card-link { gap: 6px; }
+.ne-card-link .material-icons { font-size: 0.88rem; }
+
+/* ── Empty state ────────────────────────────────────────────── */
+.ne-empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: #9ca3af;
+}
+.ne-empty .material-icons { font-size: 3.5rem; color: #d1d5db; display: block; margin-bottom: 16px; }
+.ne-empty h3 { color: #6b7280; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+
+/* ── Pagination ─────────────────────────────────────────────── */
+.ne-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+.ne-page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px; height: 38px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    color: #4a5568;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.18s;
+}
+.ne-page-btn:hover { border-color: #f0a500; color: #d4890a; background: #fdf8ee; }
+.ne-page-btn.active {
+    background: linear-gradient(135deg,#f0a500,#d4890a);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(240,165,0,0.3);
+}
+.ne-page-btn.disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+.ne-page-btn .material-icons { font-size: 0.95rem; }
+
+@media (max-width: 767px) {
+    .ne-featured { flex-direction: column; }
+    .ne-featured-img { min-height: 220px; flex: unset; }
+    .ne-featured-body { padding: 24px 20px 22px; }
+    .ne-featured-title { font-size: 1.2rem; }
+}
 </style>
 {% endblock %}
 
@@ -35,134 +452,171 @@
 <main>
     {% include 'Includes/navbar.html' %}
 
+    <!-- Hero -->
+    <div class="ne-hero">
+        <div class="container" style="position:relative;z-index:1;">
+            <div class="ne-hero-eyebrow">
+                <span class="material-icons">newspaper</span>
+                {% trans "Shree Bada Paliwal Samaj" %}
+            </div>
+            <h1>{% trans "News" %} &amp; <span>{% trans "Events" %}</span></h1>
+            <div class="ne-hero-divider"></div>
+            <p>{% trans "Latest updates from the community" %}</p>
 
-    <div class="page-hero-banner" style="background-image:url({% static 'images/news.jpeg' %})">
-        <div class="page-hero-inner">
-            <span class="page-hero-tag">{% trans "Shree Bada Paliwal Samaj" %}</span>
-            <h1 class="page-hero-title"><span>{% trans "News & Events" %}</span></h1>
-            <div class="page-hero-divider"></div>
-            <p class="page-hero-sub">{% trans "Latest updates from the community" %}</p>
-        </div>
-    </div>
-
-    <!-- Search Bar Start -->
-    <div class="d-none d-md-block">
-        <div class="main-container my-5 pt-5 row justify-content-center">
-            <form class="col-6" action="{% url 'samaj:news_and_events' %}" method="get">
-                <div class="form-group">
-                    <label for="search_news_events" class="w-100 text-center">
-                        <h3>{% trans "Search News Or Events" %}</h3>
-                    </label>
-                    <div class="d-flex">
-                        <div class="w-100">
-                            <input class="form-control form-control-name" name="q" id="search_news_events"
-                                   placeholder="Search" type="text" required>
-                        </div>
-                        <button type="submit" class="btn btn-dark d-flex align-items-center py-2 rounded-0">
-                            <span class="material-icons me-2">search</span> {% trans "Search" %}
-                        </button>
-                    </div>
-                </div>
+            <!-- Search -->
+            <form class="ne-search-wrap" action="{% url 'samaj:news_and_events' %}" method="get">
+                <span class="material-icons ne-search-icon">search</span>
+                <input class="ne-search-input" name="q" type="text"
+                       placeholder="{% trans 'Search news or events…' %}"
+                       value="{{ query|default:'' }}">
+                <button type="submit" class="ne-search-btn">
+                    <span class="material-icons">search</span>
+                    {% trans "Search" %}
+                </button>
             </form>
         </div>
     </div>
 
-    <!-- Search Bar End -->
-
-    <section id="main-container" class="main-container">
+    <!-- Articles -->
+    <section class="ne-section">
         <div class="container">
-            <div class="row justify-content-center">
 
-                <div class="col-12 col-md-8 mb-5 mb-lg-0">
-                    {% for obj in news_and_events %}
-                    <div class="post">
-                        <div class="post-media post-image">
-                            <div class="image-wrapper">
-                                <img loading="lazy" src="{{ obj.image.url }}" class="img-fluid rounded event-image"
-                                     alt="post-image">
-                            </div>
-                        </div>
-
-                        <div class="post-body">
-                            <div class="entry-header">
-                                <div class="post-meta">
-                                    <span class="post-cat">
-                                      <i class="far fa-folder-open"></i><a href="#"> {{ obj.get_category_display }}</a>
-                                    </span>
-                                    <span class="post-meta-date"><i class="far fa-calendar"></i> {{ obj.created_at|date:"F j, Y" }}</span>
-                                    <!--                    <span class="post-comment"><i class="far fa-comment"></i> 03<a href="#" class="comments-link">Comments</a></span>-->
-                                </div>
-                                <h2 class="entry-title d-flex flex-column">
-                                    <a href="news-single.html">{{ obj.title }}</a>
-                                    {% if obj.subtitle %}
-                                    <p class="text-muted fw-normal">{{ obj.subtitle }}</p>
-                                    {% endif %}
-                                </h2>
-
-                            </div><!-- header end -->
-
-                            <div class="entry-content">
-                                <p>{{ obj.content|truncatewords:60 }}</p>
-                            </div>
-
-                            <div class="post-footer">
-                                <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="btn btn-primary">{% trans "Continue Reading" %}</a>
-                            </div>
-
-                        </div><!-- post-body end -->
-                    </div><!-- 1st post end -->
-                    {% endfor %}
-
-                    <nav class="paging" aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            {# First Page Link #}
-                            {% if news_and_events.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page=1">
-                                    <i class="fas fa-angle-double-left"></i>
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-double-left"></i></span>
-                            </li>
-                            {% endif %}
-
-                            {# Page Numbers Loop #}
-                            {% for num in news_and_events.paginator.page_range %}
-                                {% if num >= news_and_events.number|add:'-2' and num <= news_and_events.number|add:'2' %}
-                                    {% if num == news_and_events.number %}
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ num }}</span>
-                                    </li>
-                                    {% else %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a>
-                                    </li>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-
-                            {# Last Page Link #}
-                            {% if news_and_events.has_next %}
-                            <li class="page-item">
-                                <a class="page-link"
-                                   href="?{% if query %}q={{ query }}&{% endif %}page={{ news_and_events.paginator.num_pages }}">
-                                    <i class="fas fa-angle-double-right"></i>
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link"><i class="fas fa-angle-double-right"></i></span>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
+            <!-- Category filter pills -->
+            <div class="ne-filter-bar">
+                <a href="{% url 'samaj:news_and_events' %}{% if query %}?q={{ query }}{% endif %}"
+                   class="ne-filter-btn {% if not request.GET.cat %}active{% endif %}">
+                    <span class="material-icons">apps</span>{% trans "All" %}
+                </a>
+                <a href="?{% if query %}q={{ query }}&{% endif %}cat=news"
+                   class="ne-filter-btn {% if request.GET.cat == 'news' %}active{% endif %}">
+                    <span class="material-icons">article</span>{% trans "News" %}
+                </a>
+                <a href="?{% if query %}q={{ query }}&{% endif %}cat=events"
+                   class="ne-filter-btn {% if request.GET.cat == 'events' %}active{% endif %}">
+                    <span class="material-icons">event</span>{% trans "Events" %}
+                </a>
             </div>
+
+            {% if news_and_events %}
+
+            {# First post — featured large card #}
+            {% with news_and_events|first as featured %}
+            {% if forloop.counter0 == 0 or True %}
+            <a href="{% url 'samaj:news_events_detail' featured.slug %}" class="ne-featured">
+                <div class="ne-featured-img">
+                    <img loading="lazy" src="{{ featured.image.url }}" alt="{{ featured.title }}">
+                    <div class="ne-featured-badge">
+                        <span class="material-icons">star</span>
+                        {% trans "Featured" %}
+                    </div>
+                </div>
+                <div class="ne-featured-body">
+                    <div class="ne-cat-pill">
+                        <span class="material-icons">label</span>
+                        {{ featured.get_category_display }}
+                    </div>
+                    <h2 class="ne-featured-title">{{ featured.title }}</h2>
+                    {% if featured.subtitle %}
+                    <p class="ne-featured-sub">{{ featured.subtitle }}</p>
+                    {% endif %}
+                    <p class="ne-featured-excerpt">{{ featured.content|truncatewords:40 }}</p>
+                    <div class="ne-meta">
+                        <span><span class="material-icons">calendar_today</span>{{ featured.created_at|date:"F j, Y" }}</span>
+                    </div>
+                    <span class="ne-read-more">
+                        {% trans "Continue Reading" %}
+                        <span class="material-icons">arrow_forward</span>
+                    </span>
+                </div>
+            </a>
+            {% endif %}
+            {% endwith %}
+
+            {# Remaining posts — 3-col card grid #}
+            {% if news_and_events|length > 1 %}
+            <div class="ne-heading">
+                <h2>{% trans "More Stories" %}</h2>
+            </div>
+            <div class="ne-grid">
+                {% for obj in news_and_events %}
+                {% if not forloop.first %}
+                <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="ne-card">
+                    <div class="ne-card-img">
+                        <img loading="lazy" src="{{ obj.image.url }}" alt="{{ obj.title }}">
+                        <div class="ne-cat-pill" style="position:absolute;top:12px;left:12px;margin:0;">
+                            <span class="material-icons">label</span>
+                            {{ obj.get_category_display }}
+                        </div>
+                    </div>
+                    <div class="ne-card-body">
+                        <h3 class="ne-card-title">{{ obj.title }}</h3>
+                        {% if obj.subtitle %}<p class="ne-card-sub">{{ obj.subtitle }}</p>{% endif %}
+                        <p class="ne-card-excerpt">{{ obj.content|truncatewords:25 }}</p>
+                        <div class="ne-card-foot">
+                            <span class="ne-card-date">
+                                <span class="material-icons">calendar_today</span>
+                                {{ obj.created_at|date:"M j, Y" }}
+                            </span>
+                            <span class="ne-card-link">
+                                {% trans "Read" %} <span class="material-icons">arrow_forward</span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div class="ne-empty">
+                <span class="material-icons">search_off</span>
+                <h3>{% trans "No results found" %}</h3>
+                <p>{% trans "Try a different search term or browse all articles." %}</p>
+            </div>
+            {% endif %}
+
+            <!-- Pagination -->
+            {% if news_and_events.paginator.num_pages > 1 %}
+            <nav class="ne-pagination" aria-label="{% trans 'Page navigation' %}">
+                {% if news_and_events.has_previous %}
+                <a class="ne-page-btn" href="?{% if query %}q={{ query }}&{% endif %}page=1">
+                    <span class="material-icons">first_page</span>
+                </a>
+                <a class="ne-page-btn" href="?{% if query %}q={{ query }}&{% endif %}page={{ news_and_events.previous_page_number }}">
+                    <span class="material-icons">chevron_left</span>
+                </a>
+                {% else %}
+                <span class="ne-page-btn disabled"><span class="material-icons">first_page</span></span>
+                <span class="ne-page-btn disabled"><span class="material-icons">chevron_left</span></span>
+                {% endif %}
+
+                {% for num in news_and_events.paginator.page_range %}
+                    {% if num >= news_and_events.number|add:'-2' and num <= news_and_events.number|add:'2' %}
+                        {% if num == news_and_events.number %}
+                        <span class="ne-page-btn active">{{ num }}</span>
+                        {% else %}
+                        <a class="ne-page-btn" href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if news_and_events.has_next %}
+                <a class="ne-page-btn" href="?{% if query %}q={{ query }}&{% endif %}page={{ news_and_events.next_page_number }}">
+                    <span class="material-icons">chevron_right</span>
+                </a>
+                <a class="ne-page-btn" href="?{% if query %}q={{ query }}&{% endif %}page={{ news_and_events.paginator.num_pages }}">
+                    <span class="material-icons">last_page</span>
+                </a>
+                {% else %}
+                <span class="ne-page-btn disabled"><span class="material-icons">chevron_right</span></span>
+                <span class="ne-page-btn disabled"><span class="material-icons">last_page</span></span>
+                {% endif %}
+            </nav>
+            {% endif %}
+
         </div>
     </section>
-
 
     {% include 'Includes/footer.html' %}
 </main>
