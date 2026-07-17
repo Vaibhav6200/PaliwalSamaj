@@ -6,7 +6,7 @@
 {% block title %}Profile of {{ profile.full_name }} – Paliwal Samaj Member{% endblock %}
 
 {% block seo_meta_tags %}
-    <meta name="description" content="View detailed bio data of {{ profile.full_name }}, a member of Paliwal Samaj. Learn more about their family, background, and connections.">
+    <meta name="description" content="View detailed bio data of {{ profile.full_name }}, a member of Paliwal Samaj.">
     <meta property="og:title" content="{{ profile.full_name }} – Paliwal Samaj Member">
     <meta property="og:description" content="Bio Data and Family background of {{ profile.full_name }}.">
     <meta property="og:type" content="profile">
@@ -14,140 +14,310 @@
 
 {% block stylesheets %}
 <style>
-/* ── Profile Hero ── */
-.prof-hero {
-    background: linear-gradient(135deg, #0d2137 0%, #1e4d80 60%, #0d2137 100%);
-    padding: 48px 20px 80px;
+/* ────────────────────────────────────
+   Page shell
+──────────────────────────────────── */
+.up-page { background: #f0f4f9; min-height: 100vh; }
+
+/* ────────────────────────────────────
+   Cover / hero strip
+──────────────────────────────────── */
+.up-cover {
+    height: 220px;
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a6b 45%, #0f2347 80%, #0a1628 100%);
+    position: relative;
+    overflow: hidden;
+}
+.up-cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(240,165,0,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 80% 30%, rgba(30,77,128,0.3) 0%, transparent 70%);
+}
+/* decorative dots */
+.up-cover::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+/* ────────────────────────────────────
+   Layout
+──────────────────────────────────── */
+.up-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+@media (max-width: 900px) {
+    .up-layout { grid-template-columns: 1fr; }
+}
+
+/* ────────────────────────────────────
+   Sidebar
+──────────────────────────────────── */
+.up-sidebar {
+    position: sticky;
+    top: 16px;
+    margin-top: -90px;
+}
+@media (max-width: 900px) {
+    .up-sidebar { position: static; margin-top: -80px; }
+}
+.up-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(13,33,55,0.10);
+    overflow: hidden;
+}
+.up-card + .up-card { margin-top: 16px; }
+
+/* Avatar block */
+.up-avatar-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px 20px;
     text-align: center;
-    position: relative;
+    border-bottom: 1px solid #f0f3f8;
 }
-.prof-avatar-wrap {
+.up-avatar-ring {
+    width: 156px; height: 156px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, #f0a500, #ffcc55, #f0a500);
+    box-shadow: 0 8px 32px rgba(240,165,0,0.4);
     position: relative;
-    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
-.prof-avatar {
-    width: 120px; height: 120px;
+.up-avatar-ring:hover { transform: scale(1.04); }
+.up-avatar {
+    width: 148px; height: 148px;
     border-radius: 50%;
     object-fit: cover; object-position: top center;
-    border: 4px solid #f0a500;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    border: 3px solid #fff;
+    display: block;
 }
-.prof-deceased-badge {
-    position: absolute; bottom: 4px; right: 4px;
+/* ── Lightbox ── */
+.up-lightbox {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.85);
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(6px);
+}
+.up-lightbox.open { display: flex; }
+.up-lightbox-img {
+    max-width: 90vw; max-height: 88vh;
+    border-radius: 16px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    object-fit: contain;
+    animation: lbIn 0.22s ease;
+}
+@keyframes lbIn {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.up-lightbox-close {
+    position: fixed; top: 20px; right: 24px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: none; cursor: pointer;
+    color: #fff; font-size: 22px; display: flex; align-items: center; justify-content: center;
+    transition: background 0.18s;
+}
+.up-lightbox-close:hover { background: rgba(255,255,255,0.28); }
+.up-deceased-badge {
+    position: absolute; bottom: 3px; right: 3px;
     background: #6c757d; color: #fff;
-    font-size: 0.65rem; font-weight: 700;
-    padding: 2px 8px; border-radius: 20px;
-    letter-spacing: 0.05em;
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.06em;
+    padding: 2px 7px; border-radius: 20px;
+    border: 2px solid #fff;
 }
-.prof-hero-name {
-    color: #fff; font-size: 1.6rem; font-weight: 800;
-    margin: 14px 0 4px; line-height: 1.2;
+.up-name {
+    font-size: 1.2rem; font-weight: 800; color: #0d1f3c;
+    margin: 14px 0 3px; line-height: 1.2;
 }
-.prof-hero-sub {
-    color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0 0 20px;
+.up-gotra-gender {
+    font-size: 0.82rem; color: #6c7a8d; font-weight: 500;
+    margin-bottom: 12px;
 }
-.prof-hero-pills {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-    margin-bottom: 22px;
+
+/* Quick pills in sidebar */
+.up-quick-pills {
+    display: flex; flex-direction: column; gap: 7px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f3f8;
 }
-.prof-pill {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.88);
-    font-size: 0.78rem; font-weight: 600;
-    padding: 5px 14px; border-radius: 20px;
-    display: flex; align-items: center; gap: 5px;
+.up-qpill {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; color: #3a4a5a; font-weight: 500;
 }
-.prof-pill .material-icons { font-size: 14px; color: #f0a500; }
-.prof-actions-hero {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+.up-qpill-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: #f0f5ff;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
 }
-.prof-action-btn {
-    display: flex; align-items: center; gap: 6px;
-    padding: 9px 20px; border-radius: 10px;
+.up-qpill-icon .material-icons { font-size: 15px; color: #1e4d80; }
+
+/* Action buttons */
+.up-actions { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.up-action-btn {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 10px 16px; border-radius: 12px;
     font-size: 0.82rem; font-weight: 700;
     text-decoration: none; border: none; cursor: pointer;
-    transition: all 0.18s;
+    transition: all 0.18s; width: 100%;
 }
-.prof-action-btn.primary   { background: #f0a500; color: #003049; }
-.prof-action-btn.secondary { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; }
-.prof-action-btn.danger    { background: rgba(220,53,69,0.18); border: 1px solid rgba(220,53,69,0.4); color: #ff6b7a; }
-.prof-action-btn:hover.primary   { background: #d4920a; color: #003049; }
-.prof-action-btn:hover.secondary { background: rgba(255,255,255,0.22); color: #fff; }
-.prof-action-btn:hover.danger    { background: rgba(220,53,69,0.32); color: #ff6b7a; }
+.up-action-btn .material-icons { font-size: 16px; }
+.up-action-btn.primary   { background: linear-gradient(135deg,#f0a500,#e09400); color: #003049; }
+.up-action-btn.secondary { background: #f0f4f9; color: #1e4d80; border: 1.5px solid #dde3ec; }
+.up-action-btn.danger    { background: #fff5f5; color: #dc3545; border: 1.5px solid #f5c6cb; }
+.up-action-btn.primary:hover   { background: linear-gradient(135deg,#d4920a,#c98800); color: #003049; }
+.up-action-btn.secondary:hover { background: #e4ecf7; }
+.up-action-btn.danger:hover    { background: #fce8ea; }
 
-/* ── Content area ── */
-.prof-body {
-    background: #f4f7fb;
-    padding: 0 0 48px;
-    margin-top: -40px;
+/* Completeness card */
+.up-complete-card { padding: 16px 20px; }
+.up-complete-label {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #6c7a8d; margin-bottom: 8px;
+    display: flex; justify-content: space-between;
 }
-.prof-body .container { max-width: 900px; }
+.up-complete-bar {
+    height: 6px; background: #e8edf4; border-radius: 10px; overflow: hidden;
+}
+.up-complete-fill {
+    height: 100%; border-radius: 10px;
+    background: linear-gradient(90deg, #1e4d80, #f0a500);
+    transition: width 0.6s ease;
+}
 
-/* ── Section card ── */
-.prof-section {
+/* ────────────────────────────────────
+   Main content
+──────────────────────────────────── */
+.up-main { margin-top: 16px; }
+
+/* Section card */
+.up-section {
     background: #fff;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(13,33,55,0.07);
-    padding: 28px 28px 20px;
-    margin-top: 24px;
-}
-.prof-section-title {
-    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
-    text-transform: uppercase; color: #1e4d80;
     margin-bottom: 20px;
-    display: flex; align-items: center; gap: 8px;
+    overflow: hidden;
 }
-.prof-section-title .material-icons { font-size: 16px; color: #f0a500; }
-.prof-section-title::after {
-    content: ''; flex: 1; height: 1.5px;
-    background: linear-gradient(90deg, #dde3ec 0%, transparent 100%);
-}
-
-/* ── Field grid ── */
-.prof-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-@media (max-width: 576px) { .prof-fields { grid-template-columns: 1fr; } }
-.prof-field {
-    padding: 12px 0;
+.up-section-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 18px 24px;
     border-bottom: 1px solid #f0f3f8;
 }
-.prof-field:nth-last-child(-n+2) { border-bottom: none; }
-@media (max-width: 576px) { .prof-field:last-child { border-bottom: none; } }
-.prof-field-label {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
-    text-transform: uppercase; color: #8fa0b5; margin-bottom: 3px;
+.up-section-icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
 }
-.prof-field-value {
-    font-size: 0.95rem; font-weight: 600; color: #1a2b3c;
+.up-section-icon .material-icons { font-size: 18px; }
+.up-section-icon.blue   { background: #e8f0fb; }
+.up-section-icon.blue   .material-icons { color: #1e4d80; }
+.up-section-icon.gold   { background: #fef8e7; }
+.up-section-icon.gold   .material-icons { color: #f0a500; }
+.up-section-icon.green  { background: #e8f5ee; }
+.up-section-icon.green  .material-icons { color: #198754; }
+.up-section-icon.purple { background: #f0ebff; }
+.up-section-icon.purple .material-icons { color: #6f42c1; }
+.up-section-icon.red    { background: #fdecea; }
+.up-section-icon.red    .material-icons { color: #dc3545; }
+.up-section-title {
+    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #0d1f3c;
 }
-.prof-field-value.empty { color: #c0cad6; font-weight: 400; font-style: italic; }
-.prof-field-value a { color: #1e4d80; text-decoration: none; }
-.prof-field-value a:hover { text-decoration: underline; }
 
-/* ── Social icons ── */
-.prof-social-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 8px;
-    background: #f4f7fb; color: #1e4d80;
+/* Field grid */
+.up-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 4px 24px 12px;
+}
+@media (max-width: 600px) { .up-fields { grid-template-columns: 1fr; } }
+.up-field {
+    padding: 14px 0;
+    border-bottom: 1px solid #f6f8fc;
+    padding-right: 24px;
+}
+.up-field:nth-child(even) { padding-right: 0; padding-left: 24px; border-left: 1px solid #f6f8fc; }
+@media (max-width: 600px) {
+    .up-field:nth-child(even) { padding-left: 0; border-left: none; }
+}
+.up-field-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #9aaabb; margin-bottom: 4px;
+}
+.up-field-value {
+    font-size: 0.92rem; font-weight: 600; color: #1a2b3c;
+}
+.up-field-value.empty { color: #c8d4e0; font-weight: 400; font-style: italic; font-size: 0.85rem; }
+.up-field-value a { color: #1e4d80; text-decoration: none; }
+.up-field-value a:hover { text-decoration: underline; }
+
+/* Contact chips */
+.up-contact-chips { display: flex; flex-wrap: wrap; gap: 10px; padding: 18px 24px; }
+.up-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px; border-radius: 12px;
     font-size: 0.82rem; font-weight: 600;
-    text-decoration: none; transition: background 0.18s;
+    text-decoration: none; transition: all 0.18s;
+    border: 1.5px solid;
 }
-.prof-social-link:hover { background: #dde9f7; color: #1e4d80; }
+.up-chip-phone  { background:#e8f5ee; border-color:#b7dfca; color:#146c43; }
+.up-chip-phone:hover { background:#d1f0df; color:#146c43; }
+.up-chip-wa     { background:#e8f8ee; border-color:#aadbbf; color:#075e54; }
+.up-chip-wa:hover { background:#ccf0dc; color:#075e54; }
+.up-chip-email  { background:#e8f0fb; border-color:#bad2f2; color:#1e4d80; }
+.up-chip-email:hover { background:#d4e5f7; color:#1e4d80; }
+.up-chip .material-icons { font-size: 16px; }
 
-/* ── Viewers table ── */
-.viewers-table { width: 100%; border-collapse: collapse; }
-.viewers-table th {
-    background: #f4f7fb; font-size: 0.75rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.05em;
-    color: #6c7a8d; padding: 10px 14px; text-align: left;
-    border-bottom: 2px solid #e8edf4;
+/* Social links */
+.up-social-wrap { display: flex; flex-wrap: wrap; gap: 10px; padding: 18px 24px; }
+.up-social-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 12px;
+    font-size: 0.82rem; font-weight: 700;
+    text-decoration: none; transition: all 0.18s;
 }
-.viewers-table td {
-    padding: 12px 14px; font-size: 0.88rem; color: #2d3e50;
+.up-social-fb { background: #1877f2; color: #fff; }
+.up-social-fb:hover { background: #1560cc; color: #fff; }
+.up-social-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
+.up-social-ig:hover { opacity: 0.88; color: #fff; }
+.up-social-btn .material-icons { font-size: 18px; }
+
+/* Viewers table */
+.up-viewers-table { width: 100%; border-collapse: collapse; }
+.up-viewers-table th {
+    background: #f4f7fb; font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #6c7a8d; padding: 11px 16px; text-align: left;
+    border-bottom: 2px solid #e8edf4; white-space: nowrap;
+}
+.up-viewers-table td {
+    padding: 11px 16px; font-size: 0.87rem; color: #2d3e50;
     border-bottom: 1px solid #f0f3f8; vertical-align: middle;
 }
-.viewers-table tr:last-child td { border-bottom: none; }
-.viewers-table tr:hover td { background: #f8fafd; }
+.up-viewers-table tr:last-child td { border-bottom: none; }
+.up-viewers-table tr:hover td { background: #f8fafd; }
+.up-tbl-action {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 8px;
+    background: #f4f7fb; border: 1.5px solid #dde3ec;
+    color: #4a5a6b; transition: all .18s; text-decoration: none;
+}
+.up-tbl-action:hover { background: #1e4d80; border-color: #1e4d80; color: #fff; }
+.up-tbl-action .material-icons { font-size: 15px; }
 </style>
 {% endblock %}
 
@@ -155,331 +325,385 @@
 <main>
     {% include 'Includes/navbar.html' %}
 
-    <!-- ── Hero ── -->
-    <div class="prof-hero">
-        <div class="prof-avatar-wrap">
-            {% if profile.profile_image %}
-            <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="prof-avatar">
-            {% else %}
-            <img src="{% static 'images/user-icon.png' %}" alt="{{ profile.full_name }}" class="prof-avatar">
-            {% endif %}
-            {% if profile.is_deceased %}
-            <span class="prof-deceased-badge">{% trans "Devlok" %}</span>
-            {% endif %}
-        </div>
-        <h1 class="prof-hero-name">{{ profile.full_name }}</h1>
-        <p class="prof-hero-sub">{{ profile.get_gotra_display }} &bull; {{ profile.get_gender_display }}</p>
+    <!-- Cover strip -->
+    <div class="up-cover"></div>
 
-        <div class="prof-hero-pills">
-            {% if profile.current_address_city %}
-            <span class="prof-pill"><span class="material-icons">location_on</span>{{ profile.current_address_city }}, {{ profile.current_address_state }}</span>
-            {% endif %}
-            {% if user_age %}
-            <span class="prof-pill"><span class="material-icons">cake</span>{{ user_age }}</span>
-            {% endif %}
-            {% if profile.get_marital_status_display %}
-            <span class="prof-pill"><span class="material-icons">favorite</span>{{ profile.get_marital_status_display }}</span>
-            {% endif %}
-            {% if profile.get_occupation_type_display %}
-            <span class="prof-pill"><span class="material-icons">work</span>{{ profile.get_occupation_type_display }}</span>
-            {% endif %}
-        </div>
+    <div class="up-page">
+        <div class="up-layout">
 
-        <div class="prof-actions-hero">
-            <a href="{% url 'samaj:member_family_tree' profile.id %}" class="prof-action-btn primary">
-                <span class="material-icons" style="font-size:16px;">diversity_3</span>{% trans "Family Tree" %}
-            </a>
-            <a role="button" id="shareBtn" class="prof-action-btn secondary">
-                <span class="material-icons" style="font-size:16px;">share</span>{% trans "Share" %}
-            </a>
-            {% if allow_edit_delete_flag %}
-            <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0" id="edit_member_bio_form">
-                {% csrf_token %}
-                <input type="hidden" name="user_id" value="{{ profile.user.id }}">
-                <a role="button" id="edit_member_bio_btn" class="prof-action-btn secondary">
-                    <span class="material-icons" style="font-size:16px;">edit</span>{% trans "Edit" %}
-                </a>
-            </form>
-            {% endif %}
-            {% if mark_as_head_flag %}
-            <form action="{% url 'samaj:handle_member_mark_as_head' %}" method="post" class="m-0" id="mark_as_head_form">
-                {% csrf_token %}
-                <input type="hidden" value="{{ profile.id }}" name="new_head_member_id">
-                <a role="button" id="mark_as_head_btn" class="prof-action-btn secondary">
-                    <span class="material-icons" style="font-size:16px;">check</span>{% trans "Mark as Head" %}
-                </a>
-            </form>
-            {% endif %}
-            {% if allow_edit_delete_flag %}
-            <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0" id="delete_member_form">
-                {% csrf_token %}
-                <input type="hidden" value="{{ profile.id }}" name="member_id">
-                <a role="button" id="delete_member_btn" class="prof-action-btn danger">
-                    <span class="material-icons" style="font-size:16px;">delete</span>{% trans "Delete" %}
-                </a>
-            </form>
-            {% endif %}
-        </div>
-    </div>
+            <!-- ── Sidebar ── -->
+            <aside class="up-sidebar">
 
-    <!-- ── Body ── -->
-    <div class="prof-body">
-        <div class="container">
-
-            <!-- Personal Details -->
-            <div class="prof-section">
-                <div class="prof-section-title">
-                    <span class="material-icons">person</span>{% trans "Personal Details" %}
-                </div>
-                <div class="prof-fields">
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Full Name" %}</div>
-                        <div class="prof-field-value">{{ profile.full_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Father Name" %}</div>
-                        <div class="prof-field-value">{{ profile.father_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Mother Name" %}</div>
-                        <div class="prof-field-value">{{ profile.mother_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Date of Birth" %}</div>
-                        <div class="prof-field-value">{{ profile.date_of_birth|date:"j F Y"|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Birth Time" %}</div>
-                        <div class="prof-field-value">{{ profile.birth_time|time:"g:i A"|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Birth Place" %}</div>
-                        <div class="prof-field-value">{{ profile.birth_place|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Gender" %}</div>
-                        <div class="prof-field-value">{{ profile.get_gender_display|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Marital Status" %}</div>
-                        <div class="prof-field-value">{{ profile.get_marital_status_display|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Height" %}</div>
-                        <div class="prof-field-value">{% if profile.height %}{{ profile.height }} cm{% else %}—{% endif %}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Gotra" %}</div>
-                        <div class="prof-field-value">{{ profile.get_gotra_display|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Last Updated" %}</div>
-                        <div class="prof-field-value">{{ profile.updated_at|date:"d M Y"|default:"—" }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Details -->
-            <div class="prof-section">
-                <div class="prof-section-title">
-                    <span class="material-icons">contacts</span>{% trans "Contact Details" %}
-                </div>
-                <div class="prof-fields">
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Phone" %}</div>
-                        <div class="prof-field-value">
-                            {% if profile.phone_number %}
-                            <a href="tel:{{ profile.phone_number }}">{{ profile.phone_number|floatformat:0 }}</a>
-                            {% else %}—{% endif %}
-                        </div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "WhatsApp" %}</div>
-                        <div class="prof-field-value">
-                            {% if profile.whatsapp_number %}
-                            <a href="https://wa.me/{{ profile.whatsapp_number }}" target="_blank">{{ profile.whatsapp_number|floatformat:0 }}</a>
-                            {% else %}—{% endif %}
-                        </div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Email" %}</div>
-                        <div class="prof-field-value">
-                            {% if profile.email %}<a href="mailto:{{ profile.email }}">{{ profile.email }}</a>{% else %}—{% endif %}
-                        </div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Address" %}</div>
-                        <div class="prof-field-value">{{ profile.current_address|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Village" %}</div>
-                        <div class="prof-field-value">{{ profile.current_address_village.village_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "City" %}</div>
-                        <div class="prof-field-value">{{ profile.current_address_city.city_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "State" %}</div>
-                        <div class="prof-field-value">{{ profile.current_address_state.state_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Pincode" %}</div>
-                        <div class="prof-field-value">{{ profile.current_address_pincode|default:"—" }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Educational Details -->
-            <div class="prof-section">
-                <div class="prof-section-title">
-                    <span class="material-icons">school</span>{% trans "Educational Details" %}
-                </div>
-                <div class="prof-fields">
-                    {% if profile.qualification_type == 'school' %}
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "School Name" %}</div>
-                        <div class="prof-field-value">{{ profile.qualification_detail.first.school_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Class" %}</div>
-                        <div class="prof-field-value">{{ profile.qualification_detail.first.school_class|default:"—" }}</div>
-                    </div>
-                    {% else %}
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "College / University" %}</div>
-                        <div class="prof-field-value">
-                            {{ profile.qualification_detail.first.college_name|default:"—" }}
-                            {% if profile.qualification_type == 'graduate' %}
-                            <span class="badge bg-success ms-1" style="font-size:0.65rem;">{% trans "Graduate" %}</span>
+                <!-- Avatar + name -->
+                <div class="up-card">
+                    <div class="up-avatar-block">
+                        <div class="up-avatar-ring" id="avatarRing" title="{% trans 'Click to enlarge' %}">
+                            {% if profile.profile_image %}
+                            <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="up-avatar" id="avatarImg" data-src="{{ profile.profile_image.url }}">
                             {% else %}
-                            <span class="badge bg-warning text-dark ms-1" style="font-size:0.65rem;">{% trans "Under Graduate" %}</span>
+                            <img src="{% static 'images/user-icon.png' %}" alt="{{ profile.full_name }}" class="up-avatar" id="avatarImg" data-src="{% static 'images/user-icon.png' %}">
+                            {% endif %}
+                            {% if profile.is_deceased %}
+                            <span class="up-deceased-badge">{% trans "Devlok" %}</span>
                             {% endif %}
                         </div>
+                        <div class="up-name">{{ profile.full_name }}</div>
+                        <div class="up-gotra-gender">{{ profile.get_gotra_display }} &bull; {{ profile.get_gender_display }}</div>
                     </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Degree" %}</div>
-                        <div class="prof-field-value">{{ profile.qualification_detail.first.degree.degree_name|default:"—" }}</div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
 
-            <!-- Professional Details -->
-            <div class="prof-section">
-                <div class="prof-section-title">
-                    <span class="material-icons">work</span>{% trans "Professional Details" %}
-                </div>
-                <div class="prof-fields">
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Occupation Type" %}</div>
-                        <div class="prof-field-value">{{ profile.get_occupation_type_display|default:"—" }}</div>
+                    <!-- Quick info -->
+                    <div class="up-quick-pills">
+                        {% if profile.current_address_city %}
+                        <div class="up-qpill">
+                            <div class="up-qpill-icon"><span class="material-icons">location_on</span></div>
+                            <span>{{ profile.current_address_city }}, {{ profile.current_address_state }}</span>
+                        </div>
+                        {% endif %}
+                        {% if user_age %}
+                        <div class="up-qpill">
+                            <div class="up-qpill-icon"><span class="material-icons">cake</span></div>
+                            <span>{{ user_age }}</span>
+                        </div>
+                        {% endif %}
+                        {% if profile.get_marital_status_display %}
+                        <div class="up-qpill">
+                            <div class="up-qpill-icon"><span class="material-icons">favorite</span></div>
+                            <span>{{ profile.get_marital_status_display }}</span>
+                        </div>
+                        {% endif %}
+                        {% if profile.get_occupation_type_display %}
+                        <div class="up-qpill">
+                            <div class="up-qpill-icon"><span class="material-icons">work</span></div>
+                            <span>{{ profile.get_occupation_type_display }}</span>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% if profile.occupation_type == 'business' %}
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Business Name" %}</div>
-                        <div class="prof-field-value">{{ profile.occupation_detail.first.business_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Business Location" %}</div>
-                        <div class="prof-field-value">{{ profile.occupation_detail.first.business_location|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Business Description" %}</div>
-                        <div class="prof-field-value">{{ profile.occupation_detail.first.business_description|default:"—" }}</div>
-                    </div>
-                    {% elif profile.occupation_type == 'job' %}
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Company Name" %}</div>
-                        <div class="prof-field-value">{{ profile.occupation_detail.first.company_name|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Job Location" %}</div>
-                        <div class="prof-field-value">{{ profile.occupation_detail.first.company_location|default:"—" }}</div>
-                    </div>
-                    <div class="prof-field">
-                        <div class="prof-field-label">{% trans "Job Description" %}</div>
-                        <div class="prof-field-value">{{ profile.occupation_detail.first.job_description|default:"—" }}</div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
 
-            <!-- Social Media -->
-            <div class="prof-section">
-                <div class="prof-section-title">
-                    <span class="material-icons">link</span>{% trans "Social Media" %}
+                    <!-- Actions -->
+                    <div class="up-actions">
+                        <a href="{% url 'samaj:member_family_tree' profile.id %}" class="up-action-btn primary">
+                            <span class="material-icons">diversity_3</span>{% trans "View Family Tree" %}
+                        </a>
+                        <a role="button" id="shareBtn" class="up-action-btn secondary">
+                            <span class="material-icons">share</span>{% trans "Share Profile" %}
+                        </a>
+                        {% if allow_edit_delete_flag %}
+                        <form action="{% url 'samaj:bio_data' %}" method="post" class="m-0" id="edit_member_bio_form">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ profile.user.id }}">
+                            <a role="button" id="edit_member_bio_btn" class="up-action-btn secondary">
+                                <span class="material-icons">edit</span>{% trans "Edit Profile" %}
+                            </a>
+                        </form>
+                        {% endif %}
+                        {% if mark_as_head_flag %}
+                        <form action="{% url 'samaj:handle_member_mark_as_head' %}" method="post" class="m-0" id="mark_as_head_form">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ profile.id }}" name="new_head_member_id">
+                            <a role="button" id="mark_as_head_btn" class="up-action-btn secondary">
+                                <span class="material-icons">check_circle</span>{% trans "Mark as Head" %}
+                            </a>
+                        </form>
+                        {% endif %}
+                        {% if allow_edit_delete_flag %}
+                        <form action="{% url 'samaj:handle_member_delete' %}" method="post" class="m-0" id="delete_member_form">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ profile.id }}" name="member_id">
+                            <a role="button" id="delete_member_btn" class="up-action-btn danger">
+                                <span class="material-icons">delete_outline</span>{% trans "Delete Member" %}
+                            </a>
+                        </form>
+                        {% endif %}
+                    </div>
                 </div>
-                <div style="display:flex; flex-wrap:wrap; gap:10px; padding-top:4px;">
-                    {% if profile.facebook_link %}
-                    <a class="prof-social-link" href="{{ profile.facebook_link }}" target="_blank">
-                        <span class="material-icons" style="font-size:16px;">facebook</span> Facebook
-                    </a>
-                    {% endif %}
-                    {% if profile.instagram_link %}
-                    <a class="prof-social-link" href="{{ profile.instagram_link }}" target="_blank">
-                        <span class="material-icons" style="font-size:16px;">photo_camera</span> Instagram
-                    </a>
-                    {% endif %}
-                    {% if not profile.facebook_link and not profile.instagram_link %}
-                    <span class="prof-field-value empty">{% trans "No social links added" %}</span>
-                    {% endif %}
-                </div>
-            </div>
 
-            <!-- Viewers -->
-            {% if request.user == profile.user and profile.track_member_views_flag %}
-            <div class="prof-section">
-                <div class="prof-section-title">
-                    <span class="material-icons">visibility</span>
-                    {% trans "Viewers" %}
-                    <span style="font-size:0.8rem;font-weight:500;color:#8fa0b5;letter-spacing:0;">&nbsp;({{ viewers.count }} views)</span>
+                <!-- Profile completeness -->
+                <div class="up-card">
+                    <div class="up-complete-card">
+                        <div class="up-complete-label">
+                            <span>{% trans "Profile Completeness" %}</span>
+                            <span id="completePercent">—</span>
+                        </div>
+                        <div class="up-complete-bar">
+                            <div class="up-complete-fill" id="completeFill" style="width:0%"></div>
+                        </div>
+                    </div>
                 </div>
-                {% if viewers %}
-                <div class="table-responsive">
-                    <table class="viewers-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{% trans "Name" %}</th>
-                                <th>{% trans "Father" %}</th>
-                                <th>{% trans "DOB" %}</th>
-                                <th>{% trans "Status" %}</th>
-                                <th>{% trans "Location" %}</th>
-                                <th>{% trans "Actions" %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for viewer in viewers %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ viewer.viewer.full_name|title }}</td>
-                                <td>{{ viewer.viewer.father_name|title }}</td>
-                                <td>{{ viewer.viewer.date_of_birth }}</td>
-                                <td>{{ viewer.viewer.get_marital_status_display }}</td>
-                                <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
-                                <td>
-                                    <div class="d-flex gap-1">
-                                        <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="btn btn-sm btn-light border" title="{% trans 'View Profile' %}">
-                                            <span class="material-icons" style="font-size:16px;">visibility</span>
-                                        </a>
-                                        <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="btn btn-sm btn-light border" title="{% trans 'View Family' %}">
-                                            <span class="material-icons" style="font-size:16px;">diversity_3</span>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+
+            </aside>
+
+            <!-- ── Main sections ── -->
+            <div class="up-main">
+
+                <!-- Personal Details -->
+                <div class="up-section">
+                    <div class="up-section-header">
+                        <div class="up-section-icon blue"><span class="material-icons">person</span></div>
+                        <span class="up-section-title">{% trans "Personal Details" %}</span>
+                    </div>
+                    <div class="up-fields">
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Full Name" %}</div>
+                            <div class="up-field-value">{{ profile.full_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Father's Name" %}</div>
+                            <div class="up-field-value">{{ profile.father_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Mother's Name" %}</div>
+                            <div class="up-field-value">{{ profile.mother_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Date of Birth" %}</div>
+                            <div class="up-field-value">{{ profile.date_of_birth|date:"j F Y"|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Birth Time" %}</div>
+                            <div class="up-field-value">{{ profile.birth_time|time:"g:i A"|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Birth Place" %}</div>
+                            <div class="up-field-value">{{ profile.birth_place|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Gender" %}</div>
+                            <div class="up-field-value">{{ profile.get_gender_display|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Marital Status" %}</div>
+                            <div class="up-field-value">{{ profile.get_marital_status_display|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Height" %}</div>
+                            <div class="up-field-value">{% if profile.height %}{{ profile.height }} cm{% else %}—{% endif %}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Gotra" %}</div>
+                            <div class="up-field-value">{{ profile.get_gotra_display|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Last Updated" %}</div>
+                            <div class="up-field-value">{{ profile.updated_at|date:"d M Y"|default:"—" }}</div>
+                        </div>
+                    </div>
                 </div>
-                {% else %}
-                <p class="prof-field-value empty mb-0">{% trans "No Viewer Found" %}</p>
+
+                <!-- Contact Details -->
+                <div class="up-section">
+                    <div class="up-section-header">
+                        <div class="up-section-icon green"><span class="material-icons">contacts</span></div>
+                        <span class="up-section-title">{% trans "Contact Details" %}</span>
+                    </div>
+
+                    <!-- Clickable contact chips -->
+                    <div class="up-contact-chips">
+                        {% if profile.phone_number %}
+                        <a href="tel:{{ profile.phone_number }}" class="up-chip up-chip-phone">
+                            <span class="material-icons">call</span> {{ profile.phone_number|floatformat:0 }}
+                        </a>
+                        {% endif %}
+                        {% if profile.whatsapp_number %}
+                        <a href="https://wa.me/{{ profile.whatsapp_number }}" target="_blank" class="up-chip up-chip-wa">
+                            <span class="material-icons">chat</span> {{ profile.whatsapp_number|floatformat:0 }}
+                        </a>
+                        {% endif %}
+                        {% if profile.email %}
+                        <a href="mailto:{{ profile.email }}" class="up-chip up-chip-email">
+                            <span class="material-icons">email</span> {{ profile.email }}
+                        </a>
+                        {% endif %}
+                        {% if not profile.phone_number and not profile.whatsapp_number and not profile.email %}
+                        <span class="up-field-value empty">{% trans "No contact info added" %}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="up-fields">
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Address" %}</div>
+                            <div class="up-field-value">{{ profile.current_address|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Village" %}</div>
+                            <div class="up-field-value">{{ profile.current_address_village.village_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "City" %}</div>
+                            <div class="up-field-value">{{ profile.current_address_city.city_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "State" %}</div>
+                            <div class="up-field-value">{{ profile.current_address_state.state_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Pincode" %}</div>
+                            <div class="up-field-value">{{ profile.current_address_pincode|default:"—" }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Educational Details -->
+                <div class="up-section">
+                    <div class="up-section-header">
+                        <div class="up-section-icon purple"><span class="material-icons">school</span></div>
+                        <span class="up-section-title">{% trans "Education" %}</span>
+                    </div>
+                    <div class="up-fields">
+                        {% if profile.qualification_type == 'school' %}
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "School Name" %}</div>
+                            <div class="up-field-value">{{ profile.qualification_detail.first.school_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Class" %}</div>
+                            <div class="up-field-value">{{ profile.qualification_detail.first.school_class|default:"—" }}</div>
+                        </div>
+                        {% else %}
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "College / University" %}</div>
+                            <div class="up-field-value">
+                                {{ profile.qualification_detail.first.college_name|default:"—" }}
+                                {% if profile.qualification_type == 'graduate' %}
+                                <span class="badge bg-success ms-1" style="font-size:0.62rem;">{% trans "Graduate" %}</span>
+                                {% elif profile.qualification_type %}
+                                <span class="badge bg-warning text-dark ms-1" style="font-size:0.62rem;">{% trans "Under Graduate" %}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Degree" %}</div>
+                            <div class="up-field-value">{{ profile.qualification_detail.first.degree.degree_name|default:"—" }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Professional Details -->
+                <div class="up-section">
+                    <div class="up-section-header">
+                        <div class="up-section-icon gold"><span class="material-icons">work</span></div>
+                        <span class="up-section-title">{% trans "Professional Details" %}</span>
+                    </div>
+                    <div class="up-fields">
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Occupation Type" %}</div>
+                            <div class="up-field-value">{{ profile.get_occupation_type_display|default:"—" }}</div>
+                        </div>
+                        {% if profile.occupation_type == 'business' %}
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Business Name" %}</div>
+                            <div class="up-field-value">{{ profile.occupation_detail.first.business_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Business Location" %}</div>
+                            <div class="up-field-value">{{ profile.occupation_detail.first.business_location|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Business Description" %}</div>
+                            <div class="up-field-value">{{ profile.occupation_detail.first.business_description|default:"—" }}</div>
+                        </div>
+                        {% elif profile.occupation_type == 'job' %}
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Company Name" %}</div>
+                            <div class="up-field-value">{{ profile.occupation_detail.first.company_name|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Job Location" %}</div>
+                            <div class="up-field-value">{{ profile.occupation_detail.first.company_location|default:"—" }}</div>
+                        </div>
+                        <div class="up-field">
+                            <div class="up-field-label">{% trans "Job Description" %}</div>
+                            <div class="up-field-value">{{ profile.occupation_detail.first.job_description|default:"—" }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="up-section">
+                    <div class="up-section-header">
+                        <div class="up-section-icon red"><span class="material-icons">link</span></div>
+                        <span class="up-section-title">{% trans "Social Media" %}</span>
+                    </div>
+                    <div class="up-social-wrap">
+                        {% if profile.facebook_link %}
+                        <a class="up-social-btn up-social-fb" href="{{ profile.facebook_link }}" target="_blank">
+                            <span class="material-icons">facebook</span> Facebook
+                        </a>
+                        {% endif %}
+                        {% if profile.instagram_link %}
+                        <a class="up-social-btn up-social-ig" href="{{ profile.instagram_link }}" target="_blank">
+                            <span class="material-icons">photo_camera</span> Instagram
+                        </a>
+                        {% endif %}
+                        {% if not profile.facebook_link and not profile.instagram_link %}
+                        <span style="color:#c0cad6;font-size:0.88rem;font-style:italic;padding:4px 0;">{% trans "No social links added" %}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Viewers -->
+                {% if request.user == profile.user and profile.track_member_views_flag %}
+                <div class="up-section">
+                    <div class="up-section-header">
+                        <div class="up-section-icon blue"><span class="material-icons">visibility</span></div>
+                        <span class="up-section-title">{% trans "Profile Viewers" %}</span>
+                        <span style="margin-left:auto;background:#e8f0fb;color:#1e4d80;font-size:0.72rem;font-weight:800;padding:3px 10px;border-radius:20px;">{{ viewers.count }}</span>
+                    </div>
+                    {% if viewers %}
+                    <div class="table-responsive">
+                        <table class="up-viewers-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{% trans "Name" %}</th>
+                                    <th>{% trans "Father" %}</th>
+                                    <th>{% trans "DOB" %}</th>
+                                    <th>{% trans "Status" %}</th>
+                                    <th>{% trans "Location" %}</th>
+                                    <th>{% trans "Actions" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for viewer in viewers %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><strong>{{ viewer.viewer.full_name|title }}</strong></td>
+                                    <td>{{ viewer.viewer.father_name|title }}</td>
+                                    <td>{{ viewer.viewer.date_of_birth }}</td>
+                                    <td>{{ viewer.viewer.get_marital_status_display }}</td>
+                                    <td>{{ viewer.viewer.current_address_city|title }}, {{ viewer.viewer.current_address_state|title }}</td>
+                                    <td>
+                                        <div class="d-flex gap-1">
+                                            <a href="{% url 'samaj:user_profile' viewer.viewer.id %}" class="up-tbl-action" title="{% trans 'View Profile' %}">
+                                                <span class="material-icons">visibility</span>
+                                            </a>
+                                            <a href="{% url 'samaj:member_family_tree' viewer.viewer.id %}" class="up-tbl-action" title="{% trans 'View Family' %}">
+                                                <span class="material-icons">diversity_3</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div style="padding:24px;color:#c0cad6;font-style:italic;font-size:0.88rem;">{% trans "No viewers yet" %}</div>
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-            {% endif %}
 
-        </div>
+            </div><!-- /.up-main -->
+        </div><!-- /.up-layout -->
+    </div><!-- /.up-page -->
+
+    <!-- Lightbox -->
+    <div class="up-lightbox" id="avatarLightbox">
+        <button class="up-lightbox-close" id="lightboxClose">
+            <span class="material-icons">close</span>
+        </button>
+        <img src="" alt="Profile Photo" class="up-lightbox-img" id="lightboxImg">
     </div>
 
     {% include 'Includes/footer.html' %}
@@ -489,71 +713,93 @@
 
 {% block javascripts %}
 <script>
-    const edit_member_bio_btn = document.getElementById('edit_member_bio_btn');
-    const edit_member_bio_form = document.getElementById('edit_member_bio_form');
-    if (edit_member_bio_btn) {
-        edit_member_bio_btn.addEventListener('click', function () {
-            edit_member_bio_form.submit();
-        });
+    // ── Lightbox ──
+    const avatarRing    = document.getElementById('avatarRing');
+    const avatarLightbox = document.getElementById('avatarLightbox');
+    const lightboxImg   = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const avatarImg     = document.getElementById('avatarImg');
+
+    avatarRing.addEventListener('click', () => {
+        lightboxImg.src = avatarImg.getAttribute('data-src');
+        avatarLightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+    lightboxClose.addEventListener('click', closeLightbox);
+    avatarLightbox.addEventListener('click', (e) => { if (e.target === avatarLightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    function closeLightbox() {
+        avatarLightbox.classList.remove('open');
+        document.body.style.overflow = '';
     }
 </script>
 
 <script>
+    // Edit form
+    const edit_member_bio_btn  = document.getElementById('edit_member_bio_btn');
+    const edit_member_bio_form = document.getElementById('edit_member_bio_form');
+    if (edit_member_bio_btn) edit_member_bio_btn.addEventListener('click', () => edit_member_bio_form.submit());
+
+    // Share
     const shareBtn = document.getElementById('shareBtn');
     shareBtn.addEventListener('click', async () => {
         if (navigator.share) {
-            await navigator.share({
-                title: document.title,
-                text: "Check out this profile from Shree Bada Paliwal Samaj!",
-                url: window.location.href
-            });
+            await navigator.share({ title: document.title, text: "Check out this profile from Shree Bada Paliwal Samaj!", url: window.location.href });
         } else {
             navigator.clipboard.writeText(window.location.href).then(() => {
-                shareBtn.innerHTML = '<span class="material-icons" style="font-size:16px;">check</span> Copied!';
+                shareBtn.innerHTML = '<span class="material-icons" style="font-size:16px;">check</span> {% trans "Copied!" %}';
                 setTimeout(() => {
-                    shareBtn.innerHTML = '<span class="material-icons" style="font-size:16px;">share</span>{% trans "Share" %}';
+                    shareBtn.innerHTML = '<span class="material-icons">share</span>{% trans "Share Profile" %}';
                 }, 2000);
             });
         }
     });
+
+    // Profile completeness
+    (function() {
+        const fields = [
+            {{ profile.full_name|yesno:"1,0" }},
+            {{ profile.father_name|yesno:"1,0" }},
+            {{ profile.mother_name|yesno:"1,0" }},
+            {{ profile.date_of_birth|yesno:"1,0" }},
+            {{ profile.birth_place|yesno:"1,0" }},
+            {{ profile.phone_number|yesno:"1,0" }},
+            {{ profile.current_address_city|yesno:"1,0" }},
+            {{ profile.get_occupation_type_display|yesno:"1,0" }},
+            {{ profile.profile_image|yesno:"1,0" }}
+        ];
+        const pct = Math.round(fields.filter(Boolean).length / fields.length * 100);
+        document.getElementById('completeFill').style.width = pct + '%';
+        document.getElementById('completePercent').textContent = pct + '%';
+        const fill = document.getElementById('completeFill');
+        if (pct < 40) fill.style.background = 'linear-gradient(90deg,#dc3545,#ff6b7a)';
+        else if (pct < 75) fill.style.background = 'linear-gradient(90deg,#f0a500,#ffc107)';
+        else fill.style.background = 'linear-gradient(90deg,#198754,#28a745)';
+    })();
 </script>
 
 {% if allow_edit_delete_flag %}
 <script>
-    const delete_member_btn = document.getElementById('delete_member_btn');
+    const delete_member_btn  = document.getElementById('delete_member_btn');
     const delete_member_form = document.getElementById('delete_member_form');
-    delete_member_btn.addEventListener('click', function() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be undone.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) { delete_member_form.submit(); }
-        });
+    delete_member_btn.addEventListener('click', () => {
+        Swal.fire({ title:'Are you sure?', text:"This action cannot be undone.", icon:'warning',
+            showCancelButton:true, confirmButtonColor:'#d33', cancelButtonColor:'#6c757d',
+            confirmButtonText:'Yes, delete it!'
+        }).then(r => { if (r.isConfirmed) delete_member_form.submit(); });
     });
 </script>
 {% endif %}
 
 {% if mark_as_head_flag %}
 <script>
-    const mark_as_head_btn = document.getElementById('mark_as_head_btn');
+    const mark_as_head_btn  = document.getElementById('mark_as_head_btn');
     const mark_as_head_form = document.getElementById('mark_as_head_form');
-    mark_as_head_btn.addEventListener('click', function() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "This action cannot be undone.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Yes'
-        }).then((result) => {
-            if (result.isConfirmed) { mark_as_head_form.submit(); }
-        });
+    mark_as_head_btn.addEventListener('click', () => {
+        Swal.fire({ title:'Are you sure?', text:"This action cannot be undone.", icon:'warning',
+            showCancelButton:true, confirmButtonColor:'#d33', cancelButtonColor:'#6c757d',
+            confirmButtonText:'Yes'
+        }).then(r => { if (r.isConfirmed) mark_as_head_form.submit(); });
     });
 </script>
 {% endif %}

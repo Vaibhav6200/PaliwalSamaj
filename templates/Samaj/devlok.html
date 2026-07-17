@@ -199,12 +199,12 @@
                 <div class="dk-filter-body">
                     <form id="search_family_form">
                         <div class="row g-3">
-                            <div class="col-12 col-md-5">
+                            <div class="col-12 col-md-6">
                                 <label for="full_name">{% trans "Name" %}</label>
                                 <input class="form-control only_alphabets" name="full_name" id="full_name"
                                        maxlength="50" placeholder="{% trans 'Search by name…' %}" type="text" value="{{ name_filter_value }}">
                             </div>
-                            <div class="col-12 col-md-5">
+                            <div class="col-12 col-md-6">
                                 <label for="gotra">{% trans "Gotra" %}</label>
                                 <select name="gotra" class="form-control" id="gotra">
                                     <option value="" disabled {% if not gotra_filter_value %}selected{% endif %}>{% trans "Select Gotra" %}</option>
@@ -213,15 +213,13 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-12 col-md-2 d-flex align-items-end">
-                                <div class="dk-filter-actions w-100" style="justify-content:flex-start;">
-                                    <button class="dk-btn-search" type="submit">
-                                        <span class="material-icons" style="font-size:16px;">search</span>{% trans "Search" %}
-                                    </button>
-                                    <a href="{% url 'samaj:devlok' %}" class="dk-btn-clear">
-                                        <span class="material-icons" style="font-size:16px;">close</span>
-                                    </a>
-                                </div>
+                            <div class="col-12 dk-filter-actions" style="justify-content:flex-end; padding-top:4px;">
+                                <a href="{% url 'samaj:devlok' %}" class="dk-btn-clear">
+                                    <span class="material-icons" style="font-size:16px;">refresh</span>{% trans "Clear" %}
+                                </a>
+                                <button class="dk-btn-search" type="submit">
+                                    <span class="material-icons" style="font-size:16px;">search</span>{% trans "Search" %}
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -235,10 +233,10 @@
                     {% trans "Total" %}: <strong>{{ records_count }}</strong>
                 </div>
                 <div class="dk-view-toggle" id="viewToggle">
-                    <button class="dk-toggle-btn active" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button">
+                    <button class="dk-toggle-btn active" id="table-tab" data-target="table" type="button">
                         <span class="material-icons">view_list</span>{% trans "Table" %}
                     </button>
-                    <button class="dk-toggle-btn" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button">
+                    <button class="dk-toggle-btn" id="grid-tab" data-target="grid" type="button">
                         <span class="material-icons">grid_view</span>{% trans "Grid" %}
                     </button>
                 </div>
@@ -379,30 +377,32 @@
     this.querySelectorAll("input, select").forEach(el => { if (!el.value.trim()) el.removeAttribute("name"); });
   });
 
-  // ── Tab toggle active state sync ──
+  // ── Pure-JS tab switching ──
   const DK_TAB_KEY = 'devlok_view_tab';
-  const toggleBtns = document.querySelectorAll('.dk-toggle-btn');
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('shown.bs.tab', function(e) {
-      toggleBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      localStorage.setItem(DK_TAB_KEY, this.getAttribute('data-bs-target').replace('#',''));
+
+  function switchTab(targetId) {
+    // panes
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+    const pane = document.getElementById(targetId);
+    if (pane) { pane.classList.add('show', 'active'); }
+    // buttons
+    document.querySelectorAll('.dk-toggle-btn').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById(targetId + '-tab');
+    if (btn) { btn.classList.add('active'); }
+    // persist
+    localStorage.setItem(DK_TAB_KEY, targetId);
+  }
+
+  document.querySelectorAll('.dk-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      switchTab(this.getAttribute('data-target'));
     });
   });
 
-  // ── Restore saved tab ──
+  // ── Restore saved tab on load ──
   (function () {
     const saved = localStorage.getItem(DK_TAB_KEY);
-    if (saved && saved !== 'table') {
-      const btn  = document.getElementById(saved + '-tab');
-      const pane = document.getElementById(saved);
-      if (btn && pane) {
-        document.getElementById('table-tab').classList.remove('active');
-        document.getElementById('table').classList.remove('show', 'active');
-        btn.classList.add('active');
-        pane.classList.add('show', 'active');
-      }
-    }
+    if (saved) switchTab(saved);
   })();
 </script>
 {% endblock %}

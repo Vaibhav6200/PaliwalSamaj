@@ -72,17 +72,21 @@
     /* ── Hero ── */
     .ft-hero {
         background: linear-gradient(135deg, #0d2137 0%, #1e4d80 60%, #0d2137 100%);
-        padding: 36px 20px 32px;
-        text-align: center;
+        padding: 14px 28px;
+        display: flex; align-items: center; gap: 14px;
+        flex-wrap: wrap;
     }
-    .ft-hero-title { color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 4px; }
-    .ft-hero-sub   { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin: 0; }
-    .ft-hero-tag   {
-        display: inline-block; background: #f0a500; color: #003049;
-        font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
-        padding: 3px 14px; border-radius: 20px; margin-bottom: 10px;
-        text-transform: uppercase;
+    .ft-hero-tag {
+        display: inline-flex; align-items: center;
+        background: #f0a500; color: #003049;
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.08em;
+        padding: 4px 13px; border-radius: 20px;
+        text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
     }
+    .ft-hero-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+    .ft-hero-title { color: #fff; font-size: 1.05rem; font-weight: 700; margin: 0; }
+    .ft-hero-sub   { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin: 0; }
+    @media (max-width: 480px) { .ft-hero-divider { display: none; } }
 
     /* ── Section label ── */
     .ft-section-label {
@@ -103,8 +107,11 @@
 
     <div class="ft-hero">
         <span class="ft-hero-tag">{% trans "Paliwal Samaj" %}</span>
-        <h1 class="ft-hero-title">{{ family_tree_of.full_name }}</h1>
-        <p class="ft-hero-sub">{% trans "Family Tree" %}</p>
+        <div class="ft-hero-divider"></div>
+        <div>
+            <div class="ft-hero-title">{{ family_tree_of.full_name }}</div>
+            <div class="ft-hero-sub">{% trans "Family Tree" %}</div>
+        </div>
     </div>
 
     <section id="main-container" class="main-container">
@@ -113,7 +120,7 @@
             <!-- Head -->
             <p class="ft-section-label">{% trans "Family Head" %}</p>
             <div class="row justify-content-center">
-                <div class="col-6 col-md-3 col-lg-2 p-2">
+                <div class="col-8 col-sm-6 col-md-4 col-lg-3 p-2">
                     <div class="ft-card is-head">
                         {% if family_head.profile_image %}
                         <img loading="lazy" class="ft-photo" src="{{ family_head.profile_image.url }}" alt="{{ family_head.full_name }}">
