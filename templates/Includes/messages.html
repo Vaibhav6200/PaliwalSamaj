@@ -1,5 +1,4 @@
 <script>
-    // Function to show toast
     function showToast(type, message) {
         Swal.fire({
             icon: type,
@@ -7,24 +6,38 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            showCloseButton:true,
+            showCloseButton: true,
             timer: 5000,
             timerProgressBar: true,
-            backdrop:false,
-            customClass: {
-                popup: 'no-blur-popup'
+            backdrop: false,
+            customClass: { popup: 'no-blur-popup' },
+            didOpen: function (popup) {
+                /* Force toast below sticky header after SweetAlert inserts it */
+                var container = popup.closest('.swal2-container');
+                if (!container) return;
+                var isMobile = window.innerWidth < 576;
+                /* header = topbar (~34px) + navbar (~56px) + 6px gap = 96px desktop / 86px mobile */
+                var topPx = isMobile ? '86px' : '96px';
+                container.style.setProperty('top',   topPx,  'important');
+                container.style.setProperty('right', isMobile ? '0'    : '12px', 'important');
+                container.style.setProperty('left',  isMobile ? '0'    : 'auto', 'important');
+                container.style.setProperty('z-index', '99999', 'important');
+                if (isMobile) {
+                    container.style.setProperty('padding', '0 12px', 'important');
+                    popup.style.setProperty('width',     '100%', 'important');
+                    popup.style.setProperty('max-width', '100%', 'important');
+                }
             }
-        })
+        });
     }
 
     {% for message in messages %}
         {% if 'danger' in message.tags %}
-            showToast('error', '{{ message }}')
+            showToast('error', '{{ message|escapejs }}')
         {% elif 'success' in message.tags %}
-            showToast('success', '{{ message }}')
+            showToast('success', '{{ message|escapejs }}')
         {% else %}
-            showToast('warning', '{{ message }}')
+            showToast('warning', '{{ message|escapejs }}')
         {% endif %}
     {% endfor %}
-
 </script>
