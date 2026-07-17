@@ -214,10 +214,35 @@
     letter-spacing: 0.08em;
 }
 
+/* ── Section heading (local definition) ────────────────────── */
+.section-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.section-heading h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a3a5c;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.section-heading h3::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #f0a500;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
 /* ── Video section ──────────────────────────────────────────── */
 .gl-video-section {
     background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 100%);
-    padding: 64px 0 72px;
+    padding: 72px 0 80px;
     position: relative;
     overflow: hidden;
 }
@@ -228,39 +253,121 @@
     background-size: 26px 26px;
     pointer-events: none;
 }
-.gl-video-section .section-heading h3 { color: #fff; }
+.gl-video-section .section-heading h3 {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
 .gl-video-section .section-heading h3::after { background: #f0a500; }
 
+/* Featured video (first one) */
+.gl-video-featured {
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    transition: transform 0.3s cubic-bezier(.34,1.2,.64,1), box-shadow 0.3s;
+    position: relative;
+}
+.gl-video-featured:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 36px 80px rgba(0,0,0,0.5);
+}
+.gl-video-featured .ratio { border-radius: 20px 20px 0 0; overflow: hidden; }
+.gl-video-featured-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+}
+.gl-video-featured-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0a500, #d4890a);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(240,165,0,0.4);
+}
+.gl-video-featured-icon .material-icons { font-size: 1.1rem; color: #fff; }
+.gl-video-featured-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.35;
+    margin: 0;
+}
+.gl-video-featured-sub {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    margin: 2px 0 0;
+}
+.gl-featured-badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: linear-gradient(135deg, #f0a500, #d4890a);
+    color: #fff;
+    font-size: 0.65rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(240,165,0,0.4);
+    z-index: 2;
+}
+
+/* Regular video cards */
 .gl-video-card {
     border-radius: 16px;
     overflow: hidden;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
     transition: transform 0.28s cubic-bezier(.34,1.2,.64,1), box-shadow 0.28s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .gl-video-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
     box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+    border-color: rgba(240,165,0,0.25);
 }
-.gl-video-card .ratio { border-radius: 16px 16px 0 0; overflow: hidden; }
-.gl-video-card-title {
-    padding: 14px 16px;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.88);
-    line-height: 1.4;
+.gl-video-card .ratio { border-radius: 16px 16px 0 0; overflow: hidden; flex-shrink: 0; }
+.gl-video-card-body {
+    padding: 14px 16px 16px;
     display: flex;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
+    flex: 1;
 }
-.gl-video-card-title .material-icons { font-size: 1rem; color: #f0a500; flex-shrink: 0; margin-top: 2px; }
+.gl-video-card-play {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(240,165,0,0.18);
+    border: 1px solid rgba(240,165,0,0.35);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background 0.2s;
+}
+.gl-video-card:hover .gl-video-card-play {
+    background: #f0a500;
+}
+.gl-video-card-play .material-icons { font-size: 0.9rem; color: #f0c040; }
+.gl-video-card:hover .gl-video-card-play .material-icons { color: #fff; }
+.gl-video-card-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.45;
+    margin: 0;
+}
 
 .gl-no-videos {
     text-align: center;
     color: rgba(255,255,255,0.45);
-    padding: 48px 20px;
+    padding: 64px 20px;
 }
-.gl-no-videos .material-icons { font-size: 3rem; display: block; margin-bottom: 12px; }
+.gl-no-videos .material-icons { font-size: 3.5rem; display: block; margin-bottom: 14px; }
+.gl-no-videos p { font-size: 0.95rem; }
 </style>
 {% endblock %}
 
@@ -328,9 +435,42 @@
                 <h3>{% trans "Video Gallery" %}</h3>
             </div>
 
-            <div class="row g-4 mt-2">
-                {% if videos %}
-                {% for video in videos %}
+            {% if videos %}
+            {% with first=videos|first rest=videos|slice:"1:" %}
+
+            {% if first %}
+            <!-- Featured video -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-8 col-md-10">
+                    <div class="gl-video-featured">
+                        <span class="gl-featured-badge">
+                            <span class="material-icons" style="font-size:0.7rem;vertical-align:middle;margin-right:3px;">star</span>{% trans "Featured" %}
+                        </span>
+                        <div class="ratio ratio-16x9">
+                            <iframe src="{{ first.get_youtube_embed_url }}"
+                                    title="{{ first.title }}"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen></iframe>
+                        </div>
+                        <div class="gl-video-featured-footer">
+                            <div class="gl-video-featured-icon">
+                                <span class="material-icons">play_arrow</span>
+                            </div>
+                            <div>
+                                <p class="gl-video-featured-title">{{ first.title }}</p>
+                                <p class="gl-video-featured-sub">{% trans "Paliwal Samaj" %} · {% trans "Official Video" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if rest %}
+            <!-- Remaining videos grid -->
+            <div class="row g-4 mt-1">
+                {% for video in rest %}
                 <div class="col-lg-4 col-md-6">
                     <div class="gl-video-card">
                         <div class="ratio ratio-16x9">
@@ -341,22 +481,30 @@
                                     allowfullscreen
                                     loading="lazy"></iframe>
                         </div>
-                        <div class="gl-video-card-title">
-                            <span class="material-icons">play_circle</span>
-                            {{ video.title }}
+                        <div class="gl-video-card-body">
+                            <div class="gl-video-card-play">
+                                <span class="material-icons">play_arrow</span>
+                            </div>
+                            <p class="gl-video-card-title">{{ video.title }}</p>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                {% else %}
+            </div>
+            {% endif %}
+
+            {% endwith %}
+
+            {% else %}
+            <div class="row">
                 <div class="col-12">
                     <div class="gl-no-videos">
                         <span class="material-icons">videocam_off</span>
-                        {% trans "No videos available yet." %}
+                        <p>{% trans "No videos available yet. Check back soon!" %}</p>
                     </div>
                 </div>
-                {% endif %}
             </div>
+            {% endif %}
         </div>
     </section>
 
