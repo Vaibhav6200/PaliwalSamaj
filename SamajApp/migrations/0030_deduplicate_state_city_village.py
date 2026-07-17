@@ -24,6 +24,30 @@ def normalize_name(name):
     return name
 
 
+def merge_city_into(city, canonical_city, apps):
+    """Re-point all villages/members/families from city → canonical_city, then delete city."""
+    Village = apps.get_model('SamajApp', 'Village')
+    Member = apps.get_model('SamajApp', 'Member')
+    Family = apps.get_model('SamajApp', 'Family')
+
+    for village in Village.objects.filter(city=city):
+        existing_village = Village.objects.filter(
+            village_name__iexact=normalize_name(village.village_name),
+            city=canonical_city
+        ).first()
+        if existing_village:
+            Member.objects.filter(current_address_village=village).update(current_address_village=existing_village)
+            Family.objects.filter(paitrik_address_village=village).update(paitrik_address_village=existing_village)
+            village.delete()
+        else:
+            village.city = canonical_city
+            village.save()
+
+    Member.objects.filter(current_address_city=city).update(current_address_city=canonical_city)
+    Family.objects.filter(paitrik_address_city=city).update(paitrik_address_city=canonical_city)
+    city.delete()
+
+
 def deduplicate_states(apps, schema_editor):
     State = apps.get_model('SamajApp', 'State')
     City = apps.get_model('SamajApp', 'City')
@@ -46,7 +70,21 @@ def deduplicate_states(apps, schema_editor):
         print(f"[State] Merging {[s.state_name for s in duplicates]} → '{canonical.state_name}' (id={canonical.id})")
 
         for dup in duplicates:
-            City.objects.filter(state=dup).update(state=canonical)
+            # Move each city from the duplicate state to the canonical state.
+            # If a city with the same name already exists in the canonical state,
+            # merge into it instead to avoid violating the unique_together constraint.
+            for city in list(City.objects.filter(state=dup)):
+                existing_city = City.objects.filter(
+                    city_name__iexact=normalize_name(city.city_name),
+                    state=canonical
+                ).first()
+                if existing_city:
+                    print(f"  [City] '{city.city_name}' already in canonical state — merging into id={existing_city.id}")
+                    merge_city_into(city, existing_city, apps)
+                else:
+                    city.state = canonical
+                    city.save()
+
             Member.objects.filter(current_address_state=dup).update(current_address_state=canonical)
             Family.objects.filter(paitrik_address_state=dup).update(paitrik_address_state=canonical)
             dup.delete()
