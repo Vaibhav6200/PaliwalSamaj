@@ -698,7 +698,12 @@ msgstr "समाचार"
 msgid "Community"
 msgstr "समुदाय"
 
-#: templates/Includes/navbar.html:84 templates/Samaj/my_family.html:15
+#: templates/Includes/navbar.html:84 templates/Samaj/community.html:215
+#: templates/Samaj/community.html:279 templates/Samaj/devlok.html:33
+msgid "Devlok"
+msgstr "देवलोक"
+
+#: templates/Includes/navbar.html:85 templates/Samaj/my_family.html:15
 msgid "My Family"
 msgstr "मेरा परिवार"
 
@@ -1333,6 +1338,22 @@ msgstr "फेसबुक"
 #: templates/Samaj/user_profile.html:218
 msgid "Instagram"
 msgstr "इंस्टाग्राम"
+
+#: templates/Samaj/devlok.html:44
+msgid "Remembering Our Ancestors"
+msgstr "हमारे पूर्वजों को स्मरण"
+
+#: templates/Samaj/devlok.html:45
+msgid "Members who have passed away"
+msgstr "सदस्य जो दिवंगत हो चुके हैं"
+
+#: templates/Samaj/devlok.html:135 templates/Samaj/devlok.html:181
+msgid "No members found in Devlok"
+msgstr "देवलोक में कोई सदस्य नहीं मिला"
+
+#: templates/Samaj/bio_data.html:102
+msgid "Mark this member as passed away (shown in Devlok)"
+msgstr "इस सदस्य को दिवंगत चिह्नित करें (देवलोक में दिखेगा)"
 
 #~ msgid "Share"
 #~ msgstr "शेयर"

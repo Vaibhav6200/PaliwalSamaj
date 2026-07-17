@@ -14,31 +14,429 @@
 
 {% block stylesheets %}
 <style>
-    .about-dev-image {
+    /* ── Stats Bar ─────────────────────────────────────────────── */
+    .stats-bar {
+        background: linear-gradient(135deg, #0d2137 0%, #1a3a5c 100%);
+        padding: 36px 0;
+    }
+    .stat-item {
+        text-align: center;
+        color: #fff;
+        padding: 12px 8px;
+        border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: #f0a500;
+        line-height: 1;
+        display: block;
+    }
+    .stat-label {
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.75);
+        margin-top: 6px;
+        display: block;
+    }
+    .stat-icon {
+        font-size: 1.8rem;
+        color: rgba(255,255,255,0.35);
+        margin-bottom: 8px;
+    }
+
+    /* ── Section title ─────────────────────────────────────────── */
+    .section-heading {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .section-heading h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1a3a5c;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 12px;
+    }
+    .section-heading h3::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: #f0a500;
+        margin: 10px auto 0;
+        border-radius: 2px;
+    }
+
+    /* ── News Cards ───────────────────────────────────────────── */
+    #event_section {
+        background: linear-gradient(160deg, #0d2137 0%, #1a3a5c 100%);
+        padding: 64px 0 72px;
+    }
+    #event_section .section-heading h3 { color: #fff; }
+    #event_section .section-heading h3::after { background: #f0a500; }
+
+    .news-card {
+        position: relative;
+        height: 370px;
+        border-radius: 20px;
+        overflow: hidden;
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        transition: transform 0.35s cubic-bezier(.34,1.15,.64,1), box-shadow 0.35s;
+    }
+    .news-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Full-bleed background image */
+    .news-card-img {
+        position: absolute;
+        inset: 0;
+    }
+    .news-card-img img {
+        width: 100%; height: 100%;
         object-fit: cover;
-        width: 100%;
+        transition: transform 0.6s ease;
+        display: block;
+    }
+    .news-card:hover .news-card-img img { transform: scale(1.09); }
+
+    /* Gradient overlay — deepens on hover */
+    .news-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to top,
+            rgba(5,14,26,0.97) 0%,
+            rgba(5,14,26,0.60) 40%,
+            rgba(5,14,26,0.10) 100%
+        );
+        transition: background 0.35s;
+    }
+    .news-card:hover .news-card-overlay {
+        background: linear-gradient(
+            to top,
+            rgba(5,14,26,0.99) 0%,
+            rgba(5,14,26,0.80) 55%,
+            rgba(5,14,26,0.25) 100%
+        );
+    }
+
+    /* Gold sweep bar at bottom */
+    .news-card::before {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 50%; right: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, #f0a500, #ffd166);
+        z-index: 4;
+        transition: left 0.4s ease, right 0.4s ease;
+        border-radius: 0 0 20px 20px;
+    }
+    .news-card:hover::before { left: 0; right: 0; }
+
+    /* Category badge — top left */
+    .news-card-cat {
+        position: absolute;
+        top: 16px; left: 16px;
+        z-index: 3;
+        background: #f0a500;
+        color: #fff;
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 30px;
+        box-shadow: 0 2px 10px rgba(240,165,0,0.4);
+    }
+
+    /* Date pill — top right, frosted glass */
+    .news-card-date {
+        position: absolute;
+        top: 16px; right: 16px;
+        z-index: 3;
+        background: rgba(255,255,255,0.14);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(255,255,255,0.22);
+        color: rgba(255,255,255,0.9);
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .news-card-date .material-icons { font-size: 0.8rem; }
+
+    /* Content at bottom */
+    .news-card-content {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 22px 22px 26px;
+        z-index: 3;
+    }
+    .news-card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0 0 10px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.2s;
+    }
+    .news-card:hover .news-card-title { color: #ffd166; }
+
+    /* Subtitle — hidden, slides up on hover */
+    .news-card-sub {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.72);
+        line-height: 1.55;
+        margin: 0 0 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.38s ease, opacity 0.32s ease;
+    }
+    .news-card:hover .news-card-sub {
+        max-height: 56px;
+        opacity: 1;
+    }
+
+    /* Read More — also slides up on hover */
+    .news-card-readmore {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #f0a500;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.38s ease 0.06s, opacity 0.32s ease 0.06s;
+    }
+    .news-card:hover .news-card-readmore { max-height: 30px; opacity: 1; }
+    .news-card-readmore .material-icons { font-size: 1rem; transition: transform 0.2s; }
+    .news-card:hover .news-card-readmore .material-icons { transform: translateX(4px); }
+
+    /* Nav buttons */
+    .news-swiper-btn {
+        width: 44px !important;
+        height: 44px !important;
+        background: rgba(255,255,255,0.12) !important;
+        backdrop-filter: blur(6px) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+        border-radius: 50% !important;
+        top: 50% !important;
+        transition: background 0.2s !important;
+    }
+    .news-swiper-btn::after {
+        font-size: 14px !important;
+        font-weight: 900 !important;
+        color: #fff !important;
+    }
+    .news-swiper-btn:hover {
+        background: #f0a500 !important;
+        border-color: #f0a500 !important;
+    }
+
+    /* ── About highlights ──────────────────────────────────────── */
+    .about-highlight-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 24px 20px;
+        text-align: center;
+        border-top: 3px solid #f0a500;
         height: 100%;
+        transition: box-shadow 0.2s;
+    }
+    .about-highlight-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.10); }
+    .about-highlight-card .hi-icon {
+        font-size: 2.2rem;
+        color: #f0a500;
+        margin-bottom: 12px;
+    }
+    .about-highlight-card h5 { font-weight: 700; color: #1a3a5c; margin-bottom: 8px; }
+    .about-highlight-card p  { font-size: 0.88rem; color: #555; margin: 0; }
+
+    /* ── Member cards ──────────────────────────────────────────── */
+    .member-group-section {
+        padding: 56px 0 64px;
+        background: #f4f7fb;
+    }
+    .member-group-section:nth-child(even) {
+        background: #fff;
     }
 
-    @media only screen and (max-width: 600px) {
-      .ts-name {
-        font-size: 13px !important;
-      }
+    .mcard {
+        background: #fff;
+        border-radius: 18px;
+        overflow: visible;
+        box-shadow: 0 4px 24px rgba(13,33,55,0.10);
+        transition: transform 0.28s cubic-bezier(.34,1.3,.64,1), box-shadow 0.28s;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
     }
-    /* Initially show only the name */
-    .ts-team-wrapper .default-view {
-        display: block;
-    }
-    .ts-team-wrapper .hover-view {
-        display: none;
+    .mcard:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 48px rgba(13,33,55,0.17);
     }
 
-    /* On hover: hide name, show details */
-    .ts-team-wrapper:hover .default-view {
-        display: none;
+    /* Navy gradient header band */
+    .mcard-header {
+        background: linear-gradient(135deg, #0d2137 0%, #1e4d80 100%);
+        height: 88px;
+        border-radius: 18px 18px 0 0;
+        position: relative;
+        flex-shrink: 0;
+        overflow: hidden;
     }
-    .ts-team-wrapper:hover .hover-view {
+    /* subtle dot pattern */
+    .mcard-header::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+        background-size: 16px 16px;
+    }
+    /* gold accent line at bottom of header */
+    .mcard-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent 0%, #f0a500 50%, transparent 100%);
+    }
+
+    /* Circular avatar centred, overlapping header */
+    .mcard-avatar-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: -48px;
+        position: relative;
+        z-index: 2;
+    }
+    .mcard-avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        border: 4px solid #fff;
+        box-shadow: 0 0 0 3px #f0a500, 0 6px 20px rgba(0,0,0,0.18);
+        background: #e9ecef;
         display: block;
+        transition: transform 0.3s;
+    }
+    .mcard:hover .mcard-avatar {
+        transform: scale(1.06);
+    }
+
+    /* Card body */
+    .mcard-body {
+        padding: 14px 18px 22px;
+        text-align: center;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+    .mcard-name {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0d2137;
+        margin: 10px 0 8px;
+        line-height: 1.3;
+    }
+    .mcard-role {
+        display: inline-block;
+        background: linear-gradient(135deg, #f0a500 0%, #d4890a 100%);
+        color: #fff;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 4px 14px;
+        border-radius: 30px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(240,165,0,0.35);
+    }
+    /* thin divider */
+    .mcard-divider {
+        width: 36px;
+        height: 2px;
+        background: #e8edf3;
+        border-radius: 1px;
+        margin: 0 auto 12px;
+    }
+    .mcard-meta {
+        font-size: 0.8rem;
+        color: #5a6a7e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+    .mcard-meta .material-icons {
+        font-size: 0.95rem;
+        color: #f0a500;
+        flex-shrink: 0;
+    }
+
+    /* ── Avatar zoom hint ─────────────────────────────────────── */
+    .mcard-avatar-wrap a {
+        position: relative;
+        display: inline-block;
+        border-radius: 50%;
+    }
+    .mcard-zoom-hint {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(13,33,55,0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.22s;
+        cursor: zoom-in;
+    }
+    .mcard-zoom-hint .material-icons {
+        color: #fff;
+        font-size: 1.6rem;
+        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+    }
+    .mcard-avatar-wrap a:hover .mcard-zoom-hint { opacity: 1; }
+
+    @media (max-width: 576px) {
+        .stat-number { font-size: 1.8rem; }
+        .stat-label  { font-size: 0.75rem; }
+        .mcard-avatar { width: 80px; height: 80px; }
+        .mcard-header { height: 72px; }
+        .mcard-avatar-wrap { margin-top: -40px; }
     }
 </style>
 {% endblock %}
@@ -118,29 +516,67 @@
     <!-- Carousel End -->
 
 
+    <!-- Stats Bar Start -->
+    <div class="stats-bar">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <span class="material-icons stat-icon">groups</span>
+                        <span class="stat-number">{{ total_members }}+</span>
+                        <span class="stat-label">{% trans "Members" %}</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <span class="material-icons stat-icon">home</span>
+                        <span class="stat-number">{{ total_families }}+</span>
+                        <span class="stat-label">{% trans "Families" %}</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <span class="material-icons stat-icon">location_city</span>
+                        <span class="stat-number">{{ total_cities }}+</span>
+                        <span class="stat-label">{% trans "Cities" %}</span>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <span class="material-icons stat-icon">map</span>
+                        <span class="stat-number">{{ total_states }}+</span>
+                        <span class="stat-label">{% trans "States" %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Stats Bar End -->
+
+
     <!-- About Us section Start -->
     <section id="about_us_section" class="main-container">
-        <div class="container p-3">
+        <div class="container">
+            <div class="section-heading">
+                <h3>{% trans "About Paliwal Samaj" %}</h3>
+            </div>
             <div class="row d-flex align-items-stretch">
                 <div class="col-lg-6 d-flex flex-column justify-content-center">
-                    <div>
-                        <h3 class="column-title">{% trans "About Paliwal Samaj" %}</h3>
-                        <p class="text-justify">
-                            {% blocktrans %}Paliwal Samaj is a distinguished and culturally rich Brahmin community with ancient roots in the historic town of Pali, India. Known for its deep commitment to Sanatan Dharma, Vedic values, and spiritual discipline, the community has long symbolized wisdom, unity, and tradition—growing over generations while gracefully adapting to changing times.{% endblocktrans %}
-                        </p>
-                        <p class="text-justify">
-                            {% blocktrans %}Renowned for its contributions in education, public service, religious leadership, business, and cultural preservation, the Paliwal community continues to thrive across diverse regions and professions. From revered priests and scholars to modern professionals and entrepreneurs, we proudly carry forward a legacy rooted in ethics, excellence, and service.{% endblocktrans %}
-                        </p>
-                        <p class="text-justify">
-                            {% blocktrans %}Grounded in Vedic customs, we uphold traditions like the gotra system, kuldevi worship, and observance of key festivals and sanskaras. Today, Paliwal families across India and the globe remain united by shared values, strong family bonds, and a collective spirit of growth—serving as a living bridge between tradition and progress.{% endblocktrans %}
-                        </p>
-                    </div>
+                    <p class="text-justify">
+                        {% blocktrans %}Paliwal Samaj is a distinguished and culturally rich Brahmin community with ancient roots in the historic town of Pali, India. Known for its deep commitment to Sanatan Dharma, Vedic values, and spiritual discipline, the community has long symbolized wisdom, unity, and tradition—growing over generations while gracefully adapting to changing times.{% endblocktrans %}
+                    </p>
+                    <p class="text-justify">
+                        {% blocktrans %}Renowned for its contributions in education, public service, religious leadership, business, and cultural preservation, the Paliwal community continues to thrive across diverse regions and professions. From revered priests and scholars to modern professionals and entrepreneurs, we proudly carry forward a legacy rooted in ethics, excellence, and service.{% endblocktrans %}
+                    </p>
+                    <p class="text-justify">
+                        {% blocktrans %}Grounded in Vedic customs, we uphold traditions like the gotra system, kuldevi worship, and observance of key festivals and sanskaras. Today, Paliwal families across India and the globe remain united by shared values, strong family bonds, and a collective spirit of growth—serving as a living bridge between tradition and progress.{% endblocktrans %}
+                    </p>
                 </div>
 
                 <!-- Image Column -->
                 <div class="col-lg-6 d-flex align-items-center justify-content-center">
                     <img src="{% static 'images/about_us_2.jpeg' %}" class="img-fluid w-100 d-none d-md-block border"
-                         style="object-fit: fill; max-height: 80%; max-width: 90%;" alt="Shreenathji">
+                         style="object-fit: fill; max-height: 80%; max-width: 90%; border-radius: 8px;" alt="Shreenathji">
                 </div>
             </div>
         </div>
@@ -149,31 +585,48 @@
 
 
     <!-- Event Section Start -->
-    <section id="event_section" class="main-container">
-        <div class="w-100 text-center">
-            <h3 class="column-title">{% trans "News & Events" %}</h3>
-        </div>
-        <div class="container py-5">
-            <div class="swiper mySwiper">
+    <section id="event_section">
+        <div class="container">
+            <div class="section-heading">
+                <h3>{% trans "News & Events" %}</h3>
+            </div>
+            <div class="swiper mySwiper" style="padding-bottom: 8px;">
                 <div class="swiper-wrapper">
-                    <!-- Card Slide -->
                     {% for obj in news_and_events %}
                     <div class="swiper-slide">
-                        <a href="{% url 'samaj:news_events_detail' obj.slug %}"
-                           class="text-decoration-none card bg-dark text-white card-slider">
-                            <img src="{{ obj.image.url }}" class="card-img" alt="...">
-                            <div class="card-img-overlay d-flex flex-column justify-content-end gradient-overlay">
-                                <h5 class="card-title card-title text-white h5">{{ obj.title|truncatewords:15 }}</h5>
-                                <p class="card-text">{{ obj.subtitle }}</p>
+                        <a href="{% url 'samaj:news_events_detail' obj.slug %}" class="news-card">
+                            <!-- Full-bleed image -->
+                            <div class="news-card-img">
+                                <img src="{{ obj.image.url }}" alt="{{ obj.title }}">
+                            </div>
+                            <!-- Gradient overlay -->
+                            <div class="news-card-overlay"></div>
+                            <!-- Category badge -->
+                            {% if obj.category %}
+                            <span class="news-card-cat">{{ obj.category }}</span>
+                            {% endif %}
+                            <!-- Date pill -->
+                            <div class="news-card-date">
+                                <span class="material-icons">calendar_today</span>
+                                {{ obj.created_at|date:"d M Y" }}
+                            </div>
+                            <!-- Bottom content -->
+                            <div class="news-card-content">
+                                <h5 class="news-card-title">{{ obj.title }}</h5>
+                                {% if obj.subtitle %}
+                                <p class="news-card-sub">{{ obj.subtitle }}</p>
+                                {% endif %}
+                                <div class="news-card-readmore">
+                                    {% trans "Read More" %}
+                                    <span class="material-icons">arrow_forward</span>
+                                </div>
                             </div>
                         </a>
                     </div>
                     {% endfor %}
                 </div>
-
-                <!-- Navigation Buttons -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next news-swiper-btn"></div>
+                <div class="swiper-button-prev news-swiper-btn"></div>
             </div>
         </div>
     </section>
@@ -183,47 +636,52 @@
     <!-- Display Member Section Start -->
     {% if display_groups %}
     {% for group in display_groups %}
-    <section class="container bg-light mb-3">
-        <h3 class="column-title mb-5 pb-3 w-100 text-center">{{ group.group_name }}</h3>
-        <div class="row m-0">
-            {% for member in group.displaymember_set.all %}
-            <div class="col-6 col-md-4 col-lg-3 p-2">
-                <div class="item">
-                    <div class="ts-team-wrapper member-card">
-                        <div class="team-img-wrapper">
+    <section class="member-group-section">
+        <div class="container">
+            <div class="section-heading">
+                <h3>{{ group.group_name }}</h3>
+            </div>
+            <div class="row g-4 justify-content-center">
+                {% for member in group.displaymember_set.all %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="mcard">
+                        <!-- Navy header band -->
+                        <div class="mcard-header"></div>
+
+                        <!-- Circular avatar overlapping header -->
+                        <div class="mcard-avatar-wrap">
                             {% if member.member_image %}
-                            <img loading="lazy" class="w-100" src="{{ member.member_image.url }}" alt="team-img">
+                            <a href="{{ member.member_image.url }}" class="member-photo-preview" title="{{ member.member_name }}">
+                                <img loading="lazy" class="mcard-avatar" src="{{ member.member_image.url }}" alt="{{ member.member_name }}">
+                                <span class="mcard-zoom-hint"><span class="material-icons">zoom_in</span></span>
+                            </a>
                             {% else %}
-                            <img loading="lazy" class="w-100" src="{% static 'images/user-icon.png' %}" alt="team-img">
+                            <img loading="lazy" class="mcard-avatar" src="{% static 'images/user-icon.png' %}" alt="{{ member.member_name }}">
                             {% endif %}
                         </div>
-                        <div class="ts-team-content d-flex flex-column justify-content-between px-0">
-                            <div class="default-view">
-                                <h3 class="ts-name text-center">{{ member.member_name }}</h3>
+
+                        <!-- Card body -->
+                        <div class="mcard-body">
+                            <h3 class="mcard-name">{{ member.member_name }}</h3>
+                            <span class="mcard-role">{{ member.get_role_display }}</span>
+                            <div class="mcard-divider"></div>
+                            {% if member.phone_number %}
+                            <div class="mcard-meta">
+                                <span class="material-icons">call</span>
+                                <span>{{ member.phone_number }}</span>
                             </div>
-                            <div class="hover-view">
-                                <div class="px-md-2">
-                                    <div class="d-flex align-items-center ts-designation mb-0 border-bottom pb-2 mb-1">
-                                        <span class="material-icons fs-5 ">person</span>
-                                        <span class="text-white ms-2 text-left">{{ member.get_role_display }}</span>
-                                    </div>
-                                    {% if member.phone_number %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">call</span></div>
-                                        <div class="text-white ms-2 text-left">{{ member.phone_number }}</div>
-                                    </div>
-                                    {% endif %}
-                                    <div class="d-flex align-items-center py-2 border-bottom border-white">
-                                        <div class=""><span class="material-icons fs-5 ">location_on</span></div>
-                                        <div class="text-white ms-2 text-left">{{ member.location }}</div>
-                                    </div>
-                                </div>
+                            {% endif %}
+                            {% if member.location %}
+                            <div class="mcard-meta">
+                                <span class="material-icons">location_on</span>
+                                <span>{{ member.location }}</span>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </section>
     {% endfor %}
@@ -324,3 +782,102 @@
 </main>
 
 {% endblock %}
+
+{% block javascripts %}
+<style>
+    #photo-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,0.88);
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        animation: fadeInModal 0.2s ease;
+    }
+    #photo-modal.open { display: flex; }
+    @keyframes fadeInModal {
+        from { opacity: 0; } to { opacity: 1; }
+    }
+    #photo-modal img {
+        max-width: 88vw;
+        max-height: 80vh;
+        border-radius: 12px;
+        box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+        object-fit: contain;
+        animation: scaleInModal 0.25s cubic-bezier(.34,1.3,.64,1);
+    }
+    @keyframes scaleInModal {
+        from { transform: scale(0.88); opacity: 0; }
+        to   { transform: scale(1);    opacity: 1; }
+    }
+    #photo-modal-caption {
+        margin-top: 16px;
+        color: rgba(255,255,255,0.85);
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+    }
+    #photo-modal-close {
+        position: fixed;
+        top: 20px;
+        right: 24px;
+        background: rgba(255,255,255,0.12);
+        border: none;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.3rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+    #photo-modal-close:hover { background: rgba(255,255,255,0.25); }
+</style>
+
+<!-- Fullscreen photo modal -->
+<div id="photo-modal">
+    <button id="photo-modal-close"><span class="material-icons">close</span></button>
+    <img id="photo-modal-img" src="" alt="">
+    <div id="photo-modal-caption"></div>
+</div>
+
+<script>
+    (function () {
+        const modal   = document.getElementById('photo-modal');
+        const img     = document.getElementById('photo-modal-img');
+        const caption = document.getElementById('photo-modal-caption');
+        const closeBtn = document.getElementById('photo-modal-close');
+
+        function openModal(src, name) {
+            img.src = src;
+            caption.textContent = name;
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.member-photo-preview').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                openModal(this.href, this.title);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    })();
+</script>
+{% endblock javascripts %}

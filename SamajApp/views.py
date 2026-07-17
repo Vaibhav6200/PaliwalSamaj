@@ -135,9 +135,20 @@ def index(request):
         )
     )
 
+    # Community stats for the homepage stats bar
+    total_members = Member.objects.count()
+    total_families = Family.objects.count()
+    # Count all cities/states in the directory (not just those with FK-linked members)
+    total_cities = City.objects.count()
+    total_states = State.objects.count()
+
     context = {
         'news_and_events': news_events_obj,
         'display_groups': display_groups,
+        'total_members': total_members,
+        'total_families': total_families,
+        'total_cities': total_cities,
+        'total_states': total_states,
     }
     return render(request, 'Samaj/index.html', context)
 
