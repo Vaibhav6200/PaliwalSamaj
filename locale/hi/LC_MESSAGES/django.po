@@ -12,7 +12,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1354,6 +1354,45 @@ msgstr "देवलोक में कोई सदस्य नहीं म�
 #: templates/Samaj/bio_data.html:102
 msgid "Mark this member as passed away (shown in Devlok)"
 msgstr "इस सदस्य को दिवंगत चिह्नित करें (देवलोक में दिखेगा)"
+
+msgid "Shree Bada Paliwal Samaj"
+msgstr "श्री बड़ा पालीवाल समाज"
+
+msgid "Our"
+msgstr "हमारा"
+
+msgid "Search, discover, and connect with Paliwal families across India and beyond."
+msgstr "भारत और विदेश में पालीवाल परिवारों से जुड़ें, खोजें और संपर्क करें।"
+
+msgid "Members"
+msgstr "सदस्य"
+
+msgid "Families"
+msgstr "परिवार"
+
+msgid "Cities"
+msgstr "शहर"
+
+msgid "Remembering members who have left us"
+msgstr "उन सदस्यों की स्मृति में जो हमें छोड़ गए"
+
+msgid "Latest updates from the community"
+msgstr "समुदाय की नवीनतम जानकारी"
+
+msgid "Memories captured in time"
+msgstr "समय में कैद यादें"
+
+msgid "Culture & Heritage"
+msgstr "संस्कृति एवं विरासत"
+
+msgid "Can't find your state or city in the list?"
+msgstr "क्या आपको सूची में अपना राज्य या शहर नहीं मिला?"
+
+msgid "Contact admin"
+msgstr "एडमिन से संपर्क करें"
+
+msgid "and we will add it for you."
+msgstr "और हम इसे आपके लिए जोड़ देंगे।"
 
 #~ msgid "Share"
 #~ msgstr "शेयर"

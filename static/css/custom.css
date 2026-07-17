@@ -515,3 +515,79 @@ input[type="range"]:active::-webkit-slider-thumb {
   padding: 12px;
 }
 /* Video gallary css End */
+
+/* ── Shared Page Hero ──────────────────────────────────────────
+   Usage: replace #banner-area content with .page-hero markup.
+   Each page keeps its own background-image inline style.
+───────────────────────────────────────────────────────────────*/
+.page-hero-banner {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+/* dark gradient overlay */
+.page-hero-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(5,14,26,0.88) 0%, rgba(13,33,55,0.72) 60%, rgba(5,14,26,0.50) 100%);
+    z-index: 1;
+}
+/* subtle dot pattern */
+.page-hero-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 22px 22px;
+    z-index: 1;
+}
+.page-hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 20px;
+    width: 100%;
+}
+.page-hero-tag {
+    display: inline-block;
+    background: rgba(240,165,0,0.15);
+    border: 1px solid rgba(240,165,0,0.45);
+    color: #f0a500;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 30px;
+    margin-bottom: 16px;
+}
+.page-hero-title {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.04em;
+    margin: 0 0 0;
+    line-height: 1.15;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+.page-hero-title span { color: #f0a500; }
+.page-hero-divider {
+    width: 52px;
+    height: 3px;
+    background: linear-gradient(90deg, #f0a500, #ffd166);
+    border-radius: 2px;
+    margin: 14px auto 16px;
+}
+.page-hero-sub {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.70);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.65;
+}
+/* ── Page Hero End ─────────────────────────────────────────── */

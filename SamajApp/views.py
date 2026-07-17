@@ -578,6 +578,9 @@ def community(request):
 
     context['community_members_table'] = table_paginator.get_page(page_number)
     context['community_members_grid'] = grid_paginator.get_page(page_number)
+    context['total_members'] = Member.objects.count()
+    context['total_families'] = Family.objects.count()
+    context['total_cities'] = City.objects.count()
     return render(request, 'Samaj/community.html', context)
 
 

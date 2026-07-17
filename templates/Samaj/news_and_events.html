@@ -36,21 +36,14 @@
     {% include 'Includes/navbar.html' %}
 
 
-    <!-- Carousel Start Here -->
-    <div id="banner-area" class="banner-area" style="background-image:url({% static 'images/news.jpeg' %})">
-        <div class="banner-text">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="banner-heading">
-                            <h1 class="banner-title">{% trans "News" %}</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="page-hero-banner" style="background-image:url({% static 'images/news.jpeg' %})">
+        <div class="page-hero-inner">
+            <span class="page-hero-tag">{% trans "Shree Bada Paliwal Samaj" %}</span>
+            <h1 class="page-hero-title"><span>{% trans "News & Events" %}</span></h1>
+            <div class="page-hero-divider"></div>
+            <p class="page-hero-sub">{% trans "Latest updates from the community" %}</p>
         </div>
     </div>
-    <!-- Carousel End Here -->
 
     <!-- Search Bar Start -->
     <div class="d-none d-md-block">
