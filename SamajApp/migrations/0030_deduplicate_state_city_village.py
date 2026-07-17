@@ -112,7 +112,23 @@ def deduplicate_cities(apps, schema_editor):
         print(f"[City] Merging {[c.city_name for c in duplicates]} → '{canonical.city_name}' (id={canonical.id})")
 
         for dup in duplicates:
-            Village.objects.filter(city=dup).update(city=canonical)
+            # Move each village from the duplicate city to the canonical city.
+            # If a village with the same name already exists in the canonical city,
+            # merge into it instead to avoid violating the unique_together constraint.
+            for village in list(Village.objects.filter(city=dup)):
+                existing_village = Village.objects.filter(
+                    village_name__iexact=normalize_name(village.village_name),
+                    city=canonical
+                ).first()
+                if existing_village:
+                    print(f"  [Village] '{village.village_name}' already in canonical city — merging into id={existing_village.id}")
+                    Member.objects.filter(current_address_village=village).update(current_address_village=existing_village)
+                    Family.objects.filter(paitrik_address_village=village).update(paitrik_address_village=existing_village)
+                    village.delete()
+                else:
+                    village.city = canonical
+                    village.save()
+
             Member.objects.filter(current_address_city=dup).update(current_address_city=canonical)
             Family.objects.filter(paitrik_address_city=dup).update(paitrik_address_city=canonical)
             dup.delete()
