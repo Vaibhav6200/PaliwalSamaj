@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+import re
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
@@ -11,13 +12,24 @@ from urllib.parse import urlparse, parse_qs
 from django_ckeditor_5.fields import CKEditor5Field
 
 
+def _normalize_location_name(name):
+    """Strip whitespace and trailing 6-digit pin codes (e.g. 'Rajasthan 311001' → 'Rajasthan')."""
+    name = name.strip()
+    name = re.sub(r'\s+\d{6}$', '', name).strip()
+    return name
+
+
 class State(models.Model):
     class Meta:
         verbose_name_plural = 'States'
 
-    state_name = models.CharField(max_length=100)
+    state_name = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
+
+    def save(self, *args, **kwargs):
+        self.state_name = _normalize_location_name(self.state_name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.state_name
@@ -33,6 +45,10 @@ class City(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
+    def save(self, *args, **kwargs):
+        self.city_name = _normalize_location_name(self.city_name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.city_name}"
 
@@ -46,6 +62,10 @@ class Village(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='villages')
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
+
+    def save(self, *args, **kwargs):
+        self.village_name = _normalize_location_name(self.village_name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.village_name}"
