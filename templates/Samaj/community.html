@@ -603,13 +603,13 @@
                 </h3>
                 <ul class="nav view-tabs" id="viewTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button" role="tab">
-                            <span class="material-icons">view_list</span> {% trans "Table" %}
+                        <button class="nav-link active" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab">
+                            <span class="material-icons">grid_view</span> {% trans "Grid" %}
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid" type="button" role="tab">
-                            <span class="material-icons">grid_view</span> {% trans "Grid" %}
+                        <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button" role="tab">
+                            <span class="material-icons">view_list</span> {% trans "Table" %}
                         </button>
                     </li>
                 </ul>
@@ -617,7 +617,7 @@
 
             <div class="tab-content">
                 <!-- ── Grid View ─────────────────────────────────────────── -->
-                <div class="tab-pane fade" id="grid" role="tabpanel">
+                <div class="tab-pane fade show active" id="grid" role="tabpanel">
                     {% if community_members_grid %}
                     <div class="row g-3">
                         {% for member in community_members_grid %}
@@ -668,7 +668,7 @@
                 </div>
 
                 <!-- ── Table View ────────────────────────────────────────── -->
-                <div class="tab-pane fade show active" id="table" role="tabpanel">
+                <div class="tab-pane fade" id="table" role="tabpanel">
                     {% if community_members_table %}
                     <div class="table-responsive" style="border-radius:14px;overflow-x:auto;box-shadow:0 4px 24px rgba(13,33,55,0.09);">
                         <table class="community-table">
@@ -768,14 +768,14 @@
 
     // Restore saved tab on load
     (function() {
-        const saved = localStorage.getItem(TAB_KEY);
-        if (saved && saved !== 'table') {
+        const saved = localStorage.getItem(TAB_KEY) || 'grid';
+        if (saved !== 'grid') {
             const btn  = document.getElementById(saved + '-tab');
             const pane = document.getElementById(saved);
             if (btn && pane) {
-                // Deactivate table (default active)
-                document.getElementById('table-tab').classList.remove('active');
-                document.getElementById('table').classList.remove('show', 'active');
+                // Deactivate grid (default active)
+                document.getElementById('grid-tab').classList.remove('active');
+                document.getElementById('grid').classList.remove('show', 'active');
                 // Activate saved tab
                 btn.classList.add('active');
                 pane.classList.add('show', 'active');
