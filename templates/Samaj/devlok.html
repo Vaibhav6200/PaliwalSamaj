@@ -233,11 +233,11 @@
                     {% trans "Total" %}: <strong>{{ records_count }}</strong>
                 </div>
                 <div class="dk-view-toggle" id="viewToggle">
-                    <button class="dk-toggle-btn active" id="table-tab" data-target="table" type="button">
-                        <span class="material-icons">view_list</span>{% trans "Table" %}
-                    </button>
-                    <button class="dk-toggle-btn" id="grid-tab" data-target="grid" type="button">
+                    <button class="dk-toggle-btn active" id="grid-tab" data-target="grid" type="button">
                         <span class="material-icons">grid_view</span>{% trans "Grid" %}
+                    </button>
+                    <button class="dk-toggle-btn" id="table-tab" data-target="table" type="button">
+                        <span class="material-icons">view_list</span>{% trans "Table" %}
                     </button>
                 </div>
             </div>
@@ -246,7 +246,7 @@
             <div class="tab-content">
 
                 <!-- Grid -->
-                <div class="tab-pane fade" id="grid" role="tabpanel">
+                <div class="tab-pane fade show active" id="grid" role="tabpanel">
                     <div class="dk-tab-content">
                         {% if devlok_members_grid %}
                         <div class="row m-0">
@@ -284,7 +284,7 @@
                 </div>
 
                 <!-- Table -->
-                <div class="tab-pane fade show active" id="table" role="tabpanel">
+                <div class="tab-pane fade" id="table" role="tabpanel">
                     <div class="dk-tab-content" style="padding:0;overflow:hidden;">
                         {% if devlok_members_table %}
                         <div class="table-responsive">
@@ -399,10 +399,10 @@
     });
   });
 
-  // ── Restore saved tab on load ──
+  // ── Restore saved tab on load (default: grid) ──
   (function () {
-    const saved = localStorage.getItem(DK_TAB_KEY);
-    if (saved) switchTab(saved);
+    const saved = localStorage.getItem(DK_TAB_KEY) || 'grid';
+    switchTab(saved);
   })();
 </script>
 {% endblock %}
